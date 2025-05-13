@@ -7,8 +7,6 @@ import { HomePage } from './pages/HomePage/HomePage';
 import { NavbarComponent } from './components/NavbarComponent/NavbarComponent';
 import {FooterComponent} from './components/FooterComponent/FooterComponent';
 
-{/* <Route path="/registro" element={<RegistroPage />} /> */}
-
 function App() {
   return (
     <>
