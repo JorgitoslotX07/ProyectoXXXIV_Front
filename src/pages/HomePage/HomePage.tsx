@@ -1,30 +1,41 @@
 import type { FC } from "react";
+import {NoticiasComponent} from '../../components/NoticiasComponent/NoticiasComponent';
+import {CochesPromoComponent} from '../../components/CochesPromoComponent/CochesPromoComponent';
 
 export const HomePage: FC = () => {
 
 
   return (
     <>
-      <h1 className="text-4xl font-bold text-gray-900 mt-32 ml-24 mr-24">
-        Titulo, no se que poner
-      </h1>
+      
 
       <div className="flex flex-col lg:flex-row items-start gap-12 mt-20 px-10">
         {/* Columna izquierda */}
         <div className="flex-1">
-          {/* <h1 className="text-4xl font-bold text-gray-800 mb-10">
-            Tagline describing your e-shop
+          {/* <h1 className="text-4xl font-bold text-gray-900 mt-32 ml-24 mr-24">
+            Titulo, no se que poner
           </h1> */}
+          <h1 className="text-4xl font-bold text-gray-800 mb-10">
+            Titulo, no se que poner
+          </h1>
 
           {/* Tabs */}
           <div className="flex rounded-md overflow-hidden mb-10 border border-gray-300 w-max">
             <button className="bg-green-600 text-white flex items-center px-4 py-2 gap-2">
-              <img src="/images/car.png" alt="Car icon" className="w-8 h-8" />
-              Coches
+              <img src="/turismo.png" alt="Car icon" className="w-8 h-8" />
+              Turismos
             </button>
             <button className="bg-white text-gray-700 flex items-center px-4 py-2 gap-2">
-              <img src="/images/van.png" alt="Van icon" className="w-8 h-8" />
-              Furgonetas
+              <img src="/suv.png" alt="Van icon" className="w-8 h-8" />
+              SUV's
+            </button>
+            <button className="bg-white text-gray-700 flex items-center px-4 py-2 gap-2">
+              <img src="/monovolumen.png" alt="Van icon" className="w-8 h-8" />
+              Monovolumen
+            </button>
+            <button className="bg-white text-gray-700 flex items-center px-4 py-2 gap-2">
+              <img src="/MicroCoche.webp" alt="Van icon" className="w-8 h-8" />
+                Microcoche
             </button>
           </div>
 
@@ -68,6 +79,14 @@ export const HomePage: FC = () => {
             <path d="M4 3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H4zm0 2h12v10H4V5zm2 2a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
           </svg>
         </div>
+      </div>
+
+      <div className="mt-20 px-10">
+        <NoticiasComponent />
+      </div>
+
+      <div className="mt-20 px-10">
+        <CochesPromoComponent />
       </div>
 
 
