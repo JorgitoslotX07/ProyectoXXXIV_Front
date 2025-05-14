@@ -7,19 +7,12 @@ export const HomePage: FC = () => {
 
   return (
     <>
-      
-
       <div className="flex flex-col lg:flex-row items-start gap-12 mt-20 px-10">
-        {/* Columna izquierda */}
         <div className="flex-1">
-          {/* <h1 className="text-4xl font-bold text-gray-900 mt-32 ml-24 mr-24">
-            Titulo, no se que poner
-          </h1> */}
           <h1 className="text-4xl font-bold text-gray-800 mb-10">
             Titulo, no se que poner
           </h1>
 
-          {/* Tabs */}
           <div className="flex rounded-md overflow-hidden mb-10 border border-gray-300 w-max">
             <button className="bg-green-600 text-white flex items-center px-4 py-2 gap-2">
               <img src="/turismo.png" alt="Car icon" className="w-8 h-8" />
@@ -39,7 +32,6 @@ export const HomePage: FC = () => {
             </button>
           </div>
 
-          {/* Buscador */}
           <div className="mb-8">
             <div className="flex items-center border border-gray-300 rounded-full px-4 py-3 w-full max-w-xl">
               <svg className="w-6 h-6 text-gray-400 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -53,7 +45,7 @@ export const HomePage: FC = () => {
             </div>
           </div>
 
-          {/* Fechas */}
+
           <div className="flex gap-6">
             <input
               type="date"
@@ -68,9 +60,9 @@ export const HomePage: FC = () => {
           </div>
         </div>
 
-        {/* Columna derecha (Imagen decorativa) */}
+
         <div className="hidden lg:block w-80 h-80 bg-gray-200 rounded-md flex justify-center items-center">
-          {/* Puedes reemplazar esto con una imagen real */}
+          {/* a reemplazar esto con una imagen */}
           <svg
             className="w-24 h-24 text-gray-400"
             fill="currentColor"
@@ -88,8 +80,6 @@ export const HomePage: FC = () => {
       <div className="mt-20 px-10">
         <CochesPromoComponent />
       </div>
-
-
     </>
   );
 };
