@@ -1,32 +1,28 @@
 import type { FC } from "react";
 
-export const CochesPromoComponent: FC = () => {
+export const SubCategoriasComponent: FC = () => {
 
     // datos falsos
     const noticiasMock = [
         {
           id: 1,
-          titulo: "Tecnología",
-          imagen: "https://via.placeholder.com/150?text=Tech",
-          descripcion: "Últimas novedades en IA y gadgets.",
+          titulo: "Turismo",
+          imagen: "/public/turismo.png",
         },
         {
           id: 2,
-          titulo: "Política",
+          titulo: "SUV",
           imagen: "https://via.placeholder.com/150?text=Política",
-          descripcion: "Análisis del panorama político actual.",
         },
         {
           id: 3,
-          titulo: "Cultura",
+          titulo: "Monovolumen",
           imagen: "https://via.placeholder.com/150?text=Cultura",
-          descripcion: "Eventos culturales destacados.",
         },
         {
           id: 4,
-          titulo: "Deportes",
+          titulo: "Micro Coche",
           imagen: "https://via.placeholder.com/150?text=Deportes",
-          descripcion: "Resultados y noticias deportivas.",
         }
       ];
       
@@ -35,15 +31,14 @@ export const CochesPromoComponent: FC = () => {
     <>
 
     <div className="px-4">
-        <h2 className="text-2xl font-semibold mb-4">Coches Populares</h2>
-  
+        <h2 className="text-2xl font-semibold mb-4">Categorias | Tipo de Coche</h2>
+        
         <div className="flex flex-wrap justify-center gap-6">
             {noticiasMock.map((item) => (
-                <div key={item.id} className="w-60 flex-shrink-0 bg-gray-100 rounded-lg p-4 text-center">
-                    <div className="w-full h-32 bg-gray-200 rounded mb-2" />
+                <div key={item.id} className="w-60 flex-shrink-0 rounded-lg p-4 text-center">
+                    <div className="w-full h-24 bg-gray-200 rounded mb-2" />
                     {/* aqui va una imagen, de momento hay una div para rellenar */}
                     <p className="text-lg font-semibold text-gray-700">{item.titulo}</p>
-                    <p className="text-sm text-gray-500">{item.descripcion}</p>
                 </div>
             ))}
         </div>

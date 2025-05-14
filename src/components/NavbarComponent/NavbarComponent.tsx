@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import { SelectorLenguajeComponent } from "../SelectorLenguajeComponent/SelectorLenguajeComponent";
+import { Link } from "react-router-dom";
 
 interface NavbarProps {
   onLoginClick: () => void;
@@ -8,19 +9,22 @@ interface NavbarProps {
 export const NavbarComponent: FC<NavbarProps> = ({ onLoginClick }) => {
   return (
     <nav className="flex justify-between items-center px-6 py-4 shadow-md bg-white">
-      {/* Logo */}
+
       <div className="flex items-center space-x-2">
         <img src="/logo.png" alt="Logo" className="w-8 h-8 object-contain" />
         <span className="text-xl font-semibold">ProyectoXXXIV</span>
       </div>
 
-      {/* Enlaces */}
+
       <ul className="flex space-x-8 text-gray-700 font-medium">
-        <li className="hover:text-black cursor-pointer">Catálogo</li>
-        <li className="hover:text-black cursor-pointer">Mapa</li>
+        <li className="hover:text-black cursor-pointer">
+          <Link to="/catalog">Catálogo</Link>
+        </li>
+        <li className="hover:text-black cursor-pointer">
+          <Link to="/map">Mapa</Link>
+        </li>
       </ul>
 
-      {/* Login + idioma */}
       <div className="flex items-center space-x-4">
         <span
           onClick={onLoginClick}

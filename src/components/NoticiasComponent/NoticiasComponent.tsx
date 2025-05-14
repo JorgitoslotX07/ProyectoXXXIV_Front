@@ -43,7 +43,6 @@ export const NoticiasComponent: FC = () => {
     <div className="px-4">
         <h2 className="text-2xl font-semibold mb-4">Noticias</h2>
         
-        {/* <div className="flex space-x-4 overflow-x-auto scrollbar-hide "> */}
         <div className="flex justify-center items-center gap-4 flex-wrap">  
             {noticiasMock.map((item) => (
                 <div key={item.id} className="w-48 flex-shrink-0 bg-gray-100 rounded-lg p-4 text-center">
