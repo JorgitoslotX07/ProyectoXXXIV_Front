@@ -38,7 +38,7 @@ export const FiltrersCatalogComponent: FC = () => {
 
             <div className="flex flex-wrap gap-4">
             {filters.map((filter, index) => (
-                <GeneredFilterComponent index={index} filter={filter} />
+                <GeneredFilterComponent key={index} index={index} filter={filter} />
                 ))}
 
             </div>
