@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {Link} from 'react-router-dom';
 
 interface Props {
     onClose: () => void;
@@ -22,7 +23,6 @@ const LoginComponent = ({ onClose }: Props) => {
         <div className="fixed inset-0 bg-opacity-40 backdrop-blur-[5px] flex items-center justify-center z-50">
             {/* Contenido del pop-up flotante */}
             <div className="bg-white bg-opacity-90 backdrop-blur-lg p-6 rounded-xl shadow-xl w-full max-w-sm relative">
-                {/* Botón cerrar */}
                 <button
                     onClick={onClose}
                     className="absolute top-2 right-2 text-gray-600 hover:text-black text-xl"
@@ -47,9 +47,17 @@ const LoginComponent = ({ onClose }: Props) => {
                         placeholder="Contraseña"
                         value={form.password}
                         onChange={handleChange}
-                        className="w-full p-2 border rounded mb-6"
+                        className="w-full p-2 border rounded mb-4"
                         required
                     />
+                    <p className="text-sm text-gray-600 mt-2 mb-1 text-center">
+                        ¿No tienes una cuenta?
+                        <span className="text-blue-600 hover:underline font-medium"
+                        onClick={onClose}>
+                            <Link to="register"> Regístrate aquí</Link>
+                        </span>
+                    </p>
+
                     <button
                         type="submit"
                         className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
