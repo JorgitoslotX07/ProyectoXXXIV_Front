@@ -1,4 +1,4 @@
-import CochesMapComponent from "../../components/CochesMapComponent/CochesMApComponent";
+import CochesMapComponent from "../../components/CochesMapComponent/CochesMapComponent";
 
 
 const MapPage = () => {
