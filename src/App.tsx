@@ -7,6 +7,7 @@ import { HomePage } from './pages/HomePage/HomePage';
 import { NavbarComponent } from './components/NavbarComponent/NavbarComponent';
 import {FooterComponent} from './components/FooterComponent/FooterComponent';
 import LoginComponent from './components/LoginComponent/LoginComponent'; // este será el pop-up modal
+import MapPage from './pages/MapPage/MapPage';
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -24,6 +25,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<RegistroPage />} />
+        <Route path="/map" element={<MapPage />} />
       </Routes>
 
       <FooterComponent />
