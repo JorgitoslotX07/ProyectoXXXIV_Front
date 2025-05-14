@@ -1,3 +1,4 @@
+import CochesMapComponent from "../../components/CochesMapComponent/CochesMapComponent";
 
 
 
