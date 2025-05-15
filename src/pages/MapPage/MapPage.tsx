@@ -1,7 +1,6 @@
 import CochesMapComponent from "../../components/CochesMapComponent/CochesMapComponent";
 
 
-
 const MapPage = () => {
     return (
         <main className="px-4 py-10">

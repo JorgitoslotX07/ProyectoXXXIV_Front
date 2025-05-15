@@ -8,9 +8,9 @@ export const FooterComponent: FC = () => {
 
     ];
 
-  return (
-    <>
-        <div className="flex justify-between  px-60 py-12 mt-20 shadow-md bg-gray-200">
+    return (
+        <>
+            <div className="flex justify-between px-60 py-12 mt-20 shadow-md bg-gray-200">
 
 
                 {listaUl.map((seccion, index) => (
@@ -25,7 +25,7 @@ export const FooterComponent: FC = () => {
                     </ul>
                     </div>
                 ))}
-        </div>
-    </>
-  );
+            </div>
+        </>
+    );
 };

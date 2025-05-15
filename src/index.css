@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+@layer utilities {
+    .animate-grow {
+        animation: growCard 0.4s ease-out;
+    }
+
+    @keyframes growCard {
+        from {
+            transform: scale(0.85);
+            opacity: 0;
+        }
+
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+}

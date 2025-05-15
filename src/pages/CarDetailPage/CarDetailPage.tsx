@@ -16,7 +16,7 @@ export const CarDetailPage: FC = () => {
   
         <div>
             <div className="bg-gray-100 aspect-square flex items-center justify-center mb-4">
-            <img src={product.imageUrl} alt="Product" className="object-contain h-full" />
+                <img src={product.imageUrl} alt="Product" className="object-contain h-full" />
             </div>
 
             
