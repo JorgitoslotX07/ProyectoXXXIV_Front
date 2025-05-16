@@ -1,9 +1,10 @@
 import type { FC } from "react";
 import { SelectorLenguajeComponent } from "../SelectorLenguajeComponent/SelectorLenguajeComponent";
 import { Link } from "react-router-dom";
-import { useUserStore } from "../../utils/userStore";
-import { DesplegablePerfilComponent } from "../DesplegablePerfilComponent/DesplegablePerfilComponent";
 import type { NavbarProps } from "../../interfaces/NavbarProps";
+import { useUserStore } from "../../utils/userStore";
+import { UserPopUpComponent } from "../UserPopUpComponent/UserPopUpComponent";
+
 
 export const NavbarComponent: FC<NavbarProps> = ({
   onLoginClick,
@@ -17,12 +18,10 @@ export const NavbarComponent: FC<NavbarProps> = ({
       setOptionsPerfil(false);
     }
   };
+  const usuarioLogueado = false;
 
   return (
-    <nav
-      className="flex justify-between items-center px-6 py-4 shadow-md bg-white"
-      onClick={clickNavbar}
-    >
+    <nav className="flex justify-between items-center px-6 py-4 shadow-md bg-white">
       <div className="flex items-center space-x-2">
         <img src="/logo.png" alt="Logo" className="w-8 h-8 object-contain" />
         <span className="text-xl font-semibold">
@@ -41,10 +40,12 @@ export const NavbarComponent: FC<NavbarProps> = ({
 
       <div className="flex items-center space-x-4">
         {user != null && user != "" ? (
-          <DesplegablePerfilComponent
-            optionsPerfil={optionsPerfil}
-            setOptionsPerfil={setOptionsPerfil}
-          />
+          // <DesplegablePerfilComponent
+          //   optionsPerfil={optionsPerfil}
+          //   setOptionsPerfil={setOptionsPerfil}
+          // />
+
+          <UserPopUpComponent />
         ) : (
           <span
             onClick={onLoginClick}

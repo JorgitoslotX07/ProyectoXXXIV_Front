@@ -12,8 +12,12 @@
   "dependencies": {
     "@react-google-maps/api": "^2.20.6",
     "@tailwindcss/vite": "^4.1.6",
+<<<<<<< HEAD
     "bcryptjs": "^3.0.2",
     "js-cookie": "^3.0.5",
+=======
+    "framer-motion": "^12.12.1",
+>>>>>>> 9408b66dd4728e9f05ddaa7ec042a4392e4f5ba6
     "leaflet": "^1.9.4",
     "lucide-react": "^0.510.0",
     "react": "^19.1.0",
