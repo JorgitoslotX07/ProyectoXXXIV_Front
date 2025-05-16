@@ -1,73 +1,100 @@
 import { useState } from "react";
-import {Link} from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
+import { setLoginCookiesAndRedirect } from "../../utils/cookisLogin";
+import type { UserData } from "../../interfaces/UserData";
+import { useUserStore } from "../../utils/userStore";
+import { validateMail, validatePassword } from "../../utils/verficaciones";
 
 interface Props {
-    onClose: () => void;
+  onClose: () => void;
 }
 
 const LoginComponent = ({ onClose }: Props) => {
-    const [form, setForm] = useState({ email: "", password: "" });
+  const setUser = useUserStore((state) => state.setUser);
+  const setToken = useUserStore((state) => state.setToken);
+  const navigate = useNavigate();
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
-    };
+  const [form, setForm] = useState({ email: "", password: "" });
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log("Login:", form);
-        onClose(); // cerrar el modal
-    };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-    return (
-        // Fondo oscuro semitransparente que no interrumpe la página
-        <div className="fixed inset-0 bg-opacity-40 backdrop-blur-[5px] flex items-center justify-center z-50">
-            {/* Contenido del pop-up flotante */}
-            <div className="bg-white bg-opacity-90 backdrop-blur-lg p-6 rounded-xl shadow-xl w-full max-w-sm relative">
-                <button
-                    onClick={onClose}
-                    className="absolute top-2 right-2 text-gray-600 hover:text-black text-xl"
-                >
-                    ✖
-                </button>
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validateMail(form.email) && validatePassword(form.password)) {
+      console.log("Login:", form);
 
-                <h2 className="text-xl font-bold mb-4 text-center">Iniciar Sesión</h2>
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Correo"
-                        value={form.email}
-                        onChange={handleChange}
-                        className="w-full p-2 border rounded mb-4"
-                        required
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        placeholder="Contraseña"
-                        value={form.password}
-                        onChange={handleChange}
-                        className="w-full p-2 border rounded mb-4"
-                        required
-                    />
-                    <p className="text-sm text-gray-600 mt-2 mb-1 text-center">
-                        ¿No tienes una cuenta?
-                        <span className="text-blue-600 hover:underline font-medium"
-                        onClick={onClose}>
-                            <Link to="register"> Regístrate aquí</Link>
-                        </span>
-                    </p>
+      // enviar peticion a Back. Despues se eso se hace la comprobacion de resultado para verificar si es verdadero o no
 
-                    <button
-                        type="submit"
-                        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
-                    >
-                        Entrar
-                    </button>
-                </form>
-            </div>
-        </div>
-    );
+      const userData: UserData = {
+        id: "01",
+        token: form.email,
+      };
+
+      setUser("Lucía");
+      setToken("abc");
+
+      onClose();
+
+      setLoginCookiesAndRedirect(userData);
+
+      navigate("/");
+    }
+  };
+
+  return (
+    // Fondo oscuro semitransparente que no interrumpe la página
+    <div className="fixed inset-0 bg-opacity-40 backdrop-blur-[5px] flex items-center justify-center z-50">
+      {/* Contenido del pop-up flotante */}
+      <div className="bg-white bg-opacity-90 backdrop-blur-lg p-6 rounded-xl shadow-xl w-full max-w-sm relative">
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 text-gray-600 hover:text-black text-xl"
+        >
+          ✖
+        </button>
+
+        <h2 className="text-xl font-bold mb-4 text-center">Iniciar Sesión</h2>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            name="email"
+            placeholder="Correo"
+            value={form.email}
+            onChange={handleChange}
+            className="w-full p-2 border rounded mb-4"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Contraseña"
+            value={form.password}
+            onChange={handleChange}
+            className="w-full p-2 border rounded mb-4"
+            required
+          />
+          <p className="text-sm text-gray-600 mt-2 mb-1 text-center">
+            ¿No tienes una cuenta?
+            <span
+              className="text-blue-600 hover:underline font-medium"
+              onClick={onClose}
+            >
+              <Link to="register"> Regístrate aquí</Link>
+            </span>
+          </p>
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+          >
+            Entrar
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default LoginComponent;

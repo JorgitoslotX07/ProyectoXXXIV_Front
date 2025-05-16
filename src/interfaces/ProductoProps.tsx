@@ -7,4 +7,10 @@ export interface ProductoProps {
     calificaiones: Array<number>;
     caracteristicas: Array<string>;
     imageUrl: string;
+    reviews: Array<ComentarioProps>;
+}
+
+interface ComentarioProps {
+    comentario: string;
+    valoracion: number;
 }

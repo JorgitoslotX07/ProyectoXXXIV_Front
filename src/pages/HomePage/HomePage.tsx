@@ -1,15 +1,24 @@
 import type { FC } from "react";
-import {NoticiasComponent} from '../../components/NoticiasComponent/NoticiasComponent';
-import {CochesPromoComponent} from '../../components/CochesPromoComponent/CochesPromoComponent';
+import { NoticiasComponent } from "../../components/NoticiasComponent/NoticiasComponent";
+import { CochesPromoComponent } from "../../components/CochesPromoComponent/CochesPromoComponent";
+import type { HomePageProps } from "../../interfaces/HomePageProps";
 
-export const HomePage: FC = () => {
-
-
+export const HomePage: FC<HomePageProps> = ({
+  onClickOptionsPerfil,
+  onLoginClick,
+}) => {
+  const onClickOutEmergent = () => {
+    onLoginClick();
+    onClickOptionsPerfil();
+  };
   return (
     <>
-      <div className="flex flex-col lg:flex-row items-start gap-12 mt-20 px-10">
+      <div
+        className="flex flex-col lg:flex-row items-start gap-12 px-10"
+        onClick={onClickOutEmergent}
+      >
         <div className="flex-1">
-          <h1 className="text-4xl font-bold text-gray-800 mb-10">
+          <h1 className="text-4xl font-bold text-gray-800 mt-20 mb-10">
             Titulo, no se que poner
           </h1>
 
@@ -28,13 +37,19 @@ export const HomePage: FC = () => {
             </button>
             <button className="bg-white text-gray-700 flex items-center px-4 py-2 gap-2">
               <img src="/MicroCoche.webp" alt="Van icon" className="w-8 h-8" />
-                Microcoche
+              Microcoche
             </button>
           </div>
 
           <div className="mb-8">
             <div className="flex items-center border border-gray-300 rounded-full px-4 py-3 w-full max-w-xl">
-              <svg className="w-6 h-6 text-gray-400 mr-2" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <svg
+                className="w-6 h-6 text-gray-400 mr-2  "
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
                 <path d="M21 21l-4.35-4.35M10 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" />
               </svg>
               <input
@@ -44,7 +59,6 @@ export const HomePage: FC = () => {
               />
             </div>
           </div>
-
 
           <div className="flex gap-6">
             <input
@@ -60,11 +74,10 @@ export const HomePage: FC = () => {
           </div>
         </div>
 
-
-        <div className="hidden lg:block w-80 h-80 bg-gray-200 rounded-md flex justify-center items-center">
+        <div className="hidden lg:block w-80 h-80 bg-gray-200 rounded-md flex justify-center items-center mt-20">
           {/* a reemplazar esto con una imagen */}
           <svg
-            className="w-24 h-24 text-gray-400"
+            className="w-24 h-24 text-gray-400 "
             fill="currentColor"
             viewBox="0 0 20 20"
           >
@@ -72,7 +85,6 @@ export const HomePage: FC = () => {
           </svg>
         </div>
       </div>
-
       <div className="mt-20 px-10">
         <NoticiasComponent />
       </div>
