@@ -1,15 +1,16 @@
 import "./App.css";
 
-import { useState } from 'react';
+import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import RegistroPage from "./pages/RegisterPage/RegisterPage";
-import { HomePage } from './pages/HomePage/HomePage';
-import { NavbarComponent } from './components/NavbarComponent/NavbarComponent';
-import {FooterComponent} from './components/FooterComponent/FooterComponent';
-import LoginComponent from './components/LoginComponent/LoginComponent'; // este será el pop-up modal
-import { CatalogPage } from './pages/CatalogPage/CatalogPage';
-import MapPage from './pages/MapPage/MapPage';
-import { UserDashboard } from './components/UserMenuComponent/UserPanelComponent';
+import { HomePage } from "./pages/HomePage/HomePage";
+import { NavbarComponent } from "./components/NavbarComponent/NavbarComponent";
+import { FooterComponent } from "./components/FooterComponent/FooterComponent";
+import LoginComponent from "./components/LoginComponent/LoginComponent"; // este será el pop-up modal
+import { CatalogPage } from "./pages/CatalogPage/CatalogPage";
+import MapPage from "./pages/MapPage/MapPage";
+import { UserDashboard } from "./components/UserMenuComponent/UserPanelComponent";
+import { CarDetailPage } from "./pages/CarDetailPage/CarDetailPage";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);

@@ -5,20 +5,8 @@ import type { NavbarProps } from "../../interfaces/NavbarProps";
 import { useUserStore } from "../../utils/userStore";
 import { UserPopUpComponent } from "../UserPopUpComponent/UserPopUpComponent";
 
-
-export const NavbarComponent: FC<NavbarProps> = ({
-  onLoginClick,
-  setOptionsPerfil,
-  optionsPerfil,
-}) => {
+export const NavbarComponent: FC<NavbarProps> = ({ onLoginClick }) => {
   const user = useUserStore((state) => state.user);
-
-  const clickNavbar = () => {
-    if (optionsPerfil) {
-      setOptionsPerfil(false);
-    }
-  };
-  const usuarioLogueado = false;
 
   return (
     <nav className="flex justify-between items-center px-6 py-4 shadow-md bg-white">
@@ -40,11 +28,6 @@ export const NavbarComponent: FC<NavbarProps> = ({
 
       <div className="flex items-center space-x-4">
         {user != null && user != "" ? (
-          // <DesplegablePerfilComponent
-          //   optionsPerfil={optionsPerfil}
-          //   setOptionsPerfil={setOptionsPerfil}
-          // />
-
           <UserPopUpComponent />
         ) : (
           <span
