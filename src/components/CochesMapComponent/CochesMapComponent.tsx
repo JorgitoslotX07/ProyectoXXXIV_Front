@@ -51,6 +51,7 @@ const zonasParking = [
     {
         id: 1,
         nombre: "Parking Estación",
+        foto: "/parking_layout_img.png",
         bounds: [
             [41.1235, 1.239],
             [41.1245, 1.242],
@@ -59,6 +60,7 @@ const zonasParking = [
     {
         id: 2,
         nombre: "Parking Centro Comercial",
+        foto: "/parking-centro.jpg",
         bounds: [
             [41.1205, 1.254],
             [41.1215, 1.257],
@@ -114,6 +116,7 @@ const CochesMapComponent = () => {
     const [ciudadSeleccionada, setCiudadSeleccionada] = useState(ciudades[0]);
     const [animarVuelo, setAnimarVuelo] = useState(false);
     const [cocheSeleccionado, setCocheSeleccionado] = useState<typeof coches[0] | null>(null);
+    const [parkingSeleccionado, setParkingSeleccionado] = useState<typeof zonasParking[0] | null>(null);
     const [mostrarTarjeta, setMostrarTarjeta] = useState(false);
 
     return (
@@ -121,6 +124,13 @@ const CochesMapComponent = () => {
             <style>{`
         @keyframes bounce {
         0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); }
+        }
+        .animate-fadein {
+            animation: fadein 0.5s ease-in-out;
+        }
+        @keyframes fadein {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 `}</style>
 
@@ -160,6 +170,7 @@ const CochesMapComponent = () => {
                         cocheSeleccionado={cocheSeleccionado}
                         onSelect={(coche) => {
                             setCocheSeleccionado(coche);
+                            setParkingSeleccionado(null);
                             setMostrarTarjeta(false);
                             setTimeout(() => setMostrarTarjeta(true), 1500);
                         }}
@@ -172,6 +183,14 @@ const CochesMapComponent = () => {
                             key={zona.id}
                             bounds={zona.bounds as [[number, number], [number, number]]}
                             pathOptions={{ color: "green", weight: 2, fillOpacity: 0.2 }}
+                            eventHandlers={{
+                                click: () => {
+                                    setParkingSeleccionado(zona);
+                                    setCocheSeleccionado(null);
+                                    setMostrarTarjeta(false);
+                                    setTimeout(() => setMostrarTarjeta(true), 500);
+                                },
+                            }}
                         >
                             <Tooltip direction="top" offset={[0, 10]} opacity={1}>
                                 {zona.nombre}
@@ -181,7 +200,7 @@ const CochesMapComponent = () => {
             </MapContainer>
 
             {mostrarTarjeta && cocheSeleccionado && (
-                <div className="absolute bottom-6 left-6 bg-white p-4 rounded-xl shadow-xl w-80 transform transition-all scale-100 animate-grow z-[9999]">
+                <div className="absolute bottom-6 left-4 bg-white p-4 rounded-xl shadow-xl w-80 transform transition-all scale-100 animate-fadein z-[9999]">
                     <img
                         src={cocheSeleccionado.foto}
                         alt={cocheSeleccionado.modelo}
@@ -198,6 +217,24 @@ const CochesMapComponent = () => {
                     </div>
                     <button className="mt-4 w-full bg-yellow-400 text-black font-bold py-2 rounded hover:bg-yellow-500 transition">
                         Más detalles
+                    </button>
+                </div>
+            )}
+
+            {mostrarTarjeta && parkingSeleccionado && (
+                <div className="absolute bottom-6 left-4 bg-white p-4 rounded-xl shadow-xl w-80 transform transition-all scale-100 animate-fadein z-[9999]">
+                    <img
+                        src={parkingSeleccionado.foto}
+                        alt={parkingSeleccionado.nombre}
+                        className="w-full h-36 object-cover rounded mb-4"
+                    />
+                    <h2 className="text-xl font-bold mb-1">{parkingSeleccionado.nombre}</h2>
+                    <p className="text-sm text-gray-500 mb-2">🅿️ Zona de Aparcamiento</p>
+                    <div className="border-t border-gray-200 pt-2 text-sm">
+                        <p className="text-gray-600">📍 Parking RSM, Travessera de Dalt, 42</p>
+                    </div>
+                    <button className="mt-4 w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 transition">
+                        Disponibilidad de Vehículos
                     </button>
                 </div>
             )}
