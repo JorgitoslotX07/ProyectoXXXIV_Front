@@ -3,57 +3,54 @@ import type { UserData } from "../../interfaces/UserData";
 import { setLoginCookiesAndRedirect } from "../../utils/cookisLogin";
 import { useUserStore } from "../../utils/userStore";
 import { useNavigate } from "react-router-dom";
-import { valodateForm } from "../../utils/verficaciones";
+import {
+  valodateForm,
+  verificarUsuario,
+  hashPassword,
+} from "../../utils/verficaciones";
+import { Usuario, UsuarioToken } from "../../interfaces/Usuario";
 
-const RegisterComponent = () => {
-  const setUser = useUserStore((state) => state.setUser);
+export const RegisterComponent = () => {
   const setToken = useUserStore((state) => state.setToken);
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    password: "",
-    fechaNacimiento: "",
-    dni: "",
-  });
+  const [form, setForm] = useState<Usuario>(Usuario());
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log(form);
-    if (valodateForm(form)) {
-      console.log("Registrando:", form);
+    if (valodateForm(form) && verificarUsuario(form) == null) {
+      // console.log("Registrando:", form);
 
       // enviar peticion a Back
 
-      const userData: UserData = {
-        id: "01",
-        token: form.email,
-      };
+      try {
+        const userToken: UsuarioToken = await UsuarioToken(form);
+        console.log("Token generado:", userToken);
 
-      setUser(form.email);
-      console.log(form.email);
-      setToken("abc");
-      // cerrar el modal
+        // const miToken: string = generateToken(userToken);
 
-      setLoginCookiesAndRedirect(userData);
+        const pass: string = await hashPassword(form.password);
 
-      navigate("/");
+        const userData: UserData = {
+          token: form.email + ":" + pass,
+        };
+
+        setToken(form.email + ":" + pass);
+
+        setLoginCookiesAndRedirect(userData);
+
+        navigate("/");
+      } catch (error) {
+        console.error("Error al generar el token:", error);
+        // mostrarErrorAlUsuario("No se pudo generar el token. Intenta de nuevo.");
+      }
     }
   };
-
-  const hoy = new Date();
-  const fechaMaxima = new Date(
-    hoy.getFullYear() - 18,
-    hoy.getMonth(),
-    hoy.getDate()
-  )
-    .toISOString()
-    .split("T")[0]; // formato yyyy-mm-dd
 
   return (
     <form
@@ -61,7 +58,7 @@ const RegisterComponent = () => {
       className="bg-white p-8 rounded shadow-md w-full max-w-md"
     >
       <h2 className="text-2xl font-bold mb-6 text-center">
-        Registrar Cuenta Usuario
+        Registrar de Usuario
       </h2>
 
       <input
@@ -77,7 +74,7 @@ const RegisterComponent = () => {
       <input
         type="email"
         name="email"
-        placeholder="Email"
+        placeholder="Correo Electronico"
         value={form.email}
         onChange={handleChange}
         className="w-full p-2 mb-4 border rounded"
@@ -87,34 +84,11 @@ const RegisterComponent = () => {
       <input
         type="password"
         name="password"
-        placeholder="Password"
+        placeholder="Contraseña"
         value={form.password}
         onChange={handleChange}
         className="w-full p-2 mb-6 border rounded"
         required
-      />
-
-      <label className="block mb-2 font-medium">Fecha de nacimiento</label>
-      <input
-        type="date"
-        name="fechaNacimiento"
-        value={form.fechaNacimiento}
-        onChange={handleChange}
-        required
-        max={fechaMaxima}
-        className="w-full p-2 border rounded mb-4"
-      />
-
-      <label className="block mb-2 font-medium">DNI</label>
-      <input
-        type="text"
-        name="dni"
-        value={form.dni}
-        onChange={handleChange}
-        pattern="^[0-9]{8}[A-Za-z]$"
-        title="Introduce un DNI válido (8 números y una letra)"
-        required
-        className="w-full p-2 border rounded mb-6"
       />
 
       <button
@@ -126,5 +100,3 @@ const RegisterComponent = () => {
     </form>
   );
 };
-
-export default RegisterComponent;

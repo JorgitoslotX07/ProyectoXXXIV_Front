@@ -1,4 +1,5 @@
 import bcrypt from "bcryptjs";
+import type { Usuario } from "../interfaces/Usuario";
 
 export function validateMail(mail: string): boolean {
   const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -43,20 +44,12 @@ export function validarNIE(nie: string): boolean {
   return letra === letras[numero % 23];
 }
 
-export function valodateForm(form: {
-  name: string;
-  email: string;
-  password: string;
-  fechaNacimiento: string;
-  dni: string;
-}) {
+export function valodateForm(form: Usuario) {
   const validates = [];
 
   validates.push(!validateName(form.name));
   validates.push(!validateMail(form.email));
   validates.push(!validatePassword(form.password));
-  validates.push(!validateFechaNacimiento(form.fechaNacimiento));
-  validates.push(!validarDNI(form.dni));
 
   let verifi = true;
   validates.forEach((item) => {
@@ -70,7 +63,7 @@ export function valodateForm(form: {
 
 export const hashPassword = async (plainPassword: string): Promise<string> => {
   const salt = await bcrypt.genSalt(10); // ajustar complejidad de hash
-  return bcrypt.hash(plainPassword, salt);
+  return await bcrypt.hash(plainPassword, salt);
 };
 
 export const comparePassword = async (
@@ -79,3 +72,48 @@ export const comparePassword = async (
 ): Promise<boolean> => {
   return bcrypt.compare(plainPassword, hashedPassword);
 };
+
+export function verificarUsuario(user: Usuario): Usuario | null {
+  const usuario = usuarios.find(
+    (u) => u.email === user.email && u.password === user.password
+  );
+  return usuario || null;
+}
+
+const usuarios = [
+  {
+    name: "Lucía González",
+    email: "lucia.gonzalez@example.com",
+    password: "Lucia1234!",
+    fechaNacimiento: "1995-04-22",
+    dni: "12345678Z",
+  },
+  {
+    name: "Carlos Pérez",
+    email: "carlos.perez@example.com",
+    password: "Carlos@2023",
+    fechaNacimiento: "1988-10-11",
+    dni: "87654321X",
+  },
+  {
+    name: "Ana Torres",
+    email: "ana.torres@example.com",
+    password: "Ana_T0rr3s",
+    fechaNacimiento: "2000-07-30",
+    dni: "45612378L",
+  },
+  {
+    name: "Miguel Rodríguez",
+    email: "miguel.rodriguez@example.com",
+    password: "MiguelR#55",
+    fechaNacimiento: "1992-01-18",
+    dni: "32165498M",
+  },
+  {
+    name: "Toni Jorda Leon",
+    email: "tjorda@gmail.com",
+    password: "Servidor.18",
+    fechaNacimiento: "1999-12-05",
+    dni: "15975346P",
+  },
+];
