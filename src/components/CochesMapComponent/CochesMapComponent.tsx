@@ -118,6 +118,32 @@ const CochesMapComponent = () => {
     const [cocheSeleccionado, setCocheSeleccionado] = useState<typeof coches[0] | null>(null);
     const [parkingSeleccionado, setParkingSeleccionado] = useState<typeof zonasParking[0] | null>(null);
     const [mostrarTarjeta, setMostrarTarjeta] = useState(false);
+    const [posicionUsuario, setPosicionUsuario] = useState<[number, number] | null>(null);
+
+    // Detectar ubicación del usuario una sola vez al montar
+    // Detectar ubicación del usuario y seleccionar ciudad más cercana
+useEffect(() => {
+    navigator.geolocation.getCurrentPosition(
+        (pos) => {
+            const coords: [number, number] = [pos.coords.latitude, pos.coords.longitude];
+            setPosicionUsuario(coords);
+
+            // Buscar la ciudad más cercana del array
+            const ciudadCercana = ciudades.reduce((prev, curr) => {
+                const distPrev = Math.hypot(prev.coords[0] - coords[0], prev.coords[1] - coords[1]);
+                const distCurr = Math.hypot(curr.coords[0] - coords[0], curr.coords[1] - coords[1]);
+                return distCurr < distPrev ? curr : prev;
+            });
+
+            setCiudadSeleccionada(ciudadCercana);
+            setAnimarVuelo(true);
+        },
+        () => {
+            console.warn("No se pudo obtener la ubicación del usuario, usando Tarragona por defecto");
+            setPosicionUsuario(null);
+        }
+    );
+}, []);
 
     return (
         <div className="relative">
@@ -155,7 +181,7 @@ const CochesMapComponent = () => {
             </div>
 
             <MapContainer
-                center={ciudadSeleccionada.coords as [number, number]}
+            center={(posicionUsuario ?? ciudadSeleccionada.coords) as [number, number]}
                 zoom={14}
                 style={{ height: "500px", width: "100%" }}
                 scrollWheelZoom={true}

@@ -27,8 +27,7 @@ function App() {
       {/* Paso la función a la Navbar */}
       <NavbarComponent
         onLoginClick={() => setShowLogin(true)}
-        setOptionsPerfil={setShowOptionsPerfil}
-        optionsPerfil={showOptionsPerfil}
+
       />
 
       {/* Mostrando el modal si está activado */}

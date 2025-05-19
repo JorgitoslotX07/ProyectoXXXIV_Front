@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { State } from "../interfaces/state";
+import type { State } from "../interfaces/State";
 
 export const useUserStore = create<State>((set) => ({
   user: null,
