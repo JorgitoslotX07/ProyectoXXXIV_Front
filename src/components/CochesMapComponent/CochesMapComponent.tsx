@@ -11,9 +11,8 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 
-// Generador de icono SVG inline dinámico con animación si es el coche seleccionado
 const crearIconoCoche = (esSeleccionado: boolean) => {
-    const color = esSeleccionado ? "#4ade80" : "#3b82f6"; // verde o azul
+    const color = esSeleccionado ? "#4ade80" : "#3b82f6";
     const extraStyle = esSeleccionado ? "animation: bounce 0.6s ease;" : "";
 
     return L.divIcon({
@@ -70,16 +69,13 @@ const zonasParking = [
 
 const FlyToCiudad = ({ coords, enabled }: { coords: [number, number]; enabled: boolean }) => {
     const map = useMap();
-
     useEffect(() => {
         if (!enabled) return;
-
         map.flyTo(map.getCenter(), 8, { duration: 2 });
         setTimeout(() => {
             map.flyTo(coords, 14, { duration: 2 });
         }, 1000);
     }, [coords, enabled, map]);
-
     return null;
 };
 
@@ -93,14 +89,11 @@ const ZoomOnClickMarker = ({
     onSelect: (coche: typeof coches[0]) => void;
 }) => {
     const map = useMap();
-
     const handleClick = () => {
         map.flyTo([coche.lat, coche.lng], 17, { duration: 1.5 });
         onSelect(coche);
     };
-
     const esSeleccionado = cocheSeleccionado?.id === coche.id;
-
     return (
         <Marker
             position={[coche.lat, coche.lng]}
@@ -119,46 +112,52 @@ const CochesMapComponent = () => {
     const [parkingSeleccionado, setParkingSeleccionado] = useState<typeof zonasParking[0] | null>(null);
     const [mostrarTarjeta, setMostrarTarjeta] = useState(false);
     const [posicionUsuario, setPosicionUsuario] = useState<[number, number] | null>(null);
+    const [direccionDetectada, setDireccionDetectada] = useState<string | null>(null);
 
-    // Detectar ubicación del usuario una sola vez al montar
-    // Detectar ubicación del usuario y seleccionar ciudad más cercana
-useEffect(() => {
-    navigator.geolocation.getCurrentPosition(
-        (pos) => {
-            const coords: [number, number] = [pos.coords.latitude, pos.coords.longitude];
-            setPosicionUsuario(coords);
-
-            // Buscar la ciudad más cercana del array
-            const ciudadCercana = ciudades.reduce((prev, curr) => {
-                const distPrev = Math.hypot(prev.coords[0] - coords[0], prev.coords[1] - coords[1]);
-                const distCurr = Math.hypot(curr.coords[0] - coords[0], curr.coords[1] - coords[1]);
-                return distCurr < distPrev ? curr : prev;
-            });
-
-            setCiudadSeleccionada(ciudadCercana);
-            setAnimarVuelo(true);
-        },
-        () => {
-            console.warn("No se pudo obtener la ubicación del usuario, usando Tarragona por defecto");
-            setPosicionUsuario(null);
-        }
-    );
-}, []);
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(
+            async (pos) => {
+                const coords: [number, number] = [pos.coords.latitude, pos.coords.longitude];
+                setPosicionUsuario(coords);
+                const ciudadCercana = ciudades.reduce((prev, curr) => {
+                    const distPrev = Math.hypot(prev.coords[0] - coords[0], prev.coords[1] - coords[1]);
+                    const distCurr = Math.hypot(curr.coords[0] - coords[0], curr.coords[1] - coords[1]);
+                    return distCurr < distPrev ? curr : prev;
+                });
+                setCiudadSeleccionada(ciudadCercana);
+                setAnimarVuelo(true);
+                try {
+                    const res = await fetch(
+                        `https://nominatim.openstreetmap.org/reverse?lat=${coords[0]}&lon=${coords[1]}&format=json`
+                    );
+                    const data = await res.json();
+                    setDireccionDetectada(data.display_name);
+                } catch (err) {
+                    console.warn("Error al obtener la dirección:", err);
+                }
+            },
+            () => {
+                console.warn("No se pudo obtener la ubicación del usuario.");
+                setPosicionUsuario(null);
+            }
+        );
+    }, []);
 
     return (
         <div className="relative">
             <style>{`
-        @keyframes bounce {
-        0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); }
-        }
-        .animate-fadein {
-            animation: fadein 0.5s ease-in-out;
-        }
-        @keyframes fadein {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-`}</style>
+                @keyframes bounce {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(-10px); }
+                }
+                .animate-fadein {
+                    animation: fadein 0.5s ease-in-out;
+                }
+                @keyframes fadein {
+                    from { opacity: 0; transform: translateY(10px); }
+                    to { opacity: 1; transform: translateY(0); }
+                }
+            `}</style>
 
             <div className="mb-2 flex justify-end pr-4 pt-2">
                 <select
@@ -180,8 +179,18 @@ useEffect(() => {
                 </select>
             </div>
 
+            <div className="px-4 pb-2 text-sm text-gray-700 font-semibold min-h-[1.5rem]">
+                {direccionDetectada ? (
+                    <>
+                        📍 Estás en: <span className="text-blue-600">{direccionDetectada}</span>
+                    </>
+                ) : posicionUsuario ? (
+                    <span className="animate-pulse text-gray-500">📡 Detectando ubicación...</span>
+                ) : null}
+            </div>
+
             <MapContainer
-            center={(posicionUsuario ?? ciudadSeleccionada.coords) as [number, number]}
+                center={(posicionUsuario ?? ciudadSeleccionada.coords) as [number, number]}
                 zoom={14}
                 style={{ height: "500px", width: "100%" }}
                 scrollWheelZoom={true}
@@ -195,10 +204,12 @@ useEffect(() => {
                         coche={coche}
                         cocheSeleccionado={cocheSeleccionado}
                         onSelect={(coche) => {
-                            setCocheSeleccionado(coche);
-                            setParkingSeleccionado(null);
                             setMostrarTarjeta(false);
-                            setTimeout(() => setMostrarTarjeta(true), 1500);
+                            setParkingSeleccionado(null);
+                            setCocheSeleccionado(coche);
+                            setTimeout(() => {
+                                setMostrarTarjeta(true);
+                            }, 300);
                         }}
                     />
                 ))}
