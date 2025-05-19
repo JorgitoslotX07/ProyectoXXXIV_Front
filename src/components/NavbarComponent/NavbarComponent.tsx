@@ -6,7 +6,7 @@ import { useUserStore } from "../../utils/userStore";
 import { UserPopUpComponent } from "../UserPopUpComponent/UserPopUpComponent";
 
 export const NavbarComponent: FC<NavbarProps> = ({ onLoginClick }) => {
-  const user = useUserStore((state) => state.user);
+  const user = useUserStore((state) => state.token);
 
   return (
     <nav className="flex justify-between items-center px-6 py-4 shadow-md bg-white">

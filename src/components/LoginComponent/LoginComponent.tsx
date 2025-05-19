@@ -1,45 +1,64 @@
-import { useState } from "react";
+import { useState, type FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { setLoginCookiesAndRedirect } from "../../utils/cookisLogin";
 import type { UserData } from "../../interfaces/UserData";
 import { useUserStore } from "../../utils/userStore";
-import { validateMail, validatePassword } from "../../utils/verficaciones";
+import {
+  validateMail,
+  validatePassword,
+  verificarUsuario,
+  hashPassword,
+} from "../../utils/verficaciones";
+import type { LoginProps } from "../../interfaces/LoginProps";
+import { Usuario, UsuarioToken } from "../../interfaces/Usuario";
+// import { generateToken } from "../../utils/jwtUtils";
 
-interface Props {
-  onClose: () => void;
-}
-
-const LoginComponent = ({ onClose }: Props) => {
-  const setUser = useUserStore((state) => state.setUser);
+export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
   const setToken = useUserStore((state) => state.setToken);
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({ email: "", password: "" });
+  const [form, setForm] = useState<Usuario>(Usuario());
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateMail(form.email) && validatePassword(form.password)) {
-      console.log("Login:", form);
+    if (
+      validateMail(form.email) &&
+      validatePassword(form.password) &&
+      verificarUsuario(form) != null
+    ) {
+      // console.log("Login:", form);
 
       // enviar peticion a Back. Despues se eso se hace la comprobacion de resultado para verificar si es verdadero o no
+      // const pass = [peticion]
+      //peticion de password del mail. Si devueve null no existe email
+      // si exite compara comparePassword(form.password, pass)
 
-      const userData: UserData = {
-        id: "01",
-        token: form.email,
-      };
+      try {
+        const userToken: UsuarioToken = await UsuarioToken(form);
+        console.log("Token generado:", userToken);
 
-      setUser("Lucía");
-      setToken("abc");
+        // const miToken: string = generateToken(userToken);
+        const pass: string = await hashPassword(form.password);
 
-      onClose();
+        const userData: UserData = {
+          token: form.email + ":" + pass,
+        };
 
-      setLoginCookiesAndRedirect(userData);
+        setToken(form.email + ":" + pass);
 
-      navigate("/");
+        onClose();
+
+        setLoginCookiesAndRedirect(userData);
+
+        navigate("/");
+      } catch (error) {
+        console.error("Error al generar el token:", error);
+        // mostrarErrorAlUsuario("No se pudo generar el token. Intenta de nuevo.");
+      }
     }
   };
 
@@ -96,5 +115,3 @@ const LoginComponent = ({ onClose }: Props) => {
     </div>
   );
 };
-
-export default LoginComponent;

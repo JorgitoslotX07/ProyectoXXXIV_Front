@@ -1,16 +1,18 @@
 import "./App.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import RegistroPage from "./pages/RegisterPage/RegisterPage";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { NavbarComponent } from "./components/NavbarComponent/NavbarComponent";
 import { FooterComponent } from "./components/FooterComponent/FooterComponent";
-import LoginComponent from "./components/LoginComponent/LoginComponent"; // este será el pop-up modal
 import { CatalogPage } from "./pages/CatalogPage/CatalogPage";
-import MapPage from "./pages/MapPage/MapPage";
 import { UserDashboard } from "./components/UserMenuComponent/UserPanelComponent";
 import { CarDetailPage } from "./pages/CarDetailPage/CarDetailPage";
+import { RegistroPage } from "./pages/RegisterPage/RegisterPage";
+import { LoginComponent } from "./components/LoginComponent/LoginComponent";
+import { MapPage } from "./pages/MapPage/MapPage";
+import Cookies from "js-cookie";
+import { useUserStore } from "./utils/userStore";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -22,13 +24,18 @@ function App() {
     }
   };
 
+  useEffect(() => {
+    const token: string | undefined = Cookies.get("sessionToken");
+
+    if (token) {
+      useUserStore.getState().setToken(token);
+    }
+  }, []);
+
   return (
     <>
       {/* Paso la función a la Navbar */}
-      <NavbarComponent
-        onLoginClick={() => setShowLogin(true)}
-
-      />
+      <NavbarComponent onLoginClick={() => setShowLogin(true)} />
 
       {/* Mostrando el modal si está activado */}
       {showLogin && <LoginComponent onClose={() => setShowLogin(false)} />}
