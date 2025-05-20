@@ -7,7 +7,7 @@ import {
   valodateForm,
   verificarUsuario,
   hashPassword,
-} from "../../utils/verficaciones";
+} from "../../utils/verificaciones";
 import { Usuario, UsuarioToken } from "../../interfaces/Usuario";
 
 export const RegisterComponent = () => {

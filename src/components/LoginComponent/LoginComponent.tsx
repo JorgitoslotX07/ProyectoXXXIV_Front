@@ -8,7 +8,7 @@ import {
   validatePassword,
   verificarUsuario,
   hashPassword,
-} from "../../utils/verficaciones";
+} from "../../utils/verificaciones";
 import type { LoginProps } from "../../interfaces/LoginProps";
 import { Usuario, UsuarioToken } from "../../interfaces/Usuario";
 // import { generateToken } from "../../utils/jwtUtils";

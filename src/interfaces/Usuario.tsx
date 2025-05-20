@@ -1,4 +1,4 @@
-import { hashPassword } from "../utils/verficaciones";
+import { hashPassword } from "../utils/verificaciones";
 export type Usuario = {
   name: string;
   email: string;

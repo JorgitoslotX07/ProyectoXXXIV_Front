@@ -80,7 +80,7 @@ export function verificarUsuario(user: Usuario): Usuario | null {
   return usuario || null;
 }
 
-const usuarios = [
+export const usuarios = [
   {
     name: "Lucía González",
     email: "lucia.gonzalez@example.com",
@@ -115,5 +115,12 @@ const usuarios = [
     password: "Servidor.18",
     fechaNacimiento: "1999-12-05",
     dni: "15975346P",
+  },
+  {
+    name: "Dani Sánchez Aránega",
+    email: "danisancheza@gmail.com",
+    password: "Developer.01",
+    fechaNacimiento: "1998-02-21",
+    dni: "39963548J",
   },
 ];

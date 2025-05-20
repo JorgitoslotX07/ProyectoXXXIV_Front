@@ -26,14 +26,14 @@ export const UserDashboard = () => {
                 {/* Columna izquierda - Perfil en tarjeta cuadrada */}
                 <div className="w-90 h-100 aspect-square bg-white p-6 rounded-2xl shadow-md flex flex-col items-center justify-center text-center">
                     <img
-                        src="/avatar-placeholder.png"
+                        src="/vite.svg"
                         alt="Avatar"
-                        className="w-28 h-28 rounded-full border-4 border-gray-300"
+                        className="w-35 h-35 rounded-full border-4 border-gray-300"
                     />
                     <h2 className="text-2xl font-bold mt-4">Dani Sanchez</h2>
                     <button
                         className="text-blue-500 text-base mt-2 hover:underline"
-                        onClick={() => navigate("/perfil")}
+                        onClick={() => navigate("/editar-perfil")}
                     >
                         ✏️ Editar perfil
                     </button>

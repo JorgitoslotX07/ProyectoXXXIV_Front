@@ -13,6 +13,8 @@ import { LoginComponent } from "./components/LoginComponent/LoginComponent";
 import { MapPage } from "./pages/MapPage/MapPage";
 import Cookies from "js-cookie";
 import { useUserStore } from "./utils/userStore";
+import { EditarPerfilPage } from "./pages/EditarPerfilPage/EditarPerfilPage";
+
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -55,6 +57,7 @@ function App() {
         <Route path="/catalog/carDetail" element={<CarDetailPage />} />
         <Route path="/map" element={<MapPage />} />
         <Route path="/panel" element={<UserDashboard />} />
+        <Route path="/editar-perfil" element={<EditarPerfilPage />} />
       </Routes>
 
       <FooterComponent />
