@@ -9,6 +9,7 @@ import {
   hashPassword,
 } from "../../utils/verficaciones";
 import { Usuario, UsuarioToken } from "../../interfaces/Usuario";
+import { httpPost } from "../../utils/apiService";
 
 export const RegisterComponent = () => {
   const setToken = useUserStore((state) => state.setToken);
@@ -23,10 +24,10 @@ export const RegisterComponent = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log(form);
-    if (valodateForm(form) && verificarUsuario(form) == null) {
-      // console.log("Registrando:", form);
+    if (valodateForm(form) && !(await verificarUsuario(form))) {
+      console.log("Registrando:", form);
 
-      // enviar peticion a Back
+      await httpPost("/usuarios", form);
 
       try {
         const userToken: UsuarioToken = await UsuarioToken(form);
@@ -34,7 +35,7 @@ export const RegisterComponent = () => {
 
         // const miToken: string = generateToken(userToken);
 
-        const pass: string = await hashPassword(form.password);
+        const pass: string = await hashPassword(form.contrasenya);
 
         const userData: UserData = {
           token: form.email + ":" + pass,
@@ -63,9 +64,9 @@ export const RegisterComponent = () => {
 
       <input
         type="text"
-        name="name"
+        name="usuario"
         placeholder="Nombre"
-        value={form.name}
+        value={form.usuario}
         onChange={handleChange}
         className="w-full p-2 mb-4 border rounded"
         required
@@ -83,9 +84,9 @@ export const RegisterComponent = () => {
 
       <input
         type="password"
-        name="password"
+        name="contrasenya"
         placeholder="Contraseña"
-        value={form.password}
+        value={form.contrasenya}
         onChange={handleChange}
         className="w-full p-2 mb-6 border rounded"
         required

@@ -1,5 +1,5 @@
-import bcrypt from "bcryptjs";
 import type { Usuario } from "../interfaces/Usuario";
+import { httpPost } from "./apiService";
 
 export function validateMail(mail: string): boolean {
   const mailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -7,8 +7,8 @@ export function validateMail(mail: string): boolean {
 }
 
 export function validateName(name: string): boolean {
-  const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,50}$/;
-
+  // const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,50}$/;
+  const nameRegex = /^[\p{L}\p{M}\s\W\d]{2,50}$/u;
   return nameRegex.test(name);
 }
 export function validatePassword(pass: string): boolean {
@@ -47,9 +47,9 @@ export function validarNIE(nie: string): boolean {
 export function valodateForm(form: Usuario) {
   const validates = [];
 
-  validates.push(!validateName(form.name));
+  validates.push(!validateName(form.usuario));
   validates.push(!validateMail(form.email));
-  validates.push(!validatePassword(form.password));
+  validates.push(!validatePassword(form.contrasenya));
 
   let verifi = true;
   validates.forEach((item) => {
@@ -61,59 +61,47 @@ export function valodateForm(form: Usuario) {
   return verifi;
 }
 
-export const hashPassword = async (plainPassword: string): Promise<string> => {
-  const salt = await bcrypt.genSalt(10); // ajustar complejidad de hash
-  return await bcrypt.hash(plainPassword, salt);
-};
-
-export const comparePassword = async (
-  plainPassword: string,
-  hashedPassword: string
-): Promise<boolean> => {
-  return bcrypt.compare(plainPassword, hashedPassword);
-};
-
-export function verificarUsuario(user: Usuario): Usuario | null {
-  const usuario = usuarios.find(
-    (u) => u.email === user.email && u.password === user.password
-  );
-  return usuario || null;
+export async function verificarUsuario(user: Usuario): Promise<boolean | null> {
+  return await httpPost("/usuarios/login", {
+    usuario: user.usuario,
+    contrasenya: user.contrasenya,
+  });
 }
 
-const usuarios = [
-  {
-    name: "Lucía González",
-    email: "lucia.gonzalez@example.com",
-    password: "Lucia1234!",
-    fechaNacimiento: "1995-04-22",
-    dni: "12345678Z",
-  },
-  {
-    name: "Carlos Pérez",
-    email: "carlos.perez@example.com",
-    password: "Carlos@2023",
-    fechaNacimiento: "1988-10-11",
-    dni: "87654321X",
-  },
-  {
-    name: "Ana Torres",
-    email: "ana.torres@example.com",
-    password: "Ana_T0rr3s",
-    fechaNacimiento: "2000-07-30",
-    dni: "45612378L",
-  },
-  {
-    name: "Miguel Rodríguez",
-    email: "miguel.rodriguez@example.com",
-    password: "MiguelR#55",
-    fechaNacimiento: "1992-01-18",
-    dni: "32165498M",
-  },
-  {
-    name: "Toni Jorda Leon",
-    email: "tjorda@gmail.com",
-    password: "Servidor.18",
-    fechaNacimiento: "1999-12-05",
-    dni: "15975346P",
-  },
-];
+// const usuarios = [
+//   {
+//     name: "Lucía González",
+//     email: "lucia.gonzalez@example.com",
+//     password: "Lucia1234!",
+//     fechaNacimiento: "1995-04-22",
+//     dni: "12345678Z",
+//   },
+//   {
+//     name: "Carlos Pérez",
+//     email: "carlos.perez@example.com",
+//     password: "Carlos@2023",
+//     fechaNacimiento: "1988-10-11",
+//     dni: "87654321X",
+//   },
+//   {
+//     name: "Ana Torres",
+//     email: "ana.torres@example.com",
+//     password: "Ana_T0rr3s",
+//     fechaNacimiento: "2000-07-30",
+//     dni: "45612378L",
+//   },
+//   {
+//     name: "Miguel Rodríguez",
+//     email: "miguel.rodriguez@example.com",
+//     password: "MiguelR#55",
+//     fechaNacimiento: "1992-01-18",
+//     dni: "32165498M",
+//   },
+//   {
+//     name: "Toni Jorda Leon",
+//     email: "tjorda@gmail.com",
+//     password: "Servidor.18",
+//     fechaNacimiento: "1999-12-05",
+//     dni: "15975346P",
+//   },
+// ];

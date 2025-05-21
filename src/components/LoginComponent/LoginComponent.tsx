@@ -6,8 +6,9 @@ import { useUserStore } from "../../utils/userStore";
 import {
   validateMail,
   validatePassword,
-  verificarUsuario,
+  // verificarUsuario,
   hashPassword,
+  verificarUsuario,
 } from "../../utils/verficaciones";
 import type { LoginProps } from "../../interfaces/LoginProps";
 import { Usuario, UsuarioToken } from "../../interfaces/Usuario";
@@ -25,10 +26,11 @@ export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    form.usuario = "Toni^^";
     if (
       validateMail(form.email) &&
-      validatePassword(form.password) &&
-      verificarUsuario(form) != null
+      validatePassword(form.contrasenya) &&
+      (await verificarUsuario(form))
     ) {
       // console.log("Login:", form);
 
@@ -42,7 +44,7 @@ export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
         console.log("Token generado:", userToken);
 
         // const miToken: string = generateToken(userToken);
-        const pass: string = await hashPassword(form.password);
+        const pass: string = await hashPassword(form.contrasenya);
 
         const userData: UserData = {
           token: form.email + ":" + pass,
@@ -87,9 +89,9 @@ export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
           />
           <input
             type="password"
-            name="password"
+            name="contrasenya"
             placeholder="Contraseña"
-            value={form.password}
+            value={form.contrasenya}
             onChange={handleChange}
             className="w-full p-2 border rounded mb-4"
             required

@@ -1,6 +1,6 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import './SelectorLenguajeComponent.css';
+import React from "react";
+import { useTranslation } from "react-i18next";
+import "./SelectorLenguajeComponent.css";
 
 export const SelectorLenguajeComponent: React.FC = () => {
   const { i18n } = useTranslation();
@@ -11,16 +11,22 @@ export const SelectorLenguajeComponent: React.FC = () => {
   };
 
   return (
-    <div className='language-selector'>
+    <div className="language-selector">
       {/* <span className="language-icon">🌐</span> */}
       <select
-      className="language-select dark:text-white"
+        className="language-select text-dark"
         value={i18n.language}
         onChange={cambiarLenguaje}
       >
-        <option value="en" className="dark:text-black">En</option>
-        <option value="es" className="dark:text-black">Es</option>
-         <option value="ca" className="dark:text-black">Ca</option>
+        <option value="en" className="dark:text-white">
+          En
+        </option>
+        <option value="es" className="dark:text-white">
+          Es
+        </option>
+        <option value="ca" className="dark:text-white">
+          Ca
+        </option>
       </select>
     </div>
   );

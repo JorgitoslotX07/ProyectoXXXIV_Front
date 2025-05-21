@@ -1,20 +1,19 @@
-import { hashPassword } from "../utils/verficaciones";
 export type Usuario = {
-  name: string;
+  usuario: string;
+  contrasenya: string;
   email: string;
-  password: string;
 };
 
 export function Usuario(): Usuario {
-  return { name: "", email: "", password: "" };
+  return { usuario: "", contrasenya: "", email: "" };
 }
 
 export interface UsuarioToken {
+  contrasenya: string;
   email: string;
-  password: string;
 }
 
 export async function UsuarioToken(user: Usuario): Promise<UsuarioToken> {
-  const pass: string = await hashPassword(user.password);
-  return { email: user.email, password: pass };
+  // const pass: string = await hashemail(user.email);
+  return { contrasenya: user.contrasenya, email: user.email };
 }
