@@ -14,6 +14,7 @@ import { MapPage } from "./pages/MapPage/MapPage";
 import Cookies from "js-cookie";
 import { useUserStore } from "./utils/userStore";
 import { HomePruPage } from "./pages/HomePruPage.tsx/HomePruPage";
+import { EditarPerfilPage } from "./pages/EditarPerfilPage/EditarPerfilPage";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -65,6 +66,7 @@ function App() {
             />
           }
         />
+        <Route path="/editar-perfil" element={<EditarPerfilPage />} />
       </Routes>
 
       <FooterComponent />

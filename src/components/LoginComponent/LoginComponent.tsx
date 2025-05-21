@@ -6,10 +6,9 @@ import { useUserStore } from "../../utils/userStore";
 import {
   validateMail,
   validatePassword,
-  // verificarUsuario,
-  hashPassword,
   verificarUsuario,
-} from "../../utils/verficaciones";
+  // verificarUsuario,
+} from "../../utils/verificaciones";
 import type { LoginProps } from "../../interfaces/LoginProps";
 import { Usuario, UsuarioToken } from "../../interfaces/Usuario";
 // import { generateToken } from "../../utils/jwtUtils";
@@ -44,13 +43,13 @@ export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
         console.log("Token generado:", userToken);
 
         // const miToken: string = generateToken(userToken);
-        const pass: string = await hashPassword(form.contrasenya);
+        // const pass: string = await hashPassword(form.contrasenya);
 
         const userData: UserData = {
-          token: form.email + ":" + pass,
+          token: form.email + ":" + form.contrasenya,
         };
 
-        setToken(form.email + ":" + pass);
+        setToken(form.email + ":" + form.contrasenya);
 
         onClose();
 
