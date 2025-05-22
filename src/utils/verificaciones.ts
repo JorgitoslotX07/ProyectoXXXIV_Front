@@ -14,7 +14,7 @@ export function validateName(name: string): boolean {
 export function validatePassword(pass: string): boolean {
   // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
   const passwordRegex =
-    /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}$/;
+    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/;
 
   // (mínimo 8 caracteres, al menos una mayúscula, una minúscula, un número y un símbolo)
   return passwordRegex.test(pass);

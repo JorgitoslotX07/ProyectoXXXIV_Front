@@ -1,13 +1,21 @@
 import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 // import { usuarios } from "../../utils/verificaciones";
-import { UsuarioCompleto } from "../../interfaces/Usuario";
 import { deleteCookiesLogin } from "../../utils/cookisLogin";
 import { useUserStore } from "../../utils/userStore";
+import { useEffect, useState } from "react";
+import { httpGet } from "../../utils/apiService";
+import {
+  usuarioCompletoVacio,
+  type UsuarioCompleto,
+} from "../../interfaces/Usuario";
+
+const UserId = "11";
 
 export const UserMenuPage = () => {
   const navigate = useNavigate();
   const setToken = useUserStore((state) => state.setToken);
+  const [usuario, setUsuario] = useState<UsuarioCompleto>(usuarioCompletoVacio);
 
   const logOut = () => {
     deleteCookiesLogin();
@@ -17,12 +25,26 @@ export const UserMenuPage = () => {
 
   // pendiente peticion a back para coger el user a partir del token
 
-  const user: UsuarioCompleto = UsuarioCompleto();
+  // const user: UsuarioCompleto =
+  // UsuarioCompleto();
 
-  user.usuario = "Dani Sánchez Aránega";
-  user.email = "danisancheza@gmail.com";
-  user.fechaNacimiento = "1998-02-21";
-  user.dni = "39963548J";
+  // user.usuario = "Dani Sánchez Aránega";
+  // user.email = "danisancheza@gmail.com";
+  // user.fechaNacimiento = "1998-02-21";
+  // user.dni = "39963548J";
+
+  useEffect(() => {
+    const fetch = async () => {
+      const data = await httpGet<UsuarioCompleto>("/usuarios/" + UserId);
+      if (data) {
+        data.avatar = "/vite.svg";
+        setUsuario(data);
+        console.log(data);
+      }
+    };
+
+    fetch();
+  }, []);
 
   const sections = [
     {
@@ -74,22 +96,23 @@ export const UserMenuPage = () => {
 
       <div className="flex gap-6">
         <div className="w-90 h-100 aspect-square bg-white p-6 rounded-2xl shadow-md flex flex-col items-center justify-center text-center">
-          <img
-            src="/vite.svg"
-            alt="Avatar"
-            className="w-25 h-25 rounded-full border-4 border-gray-300 mb-10"
-          />
-
-          <h2 className="text-2xl font-bold mt-4">{user.usuario}</h2>
+          {usuario.avatar != null && (
+            <img
+              src={usuario.avatar}
+              alt="Avatar"
+              className="w-25 h-25 rounded-full border-4 border-gray-300 mb-10"
+            />
+          )}
+          <h2 className="text-2xl font-bold mt-4">{usuario.usuario}</h2>
           <p className="text-base text-gray-700 mt-1">
-            <span className="font-bold">Email: </span> {user.email}
+            <span className="font-bold">Email: </span> {usuario.email}
           </p>
           <p className="text-base text-gray-700 mt-1">
             <span className="font-bold">Fecha de nacimiento: </span>
-            {user.fechaNacimiento}
+            {usuario.fechaNacimiento}
           </p>
           <p className="text-base text-gray-700 mt-1">
-            <span className="font-bold">DNI: </span> {user.dni}
+            <span className="font-bold">DNI: </span> {usuario.dni}
           </p>
 
           <Link to="/editar-perfil">

@@ -29,9 +29,9 @@ export const FiltrersCatalogComponent: FC = () => {
   return (
     <>
       <div className="p-6 space-y-6">
-        <h3 className="text-2xl font-semibold mb-4">
+        {/* <h3 className="text-2xl font-semibold mb-4">
           Categorias | Tipo de Coche
-        </h3>
+        </h3> */}
 
         <div className="flex flex-wrap gap-4">
           {filters.map((filter, index) => (

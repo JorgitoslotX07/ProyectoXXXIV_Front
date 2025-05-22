@@ -2,7 +2,8 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../utils/userStore";
 import { deleteCookiesLogin } from "../../utils/cookisLogin";
-import type { UsuarioLogin } from "../../interfaces/Usuario";
+import type { UsuarioCompleto } from "../../interfaces/Usuario";
+import { httpGet } from "../../utils/apiService";
 
 // type Usuario = {
 //   nombre: string;
@@ -10,22 +11,33 @@ import type { UsuarioLogin } from "../../interfaces/Usuario";
 //   avatar: string;
 // };
 
-const usuarioSimulado: UsuarioLogin = {
-  usuario: "Dani Sánchez",
-  email: "dani@correo.com",
-  avatar: "/vite.svg",
-};
+const UserId = "11";
+
+// const usuarioSimulado: UsuarioLogin = {
+//   usuario: "Dani Sánchez",
+//   email: "dani@correo.com",
+//   avatar: "/vite.svg",
+// };
 
 export const UserPopUpComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [usuario, setUsuario] = useState<UsuarioLogin | null>(null);
+  const [usuario, setUsuario] = useState<UsuarioCompleto | null>(null);
 
   const setToken = useUserStore((state) => state.setToken);
   const menuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setUsuario(usuarioSimulado);
+    const fetch = async () => {
+      const data = await httpGet<UsuarioCompleto>("/usuarios/" + UserId);
+      if (data) {
+        data.avatar = "/vite.svg";
+        setUsuario(data);
+        console.log(data);
+      }
+    };
+
+    fetch();
   }, []);
 
   useEffect(() => {
@@ -62,11 +74,14 @@ export const UserPopUpComponent = () => {
       {isOpen && usuario && (
         <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg p-4 z-50">
           <div className="flex items-center space-x-3">
-            <img
-              src={usuario.avatar}
-              alt="avatar"
-              className="w-12 h-12 rounded-full border border-gray-300"
-            />
+            {usuario.avatar && (
+              <img
+                src={usuario.avatar}
+                alt="avatar"
+                className="w-12 h-12 rounded-full border border-gray-300"
+              />
+            )}
+
             <div>
               <h2 className="text-lg font-semibold">{usuario.usuario}</h2>
               <p className="text-sm text-gray-500">{usuario.email}</p>
