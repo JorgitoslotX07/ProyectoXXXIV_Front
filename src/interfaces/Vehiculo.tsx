@@ -50,3 +50,12 @@ export const Vehiculo: Vehiculo = {
   tipo: "TURISMO",
   esAccesible: false,
 };
+
+export type FiltroVehiculo =
+  | "marca"
+  | "modelo"
+  | "estado"
+  | "localidad"
+  | "esAccesible"
+  | "autonomiaMin"
+  | "autonomiaMax";

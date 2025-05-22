@@ -15,33 +15,13 @@ export const SearchFastComponent: FC<HomePageProps> = ({
   const [toDate, setToDate] = useState<string>(today);
   const searchFast: SearchFast = SearchFast();
   const [location, setLocation] = useState<string>("");
-  // const [optionsLocation, setOptionsLocation] = useState<Array<string>>([]);
-  const optionsLocation = [
-    "Madrid",
-    "Barcelona",
-    "Valencia",
-    "Sevilla",
-    "Bilbao",
-    "Zaragoza",
-    "Granada",
-    "Málaga",
-    "Toledo",
-    "Córdoba",
-    "Valladolid",
-    "Salamanca",
-    "Oviedo",
-    "Gijón",
-    "Pamplona",
-    "San Sebastián",
-    "Alicante",
-    "Murcia",
-  ];
+  const [optionsLocation, setOptionsLocation] = useState<Array<string>>([]);
 
   useEffect(() => {
     const fetch = async () => {
-      const data = await httpGet<Array<string>>("/vehiculos/ubicaciones");
+      const data = await httpGet<Array<string>>("/vehiculos/localidades");
       if (data) {
-        // setOptionsLocation(data);
+        setOptionsLocation(data);
       }
     };
 
