@@ -16,3 +16,7 @@ export interface UbicacionVehiculo {
   latitud: number;
   longitud: number;
 }
+
+export interface Vehiculo extends DatosVehiculo {
+  localidad: string;
+}

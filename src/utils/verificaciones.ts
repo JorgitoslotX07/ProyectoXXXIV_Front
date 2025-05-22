@@ -8,11 +8,14 @@ export function validateMail(mail: string): boolean {
 
 export function validateName(name: string): boolean {
   // const nameRegex = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]{2,50}$/;
-  const nameRegex = /^[\p{L}\p{M}\s\W\d]{2,50}$/u;
+  const nameRegex = /^[\p{L}\p{M}\s\W\d]{3,25}$/u;
   return nameRegex.test(name);
 }
 export function validatePassword(pass: string): boolean {
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+  // const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+  const passwordRegex =
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[#?!@$%^&*-]).{8,}$/;
+
   // (mínimo 8 caracteres, al menos una mayúscula, una minúscula, un número y un símbolo)
   return passwordRegex.test(pass);
 }
@@ -48,11 +51,12 @@ export function valodateForm(form: Usuario) {
   const validates = [];
 
   validates.push(!validateName(form.usuario));
-  validates.push(!validateMail(form.email));
   validates.push(!validatePassword(form.contrasenya));
+  validates.push(!validateMail(form.email));
 
   let verifi = true;
   validates.forEach((item) => {
+    console.log(item);
     if (item) {
       verifi = false;
     }
@@ -68,47 +72,47 @@ export async function verificarUsuario(user: Usuario): Promise<boolean | null> {
   });
 }
 
-// export const usuarios = [
-//   {
-//     name: "Lucía González",
-//     email: "lucia.gonzalez@example.com",
-//     password: "Lucia1234!",
-//     fechaNacimiento: "1995-04-22",
-//     dni: "12345678Z",
-//   },
-//   {
-//     name: "Carlos Pérez",
-//     email: "carlos.perez@example.com",
-//     password: "Carlos@2023",
-//     fechaNacimiento: "1988-10-11",
-//     dni: "87654321X",
-//   },
-//   {
-//     name: "Ana Torres",
-//     email: "ana.torres@example.com",
-//     password: "Ana_T0rr3s",
-//     fechaNacimiento: "2000-07-30",
-//     dni: "45612378L",
-//   },
-//   {
-//     name: "Miguel Rodríguez",
-//     email: "miguel.rodriguez@example.com",
-//     password: "MiguelR#55",
-//     fechaNacimiento: "1992-01-18",
-//     dni: "32165498M",
-//   },
-//   {
-//     name: "Toni Jorda Leon",
-//     email: "tjorda@gmail.com",
-//     password: "Servidor.18",
-//     fechaNacimiento: "1999-12-05",
-//     dni: "15975346P",
-//   },
-//   {
-//     name: "Dani Sánchez Aránega",
-//     email: "danisancheza@gmail.com",
-//     password: "Developer.01",
-//     fechaNacimiento: "1998-02-21",
-//     dni: "39963548J",
-//   },
-// ];
+export const usuarios = [
+  {
+    name: "Lucía González",
+    email: "lucia.gonzalez@example.com",
+    password: "Lucia1234!",
+    fechaNacimiento: "1995-04-22",
+    dni: "12345678Z",
+  },
+  {
+    name: "Carlos Pérez",
+    email: "carlos.perez@example.com",
+    password: "Carlos@2023",
+    fechaNacimiento: "1988-10-11",
+    dni: "87654321X",
+  },
+  {
+    name: "Ana Torres",
+    email: "ana.torres@example.com",
+    password: "Ana_T0rr3s",
+    fechaNacimiento: "2000-07-30",
+    dni: "45612378L",
+  },
+  {
+    name: "Miguel Rodríguez",
+    email: "miguel.rodriguez@example.com",
+    password: "MiguelR#55",
+    fechaNacimiento: "1992-01-18",
+    dni: "32165498M",
+  },
+  {
+    name: "Toni Jorda Leon",
+    email: "tjorda@gmail.com",
+    password: "Servidor.18",
+    fechaNacimiento: "1999-12-05",
+    dni: "15975346P",
+  },
+  {
+    name: "Dani Sánchez Aránega",
+    email: "danisancheza@gmail.com",
+    password: "Developer.01",
+    fechaNacimiento: "1998-02-21",
+    dni: "39963548J",
+  },
+];

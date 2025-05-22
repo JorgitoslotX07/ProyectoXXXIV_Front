@@ -3,11 +3,7 @@ import type { UserData } from "../../interfaces/UserData";
 import { setLoginCookiesAndRedirect } from "../../utils/cookisLogin";
 import { useUserStore } from "../../utils/userStore";
 import { useNavigate } from "react-router-dom";
-import {
-  valodateForm,
-  verificarUsuario,
-  hashPassword,
-} from "../../utils/verificaciones";
+import { valodateForm, verificarUsuario } from "../../utils/verificaciones";
 import { Usuario, UsuarioToken } from "../../interfaces/Usuario";
 import { httpPost } from "../../utils/apiService";
 
@@ -35,13 +31,11 @@ export const RegisterComponent = () => {
 
         // const miToken: string = generateToken(userToken);
 
-        const pass: string = await hashPassword(form.contrasenya);
-
         const userData: UserData = {
-          token: form.email + ":" + pass,
+          token: form.email + ":" + form.contrasenya,
         };
 
-        setToken(form.email + ":" + pass);
+        setToken(form.email + ":" + form.contrasenya);
 
         setLoginCookiesAndRedirect(userData);
 

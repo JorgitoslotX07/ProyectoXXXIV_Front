@@ -6,7 +6,6 @@ import { HomePage } from "./pages/HomePage/HomePage";
 import { NavbarComponent } from "./components/NavbarComponent/NavbarComponent";
 import { FooterComponent } from "./components/FooterComponent/FooterComponent";
 import { CatalogPage } from "./pages/CatalogPage/CatalogPage";
-import { UserDashboard } from "./components/UserMenuComponent/UserPanelComponent";
 import { CarDetailPage } from "./pages/CarDetailPage/CarDetailPage";
 import { RegistroPage } from "./pages/RegisterPage/RegisterPage";
 import { LoginComponent } from "./components/LoginComponent/LoginComponent";
@@ -15,6 +14,7 @@ import Cookies from "js-cookie";
 import { useUserStore } from "./utils/userStore";
 import { HomePruPage } from "./pages/HomePruPage.tsx/HomePruPage";
 import { EditarPerfilPage } from "./pages/EditarPerfilPage/EditarPerfilPage";
+import { UserMenuPage } from "./pages/UserMenuPage/UserMenuPage";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -56,7 +56,7 @@ function App() {
         <Route path="/catalog" element={<CatalogPage />} />
         <Route path="/catalog/carDetail" element={<CarDetailPage />} />
         <Route path="/map" element={<MapPage />} />
-        <Route path="/panel" element={<UserDashboard />} />
+        <Route path="/panel" element={<UserMenuPage />} />
         <Route
           path="/pru"
           element={

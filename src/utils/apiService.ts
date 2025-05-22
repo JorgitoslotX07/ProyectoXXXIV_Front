@@ -57,3 +57,19 @@ export async function httpDelete<T>(ruta: string): Promise<T | null> {
     return null;
   }
 }
+
+export async function getCityFromCoords(lat: string, lon: string) {
+  const response = await fetch(
+    `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`
+  );
+  const data = await response.json();
+  console.log(data.address);
+  console.log("hal");
+
+  return (
+    data.address.city ||
+    data.address.town ||
+    data.address.village ||
+    data.address.county
+  );
+}

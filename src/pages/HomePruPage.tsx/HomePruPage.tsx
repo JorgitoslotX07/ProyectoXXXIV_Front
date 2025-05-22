@@ -9,13 +9,6 @@ export const HomePruPage: FC<HomePageProps> = ({
 }) => {
   return (
     <>
-      {/* <div className="w-full h-40 relative">
-        <img
-          src="/MapClick.png"
-          alt="Mapa de ubicación"
-          className="object-cover object-top w-full h-full"
-        />
-      </div> */}
       <div className="w-full h-40 relative group cursor-pointer overflow-hidden">
         <img
           src="/MapClick.png"
@@ -23,7 +16,6 @@ export const HomePruPage: FC<HomePageProps> = ({
           className="object-cover object-top w-full h-full transition-opacity duration-300"
         />
 
-        {/* Overlay con mensaje */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 hover:opacity-60 transition-opacity duration-300 bg-black bg-opacity-50">
           <a
             href="/nueva-pagina"
@@ -38,13 +30,6 @@ export const HomePruPage: FC<HomePageProps> = ({
         onClickOptionsPerfil={onClickOptionsPerfil}
         onLoginClick={onLoginClick}
       />
-      {/* <div className="mt-20 px-10">
-        <NoticiasComponent />
-      </div>
-
-      <div className="mt-20 px-10">
-        <CochesPromoComponent />
-      </div> */}
     </>
   );
 };

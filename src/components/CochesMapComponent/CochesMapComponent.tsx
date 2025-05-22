@@ -44,7 +44,7 @@ const CochesMapComponent = () => {
   const [direccionDetectada, setDireccionDetectada] = useState<string | null>(
     null
   );
-  const [ubicaciones] = useState<UbicacionVehiculo[]>([]); // , setUbicaciones
+  const [ubicaciones, setUbicaciones] = useState<UbicacionVehiculo[]>([]); // , setUbicaciones
   const [vehiculoSeleccionado, setVehiculoSeleccionado] =
     useState<DatosVehiculo | null>(null);
   const [mostrarTarjeta, setMostrarTarjeta] = useState(false);
@@ -85,7 +85,32 @@ const CochesMapComponent = () => {
         console.warn("No se pudo obtener la ubicación del usuario.");
       }
     );
-  });
+
+    fetch("http://192.168.198.105:8080/v1/vehiculos/ubicaciones")
+      .then((res) => res.json())
+      .then((data) => setUbicaciones(data))
+      .catch((err) => console.error("Error al cargar ubicaciones:", err));
+  }, []);
+
+  const handleClickVehiculo = async (id: number, coords: LatLngTuple) => {
+    setMostrarTarjeta(false);
+    setVehiculoSeleccionado(null);
+
+    if (mapRef.current) {
+      mapRef.current.flyTo(coords, 17, { duration: 1.2 });
+    }
+
+    try {
+      const res = await fetch(`http://192.168.198.105:8080/v1/vehiculos/${id}`);
+      const data = await res.json();
+      setTimeout(() => {
+        setVehiculoSeleccionado(data);
+        setMostrarTarjeta(true);
+      }, 400);
+    } catch (err) {
+      console.error("Error al obtener vehículo:", err);
+    }
+  };
 
   return (
     <div className="relative">
@@ -177,11 +202,13 @@ const CochesMapComponent = () => {
               key={vehiculo.id}
               position={[vehiculo.latitud, vehiculo.longitud] as LatLngTuple}
               icon={crearIconoCoche(vehiculoSeleccionado?.id === vehiculo.id)}
-              eventHandlers={
-                {
-                  // click: () => handleClickVehiculo(vehiculo.id, [vehiculo.latitud, vehiculo.longitud]),
-                }
-              }
+              eventHandlers={{
+                click: () =>
+                  handleClickVehiculo(vehiculo.id, [
+                    vehiculo.latitud,
+                    vehiculo.longitud,
+                  ]),
+              }}
             />
           ))}
         </MarkerClusterGroup>
