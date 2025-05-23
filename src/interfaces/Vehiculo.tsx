@@ -21,7 +21,7 @@ export interface Vehiculo {
   id: number;
   marca: string;
   modelo: string;
-  imagen: string;
+  imagen: string | null;
   kilometraje: number;
   ultimaRevision: string;
   autonomia: number;
@@ -58,4 +58,5 @@ export type FiltroVehiculo =
   | "localidad"
   | "esAccesible"
   | "autonomiaMin"
-  | "autonomiaMax";
+  | "autonomiaMax"
+  | "tipo";

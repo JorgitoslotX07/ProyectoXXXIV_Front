@@ -1,8 +1,20 @@
+import type { FiltroVehiculo } from "./Vehiculo";
 
-export interface GeneredFilterComponentProp {
+export interface FilterOption {
+    label: string;
+    value: string;
+}
+
+
+export type FilterCategory = {
+    label: string;
+    name: FiltroVehiculo;
+    options: FilterOption[];
+}
+
+
+export interface FiltersProps {
     index: number;
-    filter: {
-        label: string;
-        options: Array<string>;
-    };
+    filter: FilterCategory;
+    onFilterChange: (clave: FiltroVehiculo, valor: string | number | boolean) => void;
 }
