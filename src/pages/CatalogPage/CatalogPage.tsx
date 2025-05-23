@@ -6,8 +6,7 @@ import { PageVehiculos, type PageProps } from "../../interfaces/PageProps";
 import type { FiltroVehiculo, Vehiculo } from "../../interfaces/Vehiculo";
 import { httpGet } from "../../utils/apiService";
 
-
-export const mockPageVehiculos: PageProps<Vehiculo> = {
+const mockPageVehiculos: PageProps<Vehiculo> = {
   totalPages: 1,
   totalElements: 20,
   first: true,
@@ -353,108 +352,82 @@ export const mockPageVehiculos: PageProps<Vehiculo> = {
       puertas: "CINCO",
       tipo: "TURISMO",
       esAccesible: true,
-    }
-  ]
+    },
+  ],
 };
 
-
 export const CatalogPage: FC = () => {
-
   const [vehiculos, setVehiculos] =
-    useState<PageProps<Vehiculo>>(PageVehiculos);
-  
+    // useState<PageProps<Vehiculo>>(PageVehiculos);
+    useState<PageProps<Vehiculo>>(mockPageVehiculos);
+
+  const [vehiculosFiltrados, setVehiculosFiltrados] =
+    // useState<PageProps<Vehiculo>>(PageVehiculos);
+    useState<PageProps<Vehiculo>>(mockPageVehiculos);
+
+  const [filtrosActivos, setFiltrosActivos] = useState<
+    Partial<Record<FiltroVehiculo, string | number | boolean>>
+  >({});
+
   useEffect(() => {
-    const fetch = async () => {
-      const data = await httpGet<PageProps<Vehiculo>>("/vehiculos");
-      if (data) {
-        // setVehiculos(data);
-        console.log(data);
-
-      }
-    };
-
-    fetch();
-    setVehiculos(
-      mockPageVehiculos
-    );
+    // const fetch = async () => {
+    //   const data = await httpGet<PageProps<Vehiculo>>("/vehiculos");
+    //   if (data) {
+    //     // setVehiculos(data);
+    //     console.log(data);
+    //   }
+    // };
+    // fetch();
   }, []);
 
-  // function filtrarVehiculosPorClave(
-  //   clave: FiltroVehiculo,
-  //   valor: string | boolean | number
-  // ) {
-  //   console.log("clave", clave)
-  //   console.log("valor", valor)
-
-  //   switch (clave) {
-  //     case "marca":
-  //       vehiculos.content = vehiculos.content.filter((v) =>
-  //         v.marca.toLowerCase().includes((valor as string).toLowerCase())
-  //       );
-  //       break;
-  //     case "modelo":
-  //       vehiculos.content = vehiculos.content.filter((v) =>
-  //         v.modelo.toLowerCase().includes((valor as string).toLowerCase())
-  //       );
-  //       break;
-  //     case "estado":
-  //       vehiculos.content = vehiculos.content.filter(
-  //         (v) => v.estado.toLowerCase() === (valor as string).toLowerCase()
-  //       );
-  //       break;
-  //     case "localidad":
-  //       vehiculos.content = vehiculos.content.filter((v) =>
-  //         v.localidad.toLowerCase().includes((valor as string).toLowerCase())
-  //       );
-  //       break;
-  //     case "esAccesible":
-  //       vehiculos.content = vehiculos.content.filter((v) => v.esAccesible === valor);
-  //       break;
-  //     case "autonomiaMin":
-  //       vehiculos.content = vehiculos.content.filter((v) => v.autonomia >= (valor as number));
-  //       break;
-  //     case "autonomiaMax":
-  //       vehiculos.content = vehiculos.content.filter((v) => v.autonomia <= (valor as number));
-  //       break;
-  //     default:
-  //       break;
-  //     // setVehiculos vehiculos.content;
-  //   }
-  // }
-
-  function filtrarVehiculosPorClave(
+  function actualizarFiltro(
     clave: FiltroVehiculo,
-    valor: string | boolean | number
+    valor: string | number | boolean
   ) {
-    const contenidoFiltrado = vehiculos.content.filter((v) => {
-      switch (clave) {
-        case "marca":
-          return v.marca.toLowerCase().includes((valor as string).toLowerCase());
-        case "modelo":
-          return v.modelo.toLowerCase().includes((valor as string).toLowerCase());
-        case "estado":
-          return v.estado.toLowerCase() === (valor as string).toLowerCase();
-        case "localidad":
-          return v.localidad.toLowerCase().includes((valor as string).toLowerCase());
-        case "esAccesible":
-          return v.esAccesible === (valor === "true" || valor === true);
-        case "autonomiaMin":
-          return v.autonomia >= (valor as number);
-        case "autonomiaMax":
-          return v.autonomia <= (valor as number);
-        default:
-          return true;
-      }
+    // Actualizar el estado de filtros activos
+    const nuevosFiltros = {
+      ...filtrosActivos,
+      [clave]: valor,
+    };
+
+    // Si el filtro está vacío (""), lo eliminamos
+    if (valor === "" || valor === null) {
+      delete nuevosFiltros[clave];
+    }
+
+    setFiltrosActivos(nuevosFiltros);
+
+    // Aplicar todos los filtros sobre los vehículos originales
+    const contenidoFiltrado = vehiculos.content.filter((vehiculo) => {
+      return Object.entries(nuevosFiltros).every(([clave, valor]) => {
+        switch (clave as FiltroVehiculo) {
+          case "marca":
+          case "modelo":
+          case "estado":
+          case "localidad":
+            return vehiculo[clave as keyof Vehiculo]
+              .toString()
+              .toLowerCase()
+              .includes((valor as string).toLowerCase());
+          case "esAccesible":
+            return (
+              vehiculo.esAccesible === (valor === true || valor === "true")
+            );
+          case "autonomiaMin":
+            return vehiculo.autonomia >= (valor as number);
+          case "autonomiaMax":
+            return vehiculo.autonomia <= (valor as number);
+          default:
+            return true;
+        }
+      });
     });
-  
-    // Crear una copia de todo el objeto con el nuevo contenido
-    setVehiculos({
+
+    setVehiculosFiltrados({
       ...vehiculos,
       content: contenidoFiltrado,
     });
   }
-  
-
 
   return (
     <>
@@ -463,11 +436,14 @@ export const CatalogPage: FC = () => {
       </div>
 
       <div className="mt-10 px-10">
-        <FiltrersCatalogComponent onFilterChange={filtrarVehiculosPorClave} vehiculos={vehiculos}/>
+        <FiltrersCatalogComponent
+          onFilterChange={actualizarFiltro}
+          vehiculos={vehiculos}
+        />
       </div>
 
       <div className="mt-3 px-10">
-        <ProductosCatalogComponent vehiculos={vehiculos} />
+        <ProductosCatalogComponent vehiculos={vehiculosFiltrados} />
       </div>
       {/* 
       <div className="mt-20 px-10">
