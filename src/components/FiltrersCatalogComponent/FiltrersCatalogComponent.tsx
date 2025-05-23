@@ -1,30 +1,67 @@
 import type { FC } from "react";
 import { GeneredFilterComponent } from "../GeneredFilterComponent/GeneredFilterComponent";
+import type { FiltrersCatalog } from "../../interfaces/FiltrersCatalogProps";
+import type {
+  FilterCategory,
+  FilterOption,
+} from "../../interfaces/GeneredFilterComponentProp";
+import type { Vehiculo } from "../../interfaces/Vehiculo";
 
-export const FiltrersCatalogComponent: FC = () => {
-  const filters = [
-    {
-      label: "Ordenar Por",
-      options: [
-        "Nuevos",
-        "Precio: De bajo a alto",
-        "Precio: De alto a bajo",
-        "Más Popular",
-      ],
-    },
-    {
-      label: "Categoria",
-      options: ["Turismo", "SUV", "Monovolumen", "Minicoche"],
-    },
-    {
-      label: "Tiempo de Combustible",
-      options: ["Gasolina", "Diesel", "Electrico", "Hibrido"],
-    },
-    {
-      label: "Marca",
-      options: ["Toyota", "Ford", "BMW", "Tesla", "Mercedes", "Audi"],
-    },
-  ];
+export const FiltrersCatalogComponent: FC<FiltrersCatalog> = ({
+  onFilterChange,
+  vehiculos,
+}) => {
+  const filtrosDinamicos = (vehiculos: Vehiculo[]): FilterCategory[] => {
+    return [
+      {
+        label: "Marca",
+        name: "marca",
+        options: obtenerOpcionesUnicas(vehiculos, "marca"),
+      },
+      {
+        label: "Modelo",
+        name: "modelo",
+        options: obtenerOpcionesUnicas(vehiculos, "modelo"),
+      },
+      {
+        label: "Tipo",
+        name: "tipo",
+        options: obtenerOpcionesUnicas(vehiculos, "tipo"),
+      },
+      {
+        label: "Estado",
+        name: "estado",
+        options: obtenerOpcionesUnicas(vehiculos, "estado"),
+      },
+      {
+        label: "Localidad",
+        name: "localidad",
+        options: obtenerOpcionesUnicas(vehiculos, "localidad"),
+      },
+      {
+        label: "Accesibilidad",
+        name: "esAccesible",
+        options: [
+          { label: "Sí", value: "true" },
+          { label: "No", value: "false" },
+        ],
+      },
+    ];
+  };
+
+  function obtenerOpcionesUnicas<T>(
+    vehiculos: T[],
+    campo: keyof T
+  ): FilterOption[] {
+    const valores = vehiculos.map((v) => String(v[campo]));
+    const unicos = Array.from(new Set(valores));
+    return unicos.map((valor) => ({
+      label: valor,
+      value: valor,
+    }));
+  }
+
+  const filtros: FilterCategory[] = filtrosDinamicos(vehiculos.content);
 
   return (
     <>
@@ -34,8 +71,13 @@ export const FiltrersCatalogComponent: FC = () => {
         </h3> */}
 
         <div className="flex flex-wrap gap-4">
-          {filters.map((filter, index) => (
-            <GeneredFilterComponent key={index} index={index} filter={filter} />
+          {filtros.map((filter, index) => (
+            <GeneredFilterComponent
+              key={index}
+              index={index}
+              filter={filter}
+              onFilterChange={onFilterChange}
+            />
           ))}
         </div>
       </div>

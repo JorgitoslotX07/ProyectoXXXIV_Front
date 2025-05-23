@@ -21,7 +21,7 @@ export interface Vehiculo {
   id: number;
   marca: string;
   modelo: string;
-  imagen: string;
+  imagen: string | null;
   kilometraje: number;
   ultimaRevision: string;
   autonomia: number;
@@ -50,3 +50,13 @@ export const Vehiculo: Vehiculo = {
   tipo: "TURISMO",
   esAccesible: false,
 };
+
+export type FiltroVehiculo =
+  | "marca"
+  | "modelo"
+  | "estado"
+  | "localidad"
+  | "esAccesible"
+  | "autonomiaMin"
+  | "autonomiaMax"
+  | "tipo";

@@ -1,30 +1,47 @@
 import type { FC } from "react";
-import type { GeneredFilterComponentProp } from "../../interfaces/GeneredFilterComponentProp";
+import type { FiltersProps } from "../../interfaces/GeneredFilterComponentProp";
+import Select from "react-select";
+import type { FiltroVehiculo } from "../../interfaces/Vehiculo";
 
-export const GeneredFilterComponent: FC<GeneredFilterComponentProp> = ({index, filter}) => {   
-   
-
+export const GeneredFilterComponent: FC<FiltersProps> = ({
+  index,
+  filter,
+  onFilterChange,
+}) => {
   return (
     <>
-        <div className="flex flex-col w-44">
-            <label
-                htmlFor={`filter-${index}`}
-                className="text-sm font-medium text-gray-700 mb-1"
-            >
-                {filter.label}
-            </label>
-            <select
-                id={`filter-${index}`}
-                className="px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-gray-300 focus:border-gray-400"
-            >
-                {filter.options.map((option, i) => (
-                <option key={i} value={option}>
-                    {option}
-                </option>
-                ))}
-            </select>
-        </div>
-                
+      <div className="flex flex-col w-44">
+        <label
+          htmlFor={`filter-${index}`}
+          className="text-sm font-medium text-gray-700 mb-1"
+        >
+          {filter.label}
+        </label>
+        <Select
+          inputId={`filter-${index}`}
+          options={filter.options}
+          onChange={(selected) =>
+            onFilterChange(filter.name as FiltroVehiculo, selected?.value ?? "")
+          }
+          isClearable
+          placeholder={`${filter.label}...`}
+          className="text-sm"
+          styles={{
+            control: (base) => ({
+              ...base,
+              borderColor: "#D1D5DB",
+              boxShadow: "none",
+              "&:hover": {
+                borderColor: "#9CA3AF",
+              },
+            }),
+            menu: (base) => ({
+              ...base,
+              zIndex: 50,
+            }),
+          }}
+        />
+      </div>
     </>
   );
 };

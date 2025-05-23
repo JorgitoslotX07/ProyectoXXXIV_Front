@@ -15,6 +15,7 @@ import { useUserStore } from "./utils/userStore";
 import { HomePruPage } from "./pages/HomePruPage.tsx/HomePruPage";
 import { EditarPerfilPage } from "./pages/EditarPerfilPage/EditarPerfilPage";
 import { UserMenuPage } from "./pages/UserMenuPage/UserMenuPage";
+import { NoticiaDetailPage } from "./pages/NoticiasDetailPage/NoticiasDetailPage";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -57,6 +58,7 @@ function App() {
         <Route path="/catalog/carDetail" element={<CarDetailPage />} />
         <Route path="/map" element={<MapPage />} />
         <Route path="/panel" element={<UserMenuPage />} />
+        <Route path="/noticia" element={<NoticiaDetailPage />} />
         <Route
           path="/pru"
           element={

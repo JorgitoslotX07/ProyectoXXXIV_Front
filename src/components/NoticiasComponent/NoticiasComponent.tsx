@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const NoticiasComponent: FC = () => {
   const noticiasMock = [
@@ -33,7 +34,10 @@ export const NoticiasComponent: FC = () => {
       descripcion: "El car sharing reduce 1 tonelada de CO₂ por usuario al año.",
     }
   ];
-
+  const navigate = useNavigate();
+  const verNoticia = (noticia: typeof noticiasMock[0]) => {
+    navigate("/noticia", { state: noticia });
+  };
   return (
     <div className="px-4">
       <h2 className="text-2xl font-semibold mb-4">Noticias sobre car sharing</h2>
@@ -42,7 +46,8 @@ export const NoticiasComponent: FC = () => {
         {noticiasMock.map((item) => (
           <div
             key={item.id}
-            className="w-48 flex-shrink-0 bg-gray-100 rounded-lg p-4 text-center shadow hover:shadow-md transition"
+            onClick={() => verNoticia(item)}
+            className="cursor-pointer w-48 flex-shrink-0 bg-gray-100 rounded-lg p-4 text-center shadow hover:shadow-md transition"
           >
             <img
               src={item.imagen}
