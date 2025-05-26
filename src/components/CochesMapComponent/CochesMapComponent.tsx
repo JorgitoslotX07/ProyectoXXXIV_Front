@@ -47,6 +47,7 @@ const CochesMapComponent = () => {
   const [posicionInicialMapa, setPosicionInicialMapa] = useState<LatLngTuple>([41.1189, 1.2445]);
   const [posicionUsuario, setPosicionUsuario] = useState<LatLngTuple | null>(null);
   const [direccionDetectada, setDireccionDetectada] = useState<string | null>(null);
+  const [mostrarUbicacionUsuario, setMostrarUbicacionUsuario] = useState(false);
   const mapRef = useRef<LeafletMap | null>(null);
 
   const centrarMapa = (coords: LatLngTuple, zoom: number = 13) => {
@@ -54,6 +55,7 @@ const CochesMapComponent = () => {
       mapRef.current.flyTo(coords, zoom, { duration: 2 });
     }
   };
+
   const volverAVistaCiudad = () => {
     const destino = posicionInicialMapa || ciudades[0].coords;
     centrarMapa(destino, 13);
@@ -82,12 +84,10 @@ const CochesMapComponent = () => {
         });
 
         setPosicionInicialMapa(ciudadCercana.coords);
-        centrarMapa(ciudadCercana.coords);
+        setMostrarUbicacionUsuario(true);
 
         try {
-          const res = await fetch(
-            `https://nominatim.openstreetmap.org/reverse?lat=${coords[0]}&lon=${coords[1]}&format=json`
-          );
+          const res = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${coords[0]}&lon=${coords[1]}&format=json`);
           const data = await res.json();
           setDireccionDetectada(data.display_name);
         } catch (err) {
@@ -101,19 +101,26 @@ const CochesMapComponent = () => {
     );
   }, []);
 
-  const actualizarFiltro = (
-    clave: string,
-    valor: string | number | boolean
-  ) => {
-    const nuevosFiltros = {
-      ...filtrosActivos,
-      [clave]: valor,
-    };
-
-    if (valor === "" || valor === null) {
-      delete nuevosFiltros[clave];
+  // Fly cuando ya hay mapa y posición
+  useEffect(() => {
+    if (mapRef.current && posicionInicialMapa) {
+      centrarMapa(posicionInicialMapa);
     }
+  }, [posicionInicialMapa]);
 
+ 
+  useEffect(() => {
+    // if (mostrarUbicacionUsuario) {
+    //   const timer = setTimeout(() => {
+    //     setMostrarUbicacionUsuario(false);    // Ocultar marcador del usuario tras 10s
+    //   }, 10000);
+    //   return () => clearTimeout(timer);
+    // }
+  }, [mostrarUbicacionUsuario]);
+
+  const actualizarFiltro = (clave: string, valor: string | number | boolean) => {
+    const nuevosFiltros = { ...filtrosActivos, [clave]: valor };
+    if (valor === "" || valor === null) delete nuevosFiltros[clave];
     setFiltrosActivos(nuevosFiltros);
 
     const contenidoFiltrado = vehiculos.filter((vehiculo) => {
@@ -127,28 +134,19 @@ const CochesMapComponent = () => {
               ? propiedad.toLowerCase().includes((valor as string).toLowerCase())
               : false;
           case "esAccesible":
-            return (
-              vehiculo.esAccesible === (valor === true || valor === "true")
-            );
+            return vehiculo.esAccesible === (valor === true || valor === "true");
           default:
             return true;
         }
       });
     });
+
     setVehiculosFiltrados(contenidoFiltrado);
 
-    // Centrar el mapa si el filtro es una ciudad conocida
     if (clave === "localidad") {
-      const normalizar = (texto: string) =>
-        texto.toLowerCase().replace(/[\s-]/g, "");
-
-      const ciudad = ciudades.find((c) =>
-        normalizar(c.nombre) === normalizar(valor as string)
-      );
-
-      if (ciudad) {
-        centrarMapa(ciudad.coords, 13);
-      }
+      const normalizar = (t: string) => t.toLowerCase().replace(/[\s-_]/g, "");
+      const ciudad = ciudades.find((c) => normalizar(c.nombre) === normalizar(valor as string));
+      if (ciudad) centrarMapa(ciudad.coords, 13);
     }
   };
 
@@ -161,7 +159,6 @@ const CochesMapComponent = () => {
       const res = await fetch(`http://192.168.198.105:8080/v1/vehiculos/${id}`);
       const data = await res.json();
       setTimeout(() => {
-        console.log("Vehículo seleccionado:", data);
         setVehiculoSeleccionado(data);
         setMostrarTarjeta(true);
       }, 400);
@@ -180,6 +177,7 @@ const CochesMapComponent = () => {
             <span className="animate-pulse text-gray-500">📡 Detectando ubicación...</span>
           ) : null}
         </div>
+
         <MapContainer
           className="w-full h-[38em] min-h-[150px] z-10"
           center={posicionInicialMapa}
@@ -226,19 +224,32 @@ const CochesMapComponent = () => {
               <Marker
                 key={vehiculo.id}
                 position={[vehiculo.latitud, vehiculo.longitud]}
-                icon={crearIconoCoche(
-                  Number(vehiculoSeleccionado?.id) === Number(vehiculo.id)
-                )}
+                icon={crearIconoCoche(Number(vehiculoSeleccionado?.id) === vehiculo.id)}
                 eventHandlers={{
-                  click: () =>
-                    handleClickVehiculo(vehiculo.id, [
-                      vehiculo.latitud,
-                      vehiculo.longitud,
-                    ]),
+                  click: () => handleClickVehiculo(vehiculo.id, [vehiculo.latitud, vehiculo.longitud]),
                 }}
               />
             ))}
           </MarkerClusterGroup>
+
+          {mostrarUbicacionUsuario && posicionUsuario && (
+            <Marker
+              position={posicionUsuario}
+              icon={L.divIcon({
+                className: "",
+                html: `
+                  <div style="transform: translate(-50%, -50%);">
+                    <svg width="24" height="24" fill="#10b981" xmlns="http://www.w3.org/2000/svg">
+                      <circle cx="12" cy="12" r="10" fill="#10b981" />
+                      <circle cx="12" cy="12" r="4" fill="white" />
+                    </svg>
+                  </div>
+                `,
+                iconSize: [24, 24],
+                iconAnchor: [12, 12],
+              })}
+            />
+          )}
         </MapContainer>
 
         {mostrarTarjeta && vehiculoSeleccionado && (
@@ -268,15 +279,12 @@ const CochesMapComponent = () => {
             </p>
             <div className="border-t border-gray-200 pt-2 text-sm">
               <p className="text-gray-600">🚗 Estado: {vehiculoSeleccionado.estado}</p>
-              <p className="text-gray-600">
-                📍 Lat: {vehiculoSeleccionado.latitud}, Lng: {vehiculoSeleccionado.longitud}
-              </p>
+              <p className="text-gray-600">📍 Lat: {vehiculoSeleccionado.latitud}, Lng: {vehiculoSeleccionado.longitud}</p>
             </div>
             <button className="mt-4 w-full bg-green-600 text-white font-bold py-2 rounded hover:bg-green-700 transition">
               Más detalles
             </button>
           </div>
-
         )}
       </div>
 
