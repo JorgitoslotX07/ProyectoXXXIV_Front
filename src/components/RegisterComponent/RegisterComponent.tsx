@@ -1,14 +1,13 @@
 import { useState } from "react";
 import type { UserData } from "../../interfaces/UserData";
 import { setLoginCookiesAndRedirect } from "../../utils/cookisLogin";
-import { useUserStore } from "../../utils/userStore";
 import { useNavigate } from "react-router-dom";
 import { valodateForm, verificarUsuario } from "../../utils/verificaciones";
-import { Usuario, UsuarioToken } from "../../interfaces/Usuario";
+import { Usuario } from "../../interfaces/Usuario";
 import { httpPost } from "../../utils/apiService";
 
 export const RegisterComponent = () => {
-  const setToken = useUserStore((state) => state.setToken);
+  // const setToken = useUserStore((state) => state.setToken);
   const navigate = useNavigate();
 
   const [form, setForm] = useState<Usuario>(Usuario());
@@ -20,30 +19,22 @@ export const RegisterComponent = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log(form);
-    if (valodateForm(form) && !(await verificarUsuario(form))) {
-      console.log("Registrando:", form);
-
+    if (valodateForm(form)) {
       await httpPost("/usuarios", form);
 
-      try {
-        const userToken: UsuarioToken = await UsuarioToken(form);
-        console.log("Token generado:", userToken);
+      const token: UserData | null = await verificarUsuario(form);
+      console.log(token);
 
-        // const miToken: string = generateToken(userToken);
+      if (token) {
+        // setToken(token);
 
-        const userData: UserData = {
-          token: form.email + ":" + form.contrasenya,
-        };
-
-        setToken(form.email + ":" + form.contrasenya);
-
-        setLoginCookiesAndRedirect(userData);
+        setLoginCookiesAndRedirect(token);
 
         navigate("/");
-      } catch (error) {
-        console.error("Error al generar el token:", error);
-        // mostrarErrorAlUsuario("No se pudo generar el token. Intenta de nuevo.");
+      } else {
+        console.error("Error al generar el token:");
       }
+      // mostrarErrorAlUsuario("No se pudo generar el token. Intenta de nuevo.");
     }
   };
 
@@ -100,7 +91,7 @@ export const RegisterComponent = () => {
     >
       <h2
         className="text-2xl font-bold mb-6 text-center"
-        style={{ color: '#C4B5FD' }}
+        style={{ color: "#C4B5FD" }}
       >
         Registro de Usuario
       </h2>
@@ -142,6 +133,5 @@ export const RegisterComponent = () => {
         Crear Cuenta
       </button>
     </form>
-
   );
 };

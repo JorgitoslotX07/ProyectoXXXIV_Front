@@ -1,19 +1,23 @@
 import { useEffect, useState } from "react";
 
-export function themeMode() {
-  const [darkMode, setDarkMode] = useState<boolean>(() => {
-    if (typeof window !== "undefined") {
-      return localStorage.getItem("theme") === "dark";
-    }
-    return false;
-  });
+export function useThemeMode() {
+  const [darkMode, setDarkMode] = useState<boolean>(false);
 
   useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      setDarkMode(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    const root = document.documentElement;
+
     if (darkMode) {
-      document.documentElement.classList.add("dark");
+      root.classList.add("dark");
       localStorage.setItem("theme", "dark");
     } else {
-      document.documentElement.classList.remove("dark");
+      root.classList.remove("dark");
       localStorage.setItem("theme", "light");
     }
   }, [darkMode]);

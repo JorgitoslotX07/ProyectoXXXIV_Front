@@ -1,9 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../../utils/userStore";
 import { deleteCookiesLogin } from "../../utils/cookisLogin";
 import type { UsuarioCompleto } from "../../interfaces/Usuario";
-import { httpGet } from "../../utils/apiService";
+import { httpGetTok } from "../../utils/apiService";
 
 // type Usuario = {
 //   nombre: string;
@@ -23,13 +22,13 @@ export const UserPopUpComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [usuario, setUsuario] = useState<UsuarioCompleto | null>(null);
 
-  const setToken = useUserStore((state) => state.setToken);
+  // const setToken = useUserStore((state) => state.setToken);
   const menuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetch = async () => {
-      const data = await httpGet<UsuarioCompleto>("/usuarios/" + UserId);
+      const data = await httpGetTok<UsuarioCompleto>("/usuarios/" + UserId);
       if (data) {
         data.avatar = "/vite.svg";
         setUsuario(data);
@@ -52,7 +51,7 @@ export const UserPopUpComponent = () => {
 
   const handleCerrarSesion = () => {
     deleteCookiesLogin();
-    setToken("");
+    // setToken("");
     setIsOpen(false);
     navigate("/");
   };

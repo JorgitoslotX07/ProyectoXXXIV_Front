@@ -1,20 +1,22 @@
 import { useState, type FC } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { setLoginCookiesAndRedirect } from "../../utils/cookisLogin";
-import type { UserData } from "../../interfaces/UserData";
-import { useUserStore } from "../../utils/userStore";
 import {
-  validateMail,
+  getCookiesLogin,
+  setLoginCookiesAndRedirect,
+} from "../../utils/cookisLogin";
+import type { UserData } from "../../interfaces/UserData";
+import {
+  validateName,
   validatePassword,
   verificarUsuario,
   // verificarUsuario,
 } from "../../utils/verificaciones";
 import type { LoginProps } from "../../interfaces/LoginProps";
-import { Usuario, UsuarioToken } from "../../interfaces/Usuario";
+import { Usuario } from "../../interfaces/Usuario";
 // import { generateToken } from "../../utils/jwtUtils";
 
 export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
-  const setToken = useUserStore((state) => state.setToken);
+  // const setToken = useUserStore((state) => state.setToken);
   const navigate = useNavigate();
 
   const [form, setForm] = useState<Usuario>(Usuario());
@@ -25,40 +27,23 @@ export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    form.usuario = "Toni^^";
-    if (
-      validateMail(form.email) &&
-      validatePassword(form.contrasenya) &&
-      (await verificarUsuario(form))
-    ) {
-      // console.log("Login:", form);
+    if (validateName(form.usuario) && validatePassword(form.contrasenya)) {
+      const token: UserData | null = await verificarUsuario(form);
+      console.log(token);
 
-      // enviar peticion a Back. Despues se eso se hace la comprobacion de resultado para verificar si es verdadero o no
-      // const pass = [peticion]
-      //peticion de password del mail. Si devueve null no existe email
-      // si exite compara comparePassword(form.password, pass)
+      if (token) {
+        try {
+          console.log("TOken => ", token);
 
-      try {
-        const userToken: UsuarioToken = await UsuarioToken(form);
-        console.log("Token generado:", userToken);
-
-        // const miToken: string = generateToken(userToken);
-        // const pass: string = await hashPassword(form.contrasenya);
-
-        const userData: UserData = {
-          token: form.email + ":" + form.contrasenya,
-        };
-
-        setToken(form.email + ":" + form.contrasenya);
-
-        onClose();
-
-        setLoginCookiesAndRedirect(userData);
-
-        navigate("/");
-      } catch (error) {
-        console.error("Error al generar el token:", error);
-        // mostrarErrorAlUsuario("No se pudo generar el token. Intenta de nuevo.");
+          // setToken(userData);
+          onClose();
+          setLoginCookiesAndRedirect(token);
+          console.log(getCookiesLogin());
+          navigate("/");
+        } catch (error) {
+          console.error("Error al generar el token:", error);
+          // mostrarErrorAlUsuario("No se pudo generar el token. Intenta de nuevo.");
+        }
       }
     }
   };
@@ -170,7 +155,7 @@ export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
     <div className="fixed inset-0 backdrop-blur-[5px] bg-opacity-70 flex items-center justify-center z-50">
       <div
         className="p-6 rounded-lg shadow-lg w-full max-w-sm relative"
-        style={{ backgroundColor: '#1F2937' }}
+        style={{ backgroundColor: "#1F2937" }}
       >
         <button
           onClick={onClose}
@@ -180,16 +165,19 @@ export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
           ×
         </button>
 
-        <h2 className="text-2xl font-semibold mb-6 text-center" style={{ color: '#C4B5FD' }}>
+        <h2
+          className="text-2xl font-semibold mb-6 text-center"
+          style={{ color: "#C4B5FD" }}
+        >
           Iniciar Sesión
         </h2>
 
         <form onSubmit={handleSubmit}>
           <input
-            type="email"
-            name="email"
-            placeholder="Correo"
-            value={form.email}
+            type="text"
+            name="usuario"
+            placeholder="Usuario"
+            value={form.usuario}
             onChange={handleChange}
             className="w-full p-3 rounded mb-4 bg-[#374151] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#C4B5FD] transition"
             required
@@ -205,7 +193,7 @@ export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
           />
 
           <p className="text-center text-sm text-gray-300 mb-6">
-            ¿No tienes una cuenta?{' '}
+            ¿No tienes una cuenta?{" "}
             <Link
               to="register"
               className="text-[#C4B5FD] hover:underline font-semibold"
@@ -224,10 +212,5 @@ export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
         </form>
       </div>
     </div>
-
-
-
-
-
   );
 };

@@ -32,7 +32,7 @@ export const SearchFastComponent: FC<HomePageProps> = ({
     { label: "SUV", icon: "/suv.png" },
     { label: "Monovolumen", icon: "/monovolumen.png" },
     { label: "Microcoche", icon: "/MicroCoche.webp" },
-  ]
+  ];
 
   const addOrDeleteOption = (carType: string) => {
     setOptionsSelected((prevOptions) => {
@@ -48,7 +48,6 @@ export const SearchFastComponent: FC<HomePageProps> = ({
     onLoginClick();
     onClickOptionsPerfil();
   };
-
 
   const onSubmit = () => {
     searchFast.types = optionsSelected;
@@ -157,9 +156,7 @@ export const SearchFastComponent: FC<HomePageProps> = ({
     //         )}
     //       </div>
 
-
     //       <div className="flex flex-col lg:flex-row lg:items-end gap-4 mt-6">
-
 
     //         <button
     //           className=" cursor-pointer ml-30 bg-green-600 text-white px-6 py-2 rounded-md hover:bg-green-500 transition-colors duration-200"
@@ -169,7 +166,6 @@ export const SearchFastComponent: FC<HomePageProps> = ({
     //         </button>
     //       </div>
     //     </div>
-
 
     //   </div>
     // </>
@@ -188,10 +184,11 @@ export const SearchFastComponent: FC<HomePageProps> = ({
             <button
               key={label}
               onClick={() => addOrDeleteOption(label)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all border ${optionsSelected.includes(label)
-                ? "bg-[#A7F3D0] text-[#111827] border-transparent shadow-md"
-                : "bg-transparent border-gray-500 hover:bg-[#374151]"
-                }`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all border ${
+                optionsSelected.includes(label)
+                  ? "bg-[#A7F3D0] text-[#111827] border-transparent shadow-md"
+                  : "bg-transparent border-gray-500 hover:bg-[#374151]"
+              }`}
             >
               <img src={icon} alt={label} className="w-6 h-6" />
               <span className="text-sm font-medium">{label}</span>
@@ -325,6 +322,20 @@ export const SearchFastComponent: FC<HomePageProps> = ({
         </div>
 
         {/* Desplegable */}
+        {/* {mostrarDesplegable && (
+          <ul className="absolute z-10 bg-[#1F2937] border border-gray-600 rounded-md mt-2 w-full shadow-lg max-h-60 overflow-y-auto text-left">
+            {optionsLocation.map((ubicacion) => (
+              <li
+                key={ubicacion}
+                onClick={() => manejarSeleccionUbicacion(ubicacion)}
+                className="px-4 py-2 hover:bg-[#374151] cursor-pointer text-white"
+              >
+                {ubicacion}
+              </li>
+            ))}
+          </ul>
+        )} */}
+
         {mostrarDesplegable && (
           <ul className="absolute z-10 bg-[#1F2937] border border-gray-600 rounded-md mt-2 w-full shadow-lg max-h-60 overflow-y-auto text-left">
             {optionsLocation.map((ubicacion) => (
@@ -338,11 +349,7 @@ export const SearchFastComponent: FC<HomePageProps> = ({
             ))}
           </ul>
         )}
-
-
       </div>
     </div>
-
-
   );
 };

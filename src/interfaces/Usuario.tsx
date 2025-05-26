@@ -13,11 +13,6 @@ export interface UsuarioToken {
   email: string;
 }
 
-export async function UsuarioToken(user: Usuario): Promise<UsuarioToken> {
-  // const pass: string = await hashemail(user.email);
-  return { contrasenya: user.contrasenya, email: user.email };
-}
-
 // export type UsuarioCompleto = {
 //   usuario: string;
 //   email: string;

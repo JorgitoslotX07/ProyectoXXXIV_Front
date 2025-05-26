@@ -5,32 +5,19 @@ import { useNavigate } from "react-router-dom";
 import {
   validateName,
   validateMail,
-  validatePassword,
   validateFechaNacimiento,
   validarDNI,
-  usuarios,
 } from "../../utils/verificaciones";
+import {
+  usuarioCompletoVacio,
+  type UsuarioCompleto,
+} from "../../interfaces/Usuario";
 
 export const EditarPerfilPage = () => {
   const navigate = useNavigate();
   const emailLogueado = localStorage.getItem("emailLogueado");
 
-  const indexUsuario = emailLogueado
-    ? usuarios.findIndex((u) => u.email === emailLogueado)
-    : -1;
-
-  const usuarioOriginal =
-    indexUsuario !== -1
-      ? usuarios[indexUsuario]
-      : {
-          name: "",
-          email: "",
-          password: "",
-          fechaNacimiento: "",
-          dni: ""
-        };
-
-  const [usuario, setUsuario] = useState({ ...usuarioOriginal });
+  const [usuario, setUsuario] = useState<UsuarioCompleto>(usuarioCompletoVacio);
   const [errores, setErrores] = useState<string[]>([]);
 
   if (!emailLogueado) {
@@ -41,13 +28,13 @@ export const EditarPerfilPage = () => {
     );
   }
 
-  if (indexUsuario === -1) {
-    return (
-      <div className="p-4 text-red-600">
-        Usuario no encontrado. Verifica el email en localStorage.
-      </div>
-    );
-  }
+  // if (indexUsuario === -1) {
+  //   return (
+  //     <div className="p-4 text-red-600">
+  //       Usuario no encontrado. Verifica el email en localStorage.
+  //     </div>
+  //   );
+  // }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUsuario({ ...usuario, [e.target.name]: e.target.value });
@@ -57,10 +44,12 @@ export const EditarPerfilPage = () => {
     e.preventDefault();
     const erroresForm: string[] = [];
 
-    if (!validateName(usuario.name)) erroresForm.push("Nombre inválido");
+    if (!validateName(usuario.usuario)) erroresForm.push("Nombre inválido");
     if (!validateMail(usuario.email)) erroresForm.push("Correo inválido");
-    if (!validatePassword(usuario.password)) erroresForm.push("Contraseña débil");
-    if (!validateFechaNacimiento(usuario.fechaNacimiento)) erroresForm.push("Fecha inválida");
+    // if (!validatePassword(usuario.))
+    //   erroresForm.push("Contraseña débil");
+    if (!validateFechaNacimiento(usuario.fechaNacimiento))
+      erroresForm.push("Fecha inválida");
     if (!validarDNI(usuario.dni)) erroresForm.push("DNI inválido");
 
     if (erroresForm.length > 0) {
@@ -68,8 +57,6 @@ export const EditarPerfilPage = () => {
       return;
     }
 
-    usuarios[indexUsuario] = { ...usuario };
-    console.log("Datos actualizados correctamente:", usuarios[indexUsuario]);
     navigate("/panel");
   };
 
@@ -91,7 +78,7 @@ export const EditarPerfilPage = () => {
         <input
           type="text"
           name="name"
-          value={usuario.name}
+          value={usuario.usuario}
           onChange={handleChange}
           placeholder="Nombre"
           className="w-full p-2 border rounded"
@@ -104,14 +91,7 @@ export const EditarPerfilPage = () => {
           placeholder="Correo"
           className="w-full p-2 border rounded"
         />
-        <input
-          type="password"
-          name="password"
-          value={usuario.password}
-          onChange={handleChange}
-          placeholder="Contraseña"
-          className="w-full p-2 border rounded"
-        />
+
         <input
           type="date"
           name="fechaNacimiento"

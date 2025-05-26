@@ -1,11 +1,22 @@
 import axios from "axios";
+import { axiosInstance } from "./axiosInstance";
 
-const API_URL = "http://192.168.198.105:8080/v1"; // Cambia si tu backend está en otro puerto o path
+const API_URL = "http://192.168.198.105:8080/v1";
 
 // GET
 export async function httpGet<T>(ruta: string): Promise<T | null> {
   try {
     const response = await axios.get<T>(`${API_URL}${ruta}`);
+    return response.data;
+  } catch (error) {
+    console.error("GET - Error:", error);
+    return null;
+  }
+}
+
+export async function httpGetTok<T>(ruta: string): Promise<T | null> {
+  try {
+    const response = await axiosInstance.get<T>(ruta);
     return response.data;
   } catch (error) {
     console.error("GET - Error:", error);

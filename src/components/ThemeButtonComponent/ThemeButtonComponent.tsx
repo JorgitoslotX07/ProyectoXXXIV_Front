@@ -1,25 +1,29 @@
-// import { Moon, Sun } from "lucide-react"; // opcional, íconos
-import { themeMode } from "../../hooks/themeMode";
+// import { Moon, Sun } from "lucide-react";
+import { useThemeMode } from "../../hooks/themeMode";
 
 export default function ThemeButtonComponent() {
-  const { darkMode, toggleDarkMode } = themeMode();
+  const { darkMode, toggleDarkMode } = useThemeMode();
 
   return (
     <button
       onClick={toggleDarkMode}
-      className="w-12 h-6 rounded-full flex items-center px-1 bg-gray-300 dark:bg-gray-700 transition duration-300 relative cursor-pointer"
+      aria-label="Cambiar tema"
+      className="w-12 h-6 rounded-full flex items-center px-1 bg-gray-300 dark:bg-gray-700 transition-all duration-300 relative cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary"
     >
       <div
-        className={`w-4 h-4 bg-white rounded-full shadow transform transition-transform duration-300 ${
-          darkMode ? "translate-x-6" : "translate-x-0"
+        className={`w-4 h-4 rounded-full shadow-md transform transition-transform duration-300 ${
+          darkMode ? "translate-x-6  bg-black" : "translate-x-0  bg-white "
         }`}
       />
-      <span className="absolute left-1 text-[10px] text-yellow-500 dark:hidden">
-        ☀️
-      </span>
-      <span className="absolute right-1 text-[10px] text-white hidden dark:block">
-        🌙
-      </span>
+      {!darkMode ? (
+        <span className="absolute left-1 text-[10px] text-yellow-500  select-none">
+          ☀️
+        </span>
+      ) : (
+        <span className="absolute right-1 text-[10px] text-white hidden  select-none">
+          🌙
+        </span>
+      )}
     </button>
   );
 }

@@ -1,3 +1,4 @@
+import type { UserData } from "../interfaces/UserData";
 import type { Usuario } from "../interfaces/Usuario";
 import { httpPost } from "./apiService";
 
@@ -65,54 +66,11 @@ export function valodateForm(form: Usuario) {
   return verifi;
 }
 
-export async function verificarUsuario(user: Usuario): Promise<boolean | null> {
-  return await httpPost("/usuarios/login", {
+export async function verificarUsuario(
+  user: Usuario
+): Promise<UserData | null> {
+  return await httpPost("/auth/login", {
     usuario: user.usuario,
     contrasenya: user.contrasenya,
   });
 }
-
-export const usuarios = [
-  {
-    name: "Lucía González",
-    email: "lucia.gonzalez@example.com",
-    password: "Lucia1234!",
-    fechaNacimiento: "1995-04-22",
-    dni: "12345678Z",
-  },
-  {
-    name: "Carlos Pérez",
-    email: "carlos.perez@example.com",
-    password: "Carlos@2023",
-    fechaNacimiento: "1988-10-11",
-    dni: "87654321X",
-  },
-  {
-    name: "Ana Torres",
-    email: "ana.torres@example.com",
-    password: "Ana_T0rr3s",
-    fechaNacimiento: "2000-07-30",
-    dni: "45612378L",
-  },
-  {
-    name: "Miguel Rodríguez",
-    email: "miguel.rodriguez@example.com",
-    password: "MiguelR#55",
-    fechaNacimiento: "1992-01-18",
-    dni: "32165498M",
-  },
-  {
-    name: "Toni Jorda Leon",
-    email: "tjorda@gmail.com",
-    password: "Servidor.18",
-    fechaNacimiento: "1999-12-05",
-    dni: "15975346P",
-  },
-  {
-    name: "Dani Sánchez Aránega",
-    email: "danisancheza@gmail.com",
-    password: "Developer.01",
-    fechaNacimiento: "1998-02-21",
-    dni: "39963548J",
-  },
-];

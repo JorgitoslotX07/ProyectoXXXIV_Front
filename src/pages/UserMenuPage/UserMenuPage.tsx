@@ -55,12 +55,12 @@ export const UserMenuPage = () => {
     {
       icon: "📍",
       title: "Ubicación Actual",
-      onClick: () => navigate("/ubicacion"),
+      onClick: () => navigate("/pass"),
     },
     {
-      icon: "💳",
-      title: "Métodos de Pago",
-      onClick: () => navigate("/pagos"),
+      icon: "✅",
+      title: "Verificacion de Usuario",
+      onClick: () => navigate("/veriUser"),
     },
     {
       icon: "🕒",
