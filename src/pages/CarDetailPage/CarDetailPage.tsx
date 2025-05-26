@@ -10,9 +10,9 @@ export const CarDetailPage: FC = () => {
     const product: ProductoProps = state;
     console.log(product);
 
-  return (
+    return (
     <>
-         {/* <div className="flex flex-col  items-start gap-12 mt-20 px-10">
+    {/* <div className="flex flex-col  items-start gap-12 mt-20 px-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
     
             <div>
