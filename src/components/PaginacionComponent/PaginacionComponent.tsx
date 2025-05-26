@@ -9,7 +9,7 @@ export const PaginacionComponent: FC<PaginacionProps> = ({
   onPageSizeChange,
 }) => {
   const totalPages = Math.ceil(totalItems / pageSize);
-  const pageSizes = [5, 10, 20, 50, 100];
+  const pageSizes = [5, 10, 20, 34, 50, 100];
 
   return (
     <div className="flex items-center justify-between mt-4 space-x-4">
