@@ -67,7 +67,7 @@ export const CochesPromoComponent: FC = () => {
   return (
     <>
 
-    <div className="px-4">
+    {/* <div className="px-4">
         <h2 className="text-2xl font-semibold mb-4">Coches Populares</h2>
   
         <div className="flex flex-wrap justify-center gap-6">
@@ -94,7 +94,41 @@ export const CochesPromoComponent: FC = () => {
           </Link>
         ))}
         </div>
-    </div>
+    </div> */}
+
+<div className="px-4 bg-[#111827] py-10 text-white">
+  <h2 className="text-2xl font-semibold mb-6" style={{ color: '#C4B5FD' }}>
+    Coches Populares
+  </h2>
+
+  <div className="flex flex-wrap justify-center gap-6">
+    {products.map((product, index) => (
+      <Link to="/catalog/carDetail" state={product} key={index}>
+        <div className="p-4 rounded-lg shadow-lg transition-shadow duration-300 w-64" style={{ backgroundColor: '#1F2937' }}>
+          <div
+            className="h-40 mb-4 rounded overflow-hidden flex items-center justify-center"
+            style={{ backgroundColor: '#374151' }}
+          >
+            <img
+              src={product.imageUrl}
+              alt={product.name}
+              className="object-cover h-full w-full hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+
+          <h3 className="font-semibold text-base" style={{ color: '#FBCFE8' }}>
+            {product.name}
+          </h3>
+          <p className="text-sm text-gray-300 line-clamp-2">{product.description}</p>
+
+          <p className="mt-2 font-bold" style={{ color: '#A7F3D0' }}>
+            {product.price} €
+          </p>
+        </div>
+      </Link>
+    ))}
+  </div>
+</div>
 
     </>
   );

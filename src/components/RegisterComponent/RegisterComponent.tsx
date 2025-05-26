@@ -48,12 +48,61 @@ export const RegisterComponent = () => {
   };
 
   return (
+    // <form
+    //   onSubmit={handleSubmit}
+    //   className="bg-white p-8 rounded shadow-md w-full max-w-md"
+    // >
+    //   <h2 className="text-2xl font-bold mb-6 text-center">
+    //     Registrar de Usuario
+    //   </h2>
+
+    //   <input
+    //     type="text"
+    //     name="usuario"
+    //     placeholder="Nombre"
+    //     value={form.usuario}
+    //     onChange={handleChange}
+    //     className="w-full p-2 mb-4 border rounded"
+    //     required
+    //   />
+
+    //   <input
+    //     type="email"
+    //     name="email"
+    //     placeholder="Correo Electronico"
+    //     value={form.email}
+    //     onChange={handleChange}
+    //     className="w-full p-2 mb-4 border rounded"
+    //     required
+    //   />
+
+    //   <input
+    //     type="password"
+    //     name="contrasenya"
+    //     placeholder="Contraseña"
+    //     value={form.contrasenya}
+    //     onChange={handleChange}
+    //     className="w-full p-2 mb-6 border rounded"
+    //     required
+    //   />
+
+    //   <button
+    //     type="submit"
+    //     className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
+    //   >
+    //     Crear Cuenta
+    //   </button>
+    // </form>
+
     <form
       onSubmit={handleSubmit}
-      className="bg-white p-8 rounded shadow-md w-full max-w-md"
+      className="bg-[#1F2937] p-8 rounded-lg shadow-lg w-full max-w-md mx-auto"
     >
-      <h2 className="text-2xl font-bold mb-6 text-center">
-        Registrar de Usuario
+      <h2
+        className="text-2xl font-bold mb-6 text-center"
+        style={{ color: '#C4B5FD' }}
+      >
+        Registro de Usuario
       </h2>
 
       <input
@@ -62,17 +111,17 @@ export const RegisterComponent = () => {
         placeholder="Nombre"
         value={form.usuario}
         onChange={handleChange}
-        className="w-full p-2 mb-4 border rounded"
+        className="w-full p-3 mb-4 rounded bg-[#374151] text-white placeholder-gray-400 border border-transparent focus:outline-none focus:ring-2 focus:ring-[#C4B5FD] transition"
         required
       />
 
       <input
         type="email"
         name="email"
-        placeholder="Correo Electronico"
+        placeholder="Correo Electrónico"
         value={form.email}
         onChange={handleChange}
-        className="w-full p-2 mb-4 border rounded"
+        className="w-full p-3 mb-4 rounded bg-[#374151] text-white placeholder-gray-400 border border-transparent focus:outline-none focus:ring-2 focus:ring-[#C4B5FD] transition"
         required
       />
 
@@ -82,16 +131,17 @@ export const RegisterComponent = () => {
         placeholder="Contraseña"
         value={form.contrasenya}
         onChange={handleChange}
-        className="w-full p-2 mb-6 border rounded"
+        className="w-full p-3 mb-6 rounded bg-[#374151] text-white placeholder-gray-400 border border-transparent focus:outline-none focus:ring-2 focus:ring-[#C4B5FD] transition"
         required
       />
 
       <button
         type="submit"
-        className="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700 transition"
+        className="w-full py-3 rounded bg-[#A7F3D0] text-gray-900 font-semibold hover:bg-[#9EE6C4] transition"
       >
         Crear Cuenta
       </button>
     </form>
+
   );
 };
