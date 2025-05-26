@@ -27,26 +27,27 @@ export const SubCategoriasComponent: FC = () => {
 
   return (
     <>
-      <div className="px-4">
-        <h2 className="text-2xl font-semibold mb-4">
-          Categorias | Tipo de Coche
-        </h2>
+  <div className="px-10 py-12 bg-[#111827] text-white rounded-lg shadow-md">
+    <h2 className="text-3xl font-bold mb-6 text-[#C4B5FD] text-center">
+      Categorías | Tipo de Coche
+    </h2>
 
-        <div className="flex flex-wrap justify-center gap-6">
-          {noticiasMock.map((item) => (
-            <div
-              key={item.id}
-              className="w-60 flex-shrink-0 rounded-lg p-4 text-center"
-            >
-              <div className="w-full h-24 bg-gray-200 rounded mb-2" />
-              {/* aqui va una imagen, de momento hay una div para rellenar */}
-              <p className="text-lg font-semibold text-gray-700">
-                {item.titulo}
-              </p>
-            </div>
-          ))}
+    <div className="flex flex-wrap justify-center gap-6">
+      {noticiasMock.map((item) => (
+        <div
+          key={item.id}
+          className="w-60 flex-shrink-0 rounded-lg p-4 bg-[#1F2937] shadow-lg text-center"
+        >
+          <div className="w-full h-24 bg-gray-600 rounded mb-4" />
+          {/* Imagen de relleno */}
+          <p className="text-lg font-semibold text-[#A7F3D0]">
+            {item.titulo}
+          </p>
         </div>
-      </div>
-    </>
+      ))}
+    </div>
+  </div>
+</>
+
   );
 };
