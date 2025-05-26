@@ -17,6 +17,10 @@ import { EditarPerfilPage } from "./pages/EditarPerfilPage/EditarPerfilPage";
 import { UserMenuPage } from "./pages/UserMenuPage/UserMenuPage";
 import { NoticiaDetailPage } from "./pages/NoticiasDetailPage/NoticiasDetailPage";
 
+
+
+
+
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [showOptionsPerfil, setShowOptionsPerfil] = useState(false);
@@ -37,10 +41,9 @@ function App() {
 
   return (
     <>
-      {/* Paso la función a la Navbar */}
-      <NavbarComponent onLoginClick={() => setShowLogin(true)} />
+      
+     <NavbarComponent onLoginClick={() => setShowLogin(true)} />
 
-      {/* Mostrando el modal si está activado */}
       {showLogin && <LoginComponent onClose={() => setShowLogin(false)} />}
 
       <Routes>
@@ -75,5 +78,6 @@ function App() {
     </>
   );
 }
+
 
 export default App;

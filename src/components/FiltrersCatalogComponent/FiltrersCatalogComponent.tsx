@@ -10,6 +10,7 @@ import type { Vehiculo } from "../../interfaces/Vehiculo";
 export const FiltrersCatalogComponent: FC<FiltrersCatalog> = ({
   onFilterChange,
   vehiculos,
+  vertical
 }) => {
   const filtrosDinamicos = (vehiculos: Vehiculo[]): FilterCategory[] => {
     return [
@@ -48,6 +49,27 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalog> = ({
       },
     ];
   };
+  const filtrosDinamicosVertical = (vehiculos: Vehiculo[]): FilterCategory[] => {
+    return [
+      {
+        label: "Tipo",
+        name: "tipo",
+        options: obtenerOpcionesUnicas(vehiculos, "tipo"),
+      },
+      {
+        label: "Estado",
+        name: "estado",
+        options: obtenerOpcionesUnicas(vehiculos, "estado"),
+      },
+
+      {
+        label: "Localidad",
+        name: "localidad",
+        options: obtenerOpcionesUnicas(vehiculos, "localidad"),
+      },
+    ];
+  };
+
 
   function obtenerOpcionesUnicas<T>(
     vehiculos: T[],
@@ -61,16 +83,13 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalog> = ({
     }));
   }
 
-  const filtros: FilterCategory[] = filtrosDinamicos(vehiculos.content);
+  const filtros: FilterCategory[] = vertical ? filtrosDinamicosVertical(vehiculos.content) : filtrosDinamicos(vehiculos.content);
 
   return (
     <>
-      <div className="p-6 space-y-6">
-        {/* <h3 className="text-2xl font-semibold mb-4">
-          Categorias | Tipo de Coche
-        </h3> */}
+      <div className="p-10  space-y-6">
+        <div className={vertical ? "flex flex-col gap-6 items-start" : "flex flex-wrap gap-6 justify-center"}>
 
-        <div className="flex flex-wrap gap-4">
           {filtros.map((filter, index) => (
             <GeneredFilterComponent
               key={index}
