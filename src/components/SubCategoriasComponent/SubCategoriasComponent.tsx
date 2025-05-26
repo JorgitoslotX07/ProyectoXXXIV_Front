@@ -27,7 +27,7 @@ export const SubCategoriasComponent: FC = () => {
 
   return (
     <>
-  <div className="px-10 py-12 bg-[#111827] text-white rounded-lg shadow-md">
+   <div className="px-10 py-12 text-white"> {/*bg-[#111827]  rounded-lg shadow-md*/}
     <h2 className="text-3xl font-bold mb-6 text-[#C4B5FD] text-center">
       Categorías | Tipo de Coche
     </h2>
@@ -36,8 +36,8 @@ export const SubCategoriasComponent: FC = () => {
       {noticiasMock.map((item) => (
         <div
           key={item.id}
-          className="w-60 flex-shrink-0 rounded-lg p-4 bg-[#1F2937] shadow-lg text-center"
-        >
+          className="w-60 flex-shrink-0 rounded-lg p-4 shadow-lg text-center" 
+        > {/*bg-[#1F2937]*/}
           <div className="w-full h-24 bg-gray-600 rounded mb-4" />
           {/* Imagen de relleno */}
           <p className="text-lg font-semibold text-[#A7F3D0]">
