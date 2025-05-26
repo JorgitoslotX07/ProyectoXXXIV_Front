@@ -108,7 +108,7 @@ const CochesMapComponent = () => {
     }
   }, [posicionInicialMapa]);
 
- 
+
   useEffect(() => {
     // if (mostrarUbicacionUsuario) {
     //   const timer = setTimeout(() => {
@@ -146,8 +146,24 @@ const CochesMapComponent = () => {
     if (clave === "localidad") {
       const normalizar = (t: string) => t.toLowerCase().replace(/[\s-_]/g, "");
       const ciudad = ciudades.find((c) => normalizar(c.nombre) === normalizar(valor as string));
-      if (ciudad) centrarMapa(ciudad.coords, 13);
+      if (ciudad) {
+        centrarMapa(ciudad.coords, 13);
+      }
+    } else {
+      // Si no hay filtro de ciudad activo, y se aplicó otro filtro, ajustamos a todas las zonas
+      const hayFiltroCiudad = Object.keys(nuevosFiltros).includes("localidad");
+
+      if (!hayFiltroCiudad && contenidoFiltrado.length > 0) {
+        // Cerrar tarjeta si hay alguna
+        setVehiculoSeleccionado(null);
+        setMostrarTarjeta(false);
+        const bounds = L.latLngBounds(contenidoFiltrado.map((v) => [v.latitud, v.longitud]));
+        if (mapRef.current) {
+          mapRef.current.flyToBounds(bounds, { padding: [80, 80], duration: 2 });
+        }
+      }
     }
+
   };
 
   const handleClickVehiculo = async (id: number, coords: LatLngTuple) => {
