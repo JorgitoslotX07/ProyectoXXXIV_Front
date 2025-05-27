@@ -433,7 +433,7 @@ export const CatalogPage: FC = () => {
         </div> */}
 
         <div className="relative">
-          <div className="absolute inset-0 bg-[url('fondoCatalog.jpeg')] bg-cover bg-center opacity-40"></div>
+          <div className="absolute inset-0 bg-[url('fondoCatalog.webp')] bg-cover bg-center opacity-8"></div>
           <div className="relative z-10 text-white p-10">
             <div>
               <SubCategoriasComponent />

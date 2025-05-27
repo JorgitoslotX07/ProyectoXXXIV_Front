@@ -71,7 +71,7 @@ function App() {
             />
           }
         />
-        <Route path="/editar-perfil" element={<EditarPerfilPage />} />
+        <Route path="/panel/editar-perfil" element={<EditarPerfilPage />} />
       </Routes>
 
       <FooterComponent />

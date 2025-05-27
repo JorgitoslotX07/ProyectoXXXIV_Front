@@ -25,13 +25,13 @@ export const UserMenuPage = () => {
 
   // pendiente peticion a back para coger el user a partir del token
 
-  // const user: UsuarioCompleto =
-  // UsuarioCompleto();
+  const user: UsuarioCompleto =
+    usuarioCompletoVacio;
 
-  // user.usuario = "Dani Sánchez Aránega";
-  // user.email = "danisancheza@gmail.com";
-  // user.fechaNacimiento = "1998-02-21";
-  // user.dni = "39963548J";
+  user.usuario = "Dani Sánchez Aránega";
+  user.email = "danisancheza@gmail.com";
+  user.fechaNacimiento = "1998-02-21";
+  user.dni = "39963548J";
 
   useEffect(() => {
     const fetch = async () => {
@@ -53,8 +53,8 @@ export const UserMenuPage = () => {
       onClick: () => navigate("/reservas"),
     },
     {
-      icon: "📍",
-      title: "Ubicación Actual",
+      icon: "🔑",
+      title: "Cambiar Contraseña",
       onClick: () => navigate("/pass"),
     },
     {
@@ -80,62 +80,84 @@ export const UserMenuPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="flex items-center justify-between mb-6">
-        <button
-          onClick={() => navigate(-1)}
-          className="text-lg  cursor-pointer"
-        >
-          ← Volver
-        </button>
-        <h1 className="text-2xl font-bold">Panel de Usuario</h1>
-        <Link to="/panel">
-          <button className="text-xl  cursor-pointer">⚙️</button>
-        </Link>
-      </div>
+    <div className="relative">
+      <div className="absolute inset-0 bg-[url('fondoPanel.jpg')] bg-cover bg-center opacity-10"></div>
 
-      <div className="flex gap-6">
-        <div className="w-90 h-100 aspect-square bg-white p-6 rounded-2xl shadow-md flex flex-col items-center justify-center text-center">
-          {usuario.avatar != null && (
-            <img
-              src={usuario.avatar}
-              alt="Avatar"
-              className="w-25 h-25 rounded-full border-4 border-gray-300 mb-10"
-            />
-          )}
-          <h2 className="text-2xl font-bold mt-4">{usuario.usuario}</h2>
-          <p className="text-base text-gray-700 mt-1">
-            <span className="font-bold">Email: </span> {usuario.email}
-          </p>
-          <p className="text-base text-gray-700 mt-1">
-            <span className="font-bold">Fecha de nacimiento: </span>
-            {usuario.fechaNacimiento}
-          </p>
-          <p className="text-base text-gray-700 mt-1">
-            <span className="font-bold">DNI: </span> {usuario.dni}
-          </p>
+      <div className="min-h-screen bg-gradient-to-br from-[#0f172a] to-[#1e293b] p-8 text-white">
+        <div className="flex items-center justify-between mb-8">
+          <button
+            // onClick={() => navigate(-1)} 
+            onClick={() => navigate("/")}
 
-          <Link to="/editar-perfil">
-            <button className="text-blue-500 text-base mt-2 hover:underline cursor-pointer">
-              ✏️ Editar perfil
-            </button>
+            className="text-[#A7F3D0] text-lg hover:underline">
+            ← Volver
+          </button>
+          <h1 className="text-2xl font-bold text-purple-300">Panel de Usuario</h1>
+          <Link to="/panel">
+            <button className="text-xl text-gray-400 hover:text-white">⚙️</button>
           </Link>
         </div>
 
-        <div className="flex-1 space-y-3">
-          {sections.map(({ icon, title, onClick }, i) => (
-            <motion.div
-              key={i}
-              onClick={() => onClick()}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
-              className="flex items-center justify-between bg-white rounded-2xl p-2.5 shadow-md cursor-pointer transition"
-            >
-              <div className="text-3xl">{icon}</div>
-              <div className="flex-1 ml-4 text-base font-medium">{title}</div>
-              <div className="text-gray-400 text-xl">→</div>
-            </motion.div>
-          ))}
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="relative w-full max-w-xs bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 mx-auto text-center">
+            <Link to="/panel/editar-perfil">
+
+              <button
+                className="absolute top-3 right-3 text-purple-300 hover:text-white transition"
+
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L7.5 21H3v-4.5L16.732 3.732z" />
+                </svg>
+              </button>
+            </Link>
+
+
+            <div className="relative w-28 h-28 mx-auto mb-2">
+              {usuario.avatar ? (
+                <img
+                  src={usuario.avatar}
+                  alt="Avatar"
+                  className="w-28 h-28 rounded-full border-4 border-purple-400/30 mb-4 shadow-md"
+                />
+              ) : (
+                <div className="w-28 h-28 rounded-full border-4 border-purple-400/30 mb-4 shadow-md flex items-center justify-center bg-purple-500/10">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-14 h-14 text-purple-300"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M12 12c2.7 0 4.9-2.2 4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 7.1 9.3 12 12 12zm0 2c-3.1 0-9.3 1.6-9.3 4.7v1.1c0 .6.5 1.1 1.1 1.1h16.4c.6 0 1.1-.5 1.1-1.1v-1.1c0-3.1-6.2-4.7-9.3-4.7z" />
+                  </svg>
+                </div>
+              )}
+            </div>
+
+            <h2 className="text-lg font-semibold text-white">{usuario.usuario}</h2>
+
+            <div className="mt-2 space-y-1 text-sm text-white">
+              <p><span className="text-[#A7F3D0] font-medium">Email:</span> {usuario.email}</p>
+              <p><span className="text-[#A7F3D0] font-medium">Nacimiento:</span> {usuario.fechaNacimiento}</p>
+              <p><span className="text-[#A7F3D0] font-medium">DNI:</span> {usuario.dni}</p>
+            </div>
+          </div>
+
+          <div className="w-full lg:flex-1 flex flex-col space-y-4">
+            {sections.map(({ icon, title, onClick }, i) => (
+              <motion.div
+                key={i}
+                onClick={onClick}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+                className="flex items-center justify-between bg-white/5 backdrop-blur-md rounded-2xl p-4 shadow-md border border-white/10 cursor-pointer transition"
+              >
+                <div className="text-3xl">{icon}</div>
+                <div className="flex-1 ml-4 text-white text-base font-medium">{title}</div>
+                <div className="text-purple-300 text-xl">→</div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

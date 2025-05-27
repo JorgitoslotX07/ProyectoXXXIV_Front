@@ -184,41 +184,42 @@ const CochesMapComponent = () => {
   };
 
   return (
-    <div className="relative flex flex-col lg:flex-row gap-4 px-4 min-h-screen overflow-visible">
-      <div className="w-full lg:w-3/4 h-[500px] lg:h-auto">
-        <div className="text-sm text-gray-700 font-semibold min-h-[1.5rem] py-2">
-          {direccionDetectada ? (
-            <>📍 Estás en: <span className="text-blue-600">{direccionDetectada}</span></>
-          ) : posicionUsuario ? (
-            <span className="animate-pulse text-gray-500">📡 Detectando ubicación...</span>
-          ) : null}
-        </div>
+  
+      <div className="pl-10 relative flex flex-col lg:flex-row gap-4 px-4 py-4 min-h-screen overflow-visible">
+        <div className="w-full lg:w-3/4 h-[500px] lg:h-auto">
+          <div className="text-sm text-gray-700 font-semibold min-h-[1.5rem] py-2">
+            {direccionDetectada ? (
+              <>📍 Estás en: <span className="text-blue-600">{direccionDetectada}</span></>
+            ) : posicionUsuario ? (
+              <span className="animate-pulse text-gray-500">📡 Detectando ubicación...</span>
+            ) : null}
+          </div>
 
-        <MapContainer
-          className="w-full h-[38em] min-h-[150px] z-10"
-          center={posicionInicialMapa}
-          zoom={13}
-          minZoom={6}
-          maxZoom={17}
-          scrollWheelZoom={true}
-          maxBounds={[[44, -10], [35.5, 5]]}
-          maxBoundsViscosity={1.0}
-          ref={(ref) => {
-            if (ref && !mapRef.current) {
-              mapRef.current = ref;
-            }
-          }}
-        >
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" noWrap={true} />
-          <MarkerClusterGroup
-            chunkedLoading
-            spiderfyOnMaxZoom
-            zoomToBoundsOnClick
-            showCoverageOnHover={false}
-            iconCreateFunction={(cluster: MarkerCluster) => {
-              const count = cluster.getChildCount();
-              return L.divIcon({
-                html: `
+          <MapContainer
+            className=" w-full h-[calc(100vh-9rem)] min-h-[300px] z-10"
+            center={posicionInicialMapa}
+            zoom={13}
+            minZoom={6}
+            maxZoom={17}
+            scrollWheelZoom={true}
+            maxBounds={[[44, -10], [35.5, 5]]}
+            maxBoundsViscosity={1.0}
+            ref={(ref) => {
+              if (ref && !mapRef.current) {
+                mapRef.current = ref;
+              }
+            }}
+          >
+            <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" noWrap={true} />
+            <MarkerClusterGroup
+              chunkedLoading
+              spiderfyOnMaxZoom
+              zoomToBoundsOnClick
+              showCoverageOnHover={false}
+              iconCreateFunction={(cluster: MarkerCluster) => {
+                const count = cluster.getChildCount();
+                return L.divIcon({
+                  html: `
                   <div style="position: relative; display: flex; align-items: center; justify-content: center;">
                     <div style="position: absolute; top: -20px; background: #3b82f6; color: white; font-size: 13px; font-weight: bold; padding: 2px 6px; border-radius: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.4);">${count}</div>
                     <svg width="40" height="45" viewBox="0 0 40 45" xmlns="http://www.w3.org/2000/svg">
@@ -230,30 +231,30 @@ const CochesMapComponent = () => {
                     </svg>
                   </div>
                 `,
-                className: "",
-                iconSize: [40, 45],
-                iconAnchor: [20, 45],
-              });
-            }}
-          >
-            {vehiculosFiltrados.map((vehiculo) => (
-              <Marker
-                key={vehiculo.id}
-                position={[vehiculo.latitud, vehiculo.longitud]}
-                icon={crearIconoCoche(Number(vehiculoSeleccionado?.id) === vehiculo.id)}
-                eventHandlers={{
-                  click: () => handleClickVehiculo(vehiculo.id, [vehiculo.latitud, vehiculo.longitud]),
-                }}
-              />
-            ))}
-          </MarkerClusterGroup>
+                  className: "",
+                  iconSize: [40, 45],
+                  iconAnchor: [20, 45],
+                });
+              }}
+            >
+              {vehiculosFiltrados.map((vehiculo) => (
+                <Marker
+                  key={vehiculo.id}
+                  position={[vehiculo.latitud, vehiculo.longitud]}
+                  icon={crearIconoCoche(Number(vehiculoSeleccionado?.id) === vehiculo.id)}
+                  eventHandlers={{
+                    click: () => handleClickVehiculo(vehiculo.id, [vehiculo.latitud, vehiculo.longitud]),
+                  }}
+                />
+              ))}
+            </MarkerClusterGroup>
 
-          {mostrarUbicacionUsuario && posicionUsuario && (
-            <Marker
-              position={posicionUsuario}
-              icon={L.divIcon({
-                className: "",
-                html: `
+            {mostrarUbicacionUsuario && posicionUsuario && (
+              <Marker
+                position={posicionUsuario}
+                icon={L.divIcon({
+                  className: "",
+                  html: `
                   <div style="transform: translate(-50%, -50%);">
                     <svg width="24" height="24" fill="#10b981" xmlns="http://www.w3.org/2000/svg">
                       <circle cx="12" cy="12" r="10" fill="#10b981" />
@@ -261,77 +262,77 @@ const CochesMapComponent = () => {
                     </svg>
                   </div>
                 `,
-                iconSize: [24, 24],
-                iconAnchor: [12, 12],
-              })}
-            />
-          )}
-        </MapContainer>
-
-        {mostrarTarjeta && vehiculoSeleccionado && (
-          <div className="fixed bottom-6 left-8 bg-white p-4 rounded-xl shadow-xl w-80 animate-fadein z-[11]">
-            <button
-              onClick={() => {
-                setVehiculoSeleccionado(null);
-                setMostrarTarjeta(false);
-                volverAVistaCiudad();
-              }}
-              className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-lg"
-            >
-              ✕
-            </button>
-            {vehiculoSeleccionado.imagen && (
-              <img
-                src={vehiculoSeleccionado.imagen}
-                alt={`${vehiculoSeleccionado.marca} ${vehiculoSeleccionado.modelo}`}
-                className="w-full h-36 object-cover rounded mb-4"
+                  iconSize: [24, 24],
+                  iconAnchor: [12, 12],
+                })}
               />
             )}
-            <h2 className="text-xl font-bold mb-1">
-              {vehiculoSeleccionado.marca} {vehiculoSeleccionado.modelo}
-            </h2>
-            <p className="text-sm text-gray-500 mb-2">
-              🔋 {vehiculoSeleccionado.autonomia} km · 📅 Últ. revisión: {vehiculoSeleccionado.ultimaRevision}
-            </p>
-            <div className="border-t border-gray-200 pt-2 text-sm">
-              <p className="text-gray-600">🚗 Estado: {vehiculoSeleccionado.estado}</p>
-              <p className="text-gray-600">📍 Lat: {vehiculoSeleccionado.latitud}, Lng: {vehiculoSeleccionado.longitud}</p>
-            </div>
-            <button className="mt-4 w-full bg-green-600 text-white font-bold py-2 rounded hover:bg-green-700 transition">
-              Más detalles
-            </button>
-          </div>
-        )}
-      </div>
+          </MapContainer>
 
-      <div className="w-full lg:w-1/4">
-        <FiltrersCatalogComponent
-          vehiculos={{
-            content: vehiculos,
-            totalPages: 1,
-            totalElements: vehiculos.length,
-            numberOfElements: vehiculos.length,
-            size: vehiculos.length,
-            number: 0,
-            first: true,
-            last: true,
-            empty: vehiculos.length === 0,
-            sort: { empty: true, sorted: false, unsorted: true },
-            pageable: {
+          {mostrarTarjeta && vehiculoSeleccionado && (
+            <div className="fixed bottom-6 left-8 bg-white p-4 rounded-xl shadow-xl w-80 animate-fadein z-[11]">
+              <button
+                onClick={() => {
+                  setVehiculoSeleccionado(null);
+                  setMostrarTarjeta(false);
+                  volverAVistaCiudad();
+                }}
+                className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-lg"
+              >
+                ✕
+              </button>
+              {vehiculoSeleccionado.imagen && (
+                <img
+                  src={vehiculoSeleccionado.imagen}
+                  alt={`${vehiculoSeleccionado.marca} ${vehiculoSeleccionado.modelo}`}
+                  className="w-full h-36 object-cover rounded mb-4"
+                />
+              )}
+              <h2 className="text-xl font-bold mb-1">
+                {vehiculoSeleccionado.marca} {vehiculoSeleccionado.modelo}
+              </h2>
+              <p className="text-sm text-gray-500 mb-2">
+                🔋 {vehiculoSeleccionado.autonomia} km · 📅 Últ. revisión: {vehiculoSeleccionado.ultimaRevision}
+              </p>
+              <div className="border-t border-gray-200 pt-2 text-sm">
+                <p className="text-gray-600">🚗 Estado: {vehiculoSeleccionado.estado}</p>
+                <p className="text-gray-600">📍 Lat: {vehiculoSeleccionado.latitud}, Lng: {vehiculoSeleccionado.longitud}</p>
+              </div>
+              <button className="mt-4 w-full bg-green-600 text-white font-bold py-2 rounded hover:bg-green-700 transition">
+                Más detalles
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div className="w-full lg:w-1/4  p-4 h-fit top-4">
+          <FiltrersCatalogComponent
+            vehiculos={{
+              content: vehiculos,
+              totalPages: 1,
+              totalElements: vehiculos.length,
+              numberOfElements: vehiculos.length,
+              size: vehiculos.length,
+              number: 0,
+              first: true,
+              last: true,
+              empty: vehiculos.length === 0,
               sort: { empty: true, sorted: false, unsorted: true },
-              offset: 0,
-              pageNumber: 0,
-              pageSize: vehiculos.length,
-              unpaged: true,
-              paged: false,
-            },
-          }}
-          onFilterChange={actualizarFiltro}
-          vertical={true}
-          onSubmit={() => console.log()}
-        />
+              pageable: {
+                sort: { empty: true, sorted: false, unsorted: true },
+                offset: 0,
+                pageNumber: 0,
+                pageSize: vehiculos.length,
+                unpaged: true,
+                paged: false,
+              },
+            }}
+            onFilterChange={actualizarFiltro}
+            vertical={true}
+            onSubmit={() => console.log()}
+          />
+        </div>
       </div>
-    </div>
   );
 };
 
