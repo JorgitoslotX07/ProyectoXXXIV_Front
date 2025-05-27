@@ -2,15 +2,13 @@ import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 // import { usuarios } from "../../utils/verificaciones";
 import { deleteCookiesLogin } from "../../utils/cookisLogin";
-import { useUserStore } from "../../utils/userStore";
+import { useUserStore } from "../../hooks/userStore";
 import { useEffect, useState } from "react";
-import { httpGet } from "../../utils/apiService";
+import { httpGetTok } from "../../utils/apiService";
 import {
   usuarioCompletoVacio,
   type UsuarioCompleto,
 } from "../../interfaces/Usuario";
-
-const UserId = "11";
 
 export const UserMenuPage = () => {
   const navigate = useNavigate();
@@ -25,19 +23,10 @@ export const UserMenuPage = () => {
 
   // pendiente peticion a back para coger el user a partir del token
 
-  const user: UsuarioCompleto =
-    usuarioCompletoVacio;
-
-  user.usuario = "Dani Sánchez Aránega";
-  user.email = "danisancheza@gmail.com";
-  user.fechaNacimiento = "1998-02-21";
-  user.dni = "39963548J";
-
   useEffect(() => {
     const fetch = async () => {
-      const data = await httpGet<UsuarioCompleto>("/usuarios/" + UserId);
+      const data = await httpGetTok<UsuarioCompleto>("/usuarios/me");
       if (data) {
-        data.avatar = "/vite.svg";
         setUsuario(data);
         console.log(data);
       }
@@ -86,32 +75,42 @@ export const UserMenuPage = () => {
       <div className="min-h-screen bg-gradient-to-br from-[#0f172a] to-[#1e293b] p-8 text-white">
         <div className="flex items-center justify-between mb-8">
           <button
-            // onClick={() => navigate(-1)} 
+            // onClick={() => navigate(-1)}
             onClick={() => navigate("/")}
-
-            className="text-[#A7F3D0] text-lg hover:underline">
+            className="text-[#A7F3D0] text-lg hover:underline"
+          >
             ← Volver
           </button>
-          <h1 className="text-2xl font-bold text-purple-300">Panel de Usuario</h1>
+          <h1 className="text-2xl font-bold text-purple-300">
+            Panel de Usuario
+          </h1>
           <Link to="/panel">
-            <button className="text-xl text-gray-400 hover:text-white">⚙️</button>
+            <button className="text-xl text-gray-400 hover:text-white">
+              ⚙️
+            </button>
           </Link>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="relative w-full max-w-xs bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 mx-auto text-center">
             <Link to="/panel/editar-perfil">
-
-              <button
-                className="absolute top-3 right-3 text-purple-300 hover:text-white transition"
-
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L7.5 21H3v-4.5L16.732 3.732z" />
+              <button className="absolute top-3 right-3 text-purple-300 hover:text-white transition">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L7.5 21H3v-4.5L16.732 3.732z"
+                  />
                 </svg>
               </button>
             </Link>
-
 
             <div className="relative w-28 h-28 mx-auto mb-2">
               {usuario.avatar ? (
@@ -134,12 +133,23 @@ export const UserMenuPage = () => {
               )}
             </div>
 
-            <h2 className="text-lg font-semibold text-white">{usuario.usuario}</h2>
+            <h2 className="text-lg font-semibold text-white">
+              {usuario.usuario}
+            </h2>
 
             <div className="mt-2 space-y-1 text-sm text-white">
-              <p><span className="text-[#A7F3D0] font-medium">Email:</span> {usuario.email}</p>
-              <p><span className="text-[#A7F3D0] font-medium">Nacimiento:</span> {usuario.fechaNacimiento}</p>
-              <p><span className="text-[#A7F3D0] font-medium">DNI:</span> {usuario.dni}</p>
+              <p>
+                <span className="text-[#A7F3D0] font-medium">Email:</span>{" "}
+                {usuario.email}
+              </p>
+              <p>
+                <span className="text-[#A7F3D0] font-medium">Nacimiento:</span>{" "}
+                {usuario.fechaNacimiento}
+              </p>
+              <p>
+                <span className="text-[#A7F3D0] font-medium">DNI:</span>{" "}
+                {usuario.dni}
+              </p>
             </div>
           </div>
 
@@ -153,7 +163,9 @@ export const UserMenuPage = () => {
                 className="flex items-center justify-between bg-white/5 backdrop-blur-md rounded-2xl p-4 shadow-md border border-white/10 cursor-pointer transition"
               >
                 <div className="text-3xl">{icon}</div>
-                <div className="flex-1 ml-4 text-white text-base font-medium">{title}</div>
+                <div className="flex-1 ml-4 text-white text-base font-medium">
+                  {title}
+                </div>
                 <div className="text-purple-300 text-xl">→</div>
               </motion.div>
             ))}

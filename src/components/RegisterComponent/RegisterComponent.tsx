@@ -5,9 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { valodateForm, verificarUsuario } from "../../utils/verificaciones";
 import { Usuario } from "../../interfaces/Usuario";
 import { httpPost } from "../../utils/apiService";
+import { useUserStore } from "../../hooks/userStore";
 
 export const RegisterComponent = () => {
-  // const setToken = useUserStore((state) => state.setToken);
+  const setToken = useUserStore((state) => state.setToken);
   const navigate = useNavigate();
 
   const [form, setForm] = useState<Usuario>(Usuario());
@@ -26,10 +27,8 @@ export const RegisterComponent = () => {
       console.log(token);
 
       if (token) {
-        // setToken(token);
-
+        setToken(token.token);
         setLoginCookiesAndRedirect(token);
-
         navigate("/");
       } else {
         console.error("Error al generar el token:");

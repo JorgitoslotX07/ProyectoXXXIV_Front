@@ -11,17 +11,12 @@ import { RegistroPage } from "./pages/RegisterPage/RegisterPage";
 import { LoginComponent } from "./components/LoginComponent/LoginComponent";
 import { MapPage } from "./pages/MapPage/MapPage";
 import Cookies from "js-cookie";
-import { useUserStore } from "./utils/userStore";
-import { HomePruPage } from "./pages/HomePruPage.tsx/HomePruPage";
+import { useUserStore } from "./hooks/userStore";
 import { EditarPerfilPage } from "./pages/EditarPerfilPage/EditarPerfilPage";
 import { UserMenuPage } from "./pages/UserMenuPage/UserMenuPage";
 import { NoticiaDetailPage } from "./pages/NoticiasDetailPage/NoticiasDetailPage";
 import CookiesPage from "./pages/CookiesPage/CookiesPage";
 import ScrollToTop from "./components/ScrollToTopComponent/ScrollToTopComponent";
-
-
-
-
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -64,15 +59,6 @@ function App() {
         <Route path="/map" element={<MapPage />} />
         <Route path="/panel" element={<UserMenuPage />} />
         <Route path="/noticia" element={<NoticiaDetailPage />} />
-        <Route
-          path="/pru"
-          element={
-            <HomePruPage
-              onLoginClick={() => setShowLogin(false)}
-              onClickOptionsPerfil={onClickOptionsPerfil}
-            />
-          }
-        />
         <Route path="/panel/editar-perfil" element={<EditarPerfilPage />} />
         <Route path="/cookies" element={<CookiesPage />} />
       </Routes>
@@ -80,6 +66,5 @@ function App() {
     </>
   );
 }
-
 
 export default App;
