@@ -1,3 +1,3 @@
 export interface ImageWebCameProps {
-  setImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setImage: (e: string) => void;
 }

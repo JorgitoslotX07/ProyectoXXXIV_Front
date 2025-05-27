@@ -66,7 +66,7 @@ export const VeriUserPage: FC = (): ReactElement => {
             id="file-upload"
             type="file"
             accept="image/*"
-            onChange={(e) => setImage(e.target.value)}
+            onChange={(e) => setImageConversor(e)}
             className="file-input"
           />
         </>
@@ -74,7 +74,7 @@ export const VeriUserPage: FC = (): ReactElement => {
 
       {imageSource === "webcam" && (
         // <p className="webcam-placeholder">📷 Webcam functionality coming soon...</p>
-        <ImageWebCame setImage={setImageConversor} />
+        <ImageWebCame setImage={setImage} />
       )}
     </>
   );
