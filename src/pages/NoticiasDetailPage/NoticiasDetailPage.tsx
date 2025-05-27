@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { useLocation } from "react-router-dom";
 import type { NoticiaProps } from "../../interfaces/NoticiasProps";
-import { NoticiasComponent } from "../../components/NoticiasComponent/NoticiasComponent"; 
+import { NoticiasComponent } from "../../components/NoticiasComponent/NoticiasComponent";
 
 export const NoticiaDetailPage: FC = () => {
     const location = useLocation();
@@ -39,8 +39,9 @@ export const NoticiaDetailPage: FC = () => {
                 </section>
 
                 {/* Barra lateral de noticias */}
-                <aside className="hidden lg:block max-h-[80vh] overflow-y-auto pr-2">
-                    <h2 className="text-lg font-semibold text-gray-900 mb-4">Otras noticias</h2>
+                <aside className="hidden lg:block h-screen overflow-auto pr-2 py-16">
+
+                    <h2 className="text-lg font-semibold text-gray-900 mb-5 pl-21">Otras noticias</h2>
                     <NoticiasComponent /> {/* Puedes personalizarlo para que no sea clicable si ya estás en una */}
                 </aside>
             </div>

@@ -81,6 +81,7 @@ export const HomePage: FC<HomePageProps> = ({
         </div>
 
         <div className="mt-20 px-10">
+      <h2 className="text-2xl font-semibold mb-4">Noticias sobre car sharing</h2>
           <NoticiasComponent />
         </div>
 

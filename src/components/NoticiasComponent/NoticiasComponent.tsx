@@ -40,8 +40,6 @@ export const NoticiasComponent: FC = () => {
   };
   return (
     <div className="px-4">
-      <h2 className="text-2xl font-semibold mb-4">Noticias sobre car sharing</h2>
-
       <div className="flex justify-center items-center gap-4 flex-wrap">
         {noticiasMock.map((item) => (
           <div
