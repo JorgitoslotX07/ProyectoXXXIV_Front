@@ -15,18 +15,13 @@ export const SearchFastComponent: FC<HomePageProps> = ({
   const [optionsLocation, setOptionsLocation] = useState<Array<string>>([]);
 
   useEffect(() => {
-    // const fetch = async () => {
-    //   const data = await httpGet<Array<string>>("/vehiculos/localidades");
-    //   if (data) {
-    //     // setOptionsLocation(data);
-
-    //   }
-
-    // };
-
-    // fetch();
-    setOptionsLocation(["Tarragona", "Reus"]);
-
+    const fetch = async () => {
+      const data = await httpGet<Array<string>>("/vehiculos/localidades");
+      if (data) {
+        setOptionsLocation(data);
+      }
+    };
+    fetch();
   }, []);
 
   const [mostrarDesplegable, setMostrarDesplegable] = useState(false);
@@ -78,18 +73,17 @@ export const SearchFastComponent: FC<HomePageProps> = ({
             <button
               key={label}
               onClick={() => addOrDeleteOption(label)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all border ${optionsSelected.includes(label)
-                ? "bg-[#A7F3D0] text-[#111827] border-transparent shadow-md"
-                : "bg-transparent border-gray-500 hover:bg-[#374151]"
-                }`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all border ${
+                optionsSelected.includes(label)
+                  ? "bg-[#A7F3D0] text-[#111827] border-transparent shadow-md"
+                  : "bg-transparent border-gray-500 hover:bg-[#374151]"
+              }`}
             >
               <img src={icon} alt={label} className="w-6 h-6" />
               <span className="text-sm font-medium">{label}</span>
             </button>
           ))}
         </div>
-
-
 
         {/* <div className="flex items-center w-full max-w-2xl mx-auto">
           <div className="flex items-center border border-gray-600 bg-[#1F2937] rounded-l-full px-4 py-3 w-full">
@@ -150,7 +144,7 @@ export const SearchFastComponent: FC<HomePageProps> = ({
           </ul>
         )} */}
 
-        <div className="relative inline-block w-full max-w-2xl mx-auto"> 
+        <div className="relative inline-block w-full max-w-2xl mx-auto">
           <div className="flex items-center w-full max-w-2xl mx-auto">
             <div className="flex items-center border border-gray-600 bg-[#1F2937] rounded-l-full px-4 py-3 w-full">
               <svg
@@ -167,7 +161,9 @@ export const SearchFastComponent: FC<HomePageProps> = ({
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 onFocus={() => setMostrarDesplegable(true)}
-                onBlur={() => setTimeout(() => setMostrarDesplegable(false), 100)}
+                onBlur={() =>
+                  setTimeout(() => setMostrarDesplegable(false), 100)
+                }
                 placeholder="Buscar ubicación..."
                 className="bg-transparent text-white w-full focus:outline-none placeholder-gray-400"
               />
@@ -196,8 +192,6 @@ export const SearchFastComponent: FC<HomePageProps> = ({
             </ul>
           )}
         </div>
-
-
       </div>
     </div>
   );

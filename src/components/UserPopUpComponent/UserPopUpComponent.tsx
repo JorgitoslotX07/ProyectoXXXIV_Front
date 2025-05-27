@@ -3,38 +3,25 @@ import { useNavigate } from "react-router-dom";
 import { deleteCookiesLogin } from "../../utils/cookisLogin";
 import type { UsuarioCompleto } from "../../interfaces/Usuario";
 import { httpGetTok } from "../../utils/apiService";
-
-// type Usuario = {
-//   nombre: string;
-//   email: string;
-//   avatar: string;
-// };
-
-const UserId = "11";
-
-// const usuarioSimulado: UsuarioLogin = {
-//   usuario: "Dani Sánchez",
-//   email: "dani@correo.com",
-//   avatar: "/vite.svg",
-// };
+import { useUserStore } from "../../hooks/userStore";
 
 export const UserPopUpComponent = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [usuario, setUsuario] = useState<UsuarioCompleto | null>(null);
 
-  // const setToken = useUserStore((state) => state.setToken);
+  const setToken = useUserStore((state) => state.setToken);
   const menuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetch = async () => {
-      const data = await httpGetTok<UsuarioCompleto>("/usuarios/" + UserId);
+      const data = await httpGetTok<UsuarioCompleto>("/usuarios/me");
       if (data) {
-        data.avatar = "/vite.svg";
         setUsuario(data);
         console.log(data);
       }
     };
+    // console.log(getCookiesLogin());
 
     fetch();
   }, []);
@@ -51,7 +38,7 @@ export const UserPopUpComponent = () => {
 
   const handleCerrarSesion = () => {
     deleteCookiesLogin();
-    // setToken("");
+    setToken("");
     setIsOpen(false);
     navigate("/");
   };
@@ -71,7 +58,7 @@ export const UserPopUpComponent = () => {
       />
 
       {isOpen && usuario && (
-        <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg p-4 z-50">
+        <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg p-4 z-10">
           <div className="flex items-center space-x-3">
             {usuario.avatar && (
               <img

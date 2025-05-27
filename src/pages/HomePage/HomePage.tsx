@@ -45,7 +45,9 @@ export const HomePage: FC<HomePageProps> = ({
     <>
       <div className="bg-[#111827] min-h-screen text-white font-sans">
         <Link to="/map">
-          <div className="w-full h-40 relative group cursor-pointer overflow-hidden border border-black rounded-md shadow-md hover:shadow-lg transition-shadow duration-300"> {/* [#374151]*/}
+          <div className="w-full h-40 relative group cursor-pointer overflow-hidden border border-black rounded-md shadow-md hover:shadow-lg transition-shadow duration-300">
+            {" "}
+            {/* [#374151]*/}
             <img
               src="/MapClick.png"
               alt="Mapa de ubicación"
@@ -67,10 +69,7 @@ export const HomePage: FC<HomePageProps> = ({
         </div> */}
 
         <div className="relative">
-          <div
-            className="absolute inset-0 bg-[url('fondoFastSeartch.webp')] bg-cover bg-center opacity-40"
-          ></div>
-
+          <div className="absolute inset-0 bg-[url('fondoFastSeartch.webp')] bg-cover bg-center opacity-40"></div>
 
           <div className="relative z-10 text-white p-10">
             <SearchFastComponent

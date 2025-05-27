@@ -13,22 +13,19 @@ export const RegistroPage = () => {
     // </div>
 
     <div className="min-h-screen flex">
-      {/* Lado formulario */}
       <div className="w-full md:w-1/2 flex items-center justify-center bg-[#1F2937] p-10">
         <div className="w-full max-w-md">
           <RegisterComponent />
         </div>
       </div>
 
-      {/* Lado imagen */}
       <div
         className="hidden md:block md:w-1/2 bg-cover bg-center"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80')",
+          backgroundImage:
+            "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80')",
         }}
       />
     </div>
-
-
   );
 };

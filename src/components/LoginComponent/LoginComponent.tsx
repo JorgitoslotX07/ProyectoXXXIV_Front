@@ -13,10 +13,11 @@ import {
 } from "../../utils/verificaciones";
 import type { LoginProps } from "../../interfaces/LoginProps";
 import { Usuario } from "../../interfaces/Usuario";
+import { useUserStore } from "../../hooks/userStore";
 // import { generateToken } from "../../utils/jwtUtils";
 
 export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
-  // const setToken = useUserStore((state) => state.setToken);
+  const setToken = useUserStore((state) => state.setToken);
   const navigate = useNavigate();
 
   const [form, setForm] = useState<Usuario>(Usuario());
@@ -35,7 +36,7 @@ export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
         try {
           console.log("TOken => ", token);
 
-          // setToken(userData);
+          setToken(token.token);
           onClose();
           setLoginCookiesAndRedirect(token);
           console.log(getCookiesLogin());

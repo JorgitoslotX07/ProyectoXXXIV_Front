@@ -2,7 +2,7 @@ import type { FC } from "react";
 import { SelectorLenguajeComponent } from "../SelectorLenguajeComponent/SelectorLenguajeComponent";
 import { Link } from "react-router-dom";
 import type { NavbarProps } from "../../interfaces/NavbarProps";
-import { useUserStore } from "../../utils/userStore";
+import { useUserStore } from "../../hooks/userStore";
 import { UserPopUpComponent } from "../UserPopUpComponent/UserPopUpComponent";
 import ThemeButtonComponent from "../ThemeButtonComponent/ThemeButtonComponent";
 
