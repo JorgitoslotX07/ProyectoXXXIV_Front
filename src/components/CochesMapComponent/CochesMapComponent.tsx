@@ -328,6 +328,7 @@ const CochesMapComponent = () => {
           }}
           onFilterChange={actualizarFiltro}
           vertical={true}
+          onSubmit={() => console.log()}
         />
       </div>
     </div>
