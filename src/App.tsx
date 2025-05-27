@@ -16,6 +16,8 @@ import { HomePruPage } from "./pages/HomePruPage.tsx/HomePruPage";
 import { EditarPerfilPage } from "./pages/EditarPerfilPage/EditarPerfilPage";
 import { UserMenuPage } from "./pages/UserMenuPage/UserMenuPage";
 import { NoticiaDetailPage } from "./pages/NoticiasDetailPage/NoticiasDetailPage";
+import CookiesPage from "./pages/CookiesPage/CookiesPage";
+import ScrollToTop from "./components/ScrollToTopComponent/ScrollToTopComponent";
 
 
 
@@ -41,11 +43,11 @@ function App() {
 
   return (
     <>
-      
-     <NavbarComponent onLoginClick={() => setShowLogin(true)} />
+
+      <NavbarComponent onLoginClick={() => setShowLogin(true)} />
 
       {showLogin && <LoginComponent onClose={() => setShowLogin(false)} />}
-
+      <ScrollToTop />
       <Routes>
         <Route
           path="/"
@@ -72,8 +74,8 @@ function App() {
           }
         />
         <Route path="/panel/editar-perfil" element={<EditarPerfilPage />} />
+        <Route path="/cookies" element={<CookiesPage />} />
       </Routes>
-
       <FooterComponent />
     </>
   );

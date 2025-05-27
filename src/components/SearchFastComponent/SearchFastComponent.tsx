@@ -1,7 +1,7 @@
 import { useEffect, useState, type FC, type ReactElement } from "react";
 import { SearchFast } from "../../interfaces/SearchFast";
 import type { HomePageProps } from "../../interfaces/HomePageProps";
-import { httpGet } from "../../utils/apiService";
+// import { httpGet } from "../../utils/apiService";
 
 export const SearchFastComponent: FC<HomePageProps> = ({
   onClickOptionsPerfil,
@@ -25,7 +25,7 @@ export const SearchFastComponent: FC<HomePageProps> = ({
     // };
 
     // fetch();
-    setOptionsLocation(["Tarragona", "Reus"]);
+    setOptionsLocation(["Tarragona", "Reus", "Salou", "Cambrils", "Vila-Seca"]);
 
   }, []);
 

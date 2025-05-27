@@ -58,7 +58,6 @@ export const HomePage: FC<HomePageProps> = ({
             </div>
           </div>
         </Link>
-
         {/* <div className=" bg-[url('fondoFastSeartch2.webp')] bg-cover bg-center bg-opacity-50">
           <SearchFastComponent
             onClickOptionsPerfil={onClickOptionsPerfil}
@@ -81,7 +80,9 @@ export const HomePage: FC<HomePageProps> = ({
         </div>
 
         <div className="mt-20 px-10">
-      <h2 className="text-2xl font-semibold mb-4">Noticias sobre car sharing</h2>
+          <h2 className="text-2xl font-semibold mb-6 pl-3" style={{ color: '#C4B5FD' }}>
+            Noticias sobre Car Sharing
+          </h2>
           <NoticiasComponent />
         </div>
 
