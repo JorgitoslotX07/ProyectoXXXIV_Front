@@ -66,42 +66,43 @@ export const HomePage: FC<HomePageProps> = ({
             onLoginClick={onLoginClick}
           />
         </div> */}
-<div className="max-h-[45em] flex flex-col lg:flex-row items-stretch justify-between px-10 py-16 gap-10 relative overflow-hidden rounded-xl shadow-xl">
-  {/* Fondo general del padre */}
-  <img
-    src="/public/fondoCatalog.jpeg"
-    alt="Fondo visual"
-    className="absolute inset-0 w-full h-full object-cover z-0"
-  />
+        <div className="max-h-[45em] flex flex-col lg:flex-row items-stretch justify-between px-10 py-16 gap-10 relative overflow-hidden rounded-xl shadow-xl">
 
-  {/* Capa opcional para oscurecer + difuminar ligeramente el fondo */}
-  <div className="absolute inset-0 bg-[url('fondoFastSeartch.webp')] bg-cover bg-center opacity-40 bg-opacity-50 backdrop-blur-[5px] z-0"></div>
+          <img
+            src="/public/fondo-desc-home.jpg"
+            alt="Fondo visual"
+            className="absolute inset-0 w-full h-full object-cover z-0"
+          />
 
-  {/* Columna izquierda, sin fondo propio */}
-  <div className="lg:w-1/2 p-10 flex flex-col justify-start relative z-10 text-white">
-    <h2 className="text-4xl font-bold text-[#C4B5FD] mb-4">
-      ¿Por qué usar Share&Go 34?
-    </h2>
-    <p className="text-lg text-gray-300 leading-relaxed mb-6">
-      Nuestra plataforma de car sharing te conecta con los mejores vehículos disponibles en tu ciudad de forma rápida y sostenible.
-    </p>
-    <ul className="list-disc list-inside space-y-3 text-gray-300">
-      <li>Accede a coches eléctricos y ecológicos</li>
-      <li>Reserva inmediata desde el mapa</li>
-      <li>Filtros inteligentes para encontrar el coche ideal</li>
-      <li>Sin papeleos ni esperas</li>
-    </ul>
-  </div>
 
-  {/* Columna derecha: imagen decorativa */}
-  <div className="lg:w-1/2 relative z-10">
-    <img
-      src="/public/fondoFastSeartch2.webp"
-      alt="Vehículo promocional"
-      className="rounded-xl shadow-xl w-full h-full object-cover"
-    />
-  </div>
-</div>
+          <div className="absolute inset-0 bg-black/1 backdrop-blur-[2px] z-0"></div>
+
+
+
+          <div className="rounded-xl shadow-xl bg-black/65 lg:w-1/2 p-10 flex flex-col justify-start relative z-10 text-white">
+            <h2 className="backdrop-blur-[2px] text-4xl font-bold text-[#C4B5FD] mb-4">
+              ¿Por qué usar Share&Go 34?
+            </h2>
+            <p className="text-lg text-gray-300 leading-relaxed mb-6">
+              Nuestra plataforma de car sharing te conecta con los mejores vehículos disponibles en tu ciudad de forma rápida y sostenible.
+            </p>
+            <ul className="list-disc list-inside space-y-3 text-gray-300">
+              <li>Accede a coches eléctricos y ecológicos</li>
+              <li>Reserva inmediata desde el mapa</li>
+              <li>Filtros inteligentes para encontrar el coche ideal</li>
+              <li>Sin papeleos ni esperas</li>
+            </ul>
+          </div>
+
+
+          <div className="lg:w-1/2 relative z-10">
+            <img
+              src="/public/fondo-desc-home-car.jpg"
+              alt="Vehículo promocional"
+              className="rounded-xl shadow-xl w-full h-full object-cover"
+            />
+          </div>
+        </div>
 
 
         <div className="relative">
