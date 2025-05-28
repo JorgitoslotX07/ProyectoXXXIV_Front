@@ -92,20 +92,43 @@ export const HomePage: FC<HomePageProps> = ({
       <li>Sin papeleos ni esperas</li>
     </ul>
   </div>
+        <div className="max-h-[45em] flex flex-col lg:flex-row items-stretch justify-between px-10 py-16 gap-10 relative overflow-hidden rounded-xl shadow-xl bg-[#08464d] [background-image:radial-gradient(at_47%_33%,hsl(162.35,100%,24%)_0,transparent_59%),radial-gradient(at_82%_65%,hsl(208.64,88%,20%)_0,transparent_55%)] bg-no-repeat bg-cover">
 
-  {/* Columna derecha: imagen decorativa */}
-  <div className="lg:w-1/2 relative z-10">
-    <img
-      src="/public/fondoFastSeartch2.webp"
-      alt="Vehículo promocional"
-      className="rounded-xl shadow-xl w-full h-full object-cover"
-    />
-  </div>
-</div>
+
+
+          <div className="absolute inset-0 bg-black/1 backdrop-blur-[2px] z-0"></div>
+
+
+
+          <div className="backdrop-blur-[25px] backdrop-saturate-[200%] bg-[rgba(0,0,0,0.78)] rounded-[12px] border border-[rgba(255,255,255,0.125)] lg:w-1/2 p-10 flex flex-col justify-start relative z-10 text-white">
+            <h2 className=" text-4xl font-bold text-[#C4B5FD] mb-4">
+              ¿Por qué usar Share&Go 34?
+            </h2>
+            <p className="text-lg text-gray-300 leading-relaxed mb-6">
+              Nuestra plataforma de car sharing te conecta con los mejores vehículos disponibles en tu ciudad de forma rápida y sostenible.
+            </p>
+            <ul className="list-disc list-inside space-y-3 text-gray-300">
+              <li>Accede a coches eléctricos y ecológicos</li>
+              <li>Reserva inmediata desde el mapa</li>
+              <li>Filtros inteligentes para encontrar el coche ideal</li>
+              <li>Sin papeleos ni esperas</li>
+            </ul>
+          </div>
+
+
+          <div className="lg:w-1/2 relative z-10">
+            <img
+              src="/public/fondo-desc-home-car.jpg"
+              alt="Vehículo promocional"
+              className="rounded-xl shadow-xl w-full h-full object-cover"
+            />
+          </div>
+        </div>
 
 
         <div className="relative">
-          <div className="absolute inset-0 bg-[url('/fondoFastSeartch.webp')] bg-cover bg-center opacity-40"></div>
+        <div className="absolute inset-0 bg-[#162947] [background-image:radial-gradient(at_47%_33%,hsl(163.5,83%,24%)_0,transparent_59%),radial-gradient(at_82%_65%,hsl(218.82,77%,21%)_0,transparent_55%)] bg-cover bg-center opacity-40"></div>
+          {/* <div className="absolute inset-0 bg-[url('fondoFastSeartch.webp')] bg-cover bg-center opacity-40"></div> */}
 
           <div className="relative z-10 text-white p-10">
             <SearchFastComponent
