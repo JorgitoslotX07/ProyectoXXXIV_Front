@@ -8,15 +8,15 @@ import { httpGet } from "../../utils/apiService";
 export const CarDetailPage: FC = () => {
   const location = useLocation();
   const { state } = location;
-  const product: number = state;
+  const carId: number = state;
   // console.log(product);
 
   const [vehiculo, setVehiculo] = useState<Vehiculo>(Vehiculo);
 
   useEffect(() => {
     const fetch = async () => {
-      console.log(product);
-      const data = await httpGet<Vehiculo>("/vehiculos/" + product);
+      console.log(carId);
+      const data = await httpGet<Vehiculo>("/vehiculos/" + carId);
       if (data) {
         setVehiculo(data);
       }
@@ -79,14 +79,6 @@ export const CarDetailPage: FC = () => {
       <div className="flex flex-col items-start gap-12 mt-20 px-4 sm:px-6 md:px-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 w-full">
           <div className="w-full">
-            {/* <div className="bg-gray-100 aspect-square flex items-center justify-center mb-4">
-              <img
-                src={vehiculo.imagen}
-                alt="Product"
-                className="object-contain max-h-full max-w-full"
-              />
-            </div> */}
-
             <div className="w-full h-full flex items-center justify-center bg-gray-800 rounded">
               {vehiculo.imagen ? (
                 <img
