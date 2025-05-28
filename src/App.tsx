@@ -17,6 +17,7 @@ import { UserMenuPage } from "./pages/UserMenuPage/UserMenuPage";
 import { NoticiaDetailPage } from "./pages/NoticiasDetailPage/NoticiasDetailPage";
 import CookiesPage from "./pages/CookiesPage/CookiesPage";
 import ScrollToTop from "./components/ScrollToTopComponent/ScrollToTopComponent";
+import { VeriUserPage } from "./pages/VeriUserPage/VeriUserPage";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -60,6 +61,7 @@ function App() {
         <Route path="/panel" element={<UserMenuPage />} />
         <Route path="/noticia" element={<NoticiaDetailPage />} />
         <Route path="/panel/editar-perfil" element={<EditarPerfilPage />} />
+        <Route path="/panel/veri-user" element={<VeriUserPage />} />
         <Route path="/cookies" element={<CookiesPage />} />
       </Routes>
       <FooterComponent />

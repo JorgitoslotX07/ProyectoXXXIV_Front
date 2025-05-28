@@ -232,8 +232,7 @@ export const EditarPerfilPage = () => {
     // </div>
 
     <div className="relative bg-gray-900">
-  {/* Fondo con opacidad */}
-  <div className="absolute inset-0 bg-[url('fondoPanel.jpg')] bg-cover bg-center opacity-10"></div>
+  <div className="absolute inset-0 bg-[url('/fondoPanel.jpg')] bg-cover bg-center opacity-10"></div>
 
   <div className="relative min-h-screen text-white px-8 py-10">
     <h1 className="text-3xl font-bold mb-10 text-center">Editar Perfil</h1>
