@@ -1,6 +1,7 @@
 import { useState, type FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { VolverPanelComonent } from "../../components/VolverPanelComonent/VolverPanelComonent";
+import { FondoPanelComponent } from "../../components/FondoPanelComponent/FondoPanelComponent";
+import { TituloComponent } from "../../components/PanelComonent/TituloComponent";
 
 const viajesFalsos = [
     {
@@ -35,17 +36,12 @@ export const HistorialPage: FC = () => {
     const navigate = useNavigate();
 
     return (
-        <div className="relative bg-gradient-to-br from-[#0f172a] to-[#1e293b]">
-            <div className="absolute inset-0 bg-[url('/fondoPanel.jpg')] bg-cover bg-center opacity-20"></div>
+        <FondoPanelComponent>
             <div className="relative min-h-screen  p-8 text-white">
-                <div className="max-w-4xl mx-auto w-full bg-[#111827] p-6 rounded-2xl shadow-lg border border-gray-800">
-                    <div className="flex items-center justify-between mb-6">
-                        <VolverPanelComonent />
+            <TituloComponent titulo={"Historial de Viajes"} />
 
-                        <h1 className="text-2xl font-bold flex items-center gap-2 text-right">
-                            Historial de Viajes
-                        </h1>
-                    </div>
+                <div className="max-w-4xl mx-auto w-full  p-6 rounded-2xl ">
+
 
                     {viajes.length === 0 ? (
                         <p className="text-gray-400">No hay viajes registrados aún.</p>
@@ -54,7 +50,8 @@ export const HistorialPage: FC = () => {
                             {viajes.map((viaje) => (
                                 <div
                                     key={viaje.id}
-                                    className="bg-[#1f2937] border border-gray-700 rounded-xl p-4 shadow-md hover:shadow-lg transition"
+                                    onClick={() => navigate(`/panel/viajes/${viaje.id}`)}
+                                    className="bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 cursor-pointer transition-transform duration-200 ease-in-out hover:scale-[1.02] active:scale-95"
                                 >
                                     <div className="flex justify-between items-center">
                                         <div>
@@ -71,12 +68,12 @@ export const HistorialPage: FC = () => {
                                                 Costo: {viaje.costo}
                                             </p>
                                         </div>
-                                        <button
+                                        {/* <button
                                             onClick={() => navigate(`/panel/viajes/${viaje.id}`)}
                                             className="bg-[#10B981] hover:bg-[#059669] text-white px-4 py-2 rounded-lg text-sm font-semibold"
                                         >
                                             Ver detalle
-                                        </button>
+                                        </button> */}
                                     </div>
                                 </div>
                             ))}
@@ -84,7 +81,6 @@ export const HistorialPage: FC = () => {
                     )}
                 </div>
             </div>
-
-        </div>
+        </FondoPanelComponent>
     );
 }

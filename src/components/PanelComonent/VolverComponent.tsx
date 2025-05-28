@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import type { VolverProps } from "../../interfaces/VolverProps";
+import type { VolverProps } from "../../interfaces/PanelProps";
 
 export const VolverComonent: FC<VolverProps> = ({url}) => {
     const navigate = useNavigate();
@@ -10,7 +10,7 @@ export const VolverComonent: FC<VolverProps> = ({url}) => {
         <button
             type="button"
             onClick={() => navigate(url)}
-            className="text-purple-400 hover:text-purple-300 text-lg flex items-center gap-1"
+            className="text-purple-400 hover:text-purple-300 text-lg flex items-center gap-1 cursor-pointer"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"

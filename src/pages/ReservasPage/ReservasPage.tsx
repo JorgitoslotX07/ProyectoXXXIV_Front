@@ -2,7 +2,8 @@ import { type FC, type ReactElement, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { httpGetTok } from "../../utils/apiService";
 import type { Reserva } from "../../interfaces/ReservaProps";
-import { VolverPanelComonent } from "../../components/VolverPanelComonent/VolverPanelComonent";
+import { FondoPanelComponent } from "../../components/FondoPanelComponent/FondoPanelComponent";
+import { TituloComponent } from "../../components/PanelComonent/TituloComponent";
 
 export const mockReservas = [
     {
@@ -59,17 +60,11 @@ export const ReservasPage: FC = (): ReactElement => {
 
 
     return (
-        <div className="relative bg-gradient-to-br from-[#0f172a] to-[#1e293b]">
-            <div className="absolute inset-0 bg-[url('/fondoPanel.jpg')] bg-cover bg-center opacity-20"></div>
+        <FondoPanelComponent>
             <div className="relative min-h-screen  p-8 text-white">
-                <div className="max-w-4xl mx-auto w-full bg-[#111827] p-6 rounded-2xl shadow-lg border border-gray-800">
-                    <div className="flex items-center justify-between mb-6">
-                        <VolverPanelComonent />
+            <TituloComponent titulo={"Mis Reservas"} />
 
-                        <h1 className="text-2xl font-bold flex items-center gap-2 text-right">
-                            Mis Reservas
-                        </h1>
-                    </div>
+                <div className="max-w-4xl mx-auto w-full mt-20">
 
                     {reservas.length === 0 ? (
                         <p className="text-gray-400">No tienes reservas activas.</p>
@@ -78,7 +73,8 @@ export const ReservasPage: FC = (): ReactElement => {
                             {reservas.map((reserva) => (
                                 <div
                                     key={reserva.id}
-                                    className="bg-[#1f2937] border border-gray-700 rounded-xl p-4 shadow-md hover:shadow-lg transition"
+                                    className="bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 cursor-pointer transition-transform duration-200 ease-in-out hover:scale-[1.02] active:scale-95"
+                                    onClick={() => navigate(`/panel/reservas/${reserva.id}`)}
                                 >
                                     <div className="flex justify-between items-center">
                                         <div>
@@ -100,12 +96,11 @@ export const ReservasPage: FC = (): ReactElement => {
                                                 Estado: {reserva.estado}
                                             </p>
                                         </div>
-                                        <button
-                                            onClick={() => navigate(`/panel/reservas/${reserva.id}`)}
+                                        {/* <button
                                             className="bg-[#10B981] hover:bg-[#059669] text-white px-4 py-2 rounded-lg text-sm font-semibold"
                                         >
                                             Ver detalle
-                                        </button>
+                                        </button> */}
                                     </div>
                                 </div>
                             ))}
@@ -113,6 +108,6 @@ export const ReservasPage: FC = (): ReactElement => {
                     )}
                 </div>
             </div>
-        </div>
+        </FondoPanelComponent>
     );
 };

@@ -7,7 +7,9 @@ import {
 } from "../../interfaces/Usuario";
 import { ImageWebCame } from "../../components/ImageWebCame/ImageWebCame";
 import { conversiorFile } from "../../utils/conversorServise";
-import { VolverPanelComonent } from "../../components/VolverPanelComonent/VolverPanelComonent";
+import { VolverPanelComonent } from "../../components/PanelComonent/VolverPanelComonent";
+import { FondoPanelComponent } from "../../components/FondoPanelComponent/FondoPanelComponent";
+import { TituloComponent } from "../../components/PanelComonent/TituloComponent";
 
 
 export const VeriUserPage: FC = (): ReactElement => {
@@ -38,27 +40,19 @@ export const VeriUserPage: FC = (): ReactElement => {
   }
 
   return (
-    <div className="relative bg-gradient-to-br from-[#0f172a] to-[#1e293b]">
-      <div className="absolute inset-0 bg-[url('/fondoPanel.jpg')] bg-cover bg-center opacity-20"></div>
+    <FondoPanelComponent>
       <div className="relative min-h-screen  p-8 text-white">
-        <div className="max-w-4xl mx-auto w-full bg-[#111827] p-6 rounded-2xl shadow-lg border border-gray-800">
+        <TituloComponent titulo={"Verificar Identidad"} />
+
+        <div className="max-w-4xl mx-auto w-full bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 cursor-pointer">
           {/* <h2 className="text-2xl font-semibold mb-4 text-center">Verificar Identidad</h2> */}
           {/* <div className="mb-6 text-left">
             <VolverPanelComonent />
           </div> */}
-          <div className="relative flex items-center justify-between mb-6">
-            <div className="z-10">
-              <VolverPanelComonent />
-            </div>
-
-            <h2 className="absolute left-1/2 transform -translate-x-1/2 text-2xl font-semibold text-center">
-              Verificar Identidad
-            </h2>
-          </div>
 
           <div className="mt-6">
             <h3 className="mb-2 text-lg font-semibold">Previsualización:</h3>
-            <div className="w-full aspect-video rounded-xl border border-gray-700 shadow-md bg-[#111827] flex items-center justify-center">
+            <div className="w-full aspect-video rounded-xl border border-gray-700 shadow-md bg-[#111827] flex items-center justify-center ">
               {image ? (
                 <img
                   src={image}
@@ -83,7 +77,7 @@ export const VeriUserPage: FC = (): ReactElement => {
             </div>
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 mt-4">
             <label className="block mb-2 font-medium">Seleccionar método de captura:</label>
             <select
               className="w-full bg-[#374151] text-white p-2 rounded-md border border-gray-600 focus:outline-none"
@@ -112,8 +106,6 @@ export const VeriUserPage: FC = (): ReactElement => {
 
           {imageSource === "webcam" && <ImageWebCame setImage={setImage} />}
 
-
-
           <div className="mt-6 flex justify-center">
             <button
               onClick={handleVerificarImagen}
@@ -122,10 +114,8 @@ export const VeriUserPage: FC = (): ReactElement => {
               Verificar imagen
             </button>
           </div>
-
         </div>
       </div>
-    </div>
-
+    </FondoPanelComponent>
   );
 };
