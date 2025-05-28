@@ -60,7 +60,7 @@ export const HomePage: FC<HomePageProps> = ({
             </div>
           </div>
         </Link>
-        {/* <div className=" bg-[url('fondoFastSeartch2.webp')] bg-cover bg-center bg-opacity-50">
+        {/* <div className=" bg-[url('/fondoFastSeartch2.webp')] bg-cover bg-center bg-opacity-50">
           <SearchFastComponent
             onClickOptionsPerfil={onClickOptionsPerfil}
             onLoginClick={onLoginClick}
@@ -75,7 +75,7 @@ export const HomePage: FC<HomePageProps> = ({
   />
 
   {/* Capa opcional para oscurecer + difuminar ligeramente el fondo */}
-  <div className="absolute inset-0 bg-[url('fondoFastSeartch.webp')] bg-cover bg-center opacity-40 bg-opacity-50 backdrop-blur-[5px] z-0"></div>
+  <div className="absolute inset-0 bg-[url('/fondoFastSeartch.webp')] bg-cover bg-center opacity-40 bg-opacity-50 backdrop-blur-[5px] z-0"></div>
 
   {/* Columna izquierda, sin fondo propio */}
   <div className="lg:w-1/2 p-10 flex flex-col justify-start relative z-10 text-white">
@@ -105,7 +105,7 @@ export const HomePage: FC<HomePageProps> = ({
 
 
         <div className="relative">
-          <div className="absolute inset-0 bg-[url('fondoFastSeartch.webp')] bg-cover bg-center opacity-40"></div>
+          <div className="absolute inset-0 bg-[url('/fondoFastSeartch.webp')] bg-cover bg-center opacity-40"></div>
 
           <div className="relative z-10 text-white p-10">
             <SearchFastComponent

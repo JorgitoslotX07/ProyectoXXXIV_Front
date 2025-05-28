@@ -7,6 +7,7 @@ import {
 } from "../../interfaces/Usuario";
 import { ImageWebCame } from "../../components/ImageWebCame/ImageWebCame";
 import { conversiorFile } from "../../utils/conversorServise";
+import { VolverPanelComonent } from "../../components/VolverPanelComonent/VolverPanelComonent";
 
 
 export const VeriUserPage: FC = (): ReactElement => {
@@ -37,31 +38,22 @@ export const VeriUserPage: FC = (): ReactElement => {
   }
 
   return (
-    <div className="relative bg-gray-900">
-      <div className="absolute inset-0 bg-[url('/fondoPanel.jpg')] bg-cover bg-center opacity-10"></div>
-
-      <div className="relative min-h-screen text-white px-8 py-10">
-        <div className="max-w-2xl mx-auto mt-10 p-6 bg-[#1F2937]  text-white">
-          <h2 className="text-2xl font-semibold mb-4 text-center">Verificar Identidad</h2>
-          <div className="mb-6 text-left">
-            <div className="mb-6 text-left">
-              <button
-                type="button"
-                onClick={() => window.history.back()}
-                className="text-purple-400 hover:text-purple-300 text-sm flex items-center gap-1"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-                Volver
-              </button>
+    <div className="relative bg-gradient-to-br from-[#0f172a] to-[#1e293b]">
+      <div className="absolute inset-0 bg-[url('/fondoPanel.jpg')] bg-cover bg-center opacity-20"></div>
+      <div className="relative min-h-screen  p-8 text-white">
+        <div className="max-w-4xl mx-auto w-full bg-[#111827] p-6 rounded-2xl shadow-lg border border-gray-800">
+          {/* <h2 className="text-2xl font-semibold mb-4 text-center">Verificar Identidad</h2> */}
+          {/* <div className="mb-6 text-left">
+            <VolverPanelComonent />
+          </div> */}
+          <div className="relative flex items-center justify-between mb-6">
+            <div className="z-10">
+              <VolverPanelComonent />
             </div>
+
+            <h2 className="absolute left-1/2 transform -translate-x-1/2 text-2xl font-semibold text-center">
+              Verificar Identidad
+            </h2>
           </div>
 
           <div className="mt-6">

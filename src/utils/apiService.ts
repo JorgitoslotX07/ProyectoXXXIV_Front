@@ -1,7 +1,7 @@
 import axios from "axios";
 import { axiosInstance } from "./axiosInstance";
+import { API_URL } from "./enum/constantes";
 
-const API_URL = "http://192.168.198.105:8080/v1";
 
 // GET
 export async function httpGet<T>(ruta: string): Promise<T | null> {

@@ -14,7 +14,7 @@ export const NavbarComponent: FC<NavbarProps> = ({ onLoginClick }) => {
       <div className="flex items-center space-x-2">
         <img src="/logo.png" alt="Logo" className="w-8 h-8 object-contain" />
         <span className="text-xl font-semibold text-white">
-          <Link to="/">ProyectoXXXIV</Link>
+          <Link to="/">Share&Go34</Link>
         </span>
       </div>
 

@@ -18,6 +18,8 @@ import { NoticiaDetailPage } from "./pages/NoticiasDetailPage/NoticiasDetailPage
 import CookiesPage from "./pages/CookiesPage/CookiesPage";
 import ScrollToTop from "./components/ScrollToTopComponent/ScrollToTopComponent";
 import { VeriUserPage } from "./pages/VeriUserPage/VeriUserPage";
+import { ReservasPage } from "./pages/ReservasPage/ReservasPage";
+import { HistorialPage } from "./pages/HistorialPage/HistorialPage";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -62,6 +64,10 @@ function App() {
         <Route path="/noticia" element={<NoticiaDetailPage />} />
         <Route path="/panel/editar-perfil" element={<EditarPerfilPage />} />
         <Route path="/panel/veri-user" element={<VeriUserPage />} />
+        <Route path="/panel/reservas" element={<ReservasPage />} />
+        <Route path="/panel/historial" element={<HistorialPage />} />
+
+
         <Route path="/cookies" element={<CookiesPage />} />
       </Routes>
       <FooterComponent />
