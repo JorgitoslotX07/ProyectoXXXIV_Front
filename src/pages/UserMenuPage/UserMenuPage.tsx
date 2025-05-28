@@ -49,7 +49,7 @@ export const UserMenuPage = () => {
     {
       icon: "✅",
       title: "Verificacion de Usuario",
-      onClick: () => navigate("/veriUser"),
+      onClick: () => navigate("/panel/veri-user"),
     },
     {
       icon: "🕒",
@@ -70,8 +70,7 @@ export const UserMenuPage = () => {
 
   return (
     <div className="relative">
-      <div className="absolute inset-0 bg-[url('fondoPanel.jpg')] bg-cover bg-center opacity-10"></div>
-
+      <div className="absolute inset-0 bg-[url('/fondoPanel.jpg')] bg-cover bg-center opacity-10"></div>
       <div className="min-h-screen bg-gradient-to-br from-[#0f172a] to-[#1e293b] p-8 text-white">
         <div className="flex items-center justify-between mb-8">
           <button
