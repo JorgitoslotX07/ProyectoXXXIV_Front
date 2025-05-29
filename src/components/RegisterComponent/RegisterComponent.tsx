@@ -21,7 +21,7 @@ export const RegisterComponent = () => {
     e.preventDefault();
     console.log(form);
     if (valodateForm(form)) {
-      await httpPost("/usuarios", form);
+      await httpPost("/auth/registro", form);
 
       const token: UserData | null = await verificarUsuario(form);
       console.log(token);

@@ -1,4 +1,17 @@
 import { useState, type FC } from "react";
+import Stepper from "../StepperComponent/StepperComponent";
+import { Step } from "../StepperComponent/StepperSubComponents";
+import { Link } from "react-router-dom"
+
+const enlaces: Record<string, string> = {
+    "Cookies": "/cookies",
+    // "Política de privacidad": "/privacidad",
+    // "Condiciones de servicio": "/condiciones",
+    // "FAQs": "/faq",
+    // "Blog": "/blog",
+    // "Sobre nosotros": "/sobre-nosotros",
+    // "Soporte Técnico": "/soporte",
+};
 
 export const FooterComponent: FC = () => {
     const listaUl = [
@@ -7,13 +20,8 @@ export const FooterComponent: FC = () => {
         ["Recursos", "Blog", "FAQs", "Soporte Técnico", "Foro"],
     ];
 
+    const [mostrarModal, setMostrarModal] = useState(false);
     const [email, setEmail] = useState("");
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        alert(`Gracias por contactar con nosotros: ${email}`);
-        setEmail("");
-    };
 
     return (
         <>
@@ -29,9 +37,16 @@ export const FooterComponent: FC = () => {
                                     key={idx}
                                     className="hover:text-white cursor-pointer transition-colors duration-200"
                                 >
-                                    {item}
+                                    {enlaces[item] ? (
+                                        <Link to={enlaces[item]} className="hover:underline">
+                                            {item}
+                                        </Link>
+                                    ) : (
+                                        item
+                                    )}
                                 </li>
                             ))}
+
                         </ul>
                     </div>
                 ))}
@@ -40,24 +55,63 @@ export const FooterComponent: FC = () => {
                     <h3 className="text-white font-semibold text-lg mb-4 cursor-default">
                         Contacto directo
                     </h3>
-                    <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-                        <input
-                            type="email"
-                            placeholder="Tu correo electrónico"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                            className="px-4 py-2 rounded bg-gray-800 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"
-                        />
-                        <button
-                            type="submit"
-                            className="bg-indigo-500 hover:bg-indigo-600 text-white font-semibold py-2 rounded transition"
-                        >
-                            Enviar
-                        </button>
-                    </form>
+                    <button
+                        onClick={() => setMostrarModal(true)}
+                        className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded"
+                    >
+                        Contactar
+                    </button>
                 </div>
             </div>
+
+            {/* Popup modal */}
+            {mostrarModal && (
+                <div className="fixed inset-0 backdrop-blur-[5px] bg-opacity-70 flex items-center justify-center z-50">
+                    <div className="bg-[#1F2937] rounded-lg p-6 w-full max-w-md relative">
+                        <button
+                            onClick={() => setMostrarModal(false)}
+                            className="absolute top-2 right-2 text-white font-bold text-xl hover:text-red-500"
+                        >
+                            ×
+                        </button>
+
+                        <Stepper
+                            initialStep={1}
+                            onFinalStepCompleted={() => setMostrarModal(false)}
+                            nextButtonText="Siguiente"
+                            backButtonText="Anterior"
+                            nextButtonProps={{
+                                className: "text-white" // esto sobrescribe el texto
+                            }}
+                            backButtonProps={{
+                                className: "text-white"
+                            }}
+                            contentClassName="text-white"
+                            footerClassName="mt-6"
+                            stepCircleContainerClassName="bg-transparent"
+                            stepContainerClassName="justify-center"
+                        >
+                            <Step>
+                                <h2 className="text-xl font-semibold">Paso 1</h2>
+                                <p>¿Quieres que te contactemos?</p>
+                            </Step>
+                            <Step>
+                                <input
+                                    type="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    placeholder="Tu correo electrónico"
+                                    className="w-full mt-2 p-2 border rounded"
+                                />
+                            </Step>
+                            <Step>
+                                <p className="text-center text-green-300">¡Gracias por tu interés!</p>
+                                <p className="text-center text-green-300">La solicitud se ha mandado correctamente</p>
+                            </Step>
+                        </Stepper>
+                    </div>
+                </div>
+            )}
         </>
     );
 };

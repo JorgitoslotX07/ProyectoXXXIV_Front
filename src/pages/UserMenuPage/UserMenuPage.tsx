@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
 // import { usuarios } from "../../utils/verificaciones";
 import { deleteCookiesLogin } from "../../utils/cookisLogin";
@@ -9,6 +8,8 @@ import {
   usuarioCompletoVacio,
   type UsuarioCompleto,
 } from "../../interfaces/Usuario";
+import { FondoPanelComponent } from "../../components/FondoPanelComponent/FondoPanelComponent";
+import { TituloComponent } from "../../components/PanelComonent/TituloComponent";
 
 export const UserMenuPage = () => {
   const navigate = useNavigate();
@@ -39,28 +40,28 @@ export const UserMenuPage = () => {
     {
       icon: "🚗",
       title: "Mis Reservas",
-      onClick: () => navigate("/reservas"),
+      onClick: () => navigate("/panel/reservas"),
     },
     {
       icon: "🔑",
       title: "Cambiar Contraseña",
-      onClick: () => navigate("/pass"),
+      onClick: () => navigate("/panel/pass"),
     },
     {
       icon: "✅",
       title: "Verificacion de Usuario",
-      onClick: () => navigate("/veriUser"),
+      onClick: () => navigate("/panel/veri-user"),
     },
     {
-      icon: "🕒",
+      icon: "📜",
       title: "Historial de Viajes",
-      onClick: () => navigate("/historial"),
+      onClick: () => navigate("/panel/historial"),
     },
-    {
-      icon: "🔒",
-      title: "Seguridad",
-      onClick: () => navigate("/seguridad"),
-    },
+    // {
+    //   icon: "🔒",
+    //   title: "Seguridad",
+    //   onClick: () => navigate("/seguridad"),
+    // },
     {
       icon: "📤",
       title: "Cerrar Sesión",
@@ -69,29 +70,11 @@ export const UserMenuPage = () => {
   ];
 
   return (
-    <div className="relative">
-      <div className="absolute inset-0 bg-[url('fondoPanel.jpg')] bg-cover bg-center opacity-10"></div>
-
-      <div className="min-h-screen bg-gradient-to-br from-[#0f172a] to-[#1e293b] p-8 text-white">
-        <div className="flex items-center justify-between mb-8">
-          <button
-            // onClick={() => navigate(-1)}
-            onClick={() => navigate("/")}
-            className="text-[#A7F3D0] text-lg hover:underline"
-          >
-            ← Volver
-          </button>
-          <h1 className="text-2xl font-bold text-purple-300">
-            Panel de Usuario
-          </h1>
-          <Link to="/panel">
-            <button className="text-xl text-gray-400 hover:text-white">
-              ⚙️
-            </button>
-          </Link>
-        </div>
-
-        <div className="flex flex-col lg:flex-row gap-8">
+    <FondoPanelComponent>
+      <div className="relative min-h-screen p-8 text-white">
+        <TituloComponent titulo="Panel de Usuario" />
+        
+        <div className="relative flex flex-col lg:flex-row gap-8">
           <div className="relative w-full max-w-xs bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 mx-auto text-center">
             <Link to="/panel/editar-perfil">
               <button className="absolute top-3 right-3 text-purple-300 hover:text-white transition">
@@ -155,23 +138,24 @@ export const UserMenuPage = () => {
 
           <div className="w-full lg:flex-1 flex flex-col space-y-4">
             {sections.map(({ icon, title, onClick }, i) => (
-              <motion.div
+              <div
                 key={i}
                 onClick={onClick}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
-                className="flex items-center justify-between bg-white/5 backdrop-blur-md rounded-2xl p-4 shadow-md border border-white/10 cursor-pointer transition"
+                className={`flex items-center justify-between bg-white/5 backdrop-blur-md rounded-2xl p-4 shadow-md border border-white/10 cursor-pointer transition-transform duration-200 ease-in-out hover:scale-[1.02] active:scale-95 transition ${i === sections.length - 1 ? "hover:bg-[#F93943]/60" : ""
+                  }`}
               >
                 <div className="text-3xl">{icon}</div>
                 <div className="flex-1 ml-4 text-white text-base font-medium">
                   {title}
                 </div>
                 <div className="text-purple-300 text-xl">→</div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
       </div>
-    </div>
+
+    </ FondoPanelComponent>
+
   );
 };
