@@ -1,10 +1,11 @@
 import type { FC } from "react";
-import { useNavigate } from "react-router-dom";
 
-export const SubCategoriasComponent: FC = () => {
-  const navigate = useNavigate();
+interface SubCategoriasProps {
+  onFilterSelect: (tipo: string) => void;
+}
 
-  const noticiasMock = [
+export const SubCategoriasComponent: FC<SubCategoriasProps> = ({ onFilterSelect }) => {
+  const categorias = [
     {
       id: 1,
       titulo: "Turismo",
@@ -25,15 +26,11 @@ export const SubCategoriasComponent: FC = () => {
     },
     {
       id: 4,
-      titulo: "Micro Coche",
+      titulo: "Biplaza",
       imagen: "/public/microcoche.jpg",
       descripcion: "Compactos, ágiles y perfectos para el tráfico urbano.",
     },
   ];
-
-  const handleClick = (titulo: string) => {
-    navigate(`/categoria/${titulo.toLowerCase().replace(" ", "-")}`);
-  };
 
   return (
     <div className="px-10 py-12 text-white">
@@ -42,10 +39,10 @@ export const SubCategoriasComponent: FC = () => {
       </h2>
 
       <div className="flex flex-wrap justify-center gap-6">
-        {noticiasMock.map((item) => (
+        {categorias.map((item) => (
           <div
             key={item.id}
-            onClick={() => handleClick(item.titulo)}
+            onClick={() => onFilterSelect(item.titulo.toUpperCase())}
             className="bg-[#162947] cursor-pointer transition-transform transform hover:scale-[1.03] hover:shadow-2xl duration-300 ease-in-out
             [background-image:radial-gradient(at_47%_33%,hsl(163.5,83%,24%)_0,#0a0a0a_59%),radial-gradient(at_82%_65%,hsl(218.82,77%,21%)_0,transparent_55%)]
             w-60 flex-shrink-0 rounded-lg p-4 shadow-lg text-center"

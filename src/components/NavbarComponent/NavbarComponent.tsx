@@ -12,7 +12,7 @@ export const NavbarComponent: FC<NavbarProps> = ({ onLoginClick }) => {
   return (
     <nav className="flex justify-between items-center px-6 py-4 shadow-md bg-[#070F1A] text-gray-300">
       <div className="flex items-center space-x-2">
-        <img src="/logo.png" alt="Logo" className="w-8 h-8 object-contain" />
+        <img src="/logo.webp" alt="Logo" className="w-8 h-8 object-contain" />
         <span className="text-xl font-semibold text-white">
           <Link to="/">Share&Go34</Link>
         </span>
