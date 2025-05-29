@@ -10,9 +10,9 @@ import {
   mostrarSuccess,
   mostrarWarning,
 } from "../../utils/notiToast";
+import { Link } from "react-router-dom";
 // import { mostrarError, mostrarInfo, mostrarSuccess, mostrarWarning } from "../../utils/notiToast";
 import { NotiToastComponent } from "../../components/NotiToastComponents/NotiToastComponet";
-import { Link } from "react-router-dom";
 
 export const HomePage: FC<HomePageProps> = ({
   onClickOptionsPerfil,
@@ -114,9 +114,6 @@ export const HomePage: FC<HomePageProps> = ({
             </div>
           </div>
         </Link>
-        {/* <div className=" [background-image:radial-gradient(at_bottom_right,hsl(163.5,83%,24%)_0,#0a0a0a_59%),radial-gradient(at_82%_65%,hsl(218.82,77%,21%)_0,transparent_55%)] backdrop-blur-md backdrop-saturate-150 bg-black/35 border-white/10 p-8 relative ">
-          <div className="absolute inset-0 bg-[#162947] [background-image:radial-gradient(at_47%_33%,hsl(163.5,83%,24%)_0,#0a0a0a_59%),radial-gradient(at_82%_65%,hsl(218.82,77%,21%)_0,transparent_55%)] bg-cover bg-center opacity-15"></div>
-        </div> */}
       </div>
       <NotiToastComponent />
     </>

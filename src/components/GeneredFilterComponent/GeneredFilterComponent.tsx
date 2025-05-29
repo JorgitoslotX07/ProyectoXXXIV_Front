@@ -7,6 +7,7 @@ export const GeneredFilterComponent: FC<FiltersProps> = ({
   index,
   filter,
   onFilterChange,
+  valorActual, 
 }) => {
   return (
     <>
@@ -135,6 +136,11 @@ export const GeneredFilterComponent: FC<FiltersProps> = ({
         <Select
           inputId={`filter-${index}`}
           options={filter.options}
+          value={
+            valorActual
+              ? filter.options.find((opt) => opt.value === valorActual)
+              : null
+          }
           onChange={(selected) =>
             onFilterChange(filter.name as FiltroVehiculo, selected?.value ?? "")
           }

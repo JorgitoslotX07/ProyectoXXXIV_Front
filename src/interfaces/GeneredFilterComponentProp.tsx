@@ -17,4 +17,5 @@ export interface FiltersProps {
     index: number;
     filter: FilterCategory;
     onFilterChange: (clave: FiltroVehiculo, valor: string | number | boolean) => void;
+    valorActual?: string | number | boolean;
 }

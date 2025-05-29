@@ -9,4 +9,5 @@ export interface FiltrersCatalogProps {
   vehiculos: PageProps<Vehiculo>;
   vertical: boolean;
   onSubmit: () => void;
+  filtros: Partial<Record<FiltroVehiculo, string | number | boolean>>;
 }
