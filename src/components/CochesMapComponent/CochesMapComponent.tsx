@@ -216,7 +216,7 @@ const CochesMapComponent = () => {
     centrarMapa(coords, 17);
 
     try {
-      const res = await fetch(`http://localhost:8080/v1/vehiculos/${id}`);
+      const res = await fetch(`http://192.168.198.105:8080/v1/vehiculos/${id}`);
       const data = await res.json();
       setTimeout(() => {
         setVehiculoSeleccionado(data);
