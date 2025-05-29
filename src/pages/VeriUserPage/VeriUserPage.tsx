@@ -11,7 +11,7 @@ import { conversiorFile } from "../../utils/conversorServise";
 // import { useTranslation } from "react-i18next";
 
 export const VeriUserPage: FC = (): ReactElement => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [usuario, setUsuario] = useState<UsuarioCompleto>(usuarioCompletoVacio);
   const [imageSource, setImageSource] = useState<string>("webcam");
   const [image, setImage] = useState<string | null>(null);
@@ -39,9 +39,7 @@ export const VeriUserPage: FC = (): ReactElement => {
       <select
         className="text-input"
         value={imageSource}
-        onChange={(e) =>
-          setImageSource(e.target.value as "file" | "url" | "webcam")
-        }
+        onChange={(e) => setImageSource(e.target.value as "file" | "webcam")}
       >
         <option value="file">
           {
