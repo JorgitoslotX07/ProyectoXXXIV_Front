@@ -8,8 +8,7 @@ import { CochesPromoComponent } from "../../components/CochesPromoComponent/Coch
 export const CarDetailPage: FC = () => {
   const location = useLocation();
   const { state } = location;
-  const carId: number = state;
-  // console.log(product);
+  const product: number = state;
 
   const [vehiculo, setVehiculo] = useState<Vehiculo>(Vehiculo);
   const [showPaymentPopup, setShowPaymentPopup] = useState(false);
@@ -30,114 +29,22 @@ export const CarDetailPage: FC = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      console.log(carId);
-      const data = await httpGet<Vehiculo>("/vehiculos/" + carId);
-      if (data) {
-        setVehiculo(data);
-      }
+      const data = await httpGet<Vehiculo>("/vehiculos/" + product);
+      if (data) setVehiculo(data);
     };
     fetch();
   }, []);
 
   return (
-    <>
-      {/* <div className="flex flex-col  items-start gap-12 mt-20 px-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-    
-            <div>
-                <div className="bg-gray-100 aspect-square flex items-center justify-center mb-4">
-                    <img src={product.imageUrl} alt="Product" className="object-contain h-full" />
-                </div>
-
-                
-                <div className="flex gap-2">
-                <button className="border p-1">
-                    <img src="/path-to-thumb.jpg" alt="Thumbnail 1" className="w-12 h-12 object-cover" />
-                </button>
-                <button className="border p-1 opacity-50">
-                    <img src="/path-to-thumb2.jpg" alt="Thumbnail 2" className="w-12 h-12 object-cover" />
-                </button>
-                </div>
-            </div>
-            <div>
-                <h1 className="text-xl font-semibold">{product.name}</h1>
-                <p className="text-sm text-gray-500 mb-2">{product.description}</p>
-
-        
-                <div className="flex items-baseline gap-2 mt-6">
-                    <p className="text-xl font-bold text-gray-900">Precio: {product.price} €</p>
-                </div>
-
-                <p className="text-sm text-gray-600 mt-4">
-                    Caracteristicas:
-                </p>
-
-                <ul className="text-sm text-gray-700 space-y-1 leading-tight">
-
-                {product.caracteristicas.map((item: string, index) => (
-                    <li key={index} className="flex items-start gap-2">
-                        ✓ {item}
-                    </li>
-                ))}
-                </ul>
-
-           
-                <button className="mt-17 w-full bg-gray-800 text-white py-3 rounded font-semibold flex items-center justify-center gap-2 mb-4">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor"><path d="..." /></svg>
-                    ADD TO CART
-                </button>
-
-                
-                
-
-              */}
-        <div className="flex flex-col items-start gap-12 mt-20 px-4 sm:px-6 md:px-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 w-full">
-            <div className="w-full">
-            <div className="">
-
-              <div className="w-full h-full flex items-center justify-center bg-gray-800 rounded">
-                {vehiculo.imagen ? (
-                  <img
-                    src={vehiculo.imagen}
-                    alt="Vehículo"
-                    className="object-contain max-h-full max-w-full"
-                  />
-                ) : (
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    className="w-20 h-20 text-gray-500"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M4 16V8a2 2 0 012-2h12a2 2 0 012 2v8M4 16l4-4 4 4 4-4 4 4M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                )}
-              </div>
-
-              <div className="flex gap-2 overflow-x-auto">
-                <button className="border p-1">
-                  <img
-                    src="/path-to-thumb.jpg"
-                    alt="Thumbnail 1"
-                    className="w-12 h-12 object-cover"
-                  />
-                </button>
-                <button className="border p-1 opacity-50">
-                  <img
-                    src="/path-to-thumb2.jpg"
-                    alt="Thumbnail 2"
-                    className="w-12 h-12 object-cover"
-                  />
-                </button>
-              </div>
-            </div>
+    <div className="min-h-screen bg-[#111827] [background-image:radial-gradient(at_47%_33%,hsl(163,80%,20%)_0,transparent_59%),radial-gradient(at_82%_65%,hsl(218,75%,14%)_0,transparent_55%)] bg-no-repeat bg-cover text-white font-sans px-4 sm:px-6 md:px-10 pt-20 pb-32">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 w-full">
+        <div className="w-full">
+          <div className="backdrop-blur-[18px] backdrop-saturate-[180%] bg-[rgba(31,41,55,0.6)] border border-white/10 rounded-xl shadow-xl p-6 w-full">
+            {vehiculo.imagen ? (
+              <img src={vehiculo.imagen} alt="Vehículo" className="object-contain max-h-full max-w-full rounded-lg" />
+            ) : (
+              <div className="w-full h-64 bg-gray-700 rounded flex items-center justify-center">Sin imagen</div>
+            )}
           </div>
 
           <div className="w-full">
@@ -215,9 +122,7 @@ export const CarDetailPage: FC = () => {
             </div>
           </div>
         )}
-          </div>
-
-    </>
-
+      </div>
+    </div>
   );
 };
