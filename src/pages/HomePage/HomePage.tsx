@@ -76,7 +76,7 @@ export const HomePage: FC<HomePageProps> = ({
         <div className="max-h-[45em] flex flex-col lg:flex-row items-stretch justify-between px-10 py-16 gap-10 relative overflow-hidden shadow-xl">
           <div className="absolute inset-0 bg-[#162947] [background-image:radial-gradient(at_47%_90%,hsl(163.5,83%,24%)_0,#0a0a0a_59%),radial-gradient(at_82%_65%,hsl(218.82,77%,21%)_0,transparent_55%)] bg-cover bg-center opacity-20"></div>
 
-          <div className="backdrop-blur-md backdrop-saturate-150 bg-black/35 rounded-2xl border border-white/10 p-8 text-white shadow-lg">
+        <div className="bg-[#162947] [background-image:radial-gradient(at_bottom_right,hsl(163.5,83%,24%)_0,#0a0a0a_59%),radial-gradient(at_82%_65%,hsl(218.82,77%,21%)_0,transparent_55%)] backdrop-blur-md backdrop-saturate-150 rounded-2xl border-white/10 p-8 text-white shadow-lg z-10 lg:w-1/2">
           {/* <div className="backdrop-blur-[25px] backdrop-saturate-[200%] bg-[rgba(0,0,0,0.78)] rounded-[12px] border border-[rgba(255,255,255,0.125)] lg:w-1/2 p-10 flex flex-col justify-start relative z-10 text-white "> */}
 {/* <div className="bg-[#162947] [background-image:radial-gradient(at_bottom_right,hsl(163.5,83%,24%)_0,#0a0a0a_59%),radial-gradient(at_82%_65%,hsl(218.82,77%,21%)_0,transparent_55%)] backdrop-blur-md backdrop-saturate-150 rounded-2xl border-white/10 p-8 text-white shadow-lg"> */}
 
