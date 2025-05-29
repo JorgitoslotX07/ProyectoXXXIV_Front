@@ -236,7 +236,7 @@ export const CarDetailPage: FC = () => {
             <div className="flex justify-end gap-4">
               <button
                 onClick={() => setShowPaymentPopup(false)}
-                className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                className="px-4 py-2 bg-[rgb(255,101,101)] rounded hover:bg-[rgb(255,72,72)]"
               >
                 Cancelar
               </button>
