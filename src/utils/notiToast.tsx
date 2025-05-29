@@ -10,8 +10,6 @@ const baseOptions: ToastOptions = {
   progress: undefined,
   theme: "dark",
   transition: Bounce,
-  // className: "bg-white/5 backdrop-blur-md rounded-xl border border-white/10 text-white shadow-md", // para el fondo del toast
-  //   bodyClassName: "text-sm font-medium px-3 py-2",
 };
 
 export const mostrarError = (error: string) => toast.error(error, baseOptions);
