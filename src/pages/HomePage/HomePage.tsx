@@ -1,10 +1,11 @@
-import { useEffect, type FC } from "react";
+import { type FC } from "react";
+// useEffect
 import { NoticiasComponent } from "../../components/NoticiasComponent/NoticiasComponent";
 import { CochesPromoComponent } from "../../components/CochesPromoComponent/CochesPromoComponent";
 import type { HomePageProps } from "../../interfaces/HomePageProps";
 import { SearchFastComponent } from "../../components/SearchFastComponent/SearchFastComponent";
 import { Link } from "react-router-dom";
-import { mostrarError, mostrarInfo, mostrarSuccess, mostrarWarning } from "../../utils/notiToast";
+// import { mostrarError, mostrarInfo, mostrarSuccess, mostrarWarning } from "../../utils/notiToast";
 import { NotiToastComponent } from "../../components/NotiToastComponents/NotiToastComponet";
 
 export const HomePage: FC<HomePageProps> = ({
