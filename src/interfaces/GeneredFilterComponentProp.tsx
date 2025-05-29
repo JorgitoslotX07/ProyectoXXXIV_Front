@@ -3,6 +3,7 @@ import type { FiltroVehiculo } from "./Vehiculo";
 export interface FilterOption {
     label: string;
     value: string;
+    logo?: string; // <- Añadido para permitir logo opcional
 }
 
 

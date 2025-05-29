@@ -4,6 +4,7 @@ import { ChevronRight, Star } from "lucide-react";
 import { Vehiculo } from "../../interfaces/Vehiculo";
 import { httpGet } from "../../utils/apiService";
 import { CochesPromoComponent } from "../../components/CochesPromoComponent/CochesPromoComponent";
+import { motion } from "framer-motion";
 
 export const CarDetailPage: FC = () => {
   const location = useLocation();
@@ -35,9 +36,19 @@ export const CarDetailPage: FC = () => {
     fetch();
   }, []);
 
+  const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1.2, ease: "easeOut" } }
+  };
+
   return (
     <div className="min-h-screen bg-[#111827] [background-image:radial-gradient(at_47%_33%,hsl(163,80%,20%)_0,transparent_59%),radial-gradient(at_82%_65%,hsl(218,75%,14%)_0,transparent_55%)] bg-no-repeat bg-cover text-white font-sans px-4 sm:px-6 md:px-10 pt-20 pb-32">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 w-full">
+      <motion.div
+        className="grid grid-cols-1 lg:grid-cols-2 gap-10 w-full"
+        variants={fadeUp}
+        initial="hidden"
+        animate="visible"
+      >
         <div className="w-full">
           <div className="backdrop-blur-[18px] backdrop-saturate-[180%] bg-[rgba(31,41,55,0.6)] border border-white/10 rounded-xl shadow-xl p-6 w-full">
             {vehiculo.imagen ? (
@@ -66,9 +77,9 @@ export const CarDetailPage: FC = () => {
             Reservar vehículo
           </button>
         </div>
-      </div>
+      </motion.div>
 
-      <div className="mt-10">
+      <motion.div className="mt-10" variants={fadeUp} initial="hidden" animate="visible">
         <h2 className="text-xl font-semibold mb-4">Calificaciones</h2>
         <div className="grid gap-4">
           {calificaciones.map((rev, i) => (
@@ -91,12 +102,11 @@ export const CarDetailPage: FC = () => {
             </div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
-      <div className="mt-20">
-        {/* <h2 className="text-xl font-semibold text-[#C4B5FD] mb-6">Vehículos recomendados</h2> */}
+      <motion.div className="mt-20" variants={fadeUp} initial="hidden" animate="visible">
         <CochesPromoComponent />
-      </div>
+      </motion.div>
 
       {showPaymentPopup && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50">

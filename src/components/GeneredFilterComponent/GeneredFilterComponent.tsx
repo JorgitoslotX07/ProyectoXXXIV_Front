@@ -7,6 +7,7 @@ export const GeneredFilterComponent: FC<FiltersProps> = ({
   index,
   filter,
   onFilterChange,
+
 }) => {
   return (
     <>
@@ -141,6 +142,19 @@ export const GeneredFilterComponent: FC<FiltersProps> = ({
           isClearable
           placeholder={`Selecciona ${filter.label.toLowerCase()}`}
           className="text-sm text-white"
+          formatOptionLabel={(option: any) => (
+            <div className="flex items-center gap-2">
+              {option.logo && (
+                <img
+                  src={option.logo}
+                  alt={option.label}
+                  className="h-4 w-4 object-contain dark:invert"
+                />
+              )}
+              <span>{option.label}</span>
+            </div>
+          )}
+
           styles={{
             control: (base, state) => ({
               ...base,
