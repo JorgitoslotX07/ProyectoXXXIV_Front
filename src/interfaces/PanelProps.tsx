@@ -4,4 +4,5 @@ export interface VolverProps {
 
 export interface TituloProps {
     titulo: string;
+    runtaOut: string;
 }

@@ -1,28 +1,28 @@
 import { useEffect, useState, type FC, type ReactElement } from "react";
-// import { httpGetTok } from "../../utils/apiService";
 import {
   usuarioCompletoVacio,
   type UsuarioCompleto,
-} from "../../interfaces/Usuario";
-import { ImageWebCame } from "../../components/ImageWebCame/ImageWebCame";
-import { conversiorFile } from "../../utils/conversorServise";
-import { FondoPanelComponent } from "../../components/FondoPanelComponent/FondoPanelComponent";
-import { TituloComponent } from "../../components/PanelComonent/TituloComponent";
+} from "../../../interfaces/Usuario";
+import { conversiorFile } from "../../../utils/conversorServise";
+import { FondoPanelComponent } from "../../../components/__ConfigUsersComponents/FondoPanelComponent/FondoPanelComponent";
+import { TituloComponent } from "../../../components/__ConfigUsersComponents/PanelComonent/TituloComponent";
+import { ImageWebCame } from "../../../components/__ConfigUsersComponents/ImageWebCame/ImageWebCame";
+import { httpGetTok } from "../../../utils/apiService";
 
 export const VeriUserPage: FC = (): ReactElement => {
   // const navigate = useNavigate();
-  // const [usuario, setUsuario] = useState<UsuarioCompleto>(usuarioCompletoVacio);
+  const [usuario, setUsuario] = useState<UsuarioCompleto>(usuarioCompletoVacio);
   const [imageSource, setImageSource] = useState<string>("webcam");
   const [image, setImage] = useState<string | null>(null);
 
   useEffect(() => {
-    // const fetch = async () => {
-    //   const data = await httpGetTok<UsuarioCompleto>("/usuarios/me");
-    //   if (data) {
-    //     setUsuario(data);
-    //   }
-    // };
-    // fetch();
+    const fetch = async () => {
+      const data = await httpGetTok<UsuarioCompleto>("/usuarios/me");
+      if (data) {
+        setUsuario(data);
+      }
+    };
+    fetch();
   }, []);
 
   function setImageConversor(e: React.ChangeEvent<HTMLInputElement>) {

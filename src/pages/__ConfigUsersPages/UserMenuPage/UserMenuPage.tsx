@@ -1,15 +1,15 @@
 import { useNavigate, Link } from "react-router-dom";
 // import { usuarios } from "../../utils/verificaciones";
-import { deleteCookiesLogin } from "../../utils/cookisLogin";
-import { useUserStore } from "../../hooks/userStore";
+import { deleteCookiesLogin } from "../../../utils/cookisLogin";
+import { useUserStore } from "../../../hooks/userStore";
 import { useEffect, useState } from "react";
-import { httpGetTok } from "../../utils/apiService";
+import { httpGetTok } from "../../../utils/apiService";
 import {
   usuarioCompletoVacio,
   type UsuarioCompleto,
-} from "../../interfaces/Usuario";
-import { FondoPanelComponent } from "../../components/FondoPanelComponent/FondoPanelComponent";
-import { TituloComponent } from "../../components/PanelComonent/TituloComponent";
+} from "../../../interfaces/Usuario";
+import { FondoPanelComponent } from "../../../components/__ConfigUsersComponents/FondoPanelComponent/FondoPanelComponent";
+import { TituloComponent } from "../../../components/__ConfigUsersComponents/PanelComonent/TituloComponent";
 
 export const UserMenuPage = () => {
   const navigate = useNavigate();
@@ -21,8 +21,6 @@ export const UserMenuPage = () => {
     setToken("");
     navigate("/");
   };
-
-  // pendiente peticion a back para coger el user a partir del token
 
   useEffect(() => {
     const fetch = async () => {
@@ -40,22 +38,22 @@ export const UserMenuPage = () => {
     {
       icon: "🚗",
       title: "Mis Reservas",
-      onClick: () => navigate("/panel/reservas"),
+      onClick: () => navigate("reservas"),
     },
     {
       icon: "🔑",
       title: "Cambiar Contraseña",
-      onClick: () => navigate("/panel/pass"),
+      onClick: () => navigate("pass"),
     },
     {
       icon: "✅",
       title: "Verificacion de Usuario",
-      onClick: () => navigate("/panel/veri-user"),
+      onClick: () => navigate("veri-user"),
     },
     {
       icon: "📜",
       title: "Historial de Viajes",
-      onClick: () => navigate("/panel/historial"),
+      onClick: () => navigate("historial"),
     },
     // {
     //   icon: "🔒",
@@ -72,11 +70,11 @@ export const UserMenuPage = () => {
   return (
     <FondoPanelComponent>
       <div className="relative min-h-screen p-8 text-white">
-        <TituloComponent titulo="Panel de Usuario" />
+        <TituloComponent titulo="Panel de Usuario" runtaOut="/"/>
         
         <div className="relative flex flex-col lg:flex-row gap-8">
           <div className="relative w-full max-w-xs bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 mx-auto text-center">
-            <Link to="/panel/editar-perfil">
+            <Link to="editar-perfil">
               <button className="absolute top-3 right-3 text-purple-300 hover:text-white transition">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"

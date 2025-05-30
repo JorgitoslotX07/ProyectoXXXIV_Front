@@ -4,8 +4,7 @@ import type {
     FilterCategory,
     FilterOption,
 } from "../../interfaces/GeneredFilterComponentProp";
-import type { Vehiculo,  } from "../../interfaces/Vehiculo";
-// FiltroVehiculo
+import type { Vehiculo, } from "../../interfaces/Vehiculo";
 import type { FiltrersCatalogProps } from "../../interfaces/FiltrersCatalogProps";
 
 export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
@@ -83,33 +82,50 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
         : filtrosDinamicos(vehiculos.content);
 
     return (
-        <div className="p-6 space-y-6">
-            <div className="p-10 space-y-6">
-                <div className={vertical ? "flex flex-col gap-6 items-start" : "flex flex-wrap gap-6 justify-center"}>
-                    <div className="flex flex-wrap gap-4">
+        <div className="p-6 space-y-6 rounded-md">
+            <div className="space-y-4">
+                <div
+                    className={`${vertical
+                            ? "flex flex-col gap-6"
+                            : "flex flex-wrap gap-4 justify-between items-start"
+                        }`}
+                >
+                    <div className="flex flex-wrap gap-4 flex-1">
                         {categorias.map((filter, index) => (
                             <GeneredFilterComponent
                                 key={index}
                                 index={index}
                                 filter={filter}
                                 onFilterChange={onFilterChange}
-                                valorActual={filtros[filter.name]} // ← sincroniza visualmente
+                                valorActual={filtros[filter.name]}
                             />
                         ))}
                     </div>
 
                     {!vertical && (
-                        <div className="flex items-end">
+                        <div className="flex justify-end w-full sm:w-auto">
                             <button
                                 onClick={onSubmit}
-                                className="mb-1 h-8 px-4 bg-white/80 text-gray-900 text-sm font-medium rounded-full shadow-sm hover:bg-white transition duration-200"
+                                className="h-10 px-6 bg-white/80 hover:bg-white text-gray-900 text-lg font-medium rounded-full shadow transition duration-200"
                             >
                                 Buscar
                             </button>
                         </div>
                     )}
                 </div>
+{/* 
+                {vertical && (
+                    <div className="flex justify-end">
+                        <button
+                            onClick={onSubmit}
+                            className="h-10 px-6 bg-blue-600 text-white text-sm font-medium rounded-full shadow hover:bg-blue-700 transition duration-200"
+                        >
+                            Buscar
+                        </button>
+                    </div>
+                )} */}
             </div>
         </div>
+
     );
 };

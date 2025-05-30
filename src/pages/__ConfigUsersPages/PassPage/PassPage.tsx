@@ -1,10 +1,10 @@
 import { useState, type FC } from "react";
-import { FondoPanelComponent } from "../../components/FondoPanelComponent/FondoPanelComponent";
-import { TituloComponent } from "../../components/PanelComonent/TituloComponent";
-import { httpPost } from "../../utils/apiService";
-import { mostrarError, mostrarSuccess } from "../../utils/notiToast";
 import { useSearchParams } from "react-router-dom";
-import { NotiToastComponent } from "../../components/NotiToastComponents/NotiToastComponet";
+import { httpPost } from "../../../utils/apiService";
+import { mostrarError, mostrarSuccess } from "../../../utils/notiToast";
+import { FondoPanelComponent } from "../../../components/__ConfigUsersComponents/FondoPanelComponent/FondoPanelComponent";
+import { TituloComponent } from "../../../components/__ConfigUsersComponents/PanelComonent/TituloComponent";
+import { NotiToastComponent } from "../../../components/NotiToastComponents/NotiToastComponet";
 
 export const PassPage: FC = () => {
   const [searchParams] = useSearchParams();
@@ -15,7 +15,6 @@ export const PassPage: FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  //   const [mensaje, setMensaje] = useState("");
 
   const enviarEmail = async () => {
     setStep("codigo");
@@ -31,7 +30,6 @@ export const PassPage: FC = () => {
 
   const cambiarPassword = async () => {
     if (password !== confirmPassword) {
-      //   setMensaje("Las contraseñas no coinciden.");
       mostrarError("Las contraseñas no coinciden.");
       return;
     }
@@ -46,7 +44,6 @@ export const PassPage: FC = () => {
       console.log(data);
 
       console.log("Contraseña actualizada para:", email);
-      // setMensaje("Contraseña actualizada correctamente.");
       mostrarSuccess("Contraseña actualizada correctamente.");
     }
   };

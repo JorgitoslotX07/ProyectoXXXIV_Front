@@ -59,3 +59,22 @@ export const usuarioCompletoVacio: UsuarioCompleto = {
   motivoBloqueo: "",
   createdAt: "",
 };
+
+
+export type UsuarioAdministrar = {
+  id: number,
+  usuario: string,
+  nombre: string,
+  apellidos: string,
+  email: string,
+  activo: boolean,
+}
+
+export const usuarioAdministrarVacio: UsuarioAdministrar = {
+  id: 0,
+  usuario: "",
+  nombre: "",
+  apellidos: "",
+  email: "",
+  activo: true,
+};

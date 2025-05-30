@@ -18,7 +18,7 @@ export const CatalogPage: FC = () => {
 
   const filtroRef = useRef<HTMLDivElement>(null); // para scroll al filtro
 
-  const peticionVehiculos = useCallback(async () => {
+  const peticionVehiculos = async () => {
     const response = await httpGet<PageProps<Vehiculo>>(
       `/vehiculos?page=${paginaActual}&size=${pageSize}`
     );
@@ -29,11 +29,15 @@ export const CatalogPage: FC = () => {
     } else {
       console.error("Fallo al obtener los datos de la página", paginaActual);
     }
+  };
+
+  useEffect(() => {
+    peticionVehiculos();
   }, [paginaActual, pageSize]);
 
   useEffect(() => {
     peticionVehiculos();
-  }, [paginaActual, pageSize, peticionVehiculos]);
+  }, []);
 
   function actualizarFiltro(clave: FiltroVehiculo, valor: string | number | boolean) {
     const nuevosFiltros = {

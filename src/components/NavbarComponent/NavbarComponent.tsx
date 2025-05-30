@@ -25,6 +25,9 @@ export const NavbarComponent: FC<NavbarProps> = ({ onLoginClick }) => {
         <li className="hover:text-white transition-colors duration-200">
           <Link to="/map">Mapa</Link>
         </li>
+        <li className="hover:text-white transition-colors duration-200">
+          <Link to="/admin">Administracion</Link>
+        </li>
       </ul>
 
       <div className="flex items-center space-x-4">

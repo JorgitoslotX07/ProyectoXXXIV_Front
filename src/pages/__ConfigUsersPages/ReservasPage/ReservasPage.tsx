@@ -1,9 +1,9 @@
 import { type FC, type ReactElement, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { httpGetTok } from "../../utils/apiService";
-import type { Reserva } from "../../interfaces/ReservaProps";
-import { FondoPanelComponent } from "../../components/FondoPanelComponent/FondoPanelComponent";
-import { TituloComponent } from "../../components/PanelComonent/TituloComponent";
+import { httpGetTok } from "../../../utils/apiService";
+import type { Reserva } from "../../../interfaces/ReservaProps";
+import { FondoPanelComponent } from "../../../components/__ConfigUsersComponents/FondoPanelComponent/FondoPanelComponent";
+import { TituloComponent } from "../../../components/__ConfigUsersComponents/PanelComonent/TituloComponent";
 
 export const mockReservas = [
     {

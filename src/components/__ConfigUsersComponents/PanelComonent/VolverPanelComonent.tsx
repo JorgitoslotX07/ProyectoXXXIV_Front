@@ -7,6 +7,6 @@ export const VolverPanelComonent: FC = () => {
 
 
     return (
-        <VolverComonent url={"/panel"} />
+        <VolverComonent url={"*"} />
     );
 }

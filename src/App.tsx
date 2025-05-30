@@ -1,7 +1,7 @@
 import "./App.css";
 
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { NavbarComponent } from "./components/NavbarComponent/NavbarComponent";
 import { FooterComponent } from "./components/FooterComponent/FooterComponent";
@@ -12,15 +12,23 @@ import { LoginComponent } from "./components/LoginComponent/LoginComponent";
 import { MapPage } from "./pages/MapPage/MapPage";
 import Cookies from "js-cookie";
 import { useUserStore } from "./hooks/userStore";
-import { EditarPerfilPage } from "./pages/EditarPerfilPage/EditarPerfilPage";
-import { UserMenuPage } from "./pages/UserMenuPage/UserMenuPage";
 import { NoticiaDetailPage } from "./pages/NoticiasDetailPage/NoticiasDetailPage";
 import CookiesPage from "./pages/CookiesPage/CookiesPage";
 import ScrollToTop from "./components/ScrollToTopComponent/ScrollToTopComponent";
-import { VeriUserPage } from "./pages/VeriUserPage/VeriUserPage";
-import { ReservasPage } from "./pages/ReservasPage/ReservasPage";
-import { HistorialPage } from "./pages/HistorialPage/HistorialPage";
-import { PassPage } from "./pages/PassPage/PassPage";
+import { HistorialPage } from "./pages/__ConfigUsersPages/HistorialPage/HistorialPage";
+import { UserMenuPage } from "./pages/__ConfigUsersPages/UserMenuPage/UserMenuPage";
+import { EditarPerfilPage } from "./pages/__ConfigUsersPages/EditarPerfilPage/EditarPerfilPage";
+import { VeriUserPage } from "./pages/__ConfigUsersPages/VeriUserPage/VeriUserPage";
+import { ReservasPage } from "./pages/__ConfigUsersPages/ReservasPage/ReservasPage";
+import { PassPage } from "./pages/__ConfigUsersPages/PassPage/PassPage";
+import { PanelAdminPage } from "./pages/__AdminPages/PanelAdminPage/PanelAdminPage";
+import { UsuariosAdminPage } from "./pages/__AdminPages/UsuariosAdminPage/UsuariosAdminPage";
+import { ValidacionCarnetAdminPage } from "./pages/__AdminPages/ValidacionCarnetAdminPage/ValidacionCarnetAdminPage";
+import { VehiculosAdminPage } from "./pages/__AdminPages/VehiculosAdminPage/VehiculosAdminPage";
+import { SeguimientoVehiculosAdminPage } from "./pages/__AdminPages/SeguimientoVehiculosAdminPage/SeguimientoVehiculosAdminPage";
+import { ParkingsAdminPage } from "./pages/__AdminPages/ParkingsAdminPage/ParkingsAdminPage";
+import { NoticiasAdminPage } from "./pages/__AdminPages/NoticiasAdminPage/NoticiasAdminPage";
+import { PanelInicialAdminPage } from "./pages/__AdminPages/PanelInicialAdminPage/PanelInicialAdminPage";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -47,6 +55,7 @@ function App() {
 
       {showLogin && <LoginComponent onClose={() => setShowLogin(false)} />}
       <ScrollToTop />
+
       <Routes>
         <Route
           path="/"
@@ -57,19 +66,35 @@ function App() {
             />
           }
         />
+
         <Route path="/register" element={<RegistroPage />} />
-        <Route path="/catalog" element={<CatalogPage />} />
-        <Route path="/catalog/carDetail" element={<CarDetailPage />} />
+        <Route path="/catalog" >
+          <Route index element={<CatalogPage />} />
+          <Route path="carDetail" element={<CarDetailPage />} />
+        </Route>
         <Route path="/map" element={<MapPage />} />
-        <Route path="/panel" element={<UserMenuPage />} />
         <Route path="/noticia" element={<NoticiaDetailPage />} />
-        <Route path="/panel/editar-perfil" element={<EditarPerfilPage />} />
-        <Route path="/panel/veri-user" element={<VeriUserPage />} />
-        <Route path="/panel/reservas" element={<ReservasPage />} />
-        <Route path="/panel/historial" element={<HistorialPage />} />
-        <Route path="/panel/pass" element={<PassPage />} />
 
+        <Route path="/panel" >
+          <Route index element={<UserMenuPage />} />
+          <Route path="editar-perfil" element={<EditarPerfilPage />} />
+          <Route path="veri-user" element={<VeriUserPage />} />
+          <Route path="reservas" element={<ReservasPage />} />
+          <Route path="historial" element={<HistorialPage />} />
+          <Route path="pass" element={<PassPage />} />
+          <Route path="*" element={<Navigate to="/panel" replace />} />
+        </Route>
 
+        <Route path="/admin" element={<PanelAdminPage />} >
+          <Route index element={<PanelInicialAdminPage />} />
+          <Route path="usuarios" element={<UsuariosAdminPage />} />
+          <Route path="usuarios/validacion-carnet" element={<ValidacionCarnetAdminPage />} />
+          <Route path="vehiculos" element={<VehiculosAdminPage />} />
+          <Route path="vehiculos/seguimiento" element={<SeguimientoVehiculosAdminPage />} />
+          <Route path="parkings" element={<ParkingsAdminPage />} />
+          <Route path="noticias" element={<NoticiasAdminPage />} />
+          <Route path="*" element={<Navigate to="/admin" replace />} />
+        </Route>
 
         <Route path="/cookies" element={<CookiesPage />} />
       </Routes>
