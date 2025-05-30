@@ -9,6 +9,7 @@ import type { Vehiculo, DatosVehiculo } from "../../interfaces/Vehiculo";
 import { FiltrersCatalogComponent } from "../FiltrersCatalogComponent/FiltrersCatalogComponent";
 import { httpGet } from "../../utils/apiService";
 import type { ParkingFilterComponentProp } from "../../interfaces/ParkingFilterComponentProp";
+import { LegendComponent } from "../../components/LegendComponent/LegendComponent";
 
 export const ParkingFilterComponent: FC<ParkingFilterComponentProp> = ({ mostrar, onToggle }) => {
   return (
@@ -648,6 +649,10 @@ const CochesMapComponent = () => {
     mostrar={mostrarParkings}
     onToggle={() => setMostrarParkings(!mostrarParkings)}
   />
+  <div className="mt-4">
+  <LegendComponent />
+</div>
+
 </div>
       </div>
     </div>
