@@ -3,7 +3,7 @@ import MarkerClusterGroup from "react-leaflet-markercluster";
 import L, { Map as LeafletMap, type LatLngTuple } from "leaflet";
 import type { MarkerCluster } from "leaflet";
 import "leaflet/dist/leaflet.css";
-
+import type { ZonaParking } from "../../interfaces/ZonaParkinsProps";
 import { useEffect, useRef, useState } from "react";
 import type { Vehiculo, DatosVehiculo } from "../../interfaces/Vehiculo";
 import { FiltrersCatalogComponent } from "../FiltrersCatalogComponent/FiltrersCatalogComponent";
@@ -37,16 +37,17 @@ const crearIconoParking = () => {
     className: "",
     html: `
       <div style="transform: translate(-50%, -50%);">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="#10b981" xmlns="http://www.w3.org/2000/svg">
+        <svg width="25" height="25" viewBox="0 0 24 24" fill="#10b981" xmlns="http://www.w3.org/2000/svg">
           <circle cx="12" cy="12" r="12" fill="#10b981"/>
           <text x="50%" y="55%" text-anchor="middle" fill="white" font-size="14px" font-family="Arial" dy=".3em">P</text>
         </svg>
       </div>
     `,
-    iconSize: [40, 40],
+    iconSize: [25, 25],
     iconAnchor: [20, 40],
   });
 };
+
 const ciudades = [
   { nombre: "Tarragona", coords: [41.1189, 1.2445] as LatLngTuple },
   { nombre: "Salou", coords: [41.0766, 1.1416] as LatLngTuple },
@@ -54,7 +55,15 @@ const ciudades = [
   { nombre: "Reus", coords: [41.1543, 1.1086] as LatLngTuple },
   { nombre: "Cambrils", coords: [41.0748, 1.0522] as LatLngTuple },
 ];
-const zonasParking: {
+
+// export interface ZonaParking {
+//   id: number;
+//   nombre: string;
+//   foto: string;
+//   bounds: [LatLngTuple, LatLngTuple];
+// }
+
+export const zonasParking: {
   id: number;
   nombre: string;
   foto: string;
@@ -173,7 +182,9 @@ const CochesMapComponent = () => {
   const [vehiculoSeleccionado, setVehiculoSeleccionado] =
     useState<DatosVehiculo | null>(null);
   const [mostrarTarjeta, setMostrarTarjeta] = useState(false);
-  const [parkingSeleccionado, setParkingSeleccionado] = useState<typeof zonasParking[0] | null>(null);
+  // const [parkingSeleccionado, setParkingSeleccionado] = useState<typeof zonasParking[0] | null>(null);
+  const [parkingSeleccionado, setParkingSeleccionado] = useState<ZonaParking | null>(null);
+
   const [posicionInicialMapa, setPosicionInicialMapa] = useState<LatLngTuple>([
     41.1189, 1.2445,
   ]);
