@@ -414,7 +414,7 @@ const CochesMapComponent = () => {
         </div>
 
         <MapContainer
-          className=" w-full h-[calc(100vh-9rem)] min-h-[300px] z-10"
+          className=" w-full h-[calc(100vh-9rem)] rounded-xl min-h-[300px] z-10"
           center={posicionInicialMapa}
           zoom={13}
           minZoom={6}
