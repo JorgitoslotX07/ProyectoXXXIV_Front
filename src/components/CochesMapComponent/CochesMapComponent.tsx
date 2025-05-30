@@ -4,11 +4,31 @@ import L, { Map as LeafletMap, type LatLngTuple } from "leaflet";
 import type { MarkerCluster } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import type { ZonaParking } from "../../interfaces/ZonaParkinsProps";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type FC } from "react";
 import type { Vehiculo, DatosVehiculo } from "../../interfaces/Vehiculo";
 import { FiltrersCatalogComponent } from "../FiltrersCatalogComponent/FiltrersCatalogComponent";
 import { httpGet } from "../../utils/apiService";
+import type { ParkingFilterComponentProp } from "../../interfaces/ParkingFilterComponentProp";
 
+export const ParkingFilterComponent: FC<ParkingFilterComponentProp> = ({ mostrar, onToggle }) => {
+  return (
+    <div className="w-full">
+      <label
+        htmlFor="toggle-parkings"
+       className="w-[250px] flex items-center gap-3 bg-[#111827] px-4 py-3 rounded-xl text-white cursor-pointer hover:bg-[#1f2937] transition"
+      >
+        <input
+          type="checkbox"
+          id="toggle-parkings"
+          checked={mostrar}
+          onChange={onToggle}
+          className="form-checkbox h-5 w-5 text-green-500 accent-green-500 rounded focus:ring-0"
+        />
+        <span className="text-sm font-semibold">Mostrar zonas de parking</span>
+      </label>
+    </div>
+  );
+};
 const crearIconoCoche = (esSeleccionado: boolean) => {
   const color = esSeleccionado ? "#4ade80" : "#3b82f6";
   const extraStyle = esSeleccionado ? "animation: bounce 0.6s ease;" : "";
@@ -32,13 +52,22 @@ const crearIconoCoche = (esSeleccionado: boolean) => {
 
 };
 
-const crearIconoParking = () => {
+const crearIconoParking = (esSeleccionado: boolean) => {
+  const color = esSeleccionado ? "#4ade80" : "#10b981";
+  const sombra = esSeleccionado
+    ? "filter: drop-shadow(0 0 6px #4ade80);"
+    : "";
+
+  const extraStyle = esSeleccionado
+    ? "animation: bounce 0.6s ease; transform: translate(-50%, -50%) scale(1.1);"
+    : "transform: translate(-50%, -50%) scale(1);";
+//el extraStyle no esta comillado, revisar mas adelante
   return L.divIcon({
     className: "",
     html: `
-    <div style="position: relative; display: flex; align-items: center; justify-content: center;">
-                    <svg width="40" height="45" viewBox="0 0 40 45"  xmlns="http://www.w3.org/2000/svg">
-          <circle cx="15" cy="15" r="14" fill="#10b981" />
+    <div style=${extraStyle} ${sombra}">   
+          <svg width="40" height="45" viewBox="0 0 40 45" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="15" cy="15" r="14" fill="${color}" />
           <text 
             x="40%" 
             y="35%" 
@@ -194,6 +223,7 @@ const CochesMapComponent = () => {
   const [mostrarTarjeta, setMostrarTarjeta] = useState(false);
   // const [parkingSeleccionado, setParkingSeleccionado] = useState<typeof zonasParking[0] | null>(null);
   const [parkingSeleccionado, setParkingSeleccionado] = useState<ZonaParking | null>(null);
+  const [mostrarParkings, setMostrarParkings] = useState(true);
 
   const [posicionInicialMapa, setPosicionInicialMapa] = useState<LatLngTuple>([
     41.1189, 1.2445,
@@ -404,7 +434,7 @@ const CochesMapComponent = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             noWrap={true}
           />
-          {zonasParking.map((zona) => (
+          {mostrarParkings && zonasParking.map((zona) => (
             <Rectangle
               key={zona.id}
               bounds={zona.bounds}
@@ -423,14 +453,14 @@ const CochesMapComponent = () => {
               </Tooltip>
             </Rectangle>
           ))}
-          {zonasParking.map((zona) => (
+          {mostrarParkings && zonasParking.map((zona) => (
             <Marker
               key={`marker-${zona.id}`}
               position={[
                 (zona.bounds[0][0] + zona.bounds[1][0]) / 2,
                 (zona.bounds[0][1] + zona.bounds[1][1]) / 2,
               ]}
-              icon={crearIconoParking()}
+              icon={crearIconoParking(parkingSeleccionado?.id === zona.id)}
               eventHandlers={{
                 click: () => {
                   setParkingSeleccionado(zona);
@@ -585,6 +615,8 @@ const CochesMapComponent = () => {
       </div>
 
       <div className="w-full lg:w-1/4  p-4 h-fit top-4">
+
+  
         <FiltrersCatalogComponent
           vehiculos={{
             content: vehiculos,
@@ -611,6 +643,12 @@ const CochesMapComponent = () => {
           onSubmit={() => console.log()}
           filtros={filtrosActivos}
         />
+      <div className="p-10 space-y-6r">
+  <ParkingFilterComponent
+    mostrar={mostrarParkings}
+    onToggle={() => setMostrarParkings(!mostrarParkings)}
+  />
+</div>
       </div>
     </div>
   );
