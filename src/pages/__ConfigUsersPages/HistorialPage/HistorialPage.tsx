@@ -1,7 +1,7 @@
 import { useState, type FC } from "react";
 import { useNavigate } from "react-router-dom";
-import { FondoPanelComponent } from "../../../components/__ConfigUsersComponents/FondoPanelComponent/FondoPanelComponent";
-import { TituloComponent } from "../../../components/__ConfigUsersComponents/PanelComonent/TituloComponent";
+import { FondoPanelComponent } from "../../../components/__ConfigUser/FondoPanelComponent/FondoPanelComponent";
+import { TituloComponent } from "../../../components/__ConfigUser/PanelComonent/TituloComponent";
 
 const viajesFalsos = [
     {

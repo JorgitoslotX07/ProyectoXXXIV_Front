@@ -4,9 +4,9 @@ import {
   type UsuarioCompleto,
 } from "../../../interfaces/Usuario";
 import { conversiorFile } from "../../../utils/conversorServise";
-import { FondoPanelComponent } from "../../../components/__ConfigUsersComponents/FondoPanelComponent/FondoPanelComponent";
-import { TituloComponent } from "../../../components/__ConfigUsersComponents/PanelComonent/TituloComponent";
-import { ImageWebCame } from "../../../components/__ConfigUsersComponents/ImageWebCame/ImageWebCame";
+import { FondoPanelComponent } from "../../../components/__ConfigUser/FondoPanelComponent/FondoPanelComponent";
+import { TituloComponent } from "../../../components/__ConfigUser/PanelComonent/TituloComponent";
+import { ImageWebCame } from "../../../components/__ConfigUser/ImageWebCame/ImageWebCame";
 import { httpGetTok } from "../../../utils/apiService";
 
 export const VeriUserPage: FC = (): ReactElement => {

@@ -1,8 +1,10 @@
 import type { FC } from "react";
 import { useEffect, useState } from "react";
 import { usuarioAdministrarVacio, type UsuarioAdministrar } from "../../../interfaces/Usuario";
-import { ModalEditUserComponent } from "../../../components/__AdminComponents/ModalEditUserComponent/ModalEditUserComponent";
-import { ModalConfirmDeleteUserComponent } from "../../../components/__AdminComponents/ModalConfirmDeleteUserCompoment/ModalConfirmDeleteUserComponent";
+import { ModalEditUserComponent } from "../../../components/Modal/ModalEditUserComponent/ModalEditUserComponent";
+import { ModalConfirmDeleteUserComponent } from "../../../components/Modal/ModalConfirmDeleteUserCompoment/ModalConfirmDeleteUserComponent";
+import { BotonAgregarComponent } from "../../../components/__Admin/BotonAgregarComponent/BotonAgregarComponent";
+import { ModalAddUserComponent } from "../../../components/Modal/ModalAddUserComponent/ModalAddUserComponent";
 
 const mockUsuarios: UsuarioAdministrar[] = [
     {
@@ -27,6 +29,7 @@ export const UsuariosAdminPage: FC = () => {
     const [usuarios, setUsuarios] = useState<UsuarioAdministrar[]>(mockUsuarios);
     const [showUpdateUser, setShowUpdateUser] = useState<boolean>(false);
     const [showDeleteUser, setShowDeleteUser] = useState<boolean>(false);
+    const [showAddUser, setShowAddUser] = useState<boolean>(false);
     const [userSelect, setUserSelect] = useState<UsuarioAdministrar>(usuarioAdministrarVacio)
 
     useEffect(() => {
@@ -46,10 +49,19 @@ export const UsuariosAdminPage: FC = () => {
         setShowDeleteUser(true);
     };
 
+    const handleAgregar = () => {
+        setShowAddUser(true);
+
+    }
+
     return (
         <>
+            <div className="flex justify-between items-center mb-6">
+                <h1 className="text-2xl font-bold">Gestión de Vehículos</h1>
+                <BotonAgregarComponent text={"Añadir Vehiculo"} onClick={handleAgregar} />
+            </div>
             <div className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-lg text-white">
-                <h2 className="text-xl font-bold mb-4">Gestión de Usuarios</h2>
+
                 <div className="overflow-x-auto">
                     <table className="min-w-full text-sm">
                         <thead>
@@ -107,8 +119,17 @@ export const UsuariosAdminPage: FC = () => {
 
 
             </div>
-            <ModalEditUserComponent isOpen={showUpdateUser} onClose={() => setShowUpdateUser(false)} usuario={userSelect} />
-            <ModalConfirmDeleteUserComponent isOpen={showDeleteUser} onClose={() => setShowDeleteUser(false)} usuario={userSelect} />
+
+            {showAddUser && (
+                <ModalAddUserComponent onClose={() => setShowAddUser(false)}/>
+            )}
+            {showUpdateUser && (
+                <ModalEditUserComponent onClose={() => setShowUpdateUser(false)} usuario={userSelect} />
+            )}
+            {showDeleteUser && (
+                <ModalConfirmDeleteUserComponent onClose={() => setShowDeleteUser(false)} usuario={userSelect} />
+            )}
+
         </>
     );
 }

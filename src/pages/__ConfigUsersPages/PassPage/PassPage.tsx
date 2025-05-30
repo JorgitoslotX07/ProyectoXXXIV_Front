@@ -2,8 +2,8 @@ import { useState, type FC } from "react";
 import { useSearchParams } from "react-router-dom";
 import { httpPost } from "../../../utils/apiService";
 import { mostrarError, mostrarSuccess } from "../../../utils/notiToast";
-import { FondoPanelComponent } from "../../../components/__ConfigUsersComponents/FondoPanelComponent/FondoPanelComponent";
-import { TituloComponent } from "../../../components/__ConfigUsersComponents/PanelComonent/TituloComponent";
+import { FondoPanelComponent } from "../../../components/__ConfigUser/FondoPanelComponent/FondoPanelComponent";
+import { TituloComponent } from "../../../components/__ConfigUser/PanelComonent/TituloComponent";
 import { NotiToastComponent } from "../../../components/NotiToastComponents/NotiToastComponet";
 
 export const PassPage: FC = () => {

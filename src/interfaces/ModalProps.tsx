@@ -1,3 +1,5 @@
+import type { NoticiaProps } from "./NoticiasProps";
+import type { Parking } from "./Parking";
 import type { UsuarioAdministrar } from "./Usuario";
 import type { Vehiculo } from "./Vehiculo";
 
@@ -7,8 +9,8 @@ export interface ModalBaseProps {
   titulo: string;
 }
 
+
 export interface ModalGestionUserProps {
-  isOpen: boolean;
   onClose: () => void;
   usuario: UsuarioAdministrar | null;
 }
@@ -25,4 +27,15 @@ export interface ModalEditarVehiculoProps {
 export interface ModalElimarVehiculoProps {
   vehiculo: Vehiculo;
   onClose: () => void;
+}
+
+export interface ModalNoticiaProps {
+  onClose: () => void;
+  noticia?: NoticiaProps;
+}
+
+
+export interface ModalParkingProps {
+  onClose: () => void;
+  parking: Parking;
 }

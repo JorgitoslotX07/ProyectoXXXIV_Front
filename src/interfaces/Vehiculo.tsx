@@ -60,3 +60,11 @@ export type FiltroVehiculo =
   | "autonomiaMin"
   | "autonomiaMax"
   | "tipo";
+
+
+export  interface VehiculoPos {
+    id: number;
+    marca: string;
+    modelo: string;
+    ruta: [number, number][];
+  }

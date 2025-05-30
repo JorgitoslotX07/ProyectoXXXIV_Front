@@ -78,3 +78,15 @@ export const usuarioAdministrarVacio: UsuarioAdministrar = {
   email: "",
   activo: true,
 };
+
+export interface UsuarioCarnet {
+  id: number;
+  usuario: string,
+  nombre: string;
+  email: string;
+  numeroCarnet: string;
+  fechaExpedicion: string;
+  imagenCarnet: string;
+  estadoValidacion: "PENDIENTE" | "APROBADO" | "RECHAZADO";
+}
+

@@ -12,8 +12,8 @@ import {
   usuarioCompletoVacio,
   type UsuarioCompleto,
 } from "../../../interfaces/Usuario";
-import { FondoPanelComponent } from "../../../components/__ConfigUsersComponents/FondoPanelComponent/FondoPanelComponent";
-import { TituloComponent } from "../../../components/__ConfigUsersComponents/PanelComonent/TituloComponent";
+import { FondoPanelComponent } from "../../../components/__ConfigUser/FondoPanelComponent/FondoPanelComponent";
+import { TituloComponent } from "../../../components/__ConfigUser/PanelComonent/TituloComponent";
 
 export const EditarPerfilPage = () => {
   const navigate = useNavigate();

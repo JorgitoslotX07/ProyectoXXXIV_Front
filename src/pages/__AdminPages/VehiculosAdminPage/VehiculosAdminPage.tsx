@@ -11,9 +11,10 @@ import { PageVehiculos, type PageProps } from "../../../interfaces/PageProps";
 import { httpGet, httpGetParam } from "../../../utils/apiService";
 import { PaginacionComponent } from "../../../components/PaginacionComponent/PaginacionComponent";
 import { FiltrersCatalogComponent } from "../../../components/FiltrersCatalogComponent/FiltrersCatalogComponent";
-import { ModalEditarVehiculo } from "../../../components/__AdminComponents/ModalEliminarVehiculoComponent/ModalEliminarVehiculoComponent";
-import { ModalCrearVehiculoComponent } from "../../../components/__AdminComponents/ModalCrearVehiculoComponent/ModalCrearVehiculoComponent";
-import { ModalEliminarVehiculo } from "../../../components/__AdminComponents/ModalEditarVehiculoComponent/ModalEditarVehiculoComponent";
+import { ModalCrearVehiculoComponent } from "../../../components/Modal/ModalCrearVehiculoComponent/ModalCrearVehiculoComponent";
+import { BotonAgregarComponent } from "../../../components/__Admin/BotonAgregarComponent/BotonAgregarComponent";
+import { ModalEliminarVehiculo } from "../../../components/Modal/ModalEliminarVehiculoComponent/ModalEliminarVehiculoComponent";
+import { ModalEditarVehiculo } from "../../../components/Modal/ModalEditarVehiculoComponent/ModalEditarVehiculoComponent";
 // import { BotonAgregar } from "../../components/ui/BotonAgregar";
 // import { ModalVehiculo } from "../../components/vehiculos/ModalVehiculo";
 
@@ -94,22 +95,7 @@ export const VehiculosAdminPage: FC = () => {
             <div className="max-w-6xl mx-auto">
                 <div className="flex justify-between items-center mb-6">
                     <h1 className="text-2xl font-bold">Gestión de Vehículos</h1>
-                    <button
-                        onClick={handleAgregar}
-                        className="flex items-center gap-2 bg-green-600 hover:bg-green-500 text-white font-semibold px-4 py-2 rounded-full shadow transition-transform duration-200 hover:scale-105"
-                    >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2}
-                        >
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                        </svg>
-                        Añadir Vehiculo
-                    </button>
+                    <BotonAgregarComponent text={"Añadir Vehiculo"} onClick={handleAgregar}/>
                 </div>
 
                 <div className="overflow-x-auto rounded-xl bg-white/5 p-4 backdrop-blur-md border border-white/10">

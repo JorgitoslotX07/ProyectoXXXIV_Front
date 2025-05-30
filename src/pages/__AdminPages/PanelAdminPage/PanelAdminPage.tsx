@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import type { FC } from "react";
-import { SidebarAdminComponent } from "../../../components/__AdminComponents/SidebarAdminComponent/SidebarAdminComponent";
+import { SidebarAdminComponent } from "../../../components/__Admin/SidebarAdminComponent/SidebarAdminComponent";
 
 export const PanelAdminPage: FC = () => {
   return (

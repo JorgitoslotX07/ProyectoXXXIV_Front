@@ -1,5 +1,5 @@
 import { NotiToastComponent } from "../../components/NotiToastComponents/NotiToastComponet";
-import { RegisterComponent } from "../../components/RegisterComponent/RegisterComponent";
+import { RegisterComponent } from "../../components/Form/RegisterComponent/RegisterComponent";
 
 export const RegistroPage = () => {
   return (

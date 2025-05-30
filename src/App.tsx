@@ -3,12 +3,12 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage/HomePage";
-import { NavbarComponent } from "./components/NavbarComponent/NavbarComponent";
-import { FooterComponent } from "./components/FooterComponent/FooterComponent";
+import { NavbarComponent } from "./components/__Navbar/NavbarComponent/NavbarComponent";
+import { FooterComponent } from "./components/__Footer/FooterComponent/FooterComponent";
 import { CatalogPage } from "./pages/CatalogPage/CatalogPage";
 import { CarDetailPage } from "./pages/CarDetailPage/CarDetailPage";
 import { RegistroPage } from "./pages/RegisterPage/RegisterPage";
-import { LoginComponent } from "./components/LoginComponent/LoginComponent";
+import { LoginComponent } from "./components/__Navbar/LoginComponent/LoginComponent";
 import { MapPage } from "./pages/MapPage/MapPage";
 import Cookies from "js-cookie";
 import { useUserStore } from "./hooks/userStore";
@@ -29,6 +29,7 @@ import { SeguimientoVehiculosAdminPage } from "./pages/__AdminPages/SeguimientoV
 import { ParkingsAdminPage } from "./pages/__AdminPages/ParkingsAdminPage/ParkingsAdminPage";
 import { NoticiasAdminPage } from "./pages/__AdminPages/NoticiasAdminPage/NoticiasAdminPage";
 import { PanelInicialAdminPage } from "./pages/__AdminPages/PanelInicialAdminPage/PanelInicialAdminPage";
+import { CrearParkingPage } from "./pages/__AdminPages/CrearParkingPage/CrearParkingPage";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -92,6 +93,7 @@ function App() {
           <Route path="vehiculos" element={<VehiculosAdminPage />} />
           <Route path="vehiculos/seguimiento" element={<SeguimientoVehiculosAdminPage />} />
           <Route path="parkings" element={<ParkingsAdminPage />} />
+          <Route path="parkings/crear" element={<CrearParkingPage />} />
           <Route path="noticias" element={<NoticiasAdminPage />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Route>
