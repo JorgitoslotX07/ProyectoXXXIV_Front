@@ -63,12 +63,13 @@ const ciudades = [
 //   bounds: [LatLngTuple, LatLngTuple];
 // }
 
-export const zonasParking: {
-  id: number;
-  nombre: string;
-  foto: string;
-  bounds: [LatLngTuple, LatLngTuple];
-}[] = [
+// export const zonasParking: {
+//   id: number;
+//   nombre: string;
+//   foto: string;
+//   bounds: [LatLngTuple, LatLngTuple];
+// }[] = [
+export const zonasParking: ZonaParking[] = [
     // Tarragona
     {
       id: 1,
