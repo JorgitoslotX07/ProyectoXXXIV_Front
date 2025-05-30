@@ -72,14 +72,6 @@ const CochesMapComponent = () => {
   };
 
   useEffect(() => {
-    // fetch("http://localhost:8080/v1/vehiculos")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setVehiculos(data.content);
-    //     setVehiculosFiltrados(data.content);
-    //   })
-    //   .catch((err) => console.error("Error al cargar vehículos:", err));
-
     async function peticionVehiculos() {
       const response = await httpGet<Vehiculo[]>(`/vehiculos/ubicaciones`);
 
@@ -396,6 +388,7 @@ const CochesMapComponent = () => {
           onFilterChange={actualizarFiltro}
           vertical={true}
           onSubmit={() => console.log()}
+          filtros={filtrosActivos}
         />
       </div>
     </div>
