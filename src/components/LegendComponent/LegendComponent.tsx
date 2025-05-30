@@ -1,6 +1,6 @@
 export const LegendComponent = () => {
     return (
-        <div className="backdrop-blur-[12px] backdrop-saturate-[180%] bg-[rgba(17,24,39,0.7)] border border-white/20 rounded-xl p-4 w-full text-white text-sm space-y-4 shadow-lg">
+        <div className="backdrop-blur-[12px] backdrop-saturate-[180%] bg-[rgba(17,24,39,0.7)] border border-white/20 rounded-xl p-4 w-3/4 text-white text-sm space-y-4 shadow-lg">
             <h3 className="text-lg font-semibold text-center text-[#4ade80]">🗺️ Leyenda del Mapa</h3>
 
             {/* Icono coche clúster */}
