@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Rectangle, Tooltip } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import L, { Map as LeafletMap, type LatLngTuple } from "leaflet";
 import type { MarkerCluster } from "leaflet";
@@ -29,8 +29,24 @@ const crearIconoCoche = (esSeleccionado: boolean) => {
     iconSize: [40, 45],
     iconAnchor: [20, 45],
   });
+
 };
 
+const crearIconoParking = () => {
+  return L.divIcon({
+    className: "",
+    html: `
+      <div style="transform: translate(-50%, -50%);">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="#10b981" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="12" fill="#10b981"/>
+          <text x="50%" y="55%" text-anchor="middle" fill="white" font-size="14px" font-family="Arial" dy=".3em">P</text>
+        </svg>
+      </div>
+    `,
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
+};
 const ciudades = [
   { nombre: "Tarragona", coords: [41.1189, 1.2445] as LatLngTuple },
   { nombre: "Salou", coords: [41.0766, 1.1416] as LatLngTuple },
@@ -38,6 +54,115 @@ const ciudades = [
   { nombre: "Reus", coords: [41.1543, 1.1086] as LatLngTuple },
   { nombre: "Cambrils", coords: [41.0748, 1.0522] as LatLngTuple },
 ];
+const zonasParking: {
+  id: number;
+  nombre: string;
+  foto: string;
+  bounds: [LatLngTuple, LatLngTuple];
+}[] = [
+    // Tarragona
+    {
+      id: 1,
+      nombre: "Parking Estación Tarragona",
+      foto: "/parking_layout_img.png",
+      bounds: [
+        [41.118, 1.242],
+        [41.1192, 1.245],
+      ],
+    },
+    {
+      id: 2,
+      nombre: "Parking Rambla Nova",
+      foto: "/parking-rambla.jpg",
+      bounds: [
+        [41.116, 1.249],
+        [41.117, 1.251],
+      ],
+    },
+
+    // Salou
+    {
+      id: 3,
+      nombre: "Parking Centro Salou",
+      foto: "/parking-centro.jpg",
+      bounds: [
+        [41.075, 1.139],
+        [41.0763, 1.142],
+      ],
+    },
+    {
+      id: 4,
+      nombre: "Parking Playa Ponent",
+      foto: "/parking-salou-playa.jpg",
+      bounds: [
+        [41.0715, 1.134],
+        [41.0725, 1.137],
+      ],
+    },
+
+    // Cambrils
+    {
+      id: 5,
+      nombre: "Parking Playa Cambrils",
+      foto: "/parking-cambrils-playa.jpg",
+      bounds: [
+        [41.0645, 1.057],
+        [41.0655, 1.060],
+      ],
+    },
+    {
+      id: 6,
+      nombre: "Parking Centro Cambrils",
+      foto: "/parking-cambrils-centro.jpg",
+      bounds: [
+        [41.071, 1.052],
+        [41.0722, 1.054],
+      ],
+    },
+
+    // Vila-seca
+    {
+      id: 7,
+      nombre: "Parking Vila-seca Centro",
+      foto: "/parking-vilaseca.jpg",
+      bounds: [
+        [41.107, 1.144],
+        [41.108, 1.146],
+      ],
+    },
+    {
+      id: 8,
+      nombre: "Parking Estación Vila-seca",
+      foto: "/parking-estacion-vilaseca.jpg",
+      bounds: [
+        [41.1035, 1.143],
+        [41.1045, 1.145],
+      ],
+    },
+
+    // Reus
+    {
+      id: 9,
+      nombre: "Parking Centro Reus",
+      foto: "/parking-reus.jpg",
+      bounds: [
+        [41.1565, 1.108],
+        [41.1575, 1.111],
+      ],
+    },
+    {
+      id: 10,
+      nombre: "Parking Hospital Reus",
+      foto: "/parking-hospital-reus.jpg",
+      bounds: [
+        [41.147, 1.117],
+        [41.148, 1.120],
+      ],
+    },
+  ];
+
+
+
 
 const CochesMapComponent = () => {
   const [vehiculos, setVehiculos] = useState<Vehiculo[]>([]);
@@ -48,6 +173,7 @@ const CochesMapComponent = () => {
   const [vehiculoSeleccionado, setVehiculoSeleccionado] =
     useState<DatosVehiculo | null>(null);
   const [mostrarTarjeta, setMostrarTarjeta] = useState(false);
+  const [parkingSeleccionado, setParkingSeleccionado] = useState<typeof zonasParking[0] | null>(null);
   const [posicionInicialMapa, setPosicionInicialMapa] = useState<LatLngTuple>([
     41.1189, 1.2445,
   ]);
@@ -158,8 +284,8 @@ const CochesMapComponent = () => {
           case "localidad":
             return typeof propiedad === "string"
               ? propiedad
-                  .toLowerCase()
-                  .includes((valor as string).toLowerCase())
+                .toLowerCase()
+                .includes((valor as string).toLowerCase())
               : false;
           case "esAccesible":
             return (
@@ -257,6 +383,51 @@ const CochesMapComponent = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             noWrap={true}
           />
+          {zonasParking.map((zona) => (
+            <Rectangle
+              key={zona.id}
+              bounds={zona.bounds}
+              pathOptions={{ color: "green", weight: 2, fillOpacity: 0.2 }}
+              eventHandlers={{
+                click: () => {
+                  setParkingSeleccionado(zona);
+                  setVehiculoSeleccionado(null);
+                  setMostrarTarjeta(false);
+                  setTimeout(() => setMostrarTarjeta(true), 500);
+                },
+              }}
+            >
+              <Tooltip direction="top" offset={[0, 10]} opacity={1}>
+                {zona.nombre}
+              </Tooltip>
+            </Rectangle>
+          ))}
+          {zonasParking.map((zona) => (
+            <Marker
+              key={`marker-${zona.id}`}
+              position={[
+                (zona.bounds[0][0] + zona.bounds[1][0]) / 2,
+                (zona.bounds[0][1] + zona.bounds[1][1]) / 2,
+              ]}
+              icon={crearIconoParking()}
+              eventHandlers={{
+                click: () => {
+                  setParkingSeleccionado(zona);
+                  setVehiculoSeleccionado(null);
+                  setMostrarTarjeta(false);
+                  setTimeout(() => setMostrarTarjeta(true), 500);
+
+                  if (mapRef.current) {
+                    mapRef.current.fitBounds(zona.bounds, {
+                      padding: [40, 40],
+                      duration: 1.5,
+                    });
+                  }
+                },
+              }}
+            />
+          ))}
+
           <MarkerClusterGroup
             chunkedLoading
             spiderfyOnMaxZoom
@@ -361,6 +532,35 @@ const CochesMapComponent = () => {
             </button>
           </div>
         )}
+
+
+        {mostrarTarjeta && parkingSeleccionado && (
+          <div className="fixed bottom-6 left-8 bg-white p-4 rounded-xl shadow-xl w-80 animate-fadein z-[11]">
+            <button
+              onClick={() => {
+                setParkingSeleccionado(null);
+                setMostrarTarjeta(false);
+              }}
+              className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-lg"
+            >
+              ✕
+            </button>
+            <img
+              src={parkingSeleccionado.foto}
+              alt={parkingSeleccionado.nombre}
+              className="w-full h-36 object-cover rounded mb-4"
+            />
+            <h2 className="text-xl font-bold mb-1">{parkingSeleccionado.nombre}</h2>
+            <p className="text-sm text-gray-500 mb-2">🅿️ Zona de Aparcamiento</p>
+            <div className="border-t border-gray-200 pt-2 text-sm">
+              <p className="text-gray-600">📍 Dirección de ejemplo</p>
+            </div>
+            <button className="mt-4 w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 transition">
+              Ver vehículos cercanos
+            </button>
+          </div>
+        )}
+
       </div>
 
       <div className="w-full lg:w-1/4  p-4 h-fit top-4">
