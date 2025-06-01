@@ -4,8 +4,10 @@ import { Star } from "lucide-react";
 import { Vehiculo } from "../../interfaces/Vehiculo";
 import { httpGet } from "../../utils/apiService";
 import { CochesPromoComponent } from "../../components/CochesPromoComponent/CochesPromoComponent";
+import { useTranslation } from "react-i18next"; // 🟢 Importamos traducción
 
 export const CarDetailPage: FC = () => {
+  const { t } = useTranslation(); // 🟢 Usamos traducción
   const location = useLocation();
   const { state } = location;
   const product: number = state;
@@ -19,57 +21,56 @@ export const CarDetailPage: FC = () => {
       usuario: "María G.",
       avatar: "/vite.svg",
       valoracion: 4,
-      comentario: "Muy buen coche, limpio y cómodo. Lo volvería a usar.",
+      comentario: t("carDetail.reseña1")
     },
     {
       usuario: "Luis P.",
       avatar: "/vite.svg",
       valoracion: 5,
-      comentario: "Perfecto para moverse por la ciudad, excelente autonomía.",
+      comentario: t("carDetail.reseña2")
     },
     {
       usuario: "Claudia R.",
       avatar: "/vite.svg",
       valoracion: 5,
-      comentario: "Cómodo, eficiente y limpio. ¡Todo perfecto!",
+      comentario: t("carDetail.reseña3")
     },
     {
       usuario: "Iván T.",
       avatar: "/vite.svg",
       valoracion: 4,
-      comentario: "Me gustó mucho, aunque el GPS tardó un poco en actualizarse.",
+      comentario: t("carDetail.reseña4")
     },
     {
       usuario: "Laura M.",
       avatar: "/vite.svg",
       valoracion: 5,
-      comentario: "Experiencia excelente, muy fácil de reservar y usar.",
+      comentario: t("carDetail.reseña5")
     },
     {
       usuario: "Carlos D.",
       avatar: "/vite.svg",
       valoracion: 3,
-      comentario: "Todo bien, pero el coche tenía poca batería al inicio.",
+      comentario: t("carDetail.reseña6")
     },
     {
       usuario: "Ana B.",
       avatar: "/vite.svg",
       valoracion: 4,
-      comentario: "Cómodo para trayectos cortos. Volveré a usarlo.",
+      comentario: t("carDetail.reseña7")
     },
     {
       usuario: "Jorge L.",
       avatar: "/vite.svg",
       valoracion: 5,
-      comentario: "Muy recomendable, impecable y eficiente.",
+      comentario: t("carDetail.reseña8")
     },
     {
       usuario: "Elena F.",
       avatar: "/vite.svg",
       valoracion: 4,
-      comentario: "Buena experiencia, aunque el aire acondicionado no funcionaba bien.",
+      comentario: t("carDetail.reseña9")
     }
-
   ]);
 
   useEffect(() => {
@@ -95,7 +96,7 @@ export const CarDetailPage: FC = () => {
               />
             ) : (
               <div className="w-full h-64 bg-gray-700 rounded flex items-center justify-center">
-                Sin imagen
+                {t("carDetail.sinImagen")}
               </div>
             )}
           </div>
@@ -106,13 +107,13 @@ export const CarDetailPage: FC = () => {
             {vehiculo.marca} {vehiculo.modelo}
           </h1>
           <p className="text-gray-300 mb-2">
-            Kilometraje:{" "}
+            {t("carDetail.kilometraje")}:{" "}
             <span className="text-white font-semibold">
               {vehiculo.kilometraje} km
             </span>
           </p>
 
-          <p className="text-sm text-gray-400 mb-1">Características:</p>
+          <p className="text-sm text-gray-400 mb-1">{t("carDetail.caracteristicas")}:</p>
           <ul className="text-sm text-gray-200 list-disc list-inside mb-6">
             {/* {vehiculo.caracteristicas?.map((item, index) => (
               <li key={index}>{item}</li>
@@ -123,7 +124,7 @@ export const CarDetailPage: FC = () => {
             className="w-full bg-[#C4B5FD] text-black hover:bg-[#a78bfa] transition-colors font-semibold py-3 rounded-md shadow-md mb-6"
             onClick={() => setShowPaymentPopup(true)}
           >
-            Reservar vehículo
+            {t("carDetail.botonReservar")}
           </button>
         </div>
       </div>
@@ -132,7 +133,7 @@ export const CarDetailPage: FC = () => {
       <div className="mt-10">
         {!showAllReviews && (
           <>
-            <h2 className="text-xl font-semibold mb-4">Reseñas destacadas</h2>
+            <h2 className="text-xl font-semibold mb-4">{t("carDetail.reseñasDestacadas")}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {calificaciones.slice(0, 4).map((rev, i) => (
                 <div
@@ -175,7 +176,9 @@ export const CarDetailPage: FC = () => {
             onClick={() => setShowAllReviews(!showAllReviews)}
             className="text-sm font-medium text-[#C4B5FD] hover:underline"
           >
-            {showAllReviews ? "Ocultar todas las reseñas" : "Ver todas las reseñas"}
+            {showAllReviews
+              ? t("carDetail.ocultarTodas")
+              : t("carDetail.verTodas")}
           </button>
         </div>
 
@@ -183,7 +186,7 @@ export const CarDetailPage: FC = () => {
         {showAllReviews && (
           <div className="mt-16">
             <h2 className="text-2xl font-bold text-[#C4B5FD] mb-6 text-center">
-              Todas las reseñas de usuarios
+              {t("carDetail.tituloTodasReseñas")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {calificaciones.map((rev, i) => (
@@ -228,26 +231,29 @@ export const CarDetailPage: FC = () => {
       {/* POPUP DE PAGO */}
       {showPaymentPopup && (
         <div className="fixed inset-0 bg-gray/60 backdrop-blur-sm flex items-center justify-center z-50">
-<div className="bg-[rgb(50,165,111)] backdrop-blur-[16px] backdrop-saturate-[200%] rounded-xl border border-[rgba(84,186,76,0.13)] p-6 text-black w-full max-w-md">            <h3 className="text-xl font-bold mb-4">Confirmar reserva</h3>
+          <div className="bg-[rgb(50,165,111)] backdrop-blur-[16px] backdrop-saturate-[200%] rounded-xl border border-[rgba(84,186,76,0.13)] p-6 text-black w-full max-w-md">
+            <h3 className="text-xl font-bold mb-4">{t("carDetail.confirmarReserva")}</h3>
             <p className="mb-4">
-              ¿Deseas proceder con el pago para reservar el {vehiculo.marca}{" "}
-              {vehiculo.modelo}?
+              {t("carDetail.mensajeReserva", {
+                marca: vehiculo.marca,
+                modelo: vehiculo.modelo
+              })}
             </p>
             <div className="flex justify-end gap-4">
               <button
                 onClick={() => setShowPaymentPopup(false)}
                 className="px-4 py-2 bg-[rgb(255,101,101)] rounded hover:bg-[rgb(255,72,72)]"
               >
-                Cancelar
+                {t("carDetail.cancelar")}
               </button>
               <button
                 onClick={() => {
                   setShowPaymentPopup(false);
-                  alert("Reserva confirmada 🚗✅");
+                  alert(t("carDetail.alertaConfirmacion"));
                 }}
                 className="px-4 py-2 bg-[#C4B5FD] text-black font-semibold rounded hover:bg-[#a78bfa]"
               >
-                Pagar ahora
+                {t("carDetail.pagarAhora")}
               </button>
             </div>
           </div>

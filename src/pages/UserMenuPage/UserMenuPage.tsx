@@ -1,5 +1,4 @@
 import { useNavigate, Link } from "react-router-dom";
-// import { usuarios } from "../../utils/verificaciones";
 import { deleteCookiesLogin } from "../../utils/cookisLogin";
 import { useUserStore } from "../../hooks/userStore";
 import { useEffect, useState } from "react";
@@ -10,8 +9,10 @@ import {
 } from "../../interfaces/Usuario";
 import { FondoPanelComponent } from "../../components/FondoPanelComponent/FondoPanelComponent";
 import { TituloComponent } from "../../components/PanelComonent/TituloComponent";
+import { useTranslation } from "react-i18next"; // 🟣 i18n
 
 export const UserMenuPage = () => {
+  const { t } = useTranslation(); // 🟣 hook de traducción
   const navigate = useNavigate();
   const setToken = useUserStore((state) => state.setToken);
   const [usuario, setUsuario] = useState<UsuarioCompleto>(usuarioCompletoVacio);
@@ -21,8 +22,6 @@ export const UserMenuPage = () => {
     setToken("");
     navigate("/");
   };
-
-  // pendiente peticion a back para coger el user a partir del token
 
   useEffect(() => {
     const fetch = async () => {
@@ -39,22 +38,22 @@ export const UserMenuPage = () => {
   const sections = [
     {
       icon: "🚗",
-      title: "Mis Reservas",
+      title: t("userPanel.misReservas"),
       onClick: () => navigate("/panel/reservas"),
     },
     {
       icon: "🔑",
-      title: "Cambiar Contraseña",
+      title: t("userPanel.cambiarPass"),
       onClick: () => navigate("/panel/pass"),
     },
     {
       icon: "✅",
-      title: "Verificacion de Usuario",
+      title: t("userPanel.verificacion"),
       onClick: () => navigate("/panel/veri-user"),
     },
     {
       icon: "📜",
-      title: "Historial de Viajes",
+      title: t("userPanel.historial"),
       onClick: () => navigate("/panel/historial"),
     },
     // {
@@ -64,7 +63,7 @@ export const UserMenuPage = () => {
     // },
     {
       icon: "📤",
-      title: "Cerrar Sesión",
+      title: t("userPanel.cerrarSesion"),
       onClick: logOut,
     },
   ];
@@ -72,8 +71,8 @@ export const UserMenuPage = () => {
   return (
     <FondoPanelComponent>
       <div className="relative min-h-screen p-8 text-white">
-        <TituloComponent titulo="Panel de Usuario" />
-        
+        <TituloComponent titulo={t("userPanel.titulo")} />
+
         <div className="relative flex flex-col lg:flex-row gap-8">
           <div className="relative w-full max-w-xs bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 mx-auto text-center">
             <Link to="/panel/editar-perfil">
@@ -122,15 +121,15 @@ export const UserMenuPage = () => {
 
             <div className="mt-2 space-y-1 text-sm text-white">
               <p>
-                <span className="text-[#A7F3D0] font-medium">Email:</span>{" "}
+                <span className="text-[#A7F3D0] font-medium">{t("userPanel.email")}:</span>{" "}
                 {usuario.email}
               </p>
               <p>
-                <span className="text-[#A7F3D0] font-medium">Nacimiento:</span>{" "}
+                <span className="text-[#A7F3D0] font-medium">{t("userPanel.nacimiento")}:</span>{" "}
                 {usuario.fechaNacimiento}
               </p>
               <p>
-                <span className="text-[#A7F3D0] font-medium">DNI:</span>{" "}
+                <span className="text-[#A7F3D0] font-medium">{t("userPanel.dni")}:</span>{" "}
                 {usuario.dni}
               </p>
             </div>
@@ -154,8 +153,6 @@ export const UserMenuPage = () => {
           </div>
         </div>
       </div>
-
-    </ FondoPanelComponent>
-
+    </FondoPanelComponent>
   );
 };

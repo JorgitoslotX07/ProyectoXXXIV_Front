@@ -119,5 +119,65 @@
     "usuarioExiste": "El usuario ya existe o hubo un error.",
     "errorGeneral": "Error al registrar el usuario.",
     "validacionPass": "La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un símbolo."
+  },
+  "card": {
+    "sinImagen": "Sin imagen",
+    "ciudad": "Ciudad",
+    "autonomia": "Autonomía"
+  },
+  "carDetail": {
+    "sinImagen": "Sin imagen",
+    "kilometraje": "Kilometraje",
+    "caracteristicas": "Características",
+    "botonReservar": "Reservar vehículo",
+    "reseñasDestacadas": "Reseñas destacadas",
+    "verTodas": "Ver todas las reseñas",
+    "ocultarTodas": "Ocultar todas las reseñas",
+    "tituloTodasReseñas": "Todas las reseñas de usuarios",
+    "confirmarReserva": "Confirmar reserva",
+    "mensajeReserva": "¿Deseas proceder con el pago para reservar el {{marca}} {{modelo}}?",
+    "cancelar": "Cancelar",
+    "pagarAhora": "Pagar ahora",
+    "alertaConfirmacion": "Reserva confirmada 🚗✅",
+    "reseña1": "Muy buen coche, limpio y cómodo. Lo volvería a usar.",
+    "reseña2": "Perfecto para moverse por la ciudad, excelente autonomía.",
+    "reseña3": "Cómodo, eficiente y limpio. ¡Todo perfecto!",
+    "reseña4": "Me gustó mucho, aunque el GPS tardó un poco en actualizarse.",
+    "reseña5": "Experiencia excelente, muy fácil de reservar y usar.",
+    "reseña6": "Todo bien, pero el coche tenía poca batería al inicio.",
+    "reseña7": "Cómodo para trayectos cortos. Volveré a usarlo.",
+    "reseña8": "Muy recomendable, impecable y eficiente.",
+    "reseña9": "Buena experiencia, aunque el aire acondicionado no funcionaba bien."
+  },
+  "perfil": {
+    "titulo": "Editar Perfil",
+    "cambiarFoto": "Cambiar foto",
+    "nombre": "Nombre",
+    "apellidos": "Apellidos",
+    "correo": "Correo",
+    "telefono": "Teléfono",
+    "placeholderNombre": "Nombre",
+    "placeholderApellidos": "Apellidos",
+    "placeholderCorreo": "Correo",
+    "placeholderTelefono": "Teléfono",
+    "botonGuardar": "Guardar cambios",
+    "errorNombre": "Nombre inválido",
+    "errorCorreo": "Correo inválido",
+    "errorFecha": "Fecha de nacimiento inválida",
+    "errorDNI": "DNI inválido"
+  },
+  "userPanel": {
+    "titulo": "Panel de Usuario",
+    "misReservas": "Mis Reservas",
+    "cambiarPass": "Cambiar Contraseña",
+    "verificacion": "Verificación de Usuario",
+    "historial": "Historial de Viajes",
+    "cerrarSesion": "Cerrar Sesión",
+    "email": "Email",
+    "nacimiento": "Nacimiento",
+    "dni": "DNI"
+  },
+  "volver": {
+    "boton": "Volver"
   }
 }

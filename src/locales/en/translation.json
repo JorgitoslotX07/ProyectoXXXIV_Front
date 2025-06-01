@@ -119,5 +119,65 @@
         "usuarioExiste": "User already exists or an error occurred.",
         "errorGeneral": "Error while registering user.",
         "validacionPass": "Password must be at least 8 characters and include an uppercase, lowercase, number and symbol."
+    },
+    "card": {
+        "sinImagen": "No image available",
+        "ciudad": "City",
+        "autonomia": "Range"
+    },
+    "carDetail": {
+        "sinImagen": "No image available",
+        "kilometraje": "Mileage",
+        "caracteristicas": "Features",
+        "botonReservar": "Reserve vehicle",
+        "reseñasDestacadas": "Highlighted reviews",
+        "verTodas": "View all reviews",
+        "ocultarTodas": "Hide all reviews",
+        "tituloTodasReseñas": "All user reviews",
+        "confirmarReserva": "Confirm reservation",
+        "mensajeReserva": "Would you like to proceed with the payment to reserve the {{marca}} {{modelo}}?",
+        "cancelar": "Cancel",
+        "pagarAhora": "Pay now",
+        "alertaConfirmacion": "Reservation confirmed 🚗✅",
+        "reseña1": "Very good car, clean and comfortable. I would use it again.",
+        "reseña2": "Perfect for getting around the city, excellent range.",
+        "reseña3": "Comfortable, efficient, and clean. Everything perfect!",
+        "reseña4": "I liked it a lot, although the GPS was a bit slow to update.",
+        "reseña5": "Great experience, very easy to book and use.",
+        "reseña6": "All good, but the car had low battery at the start.",
+        "reseña7": "Comfortable for short trips. I’ll use it again.",
+        "reseña8": "Highly recommended, spotless and efficient.",
+        "reseña9": "Good experience, although the air conditioning didn’t work well."
+    },
+    "perfil": {
+        "titulo": "Edit Profile",
+        "cambiarFoto": "Change photo",
+        "nombre": "First Name",
+        "apellidos": "Last Name",
+        "correo": "Email",
+        "telefono": "Phone",
+        "placeholderNombre": "First Name",
+        "placeholderApellidos": "Last Name",
+        "placeholderCorreo": "Email",
+        "placeholderTelefono": "Phone",
+        "botonGuardar": "Save changes",
+        "errorNombre": "Invalid name",
+        "errorCorreo": "Invalid email",
+        "errorFecha": "Invalid birthdate",
+        "errorDNI": "Invalid ID"
+    },
+    "userPanel": {
+        "titulo": "User Panel",
+        "misReservas": "My Bookings",
+        "cambiarPass": "Change Password",
+        "verificacion": "User Verification",
+        "historial": "Travel History",
+        "cerrarSesion": "Log Out",
+        "email": "Email",
+        "nacimiento": "Birthdate",
+        "dni": "ID"
+    },
+    "volver": {
+        "boton": "Back"
     }
 }

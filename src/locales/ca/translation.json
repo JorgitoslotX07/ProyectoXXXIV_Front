@@ -119,5 +119,65 @@
     "usuarioExiste": "L'usuari ja existeix o hi ha hagut un error.",
     "errorGeneral": "Error en registrar l'usuari.",
     "validacionPass": "La contrasenya ha de tenir almenys 8 caràcters, incloent una majúscula, una minúscula, un número i un símbol."
+  },
+  "card": {
+    "sinImagen": "Sense imatge",
+    "ciudad": "Ciutat",
+    "autonomia": "Autonomia"
+  },
+  "carDetail": {
+    "sinImagen": "Sense imatge disponible",
+    "kilometraje": "Quilometratge",
+    "caracteristiques": "Característiques",
+    "botonReservar": "Reservar vehicle",
+    "reseñasDestacadas": "Ressenyes destacades",
+    "verTodas": "Veure totes les ressenyes",
+    "ocultarTodas": "Amagar totes les ressenyes",
+    "tituloTodasReseñas": "Totes les ressenyes d'usuaris",
+    "confirmarReserva": "Confirmar reserva",
+    "mensajeReserva": "Vols procedir amb el pagament per reservar el {{marca}} {{modelo}}?",
+    "cancelar": "Cancel·lar",
+    "pagarAhora": "Pagar ara",
+    "alertaConfirmacion": "Reserva confirmada 🚗✅",
+    "reseña1": "Cotxe molt bo, net i còmode. El tornaria a fer servir.",
+    "reseña2": "Perfecte per moure's per la ciutat, autonomia excel·lent.",
+    "reseña3": "Còmode, eficient i net. Tot perfecte!",
+    "reseña4": "Em va agradar molt, tot i que el GPS era una mica lent.",
+    "reseña5": "Experiència excel·lent, molt fàcil de reservar i fer servir.",
+    "reseña6": "Tot bé, però el cotxe tenia poca bateria a l'inici.",
+    "reseña7": "Còmode per trajectes curts. El tornaré a fer servir.",
+    "reseña8": "Molt recomanable, impecable i eficient.",
+    "reseña9": "Bona experiència, però l'aire condicionat no funcionava bé."
+  },
+  "perfil": {
+    "titulo": "Editar Perfil",
+    "cambiarFoto": "Canviar foto",
+    "nombre": "Nom",
+    "apellidos": "Cognoms",
+    "correo": "Correu electrònic",
+    "telefono": "Telèfon",
+    "placeholderNombre": "Nom",
+    "placeholderApellidos": "Cognoms",
+    "placeholderCorreo": "Correu electrònic",
+    "placeholderTelefono": "Telèfon",
+    "botonGuardar": "Desar canvis",
+    "errorNombre": "Nom no vàlid",
+    "errorCorreo": "Correu no vàlid",
+    "errorFecha": "Data de naixement no vàlida",
+    "errorDNI": "DNI no vàlid"
+  },
+  "userPanel": {
+    "titulo": "Panell d'Usuari",
+    "misReservas": "Les Meves Reserves",
+    "cambiarPass": "Canviar Contrasenya",
+    "verificacion": "Verificació d'Usuari",
+    "historial": "Historial de Viatges",
+    "cerrarSesion": "Tancar Sessió",
+    "email": "Correu",
+    "nacimiento": "Naixement",
+    "dni": "DNI"
+  },
+  "volver": {
+    "boton": "Tornar"
   }
 }

@@ -1,10 +1,11 @@
 import type { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import type { VolverProps } from "../../interfaces/PanelProps";
+import { useTranslation } from "react-i18next"; // 🟣 i18n
 
-export const VolverComonent: FC<VolverProps> = ({url}) => {
+export const VolverComonent: FC<VolverProps> = ({ url }) => {
     const navigate = useNavigate();
-
+    const { t } = useTranslation(); // 🟣 hook de traducción
 
     return (
         <button
@@ -21,7 +22,7 @@ export const VolverComonent: FC<VolverProps> = ({url}) => {
             >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            Volver
+            {t("volver.boton")} {/* 🔁 Texto traducido */}
         </button>
     );
-}
+};
