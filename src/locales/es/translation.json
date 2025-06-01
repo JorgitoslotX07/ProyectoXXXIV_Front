@@ -224,5 +224,21 @@
     "consentimiento": "Consentimiento",
     "consentimientoTexto": "Al continuar navegando por esta web, aceptas el uso de cookies conforme a esta política. Si no estás de acuerdo, puedes desactivarlas siguiendo las instrucciones anteriores.",
     "ultimaActualizacion": "Última actualización: mayo 2025"
+  },
+  "pass": {
+    "titulo": "Cambiar contraseña",
+    "instruccionEmail": "Ingresa tu correo electrónico. Te enviaremos un link para cambiar su contraseña.",
+    "correoPlaceholder": "Tu correo",
+    "enviarCodigo": "Enviar código",
+    "procesando": "Procesando... este proceso puede tardar unos minutos.",
+    "instruccionesNueva": "Ingresa tu nueva contraseña.",
+    "nuevaPlaceholder": "Nueva contraseña",
+    "confirmarPlaceholder": "Confirmar contraseña",
+    "cambiarBoton": "Cambiar contraseña",
+    "toast": {
+      "emailEnviado": "Email enviado con éxito.\nVerifica tu correo",
+      "errorCoincidencia": "Las contraseñas no coinciden.",
+      "cambioOk": "Contraseña actualizada correctamente."
+    }
   }
 }

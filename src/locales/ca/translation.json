@@ -224,7 +224,25 @@
   "consentimiento": "Consentiment",
   "consentimientoTexto": "En continuar navegant per aquest lloc web, acceptes l'ús de galetes d'acord amb aquesta política. Si no estàs d'acord, pots desactivar-les seguint les instruccions anteriors.",
   "ultimaActualizacion": "Darrera actualització: maig 2025"
-}
+},
+  "pass": {
+    "titulo": "Canviar contrasenya",
+    "instruccionEmail": "Introdueix el teu correu electrònic. T'enviarem un enllaç per canviar la teva contrasenya.",
+    "correoPlaceholder": "El teu correu",
+    "enviarCodigo": "Enviar codi",
+    "procesando": "Processant... aquest procés pot trigar uns minuts.",
+    "instruccionesNueva": "Introdueix la teva nova contrasenya.",
+    "nuevaPlaceholder": "Nova contrasenya",
+    "confirmarPlaceholder": "Confirmar contrasenya",
+    "cambiarBoton": "Canviar contrasenya",
+    "toast": {
+      "emailEnviado": "Correu enviat amb èxit.\nComprova la teva bústia",
+      "errorCoincidencia": "Les contrasenyes no coincideixen.",
+      "cambioOk": "Contrasenya actualitzada correctament."
+    }
+  }
+
+
 
 
 }

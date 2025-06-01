@@ -224,5 +224,21 @@
         "consentimiento": "Consent",
         "consentimientoTexto": "By continuing to browse this website, you agree to the use of cookies in accordance with this policy. If you do not agree, you may disable them as instructed above.",
         "ultimaActualizacion": "Last updated: May 2025"
+    },
+    "pass": {
+        "titulo": "Change password",
+        "instruccionEmail": "Enter your email. We’ll send you a link to reset your password.",
+        "correoPlaceholder": "Your email",
+        "enviarCodigo": "Send code",
+        "procesando": "Processing... this may take a few minutes.",
+        "instruccionesNueva": "Enter your new password.",
+        "nuevaPlaceholder": "New password",
+        "confirmarPlaceholder": "Confirm password",
+        "cambiarBoton": "Change password",
+        "toast": {
+            "emailEnviado": "Email sent successfully.\nCheck your inbox",
+            "errorCoincidencia": "Passwords do not match.",
+            "cambioOk": "Password updated successfully."
+        }
     }
 }
