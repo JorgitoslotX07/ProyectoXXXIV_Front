@@ -20,14 +20,19 @@
   },
   "search": {
     "title": "Troba el teu proper cotxe",
+    "useCurrentLocation": "Utilitza la meva ubicació",
     "types": {
-      "turismos": "Turisme",
+      "turismos": "Turismes",
       "suv": "SUV",
       "monovolumen": "Monovolum",
       "microcoche": "Microcotxe"
     },
-    "placeholder": "Cerca ubicació...",
-    "button": "Cercar"
+    "placeholder": "Cercar ubicació...",
+    "button": "Cercar",
+    "errors": {
+      "geolocationNotSupported": "La geolocalització no és compatible amb el teu navegador.",
+      "locationPermissionDenied": "Permís de geolocalització denegat. Activa la ubicació per utilitzar aquesta funció."
+    }
   },
   "legend": {
     "title": "Llegenda del mapa",
@@ -185,46 +190,46 @@
     "cerrarSesion": "Tancar sessió"
   },
   "footer": {
-  "cliente": "Atenció al client",
-  "devoluciones": "Devolucions i garantia",
-  "pagos": "Pagaments",
-  "condiciones": "Condicions del servei",
-  "privacidad": "Política de privacitat",
-  "info": "Informació corporativa",
-  "sobreNosotros": "Sobre nosaltres",
-  "marcas": "Marques",
-  "afiliados": "Afiliats",
-  "inversores": "Inversors",
-  "recursos": "Recursos",
-  "blog": "Blog",
-  "faqs": "Preguntes freqüents",
-  "soporte": "Suport tècnic",
-  "foro": "Fòrum",
-  "contactoDirecto": "Contacte directe",
-  "contactar": "Contactar",
-  "siguiente": "Següent",
-  "anterior": "Enrere",
-  "paso1": "Pas 1",
-  "deseasContacto": "Vols que et contactem?",
-  "placeholderEmail": "La teva adreça de correu",
-  "gracias": "Gràcies pel teu interès!",
-  "enviado": "La sol·licitud s'ha enviat correctament"
-},
-"cookies": {
-  "titulo": "Política de Galetes",
-  "intro": "Aquest lloc web utilitza galetes pròpies i de tercers per millorar la teva experiència de navegació, recopilar informació estadística sobre l'ús del lloc i personalitzar els continguts.",
-  "queSon": "Què són les galetes?",
-  "queSonTexto": "Les galetes són petits arxius de text que s'emmagatzemen al teu dispositiu quan visites un lloc web. La seva funció principal és reconèixer l'usuari i millorar la usabilitat del lloc.",
-  "tipos": "Tipus de galetes utilitzades",
-  "tipoTecnicas": "Galetes tècniques: Necessàries per al funcionament del lloc web.",
-  "tipoAnalisis": "Galetes d'anàlisi: Ens permeten conèixer com interactuen els usuaris amb el lloc web.",
-  "tipoPersonalizacion": "Galetes de personalització: Adapten el contingut a les teves preferències.",
-  "comoDesactivar": "Com puc desactivar-les?",
-  "comoDesactivarTexto": "Pots configurar el teu navegador per acceptar o rebutjar totes les galetes per defecte o per rebre un avís a la pantalla cada vegada que es rebi una galeta. Consulta l'ajuda del teu navegador per saber com fer-ho.",
-  "consentimiento": "Consentiment",
-  "consentimientoTexto": "En continuar navegant per aquest lloc web, acceptes l'ús de galetes d'acord amb aquesta política. Si no estàs d'acord, pots desactivar-les seguint les instruccions anteriors.",
-  "ultimaActualizacion": "Darrera actualització: maig 2025"
-},
+    "cliente": "Atenció al client",
+    "devoluciones": "Devolucions i garantia",
+    "pagos": "Pagaments",
+    "condiciones": "Condicions del servei",
+    "privacidad": "Política de privacitat",
+    "info": "Informació corporativa",
+    "sobreNosotros": "Sobre nosaltres",
+    "marcas": "Marques",
+    "afiliados": "Afiliats",
+    "inversores": "Inversors",
+    "recursos": "Recursos",
+    "blog": "Blog",
+    "faqs": "Preguntes freqüents",
+    "soporte": "Suport tècnic",
+    "foro": "Fòrum",
+    "contactoDirecto": "Contacte directe",
+    "contactar": "Contactar",
+    "siguiente": "Següent",
+    "anterior": "Enrere",
+    "paso1": "Pas 1",
+    "deseasContacto": "Vols que et contactem?",
+    "placeholderEmail": "La teva adreça de correu",
+    "gracias": "Gràcies pel teu interès!",
+    "enviado": "La sol·licitud s'ha enviat correctament"
+  },
+  "cookies": {
+    "titulo": "Política de Galetes",
+    "intro": "Aquest lloc web utilitza galetes pròpies i de tercers per millorar la teva experiència de navegació, recopilar informació estadística sobre l'ús del lloc i personalitzar els continguts.",
+    "queSon": "Què són les galetes?",
+    "queSonTexto": "Les galetes són petits arxius de text que s'emmagatzemen al teu dispositiu quan visites un lloc web. La seva funció principal és reconèixer l'usuari i millorar la usabilitat del lloc.",
+    "tipos": "Tipus de galetes utilitzades",
+    "tipoTecnicas": "Galetes tècniques: Necessàries per al funcionament del lloc web.",
+    "tipoAnalisis": "Galetes d'anàlisi: Ens permeten conèixer com interactuen els usuaris amb el lloc web.",
+    "tipoPersonalizacion": "Galetes de personalització: Adapten el contingut a les teves preferències.",
+    "comoDesactivar": "Com puc desactivar-les?",
+    "comoDesactivarTexto": "Pots configurar el teu navegador per acceptar o rebutjar totes les galetes per defecte o per rebre un avís a la pantalla cada vegada que es rebi una galeta. Consulta l'ajuda del teu navegador per saber com fer-ho.",
+    "consentimiento": "Consentiment",
+    "consentimientoTexto": "En continuar navegant per aquest lloc web, acceptes l'ús de galetes d'acord amb aquesta política. Si no estàs d'acord, pots desactivar-les seguint les instruccions anteriors.",
+    "ultimaActualizacion": "Darrera actualització: maig 2025"
+  },
   "pass": {
     "titulo": "Canviar contrasenya",
     "instruccionEmail": "Introdueix el teu correu electrònic. T'enviarem un enllaç per canviar la teva contrasenya.",
@@ -241,8 +246,4 @@
       "cambioOk": "Contrasenya actualitzada correctament."
     }
   }
-
-
-
-
 }

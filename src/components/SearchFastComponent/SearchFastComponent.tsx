@@ -3,6 +3,7 @@ import { SearchFast } from "../../interfaces/SearchFast";
 import type { HomePageProps } from "../../interfaces/HomePageProps";
 import { httpGet } from "../../utils/apiService";
 import { useTranslation } from "react-i18next";
+import { useRef } from "react";
 
 export const SearchFastComponent: FC<HomePageProps> = ({
   onClickOptionsPerfil,
@@ -15,6 +16,7 @@ export const SearchFastComponent: FC<HomePageProps> = ({
   const searchFast: SearchFast = SearchFast();
   const [location, setLocation] = useState<string>("");
   const [optionsLocation, setOptionsLocation] = useState<Array<string>>([]);
+  const [mostrarDesplegable, setMostrarDesplegable] = useState(false);
 
   useEffect(() => {
     const fetch = async () => {
@@ -25,8 +27,6 @@ export const SearchFastComponent: FC<HomePageProps> = ({
     };
     fetch();
   }, []);
-
-  const [mostrarDesplegable, setMostrarDesplegable] = useState(false);
 
   const tipos = [
     { label: t("search.types.turismos"), icon: "/turismo.png" },
@@ -60,9 +60,82 @@ export const SearchFastComponent: FC<HomePageProps> = ({
     setMostrarDesplegable(false);
   };
 
+
+  const botonRef = useRef<HTMLButtonElement | null>(null);
+
+  const manejarClickUbicacion = () => {
+    detectarUbicacion();
+
+    // Reiniciar animación
+    if (botonRef.current) {
+      botonRef.current.classList.remove("pulse-click");
+      void botonRef.current.offsetWidth; // Forzar reflow
+      botonRef.current.classList.add("pulse-click");
+    }
+  };
+
+  const detectarUbicacion = () => {
+    if (!navigator.geolocation) {
+      alert(t("search.errors.geolocationNotSupported"));
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const { latitude, longitude } = pos.coords;
+
+        try {
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+          );
+          const data = await response.json();
+          const direccionCompleta = data.display_name || "";
+          if (direccionCompleta) setLocation(direccionCompleta);
+        } catch (err) {
+          console.error("Error al obtener la dirección:", err);
+        }
+      },
+      (err) => {
+        alert(t("search.errors.locationPermissionDenied"));
+        console.error("Error obteniendo ubicación:", err);
+      }
+    );
+  };
+  // const detectarUbicacion = () => {
+  //   if (!navigator.geolocation) {
+  //     alert(t("search.errors.geolocationNotSupported"));
+  //     return;
+  //   }
+
+  //   navigator.geolocation.getCurrentPosition(
+  //     async (pos) => {
+  //       const { latitude, longitude } = pos.coords;
+
+  //       try {
+  //         const response = await fetch(
+  //           `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+  //         );
+  //         const data = await response.json();
+  //         const ciudad =
+  //           data.address?.city ||
+  //           data.address?.town ||
+  //           data.address?.village ||
+  //           "";
+  //         if (ciudad) setLocation(ciudad);
+  //       } catch (err) {
+  //         console.error("Error al obtener ciudad:", err);
+  //       }
+  //     },
+  //     (err) => {
+  //       alert(t("search.errors.locationPermissionDenied"));
+  //       console.error("Error obteniendo ubicación:", err);
+  //     }
+  //   );
+  // };
+
   return (
     <div
-      className="flex items-center justify-center px-4 py-12  min-h-[calc(100vh-300px)] "
+      className="flex items-center justify-center px-4 py-12 min-h-[calc(100vh-300px)]"
       onClick={onClickOutEmergent}
     >
       <div className="w-full max-w-screen-lg text-white text-center space-y-8">
@@ -75,11 +148,10 @@ export const SearchFastComponent: FC<HomePageProps> = ({
             <button
               key={label}
               onClick={() => addOrDeleteOption(label)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all border ${
-                optionsSelected.includes(label)
-                  ? "bg-[#A7F3D0] text-[#111827] border-transparent shadow-md"
-                  : "bg-transparent border-gray-500 hover:bg-[#374151]"
-              }`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all border ${optionsSelected.includes(label)
+                ? "bg-[#A7F3D0] text-[#111827] border-transparent shadow-md"
+                : "bg-transparent border-gray-500 hover:bg-[#374151]"
+                }`}
             >
               <img src={icon} alt={label} className="w-6 h-6" />
               <span className="text-sm font-medium">{label}</span>
@@ -89,7 +161,16 @@ export const SearchFastComponent: FC<HomePageProps> = ({
 
         <div className="relative inline-block w-full max-w-2xl mx-auto">
           <div className="flex items-center w-full max-w-2xl mx-auto">
+            <button
+              ref={botonRef}
+              onClick={manejarClickUbicacion}
+              className="w-6.5 h-5.5 flex items-center justify-center mr-2 rounded-full border border-black bg-red-600 hover:bg-red-900 text-white font-bold transition-all"
+              title={t("search.useCurrentLocation")}
+            >
+            </button>
+
             <div className="flex items-center border border-gray-600 bg-[#1F2937] rounded-l-full px-4 py-3 w-full">
+
               <svg
                 className="w-5 h-5 text-gray-400 mr-2"
                 fill="none"
@@ -104,9 +185,7 @@ export const SearchFastComponent: FC<HomePageProps> = ({
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 onFocus={() => setMostrarDesplegable(true)}
-                onBlur={() =>
-                  setTimeout(() => setMostrarDesplegable(false), 100)
-                }
+                onBlur={() => setTimeout(() => setMostrarDesplegable(false), 100)}
                 placeholder={t("search.placeholder")}
                 className="bg-transparent text-white w-full focus:outline-none placeholder-gray-400"
               />

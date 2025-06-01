@@ -19,16 +19,21 @@
     "login": "Iniciar sesión"
   },
   "search": {
-    "title": "Encuentra tu próximo coche",
-    "types": {
-      "turismos": "Turismos",
-      "suv": "SUV",
-      "monovolumen": "Monovolumen",
-      "microcoche": "Microcoche"
-    },
-    "placeholder": "Buscar ubicación...",
-    "button": "Buscar"
+  "title": "Encuentra tu próximo coche",
+  "useCurrentLocation": "Usar mi ubicación",
+  "types": {
+    "turismos": "Turismos",
+    "suv": "SUV",
+    "monovolumen": "Monovolumen",
+    "microcoche": "Microcoche"
   },
+  "placeholder": "Buscar ubicación...",
+  "button": "Buscar",
+  "errors": {
+    "geolocationNotSupported": "La geolocalización no es compatible con tu navegador.",
+    "locationPermissionDenied": "Permiso de ubicación denegado. Activa la localización para usar esta función."
+  }
+},
   "legend": {
     "title": "Leyenda del Mapa",
     "vehicle": "Vehículo disponible",

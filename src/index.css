@@ -58,3 +58,27 @@
         opacity: 1;
     }
 }
+
+@keyframes pulse-click {
+    0% {
+        transform: scale(1);
+        background-color: #dc2626;
+        /* rojo */
+    }
+
+    50% {
+        transform: scale(1.2);
+        background-color: #c52222;
+        /* verde tailwind: green-500 */
+    }
+
+    100% {
+        transform: scale(1);
+        background-color: #dc2626;
+        /* rojo otra vez */
+    }
+}
+
+.pulse-click {
+    animation: pulse-click 0.4s ease;
+}

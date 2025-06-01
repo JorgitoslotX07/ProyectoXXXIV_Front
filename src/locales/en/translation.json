@@ -20,6 +20,7 @@
     },
     "search": {
         "title": "Find your next car",
+        "useCurrentLocation": "Use my location",
         "types": {
             "turismos": "Sedan",
             "suv": "SUV",
@@ -27,7 +28,11 @@
             "microcoche": "Microcar"
         },
         "placeholder": "Search location...",
-        "button": "Search"
+        "button": "Search",
+        "errors": {
+            "geolocationNotSupported": "Geolocation is not supported by your browser.",
+            "locationPermissionDenied": "Location permission denied. Enable location to use this feature."
+        }
     },
     "legend": {
         "title": "Map Legend",
