@@ -209,5 +209,20 @@
         "placeholderEmail": "Your email address",
         "gracias": "Thank you for your interest!",
         "enviado": "The request has been successfully sent"
+    },
+    "cookies": {
+        "titulo": "Cookie Policy",
+        "intro": "This website uses its own and third-party cookies to enhance your browsing experience, gather statistical data about site usage, and personalize content.",
+        "queSon": "What are cookies?",
+        "queSonTexto": "Cookies are small text files stored on your device when you visit a website. Their main purpose is to recognize the user and improve the site's usability.",
+        "tipos": "Types of cookies used",
+        "tipoTecnicas": "Technical cookies: Necessary for the website to function.",
+        "tipoAnalisis": "Analytics cookies: Allow us to understand how users interact with the website.",
+        "tipoPersonalizacion": "Personalization cookies: Customize content according to your preferences.",
+        "comoDesactivar": "How can I disable them?",
+        "comoDesactivarTexto": "You can configure your browser to accept or reject all cookies by default or to notify you each time a cookie is received. Check your browser's help section to learn how to do this.",
+        "consentimiento": "Consent",
+        "consentimientoTexto": "By continuing to browse this website, you agree to the use of cookies in accordance with this policy. If you do not agree, you may disable them as instructed above.",
+        "ultimaActualizacion": "Last updated: May 2025"
     }
 }
