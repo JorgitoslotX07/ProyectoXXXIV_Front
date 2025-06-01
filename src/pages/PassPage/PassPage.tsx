@@ -54,7 +54,7 @@ export const PassPage: FC = () => {
   return (
     <FondoPanelComponent>
       <div className="relative min-h-screen  p-8 text-white">
-        <TituloComponent titulo={"Verificar Identidad"} />
+        <TituloComponent titulo={"Cambiar contraseña"} />
 
         {/* <div className="max-w-2xl mt-20 mx-auto w-full bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 cursor-pointer"> */}
         <div className="bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 p-8 w-full max-w-md mt-40 space-y-6 mx-auto">
