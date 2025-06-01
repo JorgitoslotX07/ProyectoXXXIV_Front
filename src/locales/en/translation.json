@@ -1,16 +1,95 @@
 {
     "home": {
         "whyUseTitle": "Why use Share&Go 34?",
-        "whyUseDescription": "Our car sharing platform connects you with the best vehicles available in your city quickly and sustainably.",
+        "whyUseDescription": "Our car sharing platform connects you with the best available vehicles in your city quickly and sustainably.",
         "whyUseBenefits": {
             "eco": "Access electric and eco-friendly cars",
             "map": "Instant booking from the map",
-            "filters": "Smart filters to find the ideal car",
-            "fast": "No paperwork or delays"
+            "filters": "Smart filters to find the perfect car",
+            "fast": "No paperwork or waiting"
         },
         "newsTitle": "Car Sharing News",
-        "mapButton": "View on the map",
-        "mapImageAlt": "Location map",
+        "mapButton": "View on map",
+        "mapImageAlt": "Map location",
         "promoImageAlt": "Promotional vehicle"
+    },
+    "navbar": {
+        "catalog": "Catalog",
+        "map": "Map",
+        "login": "Login"
+    },
+    "search": {
+        "title": "Find your next car",
+        "types": {
+            "turismos": "Sedan",
+            "suv": "SUV",
+            "monovolumen": "Minivan",
+            "microcoche": "Microcar"
+        },
+        "placeholder": "Search location...",
+        "button": "Search"
+    },
+    "legend": {
+        "title": "Map Legend",
+        "vehicle": "Available vehicle",
+        "parking": "Available parking area",
+        "note": "Click on the map icons for more details."
+    },
+    "map": {
+        "detectingLocation": "📡 Detecting location...",
+        "youAreHere": "📍 You are in:",
+        "showParkings": "Show parking areas",
+        "legendVehicle": "Available vehicle",
+        "legendParking": "Available parking area",
+        "legendNote": "Click on the map icons for more details.",
+        "vehicleState": "State",
+        "vehicleDetails": "More details",
+        "parkingZone": "Parking Zone",
+        "seeNearbyVehicles": "See nearby vehicles",
+        "exampleAddress": "Example address",
+        "lastRevision": "Last revision",
+        "status": "Status",
+        "moreDetails": "More details",
+        "sampleAddress": "Sample address",
+        "viewNearby": "View nearby vehicles"
+    },
+    "catalog": {
+        "categories": {
+            "title": "Categories | Car Type",
+            "turismo": {
+                "label": "Sedan",
+                "desc": "Comfortable and efficient vehicles ideal for city and road driving."
+            },
+            "suv": {
+                "label": "SUV",
+                "desc": "Power and space, perfect for adventures and varied terrain."
+            },
+            "monovolumen": {
+                "label": "Minivan",
+                "desc": "Large interior capacity for family trips or lots of luggage."
+            },
+            "biplaza": {
+                "label": "Two-seater",
+                "desc": "Compact, agile and perfect for urban traffic."
+            }
+        },
+        "filters": {
+            "brand": "Brand",
+            "model": "Model",
+            "type": "Type",
+            "status": "Status",
+            "location": "Location",
+            "accessibility": "Accessibility",
+            "yes": "Yes",
+            "no": "No",
+            "search": "Search"
+        }
+    },
+    "pagination": {
+        "show": "Show",
+        "previous": "Previous",
+        "next": "Next",
+        "page": "Page",
+        "of": "of"
     }
 }

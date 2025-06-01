@@ -2,13 +2,15 @@ import { useEffect, useState, type FC, type ReactElement } from "react";
 import { SearchFast } from "../../interfaces/SearchFast";
 import type { HomePageProps } from "../../interfaces/HomePageProps";
 import { httpGet } from "../../utils/apiService";
+import { useTranslation } from "react-i18next";
 
 export const SearchFastComponent: FC<HomePageProps> = ({
   onClickOptionsPerfil,
   onLoginClick,
 }): ReactElement => {
+  const { t } = useTranslation();
   const [optionsSelected, setOptionsSelected] = useState<Array<string>>([
-    "Turismos",
+    t("search.types.turismos"),
   ]);
   const searchFast: SearchFast = SearchFast();
   const [location, setLocation] = useState<string>("");
@@ -27,10 +29,10 @@ export const SearchFastComponent: FC<HomePageProps> = ({
   const [mostrarDesplegable, setMostrarDesplegable] = useState(false);
 
   const tipos = [
-    { label: "Turismos", icon: "/turismo.png" },
-    { label: "SUV", icon: "/suv.png" },
-    { label: "Monovolumen", icon: "/monovolumen.png" },
-    { label: "Microcoche", icon: "/MicroCoche.webp" },
+    { label: t("search.types.turismos"), icon: "/turismo.png" },
+    { label: t("search.types.suv"), icon: "/suv.png" },
+    { label: t("search.types.monovolumen"), icon: "/monovolumen.png" },
+    { label: t("search.types.microcoche"), icon: "/MicroCoche.webp" },
   ];
 
   const addOrDeleteOption = (carType: string) => {
@@ -60,12 +62,12 @@ export const SearchFastComponent: FC<HomePageProps> = ({
 
   return (
     <div
-      className="flex items-center justify-center px-4 py-12  min-h-[calc(100vh-300px)] " // Ajusta 300px a la altura de tu mapa bg-[#0B1120]
+      className="flex items-center justify-center px-4 py-12  min-h-[calc(100vh-300px)] "
       onClick={onClickOutEmergent}
     >
       <div className="w-full max-w-screen-lg text-white text-center space-y-8">
         <h1 className="text-4xl font-bold text-[#C4B5FD]">
-          Encuentra tu próximo coche
+          {t("search.title")}
         </h1>
 
         <div className="flex flex-wrap justify-center gap-3">
@@ -84,65 +86,6 @@ export const SearchFastComponent: FC<HomePageProps> = ({
             </button>
           ))}
         </div>
-
-        {/* <div className="flex items-center w-full max-w-2xl mx-auto">
-          <div className="flex items-center border border-gray-600 bg-[#1F2937] rounded-l-full px-4 py-3 w-full">
-            <svg
-              className="w-5 h-5 text-gray-400 mr-2"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-            >
-              <path d="M21 21l-4.35-4.35M10 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z" />
-            </svg>
-            <input
-              type="text"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              onFocus={() => setMostrarDesplegable(true)}
-              onBlur={() => setTimeout(() => setMostrarDesplegable(false), 100)}
-              placeholder="Buscar ubicación..."
-              className="bg-transparent text-white w-full focus:outline-none placeholder-gray-400"
-            />
-          </div>
-
-          <button
-            onClick={onSubmit}
-            className="bg-white/80 text-gray-900 font-semibold px-6 py-3 rounded-r-full shadow-sm hover:bg-white transition duration-200 backdrop-blur-md border-t border-b border-r border-gray-600"
-          >
-            Buscar
-          </button>
-        </div> */}
-
-        {/* 
-        {mostrarDesplegable && (
-          <ul className="absolute z-10 bg-[#1F2937] border border-gray-600 rounded-md mt-2 w-full shadow-lg max-h-60 overflow-y-auto text-left">
-            {optionsLocation.map((ubicacion) => (
-              <li
-                key={ubicacion}
-                onClick={() => manejarSeleccionUbicacion(ubicacion)}
-                className="px-4 py-2 hover:bg-[#374151] cursor-pointer text-white"
-              >
-                {ubicacion}
-              </li>
-            ))}
-          </ul>
-        )} */}
-        {/* {mostrarDesplegable && (
-          <ul className="absolute z-20 w-full max-h-60 overflow-y-auto rounded-lg bg-[#1F2937] border border-gray-600 shadow-xl backdrop-blur-sm ring-1 ring-black/10">
-            {optionsLocation.map((ubicacion) => (
-              <li
-                key={ubicacion}
-                onClick={() => manejarSeleccionUbicacion(ubicacion)}
-                className="px-4 py-2 text-sm text-gray-100 hover:bg-[#4B5563] hover:text-white cursor-pointer transition-colors duration-150 rounded-md mx-1 my-1 whitespace-nowrap overflow-hidden text-ellipsis"
-                title={ubicacion}
-              >
-                {ubicacion}
-              </li>
-            ))}
-          </ul>
-        )} */}
 
         <div className="relative inline-block w-full max-w-2xl mx-auto">
           <div className="flex items-center w-full max-w-2xl mx-auto">
@@ -164,7 +107,7 @@ export const SearchFastComponent: FC<HomePageProps> = ({
                 onBlur={() =>
                   setTimeout(() => setMostrarDesplegable(false), 100)
                 }
-                placeholder="Buscar ubicación..."
+                placeholder={t("search.placeholder")}
                 className="bg-transparent text-white w-full focus:outline-none placeholder-gray-400"
               />
             </div>
@@ -173,7 +116,7 @@ export const SearchFastComponent: FC<HomePageProps> = ({
               onClick={onSubmit}
               className="bg-white/80 text-gray-900 font-semibold px-6 py-3 rounded-r-full shadow-sm hover:bg-white transition duration-200 backdrop-blur-md border-t border-b border-r border-gray-600"
             >
-              Buscar
+              {t("search.button")}
             </button>
           </div>
 

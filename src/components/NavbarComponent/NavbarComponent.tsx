@@ -5,9 +5,11 @@ import type { NavbarProps } from "../../interfaces/NavbarProps";
 import { useUserStore } from "../../hooks/userStore";
 import { UserPopUpComponent } from "../UserPopUpComponent/UserPopUpComponent";
 import ThemeButtonComponent from "../ThemeButtonComponent/ThemeButtonComponent";
+import { useTranslation } from "react-i18next";
 
 export const NavbarComponent: FC<NavbarProps> = ({ onLoginClick }) => {
   const user = useUserStore((state) => state.token);
+  const { t } = useTranslation();
 
   return (
     <nav className="flex justify-between items-center px-6 py-4 shadow-md bg-[#070F1A] text-gray-300">
@@ -20,10 +22,10 @@ export const NavbarComponent: FC<NavbarProps> = ({ onLoginClick }) => {
 
       <ul className="flex space-x-8 font-medium">
         <li className="hover:text-white transition-colors duration-200">
-          <Link to="/catalog">Catálogo</Link>
+          <Link to="/catalog">{t("navbar.catalog")}</Link>
         </li>
         <li className="hover:text-white transition-colors duration-200">
-          <Link to="/map">Mapa</Link>
+          <Link to="/map">{t("navbar.map")}</Link>
         </li>
       </ul>
 
@@ -35,7 +37,7 @@ export const NavbarComponent: FC<NavbarProps> = ({ onLoginClick }) => {
             onClick={onLoginClick}
             className="cursor-pointer bg-white/10 text-white px-4 py-1.5 rounded-full hover:bg-white/20 transition duration-200"
           >
-            Login
+            {t("navbar.login")}
           </span>
         )}
         <ThemeButtonComponent />

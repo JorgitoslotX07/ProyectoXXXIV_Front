@@ -1,4 +1,10 @@
-import { MapContainer, TileLayer, Marker, Rectangle, Tooltip } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Rectangle,
+  Tooltip,
+} from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import L, { Map as LeafletMap, type LatLngTuple } from "leaflet";
 import type { MarkerCluster } from "leaflet";
@@ -10,13 +16,23 @@ import { FiltrersCatalogComponent } from "../FiltrersCatalogComponent/FiltrersCa
 import { httpGet } from "../../utils/apiService";
 import type { ParkingFilterComponentProp } from "../../interfaces/ParkingFilterComponentProp";
 import { LegendComponent } from "../../components/LegendComponent/LegendComponent";
+import { useTranslation } from "react-i18next";
 
-export const ParkingFilterComponent: FC<ParkingFilterComponentProp> = ({ mostrar, onToggle }) => {
+
+
+export const ParkingFilterComponent: FC<ParkingFilterComponentProp> = ({
+  mostrar,
+  onToggle,
+}) => {
+
+  const { t } = useTranslation();
+
   return (
+    
     <div className="w-full">
       <label
         htmlFor="toggle-parkings"
-       className="w-[250px] flex items-center gap-3 bg-[#111827] px-4 py-3 rounded-xl text-white cursor-pointer hover:bg-[#1f2937] transition"
+        className="w-[250px] flex items-center gap-3 bg-[#111827] px-4 py-3 rounded-xl text-white cursor-pointer hover:bg-[#1f2937] transition"
       >
         <input
           type="checkbox"
@@ -25,11 +41,12 @@ export const ParkingFilterComponent: FC<ParkingFilterComponentProp> = ({ mostrar
           onChange={onToggle}
           className="form-checkbox h-5 w-5 text-green-500 accent-green-500 rounded focus:ring-0"
         />
-        <span className="text-sm font-semibold">Mostrar zonas de parking</span>
+        <span className="text-sm font-semibold">{t("map.showParkings")}</span>
       </label>
     </div>
   );
 };
+
 const crearIconoCoche = (esSeleccionado: boolean) => {
   const color = esSeleccionado ? "#4ade80" : "#3b82f6";
   const extraStyle = esSeleccionado ? "animation: bounce 0.6s ease;" : "";
@@ -50,19 +67,16 @@ const crearIconoCoche = (esSeleccionado: boolean) => {
     iconSize: [40, 45],
     iconAnchor: [20, 45],
   });
-
 };
 
 const crearIconoParking = (esSeleccionado: boolean) => {
   const color = esSeleccionado ? "#4ade80" : "#10b981";
-  const sombra = esSeleccionado
-    ? "filter: drop-shadow(0 0 6px #4ade80);"
-    : "";
+  const sombra = esSeleccionado ? "filter: drop-shadow(0 0 6px #4ade80);" : "";
 
   const extraStyle = esSeleccionado
     ? "animation: bounce 0.6s ease; transform: translate(-50%, -50%) scale(1.1);"
     : "transform: translate(-50%, -50%) scale(1);";
-//el extraStyle no esta comillado, revisar mas adelante
+  //el extraStyle no esta comillado, revisar mas adelante
   return L.divIcon({
     className: "",
     html: `
@@ -156,7 +170,7 @@ export const zonasParking: ZonaParking[] = [
     foto: "/parking-cambrils-playa.jpg",
     bounds: [
       [41.0645, 1.057],
-      [41.0655, 1.060],
+      [41.0655, 1.06],
     ],
   },
   {
@@ -205,15 +219,13 @@ export const zonasParking: ZonaParking[] = [
     foto: "/parking-hospital-reus.jpg",
     bounds: [
       [41.147, 1.117],
-      [41.148, 1.120],
+      [41.148, 1.12],
     ],
   },
 ];
 
-
-
-
 const CochesMapComponent = () => {
+  const { t } = useTranslation();
   const [vehiculos, setVehiculos] = useState<Vehiculo[]>([]);
   const [vehiculosFiltrados, setVehiculosFiltrados] = useState<Vehiculo[]>([]);
   const [filtrosActivos, setFiltrosActivos] = useState<
@@ -223,7 +235,8 @@ const CochesMapComponent = () => {
     useState<DatosVehiculo | null>(null);
   const [mostrarTarjeta, setMostrarTarjeta] = useState(false);
   // const [parkingSeleccionado, setParkingSeleccionado] = useState<typeof zonasParking[0] | null>(null);
-  const [parkingSeleccionado, setParkingSeleccionado] = useState<ZonaParking | null>(null);
+  const [parkingSeleccionado, setParkingSeleccionado] =
+    useState<ZonaParking | null>(null);
   const [mostrarParkings, setMostrarParkings] = useState(true);
 
   const [posicionInicialMapa, setPosicionInicialMapa] = useState<LatLngTuple>([
@@ -403,12 +416,12 @@ const CochesMapComponent = () => {
         <div className="text-sm text-gray-700 font-semibold min-h-[1.5rem] py-2">
           {direccionDetectada ? (
             <>
-              📍 Estás en:{" "}
+              📍 {t("map.youAreHere")}{" "}
               <span className="text-blue-600">{direccionDetectada}</span>
             </>
           ) : posicionUsuario ? (
             <span className="animate-pulse text-gray-500">
-              📡 Detectando ubicación...
+              📡 {t("map.detectingLocation")}
             </span>
           ) : null}
         </div>
@@ -435,50 +448,52 @@ const CochesMapComponent = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             noWrap={true}
           />
-          {mostrarParkings && zonasParking.map((zona) => (
-            <Rectangle
-              key={zona.id}
-              bounds={zona.bounds}
-              pathOptions={{ color: "green", weight: 2, fillOpacity: 0.2 }}
-              eventHandlers={{
-                click: () => {
-                  setParkingSeleccionado(zona);
-                  setVehiculoSeleccionado(null);
-                  setMostrarTarjeta(false);
-                  setTimeout(() => setMostrarTarjeta(true), 500);
-                },
-              }}
-            >
-              <Tooltip direction="top" offset={[0, 10]} opacity={1}>
-                {zona.nombre}
-              </Tooltip>
-            </Rectangle>
-          ))}
-          {mostrarParkings && zonasParking.map((zona) => (
-            <Marker
-              key={`marker-${zona.id}`}
-              position={[
-                (zona.bounds[0][0] + zona.bounds[1][0]) / 2,
-                (zona.bounds[0][1] + zona.bounds[1][1]) / 2,
-              ]}
-              icon={crearIconoParking(parkingSeleccionado?.id === zona.id)}
-              eventHandlers={{
-                click: () => {
-                  setParkingSeleccionado(zona);
-                  setVehiculoSeleccionado(null);
-                  setMostrarTarjeta(false);
-                  setTimeout(() => setMostrarTarjeta(true), 500);
+          {mostrarParkings &&
+            zonasParking.map((zona) => (
+              <Rectangle
+                key={zona.id}
+                bounds={zona.bounds}
+                pathOptions={{ color: "green", weight: 2, fillOpacity: 0.2 }}
+                eventHandlers={{
+                  click: () => {
+                    setParkingSeleccionado(zona);
+                    setVehiculoSeleccionado(null);
+                    setMostrarTarjeta(false);
+                    setTimeout(() => setMostrarTarjeta(true), 500);
+                  },
+                }}
+              >
+                <Tooltip direction="top" offset={[0, 10]} opacity={1}>
+                  {zona.nombre}
+                </Tooltip>
+              </Rectangle>
+            ))}
+          {mostrarParkings &&
+            zonasParking.map((zona) => (
+              <Marker
+                key={`marker-${zona.id}`}
+                position={[
+                  (zona.bounds[0][0] + zona.bounds[1][0]) / 2,
+                  (zona.bounds[0][1] + zona.bounds[1][1]) / 2,
+                ]}
+                icon={crearIconoParking(parkingSeleccionado?.id === zona.id)}
+                eventHandlers={{
+                  click: () => {
+                    setParkingSeleccionado(zona);
+                    setVehiculoSeleccionado(null);
+                    setMostrarTarjeta(false);
+                    setTimeout(() => setMostrarTarjeta(true), 500);
 
-                  if (mapRef.current) {
-                    mapRef.current.fitBounds(zona.bounds, {
-                      padding: [40, 40],
-                      duration: 1.5,
-                    });
-                  }
-                },
-              }}
-            />
-          ))}
+                    if (mapRef.current) {
+                      mapRef.current.fitBounds(zona.bounds, {
+                        padding: [40, 40],
+                        duration: 1.5,
+                      });
+                    }
+                  },
+                }}
+              />
+            ))}
 
           <MarkerClusterGroup
             chunkedLoading
@@ -567,12 +582,12 @@ const CochesMapComponent = () => {
               {vehiculoSeleccionado.marca} {vehiculoSeleccionado.modelo}
             </h2>
             <p className="text-sm text-gray-500 mb-2">
-              🔋 {vehiculoSeleccionado.autonomia} km · 📅 Últ. revisión:{" "}
-              {vehiculoSeleccionado.ultimaRevision}
+              🔋 {vehiculoSeleccionado.autonomia} km · 📅{" "}
+              {t("map.lastRevision")}: {vehiculoSeleccionado.ultimaRevision}
             </p>
             <div className="border-t border-gray-200 pt-2 text-sm">
               <p className="text-gray-600">
-                🚗 Estado: {vehiculoSeleccionado.estado}
+                🚗 {t("map.status")}: {vehiculoSeleccionado.estado}
               </p>
               <p className="text-gray-600">
                 📍 Lat: {vehiculoSeleccionado.latitud}, Lng:{" "}
@@ -580,11 +595,10 @@ const CochesMapComponent = () => {
               </p>
             </div>
             <button className="mt-4 w-full bg-green-600 text-white font-bold py-2 rounded hover:bg-green-700 transition">
-              Más detalles
+              {t("map.moreDetails")}
             </button>
           </div>
         )}
-
 
         {mostrarTarjeta && parkingSeleccionado && (
           <div className="fixed bottom-6 left-8 bg-white p-4 rounded-xl shadow-xl w-80 animate-fadein z-[11]">
@@ -602,22 +616,23 @@ const CochesMapComponent = () => {
               alt={parkingSeleccionado.nombre}
               className="w-full h-36 object-cover rounded mb-4"
             />
-            <h2 className="text-xl font-bold mb-1">{parkingSeleccionado.nombre}</h2>
-            <p className="text-sm text-gray-500 mb-2">🅿️ Zona de Aparcamiento</p>
+            <h2 className="text-xl font-bold mb-1">
+              {parkingSeleccionado.nombre}
+            </h2>
+            <p className="text-sm text-gray-500 mb-2">
+              🅿️ {t("map.parkingZone")}
+            </p>
             <div className="border-t border-gray-200 pt-2 text-sm">
-              <p className="text-gray-600">📍 Dirección de ejemplo</p>
+              <p className="text-gray-600">📍 {t("map.sampleAddress")}</p>
             </div>
             <button className="mt-4 w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 transition">
-              Ver vehículos cercanos
+              {t("map.viewNearby")}
             </button>
           </div>
         )}
-
       </div>
 
       <div className="w-full lg:w-1/4  p-4 h-fit top-4">
-
-  
         <FiltrersCatalogComponent
           vehiculos={{
             content: vehiculos,
@@ -644,16 +659,15 @@ const CochesMapComponent = () => {
           onSubmit={() => console.log()}
           filtros={filtrosActivos}
         />
-      <div className="p-10 space-y-6r">
-  <ParkingFilterComponent
-    mostrar={mostrarParkings}
-    onToggle={() => setMostrarParkings(!mostrarParkings)}
-  />
-  <div className="mt-4">
-  <LegendComponent />
-</div>
-
-</div>
+        <div className="p-10 space-y-6r">
+          <ParkingFilterComponent
+            mostrar={mostrarParkings}
+            onToggle={() => setMostrarParkings(!mostrarParkings)}
+          />
+          <div className="mt-4">
+            <LegendComponent />
+          </div>
+        </div>
       </div>
     </div>
   );

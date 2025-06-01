@@ -1,11 +1,11 @@
+import { useTranslation } from "react-i18next";
 import type { FC } from "react";
 import { GeneredFilterComponent } from "../GeneredFilterComponent/GeneredFilterComponent";
 import type {
     FilterCategory,
     FilterOption,
 } from "../../interfaces/GeneredFilterComponentProp";
-import type { Vehiculo,  } from "../../interfaces/Vehiculo";
-// FiltroVehiculo
+import type { Vehiculo } from "../../interfaces/Vehiculo";
 import type { FiltrersCatalogProps } from "../../interfaces/FiltrersCatalogProps";
 
 export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
@@ -13,57 +13,59 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
     vehiculos,
     vertical,
     onSubmit,
-    filtros, // <- prop añadida correctamente
+    filtros,
 }) => {
+    const { t } = useTranslation();
+
     const filtrosDinamicos = (vehiculos: Vehiculo[]): FilterCategory[] => [
         {
-            label: "Marca",
+            label: t("catalog.filters.brand"),
             name: "marca",
             options: obtenerOpcionesUnicas(vehiculos, "marca"),
         },
         {
-            label: "Modelo",
+            label: t("catalog.filters.model"),
             name: "modelo",
             options: obtenerOpcionesUnicas(vehiculos, "modelo"),
         },
         {
-            label: "Tipo",
+            label: t("catalog.filters.type"),
             name: "tipo",
             options: obtenerOpcionesUnicas(vehiculos, "tipo"),
         },
         {
-            label: "Estado",
+            label: t("catalog.filters.status"),
             name: "estado",
             options: obtenerOpcionesUnicas(vehiculos, "estado"),
         },
         {
-            label: "Localidad",
+            label: t("catalog.filters.location"),
             name: "localidad",
             options: obtenerOpcionesUnicas(vehiculos, "localidad"),
         },
         {
-            label: "Accesibilidad",
+            label: t("catalog.filters.accessibility"),
             name: "esAccesible",
             options: [
-                { label: "Sí", value: "true" },
-                { label: "No", value: "false" },
+                { label: t("catalog.filters.yes"), value: "true" },
+                { label: t("catalog.filters.no"), value: "false" },
             ],
         },
     ];
 
     const filtrosDinamicosVertical = (vehiculos: Vehiculo[]): FilterCategory[] => [
         {
-            label: "Tipo",
+            label: t("catalog.filters.type"),
             name: "tipo",
             options: obtenerOpcionesUnicas(vehiculos, "tipo"),
         },
         {
-            label: "Estado",
+            label: t("catalog.filters.status"),
             name: "estado",
             options: obtenerOpcionesUnicas(vehiculos, "estado"),
         },
         {
-            label: "Localidad",
+            label: t("catalog.filters.location"),
             name: "localidad",
             options: obtenerOpcionesUnicas(vehiculos, "localidad"),
         },
@@ -93,7 +95,7 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
                                 index={index}
                                 filter={filter}
                                 onFilterChange={onFilterChange}
-                                valorActual={filtros[filter.name]} // ← sincroniza visualmente
+                                valorActual={filtros[filter.name]}
                             />
                         ))}
                     </div>
@@ -104,7 +106,7 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
                                 onClick={onSubmit}
                                 className="mb-1 h-8 px-4 bg-white/80 text-gray-900 text-sm font-medium rounded-full shadow-sm hover:bg-white transition duration-200"
                             >
-                                Buscar
+                                {t("catalog.filters.search")}
                             </button>
                         </div>
                     )}

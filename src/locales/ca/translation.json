@@ -1,44 +1,95 @@
 {
-  "welcomeTo": "BENVINGUT A",
-  "gameTitle1": "PEDRA, PAPER,",
-  "gameTitle2": "TISORES",
-  "game": "PEDRA, PAPER, TISORES",
-  "errorImg": "Tria una imatge",
-  "startPageTitleP1": "CONFIGURACIÓ",
-  "startPageTitleP2": "DE PERFIL",
-  "startPageTitleEnemyP1": "PERSONALITZAR",
-  "startPageTitleEnemyP2": "ENEMIC",
-  "showFormEnemy": "Personalitzar enemic",
-  "errorToastE" :"ENEMIC: ",
-  "errorToastU" :"USUARI: ",
-  "buttonStart": "Començar",
-  "placeholderInputName": "Nom d'usuari",
-  "file": "Des d'un fitxer",
-  "selectFile": "Selecciona un fitxer",
-  "url": "Des d'una URL",
-  "placeholderUrl": "URL de la imatge",
-  "webcam": "Usa la càmera",
-  "openWebCam": "Obre la càmera",
-  "capPhotoWebCam": "Captura una foto",
-  "closeWebCam": "Tanca",
-  "avatar": "Sense imatge",
-  "gameHistory": "Historial de jocs",
-  "date": "Data",
-  "playerName": "Nom del jugador",
-  "playerChoice": "Elecció del jugador",
-  "computerChoice": "Elecció de l'ordinador",
-  "result": "Resultat",
-  "downloadHistory": "Descarregar",
-  "confirm": "ACCEPTAR",
-  "validatioName3Leters": "El nom ha de tenir almenys 3 caràcters",
-  "validationNameBlank": "El nom és obligatori",
-  "oponent": "Oponent",
-  "your": "Tú",
-  "computer": "Ordinador",
-  "yourEleccion": "La teva elecció",
-  "user": "Usuari",
-  "computerEleccion": "L'ordinador està triant...",
-  "win": "Has guanyat!",
-  "lost": "Has perdut!",
-  "draw": "Empat!"
+  "home": {
+    "whyUseTitle": "Per què utilitzar Share&Go 34?",
+    "whyUseDescription": "La nostra plataforma de car sharing et connecta amb els millors vehicles disponibles a la teva ciutat de manera ràpida i sostenible.",
+    "whyUseBenefits": {
+      "eco": "Accedeix a cotxes elèctrics i ecològics",
+      "map": "Reserva immediata des del mapa",
+      "filters": "Filtres intel·ligents per trobar el cotxe ideal",
+      "fast": "Sense paperassa ni esperes"
+    },
+    "newsTitle": "Notícies sobre Car Sharing",
+    "mapButton": "Veure al mapa",
+    "mapImageAlt": "Ubicació al mapa",
+    "promoImageAlt": "Vehicle promocional"
+  },
+  "navbar": {
+    "catalog": "Catàleg",
+    "map": "Mapa",
+    "login": "Inicia sessió"
+  },
+  "search": {
+    "title": "Troba el teu proper cotxe",
+    "types": {
+      "turismos": "Turisme",
+      "suv": "SUV",
+      "monovolumen": "Monovolum",
+      "microcoche": "Microcotxe"
+    },
+    "placeholder": "Cerca ubicació...",
+    "button": "Cercar"
+  },
+  "legend": {
+    "title": "Llegenda del mapa",
+    "vehicle": "Vehicle disponible",
+    "parking": "Zona d'aparcament disponible",
+    "note": "Fes clic als icones del mapa per a més detalls."
+  },
+  "map": {
+    "detectingLocation": "📡 Detectant ubicació...",
+    "youAreHere": "📍 Estàs a:",
+    "showParkings": "Mostrar zones d'aparcament",
+    "legendVehicle": "Vehicle disponible",
+    "legendParking": "Zona d'aparcament disponible",
+    "legendNote": "Fes clic als icones del mapa per a més detalls.",
+    "vehicleState": "Estat",
+    "vehicleDetails": "Més detalls",
+    "parkingZone": "Zona d'aparcament",
+    "seeNearbyVehicles": "Veure vehicles propers",
+    "exampleAddress": "Adreça d'exemple",
+    "lastRevision": "Última revisió",
+    "status": "Estat",
+    "moreDetails": "Més detalls",
+    "sampleAddress": "Adreça d'exemple",
+    "viewNearby": "Veure vehicles propers"
+  },
+  "catalog": {
+    "categories": {
+      "title": "Categories | Tipus de Cotxe",
+      "turismo": {
+        "label": "Turisme",
+        "desc": "Vehicles còmodes i eficients ideals per a carretera i ciutat."
+      },
+      "suv": {
+        "label": "SUV",
+        "desc": "Potència i espai, perfectes per a aventures i terrenys variats."
+      },
+      "monovolumen": {
+        "label": "Monovolum",
+        "desc": "Gran capacitat interior per a viatges en família o amb molt equipatge."
+      },
+      "biplaza": {
+        "label": "Biplaza",
+        "desc": "Compactes, àgils i perfectes per al trànsit urbà."
+      }
+    },
+    "filters": {
+      "brand": "Marca",
+      "model": "Model",
+      "type": "Tipus",
+      "status": "Estat",
+      "location": "Localitat",
+      "accessibility": "Accessibilitat",
+      "yes": "Sí",
+      "no": "No",
+      "search": "Cercar"
+    }
+  },
+  "pagination": {
+    "show": "Mostrar",
+    "previous": "Anterior",
+    "next": "Següent",
+    "page": "Pàgina",
+    "of": "de"
+  }
 }
