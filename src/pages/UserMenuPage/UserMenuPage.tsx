@@ -141,7 +141,7 @@ export const UserMenuPage = () => {
               <div
                 key={i}
                 onClick={onClick}
-                className={`flex items-center justify-between bg-white/5 backdrop-blur-md rounded-2xl p-4 shadow-md border border-white/10 cursor-pointer transition-transform duration-200 ease-in-out hover:scale-[1.02] active:scale-95 transition ${i === sections.length - 1 ? "hover:bg-[#F93943]/60" : ""
+                className={`flex items-center justify-between bg-white/5 backdrop-blur-md rounded-2xl p-4 shadow-md border border-white/10 cursor-pointer duration-200 ease-in-out hover:scale-[1.02] active:scale-95 transition ${i === sections.length - 1 ? "hover:bg-[#F93943]/60" : ""
                   }`}
               >
                 <div className="text-3xl">{icon}</div>

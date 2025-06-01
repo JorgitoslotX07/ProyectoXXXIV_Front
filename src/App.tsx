@@ -1,5 +1,5 @@
 import "./App.css";
-
+import "./i18n";
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage/HomePage";
@@ -53,8 +53,7 @@ function App() {
           element={
             <HomePage
               onLoginClick={() => setShowLogin(false)}
-              onClickOptionsPerfil={onClickOptionsPerfil}
-            />
+              onClickOptionsPerfil={onClickOptionsPerfil} modoClaro={false}            />
           }
         />
         <Route path="/register" element={<RegistroPage />} />
