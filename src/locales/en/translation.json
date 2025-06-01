@@ -36,8 +36,8 @@
         "note": "Click on the map icons for more details."
     },
     "map": {
-        "detectingLocation": "📡 Detecting location...",
-        "youAreHere": "📍 You are in:",
+        "detectingLocation": "Detecting location...",
+        "youAreHere": "You are in:",
         "showParkings": "Show parking areas",
         "legendVehicle": "Available vehicle",
         "legendParking": "Available parking area",
@@ -91,5 +91,33 @@
         "next": "Next",
         "page": "Page",
         "of": "of"
+    },
+    "login": {
+        "cerrarModal": "Close modal",
+        "titulo": "Log In",
+        "error": "Incorrect username or password",
+        "placeholderUsuario": "Username",
+        "placeholderContrasenya": "Password",
+        "noCuenta": "Don't have an account?",
+        "registrate": "Register here",
+        "botonEntrar": "Log In",
+        "camposObligatorios": "Please fill in all fields.",
+        "datosInvalidos": "Invalid username or password.",
+        "errorGenerico": "An unexpected error occurred. Please try again."
+    },
+    "registro": {
+        "titulo": "User Registration",
+        "placeholderNombre": "Name",
+        "placeholderCorreo": "Email",
+        "placeholderPass": "Password",
+        "boton": "Create Account",
+        "todosCampos": "Please fill in all fields.",
+        "nombreValido": "a valid name",
+        "correoValido": "a valid email",
+        "passValida": "a valid password",
+        "introduce": "Please enter",
+        "usuarioExiste": "User already exists or an error occurred.",
+        "errorGeneral": "Error while registering user.",
+        "validacionPass": "Password must be at least 8 characters and include an uppercase, lowercase, number and symbol."
     }
 }

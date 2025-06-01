@@ -12,8 +12,10 @@ import { Usuario } from "../../interfaces/Usuario";
 import { httpPost } from "../../utils/apiService";
 import { useUserStore } from "../../hooks/userStore";
 import { mostrarError } from "../../utils/notiToast";
+import { useTranslation } from "react-i18next"; // 🟢 Traducción
 
 export const RegisterComponent = () => {
+  const { t } = useTranslation(); // 🟢 Hook de traducción
   const setToken = useUserStore((state) => state.setToken);
   const navigate = useNavigate();
 
@@ -34,7 +36,6 @@ export const RegisterComponent = () => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
 
-    // Limpiar errores al escribir
     setErroresCampos((prev) => ({
       ...prev,
       [name]: false,
@@ -49,21 +50,15 @@ export const RegisterComponent = () => {
     const emailValido = validateMail(form.email);
     const passValida = validatePassword(form.contrasenya);
 
-    // ⚠️ Todos vacíos
     if (!form.usuario && !form.email && !form.contrasenya) {
-      const msg = "Por favor, rellena todos los campos.";
+      const msg = t("registro.todosCampos");
       setMensajeError(msg);
       mostrarError(msg);
-      setErroresCampos({
-        usuario: true,
-        email: true,
-        contrasenya: true,
-      });
+      setErroresCampos({ usuario: true, email: true, contrasenya: true });
       refNombre.current?.focus();
       return;
     }
 
-    // 🔁 Validaciones múltiples
     const nuevosErrores = {
       usuario: !nombreValido,
       email: !emailValido,
@@ -78,15 +73,14 @@ export const RegisterComponent = () => {
       setErroresCampos(nuevosErrores);
 
       const mensajes = [];
-      if (!nombreValido) mensajes.push("un nombre válido");
-      if (!emailValido) mensajes.push("un correo válido");
-      if (!passValida) mensajes.push("una contraseña válida");
+      if (!nombreValido) mensajes.push(t("registro.nombreValido"));
+      if (!emailValido) mensajes.push(t("registro.correoValido"));
+      if (!passValida) mensajes.push(t("registro.passValida"));
 
-      const combinado = `Introduce ${mensajes.join(" y ")}.`;
+      const combinado = `${t("registro.introduce")} ${mensajes.join(" y ")}`;
       setMensajeError(combinado);
       mostrarError(combinado);
 
-      // Focus en el primer campo que falle
       if (!nombreValido) refNombre.current?.focus();
       else if (!emailValido) refEmail.current?.focus();
       else if (!passValida) refPass.current?.focus();
@@ -94,7 +88,6 @@ export const RegisterComponent = () => {
       return;
     }
 
-    // ✅ Registro
     try {
       await httpPost("/auth/registro", form);
       const token: UserData | null = await verificarUsuario(form);
@@ -103,19 +96,15 @@ export const RegisterComponent = () => {
         setLoginCookiesAndRedirect(token);
         navigate("/");
       } else {
-        const msg = "El usuario ya existe o hubo un error.";
+        const msg = t("registro.usuarioExiste");
         setErroresCampos({ usuario: true, email: false, contrasenya: false });
         setMensajeError(msg);
         mostrarError(msg);
         refNombre.current?.focus();
       }
     } catch (error) {
-      const msg = "Error al registrar el usuario.";
-      setErroresCampos({
-        usuario: false,
-        email: false,
-        contrasenya: false,
-      });
+      const msg = t("registro.errorGeneral");
+      setErroresCampos({ usuario: false, email: false, contrasenya: false });
       setMensajeError(msg);
       mostrarError(msg);
     }
@@ -126,11 +115,8 @@ export const RegisterComponent = () => {
       onSubmit={handleSubmit}
       className="bg-[#1F2937] p-8 rounded-lg shadow-lg w-full max-w-md mx-auto"
     >
-      <h2
-        className="text-2xl font-bold mb-4 text-center"
-        style={{ color: "#C4B5FD" }}
-      >
-        Registro de Usuario
+      <h2 className="text-2xl font-bold mb-4 text-center" style={{ color: "#C4B5FD" }}>
+        {t("registro.titulo")}
       </h2>
 
       {mensajeError && (
@@ -141,7 +127,7 @@ export const RegisterComponent = () => {
         ref={refNombre}
         type="text"
         name="usuario"
-        placeholder="Nombre"
+        placeholder={t("registro.placeholderNombre")}
         value={form.usuario}
         onChange={handleChange}
         className={`w-full p-3 mb-4 rounded bg-[#374151] text-white placeholder-gray-400 border focus:outline-none focus:ring-2 transition ${
@@ -155,7 +141,7 @@ export const RegisterComponent = () => {
         ref={refEmail}
         type="email"
         name="email"
-        placeholder="Correo Electrónico"
+        placeholder={t("registro.placeholderCorreo")}
         value={form.email}
         onChange={handleChange}
         className={`w-full p-3 mb-4 rounded bg-[#374151] text-white placeholder-gray-400 border focus:outline-none focus:ring-2 transition ${
@@ -169,7 +155,7 @@ export const RegisterComponent = () => {
         ref={refPass}
         type="password"
         name="contrasenya"
-        placeholder="Contraseña"
+        placeholder={t("registro.placeholderPass")}
         value={form.contrasenya}
         onChange={handleChange}
         className={`w-full p-3 mb-2 rounded bg-[#374151] text-white placeholder-gray-400 border focus:outline-none focus:ring-2 transition ${
@@ -181,8 +167,7 @@ export const RegisterComponent = () => {
 
       {erroresCampos.contrasenya && (
         <p className="text-red-400 text-sm mb-4">
-          La contraseña debe tener al menos 8 caracteres, incluyendo una
-          mayúscula, una minúscula, un número y un símbolo.
+          {t("registro.validacionPass")}
         </p>
       )}
 
@@ -190,7 +175,7 @@ export const RegisterComponent = () => {
         type="submit"
         className="w-full py-3 rounded bg-[#A7F3D0] text-gray-900 font-semibold hover:bg-[#9EE6C4] transition"
       >
-        Crear Cuenta
+        {t("registro.boton")}
       </button>
     </form>
   );

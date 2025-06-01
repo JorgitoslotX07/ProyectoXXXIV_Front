@@ -16,7 +16,7 @@
   "navbar": {
     "catalog": "Catàleg",
     "map": "Mapa",
-    "login": "Inicia sessió"
+    "login": "Iniciar sessió"
   },
   "search": {
     "title": "Troba el teu proper cotxe",
@@ -36,8 +36,8 @@
     "note": "Fes clic als icones del mapa per a més detalls."
   },
   "map": {
-    "detectingLocation": "📡 Detectant ubicació...",
-    "youAreHere": "📍 Estàs a:",
+    "detectingLocation": "Detectant ubicació...",
+    "youAreHere": "Estàs a:",
     "showParkings": "Mostrar zones d'aparcament",
     "legendVehicle": "Vehicle disponible",
     "legendParking": "Zona d'aparcament disponible",
@@ -91,5 +91,33 @@
     "next": "Següent",
     "page": "Pàgina",
     "of": "de"
+  },
+  "login": {
+    "cerrarModal": "Tancar modal",
+    "titulo": "Iniciar Sessió",
+    "error": "L'usuari o la contrasenya no són correctes",
+    "placeholderUsuario": "Usuari",
+    "placeholderContrasenya": "Contrasenya",
+    "noCuenta": "No tens compte?",
+    "registrate": "Registra't aquí",
+    "botonEntrar": "Entrar",
+    "camposObligatorios": "Si us plau, completa tots els camps.",
+    "datosInvalidos": "Nom d’usuari o contrasenya no vàlids.",
+    "errorGenerico": "S’ha produït un error inesperat. Torna-ho a provar."
+  },
+  "registro": {
+    "titulo": "Registre d'Usuari",
+    "placeholderNombre": "Nom",
+    "placeholderCorreo": "Correu Electrònic",
+    "placeholderPass": "Contrasenya",
+    "boton": "Crear Compte",
+    "todosCampos": "Si us plau, omple tots els camps.",
+    "nombreValido": "un nom vàlid",
+    "correoValido": "un correu vàlid",
+    "passValida": "una contrasenya vàlida",
+    "introduce": "Introdueix",
+    "usuarioExiste": "L'usuari ja existeix o hi ha hagut un error.",
+    "errorGeneral": "Error en registrar l'usuari.",
+    "validacionPass": "La contrasenya ha de tenir almenys 8 caràcters, incloent una majúscula, una minúscula, un número i un símbol."
   }
 }

@@ -91,5 +91,33 @@
     "next": "Siguiente",
     "page": "Página",
     "of": "de"
+  },
+  "login": {
+    "cerrarModal": "Cerrar modal",
+    "titulo": "Iniciar Sesión",
+    "error": "El usuario o la contraseña son incorrectos",
+    "placeholderUsuario": "Usuario",
+    "placeholderContrasenya": "Contraseña",
+    "noCuenta": "¿No tienes una cuenta?",
+    "registrate": "Regístrate aquí",
+    "botonEntrar": "Entrar",
+    "camposObligatorios": "Por favor, completa todos los campos.",
+    "datosInvalidos": "Nombre de usuario o contraseña no válidos.",
+    "errorGenerico": "Ocurrió un error inesperado. Intenta de nuevo."
+  },
+  "registro": {
+    "titulo": "Registro de Usuario",
+    "placeholderNombre": "Nombre",
+    "placeholderCorreo": "Correo Electrónico",
+    "placeholderPass": "Contraseña",
+    "boton": "Crear Cuenta",
+    "todosCampos": "Por favor, rellena todos los campos.",
+    "nombreValido": "un nombre válido",
+    "correoValido": "un correo válido",
+    "passValida": "una contraseña válida",
+    "introduce": "Introduce",
+    "usuarioExiste": "El usuario ya existe o hubo un error.",
+    "errorGeneral": "Error al registrar el usuario.",
+    "validacionPass": "La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un símbolo."
   }
 }

@@ -13,31 +13,38 @@ import {
 import type { LoginProps } from "../../interfaces/LoginProps";
 import { Usuario } from "../../interfaces/Usuario";
 import { useUserStore } from "../../hooks/userStore";
+import { useTranslation } from "react-i18next";
 
 export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
+  const { t } = useTranslation();
   const setToken = useUserStore((state) => state.setToken);
   const navigate = useNavigate();
 
   const [form, setForm] = useState<Usuario>(Usuario());
-  const [error, setError] = useState(false); // 🟥 Error para mostrar mensaje y estilos
+  const [error, setError] = useState(false);
+  const [mensajeError, setMensajeError] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    setError(false); // Quitar error al escribir
+    setError(false);
+    setMensajeError("");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(false);
+    setMensajeError("");
+
+    if (!form.usuario || !form.contrasenya) {
+      setError(true);
+      setMensajeError(t("login.camposObligatorios"));
+      return;
+    }
 
     if (validateName(form.usuario) && validatePassword(form.contrasenya)) {
       const token: UserData | null = await verificarUsuario(form);
-      console.log(token);
-
       if (token) {
         try {
-          console.log("TOken => ", token);
-
           setToken(token.token);
           onClose();
           setLoginCookiesAndRedirect(token);
@@ -46,12 +53,15 @@ export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
         } catch (error) {
           console.error("Error al generar el token:", error);
           setError(true);
+          setMensajeError(t("login.errorGenerico"));
         }
       } else {
         setError(true);
+        setMensajeError(t("login.error"));
       }
     } else {
       setError(true);
+      setMensajeError(t("login.datosInvalidos"));
     }
   };
 
@@ -63,62 +73,50 @@ export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
       >
         <button
           onClick={onClose}
-          aria-label="Cerrar modal"
+          aria-label={t("login.cerrarModal")}
           className="absolute top-3 right-3 text-gray-400 hover:text-white text-xl transition"
         >
           ×
         </button>
 
-        <h2
-          className="text-2xl font-semibold mb-4 text-center"
-          style={{ color: "#C4B5FD" }}
-        >
-          Iniciar Sesión
+        <h2 className="text-2xl font-semibold mb-4 text-center" style={{ color: "#C4B5FD" }}>
+          {t("login.titulo")}
         </h2>
 
-        {/* 🟥 Mensaje de error */}
-        {error && (
-          <p className="text-red-500 text-sm text-center mb-4">
-            El usuario o la contraseña son incorrectos
-          </p>
+        {mensajeError && (
+          <p className="text-red-500 text-sm text-center mb-4">{mensajeError}</p>
         )}
 
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="usuario"
-            placeholder="Usuario"
+            placeholder={t("login.placeholderUsuario")}
             value={form.usuario}
             onChange={handleChange}
             className={`w-full p-3 rounded mb-4 bg-[#374151] text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition ${
-              error
-                ? "border border-red-500 focus:ring-red-500"
-                : "focus:ring-[#C4B5FD]"
+              error ? "border border-red-500 focus:ring-red-500" : "focus:ring-[#C4B5FD]"
             }`}
-            required
           />
           <input
             type="password"
             name="contrasenya"
-            placeholder="Contraseña"
+            placeholder={t("login.placeholderContrasenya")}
             value={form.contrasenya}
             onChange={handleChange}
             className={`w-full p-3 rounded mb-6 bg-[#374151] text-white placeholder-gray-400 focus:outline-none focus:ring-2 transition ${
-              error
-                ? "border border-red-500 focus:ring-red-500"
-                : "focus:ring-[#C4B5FD]"
+              error ? "border border-red-500 focus:ring-red-500" : "focus:ring-[#C4B5FD]"
             }`}
-            required
           />
 
           <p className="text-center text-sm text-gray-300 mb-6">
-            ¿No tienes una cuenta?{" "}
+            {t("login.noCuenta")}{" "}
             <Link
               to="register"
               className="text-[#C4B5FD] hover:underline font-semibold"
               onClick={onClose}
             >
-              Regístrate aquí
+              {t("login.registrate")}
             </Link>
           </p>
 
@@ -126,7 +124,7 @@ export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
             type="submit"
             className="w-full py-3 rounded bg-[#A7F3D0] text-gray-900 font-semibold hover:bg-[#9EE6C4] transition"
           >
-            Entrar
+            {t("login.botonEntrar")}
           </button>
         </form>
       </div>
