@@ -86,7 +86,18 @@ export interface UsuarioCarnet {
   email: string;
   numeroCarnet: string;
   fechaExpedicion: string;
-  imagenCarnet: string;
-  estadoValidacion: "PENDIENTE" | "APROBADO" | "RECHAZADO";
+  imagenUrl: string;
+  estado: "PENDIENTE" | "APROBADO" | "RECHAZADO";
+}
+
+
+export interface UsuarioMe {
+  email: string;
+  username: string
+}
+
+export const UsuarioMe: UsuarioMe = {
+  email: "",
+  username: ""
 }
 

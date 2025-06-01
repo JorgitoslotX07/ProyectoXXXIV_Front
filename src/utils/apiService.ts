@@ -23,6 +23,24 @@ export async function httpGetTok<T>(ruta: string): Promise<T | null> {
   }
 }
 
+export async function httpGetImageTok(ruta: string): Promise<string | null> {
+  try {
+    const response = await axiosInstance.get(ruta, {
+      responseType: "blob",
+    });
+
+    // Convertir el blob en una URL para usar en <img src={...}>
+    const imageUrl = URL.createObjectURL(response.data);
+    // console.log(response.data.size);
+    // console.log(response.data.type);
+    // console.log(imageUrl);
+    return imageUrl;
+  } catch (error) {
+    console.error("GET Image - Error:", error);
+    return null;
+  }
+}
+
 export async function httpGetParam<T, D>(
   ruta: string,
   data: D
@@ -48,6 +66,33 @@ export async function httpPost<T, D>(ruta: string, data: D): Promise<T | null> {
   }
 }
 
+export async function httpPostTok<T, D>(ruta: string, data: D): Promise<T | null> {
+  try {
+    const response = await axiosInstance.post<T>(`${API_URL}${ruta}`, data);
+    return response.data;
+  } catch (error) {
+    console.error("POST - Error:", error);
+    return null;
+  }
+}
+
+export async function httpPostTokImg<T, D>(ruta: string, data: D): Promise<T | null> {
+  try {
+    const axio =axiosInstance
+    axio.interceptors.request.use((config) => {
+        config.headers["Content-Type"] = "multipart/form-data";    
+      return config;
+    });
+    
+
+    const response = await axio.post<T>(`${API_URL}${ruta}`, data);
+    return response.data;
+  } catch (error) {
+    console.error("POST - Error:", error);
+    return null;
+  }
+}
+
 export async function httpPut<T, D>(ruta: string, data: D): Promise<T | null> {
   try {
     const response = await axios.put<T>(`${API_URL}${ruta}`, data);
@@ -58,9 +103,29 @@ export async function httpPut<T, D>(ruta: string, data: D): Promise<T | null> {
   }
 }
 
+export async function httpPutTok<T, D>(ruta: string, data: D): Promise<T | null> {
+  try {
+    const response = await axiosInstance.put<T>(`${API_URL}${ruta}`, data);
+    return response.data;
+  } catch (error) {
+    console.error("PUT - Error:", error);
+    return null;
+  }
+}
+
 export async function httpDelete<T>(ruta: string): Promise<T | null> {
   try {
     const response = await axios.delete<T>(`${API_URL}${ruta}`);
+    return response.data;
+  } catch (error) {
+    console.error("DELETE - Error:", error);
+    return null;
+  }
+}
+
+export async function httpDeleteTok<T>(ruta: string): Promise<T | null> {
+  try {
+    const response = await axiosInstance.delete<T>(`${API_URL}${ruta}`);
     return response.data;
   } catch (error) {
     console.error("DELETE - Error:", error);

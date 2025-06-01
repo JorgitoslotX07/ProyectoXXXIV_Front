@@ -2,14 +2,14 @@ import { useEffect, useState, useRef, useCallback, type FC } from "react";
 import { SubCategoriasComponent } from "../../components/SubCategoriasComponent/SubCategoriasComponent";
 import { FiltrersCatalogComponent } from "../../components/FiltrersCatalogComponent/FiltrersCatalogComponent";
 import { ProductosCatalogComponent } from "../../components/ProductosCatalogComponent/ProductosCatalogComponent";
-import { PageVehiculos, type PageProps } from "../../interfaces/PageProps";
+import { createEmptyPage, type PageProps } from "../../interfaces/PageProps";
 import type { FiltroVehiculo, Vehiculo } from "../../interfaces/Vehiculo";
 import { httpGet, httpGetParam } from "../../utils/apiService";
 import { PaginacionComponent } from "../../components/PaginacionComponent/PaginacionComponent";
 
 export const CatalogPage: FC = () => {
-  const [vehiculos, setVehiculos] = useState<PageProps<Vehiculo>>(PageVehiculos);
-  const [vehiculosFiltro, setVehiculosFiltro] = useState<PageProps<Vehiculo>>(PageVehiculos);
+  const [vehiculos, setVehiculos] = useState<PageProps<Vehiculo>>(createEmptyPage<Vehiculo>());
+    const [vehiculosFiltro, setVehiculosFiltro] = useState<PageProps<Vehiculo>>(createEmptyPage<Vehiculo>());
   const [filtrosActivos, setFiltrosActivos] = useState<
     Partial<Record<FiltroVehiculo, string | number | boolean>>
   >({});

@@ -5,37 +5,42 @@ import { ModalEditUserComponent } from "../../../components/Modal/ModalEditUserC
 import { ModalConfirmDeleteUserComponent } from "../../../components/Modal/ModalConfirmDeleteUserCompoment/ModalConfirmDeleteUserComponent";
 import { BotonAgregarComponent } from "../../../components/__Admin/BotonAgregarComponent/BotonAgregarComponent";
 import { ModalAddUserComponent } from "../../../components/Modal/ModalAddUserComponent/ModalAddUserComponent";
+import { PaginacionComponent } from "../../../components/PaginacionComponent/PaginacionComponent";
+import { createEmptyPage, type PageProps } from "../../../interfaces/PageProps";
+import { httpGetTok } from "../../../utils/apiService";
+import type { NoticiaProps } from "../../../interfaces/NoticiasProps";
 
-const mockUsuarios: UsuarioAdministrar[] = [
-    {
-        id: 1,
-        usuario: "Juan_85",
-        nombre: "Juan",
-        apellidos: "Pérez",
-        email: "juan@example.com",
-        activo: true,
-    },
-    {
-        id: 2,
-        usuario: "MarGar",
-        nombre: "María",
-        apellidos: "García",
-        email: "maria@example.com",
-        activo: false,
-    },
-];
 
 export const UsuariosAdminPage: FC = () => {
-    const [usuarios, setUsuarios] = useState<UsuarioAdministrar[]>(mockUsuarios);
+    const [usuarios, setUsuarios] = useState<PageProps<UsuarioAdministrar>>(createEmptyPage<UsuarioAdministrar>());
+    const [userSelect, setUserSelect] = useState<UsuarioAdministrar>(usuarioAdministrarVacio)
+
+
     const [showUpdateUser, setShowUpdateUser] = useState<boolean>(false);
     const [showDeleteUser, setShowDeleteUser] = useState<boolean>(false);
     const [showAddUser, setShowAddUser] = useState<boolean>(false);
-    const [userSelect, setUserSelect] = useState<UsuarioAdministrar>(usuarioAdministrarVacio)
+
+    const [paginaActual, setPaginaActual] = useState(0);
+    const [pageSize, setPageSize] = useState(20);
+
+    const peticionUsuairos = async () => {
+        const response = await httpGetTok<PageProps<UsuarioAdministrar>>(
+            `/usuarios?page=${paginaActual}&size=${pageSize}`
+        );
+        if (response) {
+            setUsuarios(response);
+            setPaginaActual(response.number);
+        } else {
+            console.error("Fallo al obtener los datos de la página", paginaActual);
+        }
+    };
 
     useEffect(() => {
-        // setUsuarios
+        peticionUsuairos();
+    }, [paginaActual, pageSize]);
 
-        // peticion por los usuarios de back
+    useEffect(() => {
+        peticionUsuairos();
     }, []);
 
     const handleEditar = (usuario: UsuarioAdministrar) => {
@@ -57,8 +62,8 @@ export const UsuariosAdminPage: FC = () => {
     return (
         <>
             <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-bold">Gestión de Vehículos</h1>
-                <BotonAgregarComponent text={"Añadir Vehiculo"} onClick={handleAgregar} />
+                <h1 className="text-2xl font-bold">Gestión de Usuarios</h1>
+                <BotonAgregarComponent text={"Añadir Usuario"} onClick={handleAgregar} />
             </div>
             <div className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-lg text-white">
 
@@ -74,7 +79,7 @@ export const UsuariosAdminPage: FC = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {usuarios.map((usuario) => (
+                            {usuarios.content.map((usuario) => (
                                 <tr
                                     key={usuario.id}
                                     className="hover:bg-white/10 transition duration-200"
@@ -106,7 +111,7 @@ export const UsuariosAdminPage: FC = () => {
                                     </td>
                                 </tr>
                             ))}
-                            {usuarios.length === 0 && (
+                            {usuarios.content.length === 0 && (
                                 <tr>
                                     <td colSpan={5} className="p-4 text-center text-gray-400">
                                         No hay usuarios registrados.
@@ -115,6 +120,18 @@ export const UsuariosAdminPage: FC = () => {
                             )}
                         </tbody>
                     </table>
+                    <div className="mt-10 px-10 pb-20">
+                        <PaginacionComponent
+                            currentPage={paginaActual}
+                            totalItems={usuarios.totalElements}
+                            pageSize={pageSize}
+                            onPageChange={(p) => setPaginaActual(p)}
+                            onPageSizeChange={(s) => {
+                                setPageSize(s);
+                                setPaginaActual(0);
+                            }}
+                        />
+                    </div>
                 </div>
 
 

@@ -1,7 +1,8 @@
 import type { LatLngTuple } from "leaflet";
 
 export interface MapEditorProps {
-    onPolygonChange: (coords: [number, number][]) => void;
+    onPolygonChange: (coords: LatLngTuple[]) => void;
+    initialPolygon?: LatLngTuple[];
 }
 
 export interface MiniMapProps {

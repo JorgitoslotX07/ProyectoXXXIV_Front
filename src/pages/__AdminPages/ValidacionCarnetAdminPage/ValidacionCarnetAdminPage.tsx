@@ -1,47 +1,79 @@
 import { useState, type FC, useEffect } from "react";
 import type { UsuarioCarnet } from "../../../interfaces/Usuario";
+import { httpGetImageTok, httpPostTok, httpPutTok } from "../../../utils/apiService";
 
-const mockUsuarios: UsuarioCarnet[] = [
-    {
-        id: 1,
-        usuario: "AnaL_67",
-        nombre: "Ana López",
-        email: "ana.lopez@example.com",
-        numeroCarnet: "DL-12345678",
-        fechaExpedicion: "2021-04-15",
-        imagenCarnet: "/carnets/ana-lopez.jpg",
-        estadoValidacion: "PENDIENTE",
-    },
-    {
-        id: 2,
-        usuario: "MartinaLis",
-        nombre: "Luis Martínez",
-        email: "luis.martinez@example.com",
-        numeroCarnet: "DL-87654321",
-        fechaExpedicion: "2019-09-20",
-        imagenCarnet: "/carnets/luis-martinez.jpg",
-        estadoValidacion: "PENDIENTE",
-    },
-];
 
 export const ValidacionCarnetAdminPage: FC = () => {
     const [usuarios, setUsuarios] = useState<UsuarioCarnet[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [imagenes, setImagenes] = useState<Record<string, string>>({});
+    // useEffect(() => {
+    //     // Simular fetch
+    //     setUsuarios(mockUsuarios);
+    // }, []);
 
     useEffect(() => {
-        // Simular fetch
-        setUsuarios(mockUsuarios);
+        const fetchCarnetsConImagen = async () => {
+            try {
+                // Llamada al backend: POST /api/carnets/conimg
+                // -> Como no necesitamos enviar body, pasamos un objeto vacío {}
+                const data = await httpPostTok<UsuarioCarnet[], {}>("/carnets/conimg", {});
+                if (data) {
+                    setUsuarios(data);
+                    console.log(data)
+                } else {
+                    setUsuarios([]);
+                }
+            } catch (error) {
+                console.error("Error al obtener carnets con imagen:", error);
+                setUsuarios([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchCarnetsConImagen();
     }, []);
 
-    const handleValidar = (id: number, aprobado: boolean) => {
-        setUsuarios((prev) =>
-            prev.map((u) =>
-                u.id === id
-                    ? { ...u, estadoValidacion: aprobado ? "APROBADO" : "RECHAZADO" }
-                    : u
-            )
+    useEffect(() => {
+        const cargarImagenes = async () => {
+            const nuevasImagenes: Record<string, string> = {};
+            for (const u of usuarios) {
+
+                if (u.usuario && u.imagenUrl) {
+                    // console.log(u.imagenUrl)
+
+                    const imgUrl = await httpGetImageTok(u.imagenUrl);
+
+                    if (imgUrl) nuevasImagenes[u.usuario] = imgUrl;
+                }
+            }
+            setImagenes(nuevasImagenes);
+            // console.log(nuevasImagenes)
+        };
+
+        if (usuarios.length > 0) {
+            cargarImagenes();
+        }
+    }, [usuarios]);
+
+
+    const handleValidar = async (usu: string, aprobado: boolean) => {
+        setUsuarios(prev =>
+            prev.filter(u => u.usuario !== usu)
         );
-        // Aquí iría llamada al backend para actualizar estado
+
+        const result = await httpPutTok(`/carnets/${usu}/estado`, { estado: aprobado ? "APROBADO" : "RECHAZADO" })
+        console.log(result)
     };
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white">
+                <span className="text-xl font-semibold">Cargando carnets…</span>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-[#0f172a] to-[#1e293b] p-8 text-white">
@@ -51,14 +83,25 @@ export const ValidacionCarnetAdminPage: FC = () => {
                 </div>
 
                 <div className="space-y-6">
-                    {usuarios.map((u) => (
-                        <div key={u.id} className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 flex flex-col lg:flex-row gap-6">
+                    {usuarios.map((u, index) => (
+                        <div key={index} className="bg-white/5 backdrop-blur-md p-6 rounded-2xl border border-white/10 flex flex-col lg:flex-row gap-6">
                             <div className="w-full lg:w-1/3">
-                                <img
-                                    src={u.imagenCarnet}
+                                {/* <img
+                                    src={API_URL + u.imagenCarnet}
                                     alt={`Carnet de ${u.nombre}`}
+                                    loading="lazy"
                                     className="w-full h-auto rounded-lg border border-white/20 object-cover"
-                                />
+                                /> */}
+                                {imagenes[u.usuario!] ? (
+                                    <img
+                                        src={imagenes[u.usuario!]}
+                                        alt={`Carnet de ${u.nombre}`}
+                                        loading="lazy"
+                                        className="w-full h-auto rounded-lg border border-white/20 object-cover"
+                                    />
+                                ) : (
+                                    <div className="w-full h-64 bg-gray-700 rounded-lg animate-pulse"></div>
+                                )}
                             </div>
                             <div className="flex-1 space-y-2">
                                 <h2><span className="font-bold text-3xl text-purple-300">{u.usuario}</span> </h2>
@@ -68,24 +111,24 @@ export const ValidacionCarnetAdminPage: FC = () => {
                                 <p><span className="font-semibold">Expedición:</span> {new Date(u.fechaExpedicion).toLocaleDateString()}</p>
                                 <p>
                                     <span className="font-semibold">Estado:</span>{" "}
-                                    {u.estadoValidacion === "PENDIENTE" ? (
+                                    {u.estado === "PENDIENTE" ? (
                                         <span className="text-yellow-400">Pendiente</span>
-                                    ) : u.estadoValidacion === "APROBADO" ? (
+                                    ) : u.estado === "APROBADO" ? (
                                         <span className="text-green-400">Aprobado</span>
                                     ) : (
                                         <span className="text-red-400">Rechazado</span>
                                     )}
                                 </p>
-                                {u.estadoValidacion === "PENDIENTE" && (
+                                {u.estado === "PENDIENTE" && (
                                     <div className="flex gap-4 mt-4">
                                         <button
-                                            onClick={() => handleValidar(u.id, true)}
+                                            onClick={() => handleValidar(u.usuario, true)}
                                             className="bg-green-600 hover:bg-green-500 px-4 py-2 rounded-full text-white font-semibold"
                                         >
                                             Aprobar
                                         </button>
                                         <button
-                                            onClick={() => handleValidar(u.id, false)}
+                                            onClick={() => handleValidar(u.usuario, false)}
                                             className="bg-red-600 hover:bg-red-500 px-4 py-2 rounded-full text-white font-semibold"
                                         >
                                             Rechazar

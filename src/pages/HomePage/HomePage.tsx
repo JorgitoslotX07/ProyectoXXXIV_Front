@@ -45,7 +45,7 @@ export const HomePage: FC<HomePageProps> = ({
         </Link> */}
         <div className="relative ">
           {/* <div className="absolute inset-0 bg-[#162947] [background-image:radial-gradient(at_47%_33%,hsl(163.5,83%,24%)_0,transparent_59%),radial-gradient(at_82%_65%,hsl(218.82,77%,21%)_0,transparent_55%)] bg-cover bg-center opacity-40"></div> */}
-          <div className="absolute inset-0 bg-[url('fondoFastSeartch.webp')] bg-cover bg-center opacity-40"></div>
+          <div className="absolute inset-0 bg-[url('/fondoFastSeartch.webp')] bg-cover bg-center opacity-40"></div>
           <div className="absolute inset-0  backdrop-blur-[2px]"></div>
 
           <div className="relative z-10 text-white p-10">

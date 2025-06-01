@@ -1,10 +1,12 @@
 import type { FC } from "react";
 import type { ModalNoticiaProps } from "../../../interfaces/ModalProps";
 import { ModalBaseComponent } from "../ModalBaseComponent/ModalBaseComponent";
+import { httpDeleteTok } from "../../../utils/apiService";
 
 export const  ModalNoticiasDelComponent: FC<ModalNoticiaProps> = ({ onClose, noticia }) => {
-    function onConfirm() {
-        
+    async function onConfirm() {
+        await httpDeleteTok("/noticias/" + noticia?.id)
+      onClose()
     }
     return (
       <ModalBaseComponent onClose={onClose} titulo="Eliminar Noticia">

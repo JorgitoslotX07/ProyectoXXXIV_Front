@@ -1,6 +1,6 @@
 import { useRef, useState, type FC, type ReactElement } from "react";
 import Webcam from "react-webcam";
-import type { ImageWebCameProps } from "../../interfaces/ImageWebCameProps";
+import type { ImageWebCameProps } from "../../../interfaces/ImageWebCameProps";
 
 export const ImageWebCame: FC<ImageWebCameProps> = ({ setImage }): ReactElement => {
   const webcamRef = useRef<Webcam | null>(null);

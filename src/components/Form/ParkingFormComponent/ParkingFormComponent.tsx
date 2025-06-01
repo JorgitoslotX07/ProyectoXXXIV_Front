@@ -1,12 +1,9 @@
 // src/components/parkings/ParkingForm.tsx
-import { useState, useEffect } from "react";
+import { useState, useEffect, type FC } from "react";
+import type { ParkingFormProps } from "../../../interfaces/Parking";
 
-interface ParkingFormProps {
-  polygon: [number, number][];
-  onSave: (data: { name: string; capacity: number; polygon: [number, number][] }) => void;
-}
 
-export function ParkingForm({ polygon, onSave }: ParkingFormProps) {
+export const ParkingForm : FC<ParkingFormProps> = ({ polygon, onSave }) => {
   const [name, setName] = useState("");
   const [capacity, setCapacity] = useState(0);
   const [valid, setValid] = useState(false);

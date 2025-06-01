@@ -1,45 +1,48 @@
 import type { FC } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Parking } from "../../../interfaces/Parking";
 import { MiniMap } from "../../../components/Maps/MiniMapComponent/MiniMapComponent";
 import { BotonAgregarComponent } from "../../../components/__Admin/BotonAgregarComponent/BotonAgregarComponent";
 import { useNavigate } from "react-router-dom";
 import { ModalEditarParkingComponent } from "../../../components/Modal/ModalEditarParkingComponent/ModalEditarParkingComponent";
 import { ModalEliminarParkingComponent } from "../../../components/Modal/ModalEliminarParkingComponent/ModalEliminarParkingComponent";
+import { httpGetTok } from "../../../utils/apiService";
+import { createEmptyPage, type PageProps } from "../../../interfaces/PageProps";
+import { PaginacionComponent } from "../../../components/PaginacionComponent/PaginacionComponent";
 
 
-const mockParkings: Parking[] = [
-    {
-        id: 1,
-        name: "Parking Centro",
-        capacity: 50,
-        polygon: [
-            [40.4168, -3.7038],
-            [40.4172, -3.7030],
-            [40.4165, -3.7025],
-        ],
-    },
-    {
-        id: 2,
-        name: "Parking Norte",
-        capacity: 30,
-        polygon: [
-            [40.4200, -3.7100],
-            [40.4205, -3.7095],
-            [40.4202, -3.7090],
-        ],
-    },
-];
 
 export const ParkingsAdminPage: FC = () => {
     const navigate = useNavigate();
 
-    const [parkings, setParkings] = useState<Parking[]>(mockParkings);
+    const [parkings, setParkings] = useState<PageProps<Parking>>(createEmptyPage<Parking>());
     const [selected, setSelected] = useState<Parking>(Parking);
 
     const [showUpdate, setShowUpdate] = useState<boolean>(false);
     const [showDelete, setShowDelete] = useState<boolean>(false);
 
+    const [paginaActual, setPaginaActual] = useState(0);
+    const [pageSize, setPageSize] = useState(10);
+
+
+    const peticionParkings = async () => {
+        const response = await httpGetTok<PageProps<Parking>>(`/parkings?page=${paginaActual}&size=${pageSize}`);
+        if (response) {
+            setParkings(response);
+            console.log(response)
+        } else {
+            console.error("Fallo al obtener los datos de la página", paginaActual);
+        }
+
+    };
+
+    useEffect(() => {
+        peticionParkings();
+    }, [paginaActual, pageSize]);
+
+    useEffect(() => {
+        peticionParkings();
+    }, []);
     function handleAgregar() {
         navigate("/admin/parkings/crear")
     }
@@ -69,7 +72,7 @@ export const ParkingsAdminPage: FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {parkings.map((p) => (
+                    {parkings.content.map((p) => (
                         <tr
                             key={p.id}
                             className="hover:bg-white/10 cursor-pointer transition"
@@ -97,13 +100,25 @@ export const ParkingsAdminPage: FC = () => {
                     ))}
                 </tbody>
             </table>
+            <div className="mt-10 px-10 pb-20">
+                <PaginacionComponent
+                    currentPage={paginaActual}
+                    totalItems={parkings.totalElements}
+                    pageSize={pageSize}
+                    onPageChange={(p) => setPaginaActual(p)}
+                    onPageSizeChange={(s) => {
+                        setPageSize(s);
+                        setPaginaActual(0);
+                    }}
+                />
+            </div>
 
 
             {showUpdate && (
-                <ModalEditarParkingComponent parking={selected} onClose={() => setShowUpdate(false)} />
+                <ModalEditarParkingComponent parking={selected} onClose={() => {setShowUpdate(false); peticionParkings()}} />
             )}
             {showDelete && (
-                <ModalEliminarParkingComponent parking={selected} onClose={() => setShowDelete(false)} />
+                <ModalEliminarParkingComponent parking={selected} onClose={() => {setShowDelete(false); peticionParkings()}} />
             )}
         </div>
     );

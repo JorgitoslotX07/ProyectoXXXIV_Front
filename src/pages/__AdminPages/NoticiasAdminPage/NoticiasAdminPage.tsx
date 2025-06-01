@@ -1,8 +1,11 @@
-import { useState, type FC } from "react";
+import { useState, type FC, useEffect } from "react";
 import type { NoticiaProps } from "../../../interfaces/NoticiasProps";
 import { BotonAgregarComponent } from "../../../components/__Admin/BotonAgregarComponent/BotonAgregarComponent";
 import { ModalNoticiasAddEditComponent } from "../../../components/Modal/ModalNoticiasAddEditComponent/ModalNoticiasAddEditComponent";
 import { ModalNoticiasDelComponent } from "../../../components/Modal/ModalNoticiasDelComponent/ModalNoticiasDelComponent";
+import { createEmptyPage, type PageProps } from "../../../interfaces/PageProps";
+import { httpGetTok } from "../../../utils/apiService";
+import { PaginacionComponent } from "../../../components/PaginacionComponent/PaginacionComponent";
 const noticiasMock = [
     {
         id: 1,
@@ -59,10 +62,37 @@ const noticiasMock = [
 
 
 export const NoticiasAdminPage: FC = () => {
-    const [noticias, setNoticias] = useState<NoticiaProps[]>(noticiasMock);
+    // const [noticias, setNoticias] = useState<NoticiaProps[]>(noticiasMock);
+    const [noticias, setNoticias] = useState<PageProps<NoticiaProps>>(createEmptyPage<NoticiaProps>());
     const [selected, setSelected] = useState<NoticiaProps | null>(null);
+
     const [showModalEdit, setShowModalEdit] = useState(false);
     const [showModalDel, setShowModalDel] = useState(false);
+
+    
+    const [paginaActual, setPaginaActual] = useState(0);
+    const [pageSize, setPageSize] = useState(20);
+
+    const peticionNoticias = async () => {
+        const response = await httpGetTok<PageProps<NoticiaProps>>(
+            `/noticias?page=${paginaActual}&size=${pageSize}`
+        );
+        if (response) {
+            setNoticias(response);
+            console.log(response)
+            setPaginaActual(response.number);
+        } else {
+            console.error("Fallo al obtener los datos de la página", paginaActual);
+        }
+    };
+
+    useEffect(() => {
+        peticionNoticias();
+    }, [paginaActual, pageSize]);
+
+    useEffect(() => {
+        peticionNoticias();
+    }, []);
 
     const handleAgregar = () => {
         setSelected(null);
@@ -95,7 +125,7 @@ export const NoticiasAdminPage: FC = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {noticias.map((n) => (
+                            {noticias.content.map((n) => (
                                 <tr key={n.id} className="border-t border-white/10 hover:bg-white/5 transition">
                                     <td className="px-3 py-2">{n.titulo}</td>
                                     <td className="px-3 py-2">{new Date(n.fecha).toLocaleDateString()}</td>
@@ -112,14 +142,26 @@ export const NoticiasAdminPage: FC = () => {
                             ))}
                         </tbody>
                     </table>
+                    <div className="mt-10 px-10 pb-20">
+                        <PaginacionComponent
+                            currentPage={paginaActual}
+                            totalItems={noticias.totalElements}
+                            pageSize={pageSize}
+                            onPageChange={(p) => setPaginaActual(p)}
+                            onPageSizeChange={(s) => {
+                                setPageSize(s);
+                                setPaginaActual(0);
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
 
             {showModalEdit &&
-                <ModalNoticiasAddEditComponent onClose={() => setShowModalEdit(false)} noticia={selected || undefined} />
+                <ModalNoticiasAddEditComponent onClose={() => {setShowModalEdit(false); peticionNoticias();}} noticia={selected || undefined} />
             }
             {showModalDel && (
-                <ModalNoticiasDelComponent onClose={() => setShowModalDel(false)} noticia={selected || undefined} />
+                <ModalNoticiasDelComponent onClose={() => {setShowModalDel(false); peticionNoticias();}} noticia={selected || undefined} />
             )}
         </div>
     );

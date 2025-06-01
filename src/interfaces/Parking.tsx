@@ -13,3 +13,9 @@ export const Parking = {
   capacity: 0,
   polygon: []
 }
+
+export interface ParkingFormProps {
+  polygon: LatLngTuple[];
+  onSave: (data: { name: string; capacity: number; polygon:  LatLngTuple[] }) => void;
+}
+

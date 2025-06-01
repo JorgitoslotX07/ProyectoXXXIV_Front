@@ -7,7 +7,7 @@ import type { FC } from "react";
 // src/pages/admin/VehiculosAdminPage.tsx
 import { useEffect, useState } from "react";
 import { Vehiculo, type FiltroVehiculo } from "../../../interfaces/Vehiculo";
-import { PageVehiculos, type PageProps } from "../../../interfaces/PageProps";
+import { type PageProps, createEmptyPage } from "../../../interfaces/PageProps";
 import { httpGet, httpGetParam } from "../../../utils/apiService";
 import { PaginacionComponent } from "../../../components/PaginacionComponent/PaginacionComponent";
 import { FiltrersCatalogComponent } from "../../../components/FiltrersCatalogComponent/FiltrersCatalogComponent";
@@ -19,8 +19,8 @@ import { ModalEditarVehiculo } from "../../../components/Modal/ModalEditarVehicu
 // import { ModalVehiculo } from "../../components/vehiculos/ModalVehiculo";
 
 export const VehiculosAdminPage: FC = () => {
-    const [vehiculos, setVehiculos] = useState<PageProps<Vehiculo>>(PageVehiculos);
-    const [vehiculosFiltro, setVehiculosFiltro] = useState<PageProps<Vehiculo>>(PageVehiculos);
+    const [vehiculos, setVehiculos] = useState<PageProps<Vehiculo>>(createEmptyPage<Vehiculo>());
+    const [vehiculosFiltro, setVehiculosFiltro] = useState<PageProps<Vehiculo>>(createEmptyPage<Vehiculo>());
     const [filtrosActivos, setFiltrosActivos] = useState<
         Partial<Record<FiltroVehiculo, string | number | boolean>>
     >({});
