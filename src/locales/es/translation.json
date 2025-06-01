@@ -179,5 +179,37 @@
   },
   "volver": {
     "boton": "Volver"
-  }
+  },
+  "popup": {
+  "configuracion": "Configuración",
+  "cerrarSesion": "Cerrar sesión"
+},
+"footer": {
+  "cliente": "Atención al cliente",
+  "devoluciones": "Devoluciones y garantía",
+  "pagos": "Pagos",
+  "condiciones": "Condiciones de servicio",
+  "privacidad": "Política de privacidad",
+  "info": "Información corporativa",
+  "sobreNosotros": "Sobre nosotros",
+  "marcas": "Marcas",
+  "afiliados": "Afiliados",
+  "inversores": "Inversores",
+  "recursos": "Recursos",
+  "blog": "Blog",
+  "faqs": "FAQs",
+  "soporte": "Soporte Técnico",
+  "foro": "Foro",
+  "contactoDirecto": "Contacto directo",
+  "contactar": "Contactar",
+  "siguiente": "Siguiente",
+  "anterior": "Anterior",
+  "paso1": "Paso 1",
+  "deseasContacto": "¿Quieres que te contactemos?",
+  "placeholderEmail": "Tu correo electrónico",
+  "gracias": "¡Gracias por tu interés!",
+  "enviado": "La solicitud se ha mandado correctamente"
+}
+
+
 }

@@ -179,5 +179,35 @@
     },
     "volver": {
         "boton": "Back"
+    },
+    "popup": {
+        "configuracion": "Settings",
+        "cerrarSesion": "Log out"
+    },
+    "footer": {
+        "cliente": "Customer Service",
+        "devoluciones": "Returns and Warranty",
+        "pagos": "Payments",
+        "condiciones": "Terms of Service",
+        "privacidad": "Privacy Policy",
+        "info": "Corporate Information",
+        "sobreNosotros": "About Us",
+        "marcas": "Brands",
+        "afiliados": "Affiliates",
+        "inversores": "Investors",
+        "recursos": "Resources",
+        "blog": "Blog",
+        "faqs": "FAQs",
+        "soporte": "Technical Support",
+        "foro": "Forum",
+        "contactoDirecto": "Direct Contact",
+        "contactar": "Contact",
+        "siguiente": "Next",
+        "anterior": "Back",
+        "paso1": "Step 1",
+        "deseasContacto": "Would you like us to contact you?",
+        "placeholderEmail": "Your email address",
+        "gracias": "Thank you for your interest!",
+        "enviado": "The request has been successfully sent"
     }
 }

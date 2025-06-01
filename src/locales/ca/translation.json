@@ -179,5 +179,36 @@
   },
   "volver": {
     "boton": "Tornar"
-  }
+  },
+  "popup": {
+    "configuracion": "Configuració",
+    "cerrarSesion": "Tancar sessió"
+  },
+  "footer": {
+  "cliente": "Atenció al client",
+  "devoluciones": "Devolucions i garantia",
+  "pagos": "Pagaments",
+  "condiciones": "Condicions del servei",
+  "privacidad": "Política de privacitat",
+  "info": "Informació corporativa",
+  "sobreNosotros": "Sobre nosaltres",
+  "marcas": "Marques",
+  "afiliados": "Afiliats",
+  "inversores": "Inversors",
+  "recursos": "Recursos",
+  "blog": "Blog",
+  "faqs": "Preguntes freqüents",
+  "soporte": "Suport tècnic",
+  "foro": "Fòrum",
+  "contactoDirecto": "Contacte directe",
+  "contactar": "Contactar",
+  "siguiente": "Següent",
+  "anterior": "Enrere",
+  "paso1": "Pas 1",
+  "deseasContacto": "Vols que et contactem?",
+  "placeholderEmail": "La teva adreça de correu",
+  "gracias": "Gràcies pel teu interès!",
+  "enviado": "La sol·licitud s'ha enviat correctament"
+}
+
 }
