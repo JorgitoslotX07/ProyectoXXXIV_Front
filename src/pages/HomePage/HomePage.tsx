@@ -45,7 +45,7 @@ export const HomePage: FC<HomePageProps> = ({
         </div>
 
         {/* 🔥 Coches Populares */}
-        <div className="pt-20 px-10">
+    <div className="pt-20 px-10 bg-[#f3fce9]">
           <CochesPromoComponent />
         </div>
 
