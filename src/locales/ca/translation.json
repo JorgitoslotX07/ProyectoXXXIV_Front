@@ -21,6 +21,7 @@
   "search": {
     "title": "Troba el teu proper cotxe",
     "useCurrentLocation": "Utilitza la meva ubicació",
+    "locationLabel": "Ubicació",
     "types": {
       "turismos": "Turismes",
       "suv": "SUV",

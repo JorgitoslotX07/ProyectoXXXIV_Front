@@ -21,6 +21,7 @@
     "search": {
         "title": "Find your next car",
         "useCurrentLocation": "Use my location",
+        "locationLabel": "Location",
         "types": {
             "turismos": "Sedan",
             "suv": "SUV",
