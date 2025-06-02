@@ -1,7 +1,8 @@
 import { useState, type FC } from "react";
 import Stepper from "../StepperComponent/StepperComponent";
 import { Step } from "../StepperComponent/StepperSubComponents";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next"; // ✅ hook de traducción
 
 const enlaces: Record<string, string> = {
     "Cookies": "/cookies",
@@ -14,14 +15,34 @@ const enlaces: Record<string, string> = {
 };
 
 export const FooterComponent: FC = () => {
-    const listaUl = [
-        ["Atención al cliente", "Devoluciones y garantía", "Pagos", "Condiciones de servicio", "Política de privacidad"],
-        ["Información corporativa", "Sobre nosotros", "Marcas", "Afiliados", "Inversores", "Cookies"],
-        ["Recursos", "Blog", "FAQs", "Soporte Técnico", "Foro"],
-    ];
-
+    const { t } = useTranslation(); // ✅ inicialización del hook
     const [mostrarModal, setMostrarModal] = useState(false);
     const [email, setEmail] = useState("");
+
+    const listaUl = [
+        [
+            t("footer.cliente"),
+            t("footer.devoluciones"),
+            t("footer.pagos"),
+            t("footer.condiciones"),
+            t("footer.privacidad"),
+        ],
+        [
+            t("footer.info"),
+            t("footer.sobreNosotros"),
+            t("footer.marcas"),
+            t("footer.afiliados"),
+            t("footer.inversores"),
+            "Cookies", // Se mantiene como string para el enlace
+        ],
+        [
+            t("footer.recursos"),
+            "Blog",
+            "FAQs",
+            t("footer.soporte"),
+            t("footer.foro"),
+        ],
+    ];
 
     return (
         <>
@@ -39,27 +60,26 @@ export const FooterComponent: FC = () => {
                                 >
                                     {enlaces[item] ? (
                                         <Link to={enlaces[item]} className="hover:underline">
-                                            {item}
+                                            {t(`footer.${item.toLowerCase().replace(/\s/g, "")}`, item)}
                                         </Link>
                                     ) : (
-                                        item
+                                        t(`footer.${item.toLowerCase().replace(/\s/g, "")}`, item)
                                     )}
                                 </li>
                             ))}
-
                         </ul>
                     </div>
                 ))}
 
                 <div className="min-w-[280px]">
                     <h3 className="text-white font-semibold text-lg mb-4 cursor-default">
-                        Contacto directo
+                        {t("footer.contactoDirecto")}
                     </h3>
                     <button
                         onClick={() => setMostrarModal(true)}
                         className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded"
                     >
-                        Contactar
+                        {t("footer.contactar")}
                     </button>
                 </div>
             </div>
@@ -78,13 +98,13 @@ export const FooterComponent: FC = () => {
                         <Stepper
                             initialStep={1}
                             onFinalStepCompleted={() => setMostrarModal(false)}
-                            nextButtonText="Siguiente"
-                            backButtonText="Anterior"
+                            nextButtonText={t("footer.siguiente")} // ✅ traducido
+                            backButtonText={t("footer.anterior")} // ✅ traducido
                             nextButtonProps={{
-                                className: "text-white" // esto sobrescribe el texto
+                                className: "text-white",
                             }}
                             backButtonProps={{
-                                className: "text-white"
+                                className: "text-white",
                             }}
                             contentClassName="text-white"
                             footerClassName="mt-6"
@@ -92,21 +112,25 @@ export const FooterComponent: FC = () => {
                             stepContainerClassName="justify-center"
                         >
                             <Step>
-                                <h2 className="text-xl font-semibold">Paso 1</h2>
-                                <p>¿Quieres que te contactemos?</p>
+                                <h2 className="text-xl font-semibold">{t("footer.paso1")}</h2>
+                                <p>{t("footer.deseasContacto")}</p>
                             </Step>
                             <Step>
                                 <input
                                     type="email"
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    placeholder="Tu correo electrónico"
+                                    placeholder={t("footer.placeholderEmail")}
                                     className="w-full mt-2 p-2 border rounded"
                                 />
                             </Step>
                             <Step>
-                                <p className="text-center text-green-300">¡Gracias por tu interés!</p>
-                                <p className="text-center text-green-300">La solicitud se ha mandado correctamente</p>
+                                <p className="text-center text-green-300">
+                                    {t("footer.gracias")}
+                                </p>
+                                <p className="text-center text-green-300">
+                                    {t("footer.enviado")}
+                                </p>
                             </Step>
                         </Stepper>
                     </div>

@@ -5,8 +5,10 @@ import { mostrarError, mostrarSuccess } from "../../../utils/notiToast";
 import { FondoPanelComponent } from "../../../components/__ConfigUser/FondoPanelComponent/FondoPanelComponent";
 import { TituloComponent } from "../../../components/__ConfigUser/PanelComonent/TituloComponent";
 import { NotiToastComponent } from "../../../components/NotiToastComponents/NotiToastComponet";
+import { useTranslation } from "react-i18next";
 
 export const PassPage: FC = () => {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
   const [step, setStep] = useState<"email" | "codigo" | "nueva">(
@@ -24,13 +26,14 @@ export const PassPage: FC = () => {
       { email: email }
     );
     console.log(data);
-    mostrarSuccess("Email Enviado con exito.\nVerifique su correo");
+    mostrarSuccess(t("pass.toast.emailEnviado"));
     console.log("Email enviado a:", email);
   };
 
   const cambiarPassword = async () => {
     if (password !== confirmPassword) {
-      mostrarError("Las contraseñas no coinciden.");
+      //   setMensaje("Las contraseñas no coinciden.");
+      mostrarError(t("pass.toast.errorCoincidencia"));
       return;
     }
     if (token !== null) {
@@ -44,27 +47,27 @@ export const PassPage: FC = () => {
       console.log(data);
 
       console.log("Contraseña actualizada para:", email);
-      mostrarSuccess("Contraseña actualizada correctamente.");
+      // setMensaje("Contraseña actualizada correctamente.");
+      mostrarSuccess(t("pass.toast.cambioOk"));
     }
   };
 
   return (
     <FondoPanelComponent>
       <div className="relative min-h-screen  p-8 text-white">
-        <TituloComponent titulo={"Verificar Identidad"} />
+        <TituloComponent titulo={t("pass.titulo")} />
 
         {/* <div className="max-w-2xl mt-20 mx-auto w-full bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 cursor-pointer"> */}
-        <div className="bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 p-8 w-full max-w-md mt-40 space-y-6 mx-auto">
+        <div className="bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 w-full max-w-md mt-40 space-y-6 mx-auto">
           {step === "email" && (
             <>
               <p className="text-sm text-gray-300 mb-2">
-                Ingresa tu correo electrónico. Te enviaremos un link para
-                cambiar su contraseña .
+                {t("pass.instruccionEmail")}
               </p>
               <input
                 type="email"
                 className="w-full px-4 py-2 rounded-lg bg-[#111827] text-white border border-gray-600 focus:outline-none"
-                placeholder="Tu correo"
+                placeholder={t("pass.correoPlaceholder")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -72,7 +75,7 @@ export const PassPage: FC = () => {
                 onClick={enviarEmail}
                 className="bg-[#10B981] hover:bg-[#059669] text-white font-semibold py-2 w-full rounded-lg"
               >
-                Enviar código
+                {t("pass.enviarCodigo")}
               </button>
             </>
           )}
@@ -100,9 +103,7 @@ export const PassPage: FC = () => {
                     d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
                   />
                 </svg>
-                <span>
-                  Procesando... este proceso puede tardar unos minutos.
-                </span>
+                <span>{t("pass.procesando")}</span>
               </div>
             </>
           )}
@@ -110,19 +111,19 @@ export const PassPage: FC = () => {
           {step === "nueva" && (
             <>
               <p className="text-sm text-gray-300 mb-2">
-                Ingresa tu nueva contraseña.
+                {t("pass.ingresaNueva")}
               </p>
               <input
                 type="password"
                 className="w-full px-4 py-2 rounded-lg bg-[#111827] text-white border border-gray-600 focus:outline-none mb-3"
-                placeholder="Nueva contraseña"
+                placeholder={t("pass.nuevaPlaceholder")}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <input
                 type="password"
                 className="w-full px-4 py-2 rounded-lg bg-[#111827] text-white border border-gray-600 focus:outline-none"
-                placeholder="Confirmar contraseña"
+                placeholder={t("pass.confirmarPlaceholder")}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
@@ -130,7 +131,7 @@ export const PassPage: FC = () => {
                 onClick={cambiarPassword}
                 className="bg-[#10B981] hover:bg-[#059669] text-white font-semibold py-2 w-full rounded-lg mt-3"
               >
-                Cambiar contraseña
+                {t("pass.botonCambiar")}
               </button>
               {/* {mensaje && (
                 <p className="text-sm text-red-400 mt-2">{mensaje}</p>
