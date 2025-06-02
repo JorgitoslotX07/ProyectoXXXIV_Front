@@ -7,7 +7,11 @@ import type { FiltroVehiculo, Vehiculo } from "../../interfaces/Vehiculo";
 import { httpGet, httpGetParam } from "../../utils/apiService";
 import { PaginacionComponent } from "../../components/PaginacionComponent/PaginacionComponent";
 
-export const CatalogPage: FC = () => {
+interface Props {
+  modoClaro: boolean;
+}
+
+export const CatalogPage: FC<Props> = ({ modoClaro }) => {
   const [vehiculos, setVehiculos] = useState<PageProps<Vehiculo>>(PageVehiculos);
   const [vehiculosFiltro, setVehiculosFiltro] = useState<PageProps<Vehiculo>>(PageVehiculos);
   const [filtrosActivos, setFiltrosActivos] = useState<
@@ -16,7 +20,7 @@ export const CatalogPage: FC = () => {
   const [paginaActual, setPaginaActual] = useState(0);
   const [pageSize, setPageSize] = useState(20);
 
-  const filtroRef = useRef<HTMLDivElement>(null); // para scroll al filtro
+  const filtroRef = useRef<HTMLDivElement>(null);
 
   const peticionVehiculos = useCallback(async () => {
     const response = await httpGet<PageProps<Vehiculo>>(
@@ -59,20 +63,26 @@ export const CatalogPage: FC = () => {
   }
 
   return (
-    <div className="bg-[#111827]">
+    <div className={modoClaro ? "bg-[#FAF9ED] text-[#333]" : "bg-[#111827] text-white"}>
       <div className="relative">
+        {/* ✅ Imagen de fondo NO SE TOCA */}
         <div className="absolute inset-0 bg-[url('/fondoCatalog.webp')] bg-cover bg-center opacity-5"></div>
-        <div className="absolute inset-0 bg-[rgba(35,17,79,0.30)] backdrop-blur-[20px] backdrop-saturate-[300%] rounded-[12px] border border-[rgba(255,255,255,0.125)] bg-cover bg-center opacity-60"></div>
 
-        <div className="relative z-10 text-white p-10">
+        {/* ✅ Fondo difuminado adaptado por modo */}
+        {modoClaro ? (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#FDFCE8] to-[#E6F7E6] opacity-50 rounded-[12px]" />
+        ) : (
+          <div className="absolute inset-0 bg-[rgba(35,17,79,0.30)] backdrop-blur-[20px] backdrop-saturate-[300%] rounded-[12px] border border-[rgba(255,255,255,0.125)] opacity-60" />
+        )}
+
+        <div className="relative z-10 p-10">
           <SubCategoriasComponent
             onFilterSelect={(tipoSeleccionado) => {
               actualizarFiltro("tipo", tipoSeleccionado);
               buscar();
-
               setTimeout(() => {
                 filtroRef.current?.scrollIntoView({ behavior: "smooth" });
-              }, 100); // scroll tras aplicar filtro
+              }, 100);
             }}
           />
 
@@ -82,12 +92,13 @@ export const CatalogPage: FC = () => {
               vehiculos={vehiculosFiltro}
               vertical={false}
               onSubmit={() => buscar()}
-              filtros={filtrosActivos} // para mantener valor visual
+              filtros={filtrosActivos}
+              modoClaro={modoClaro}
             />
           </div>
 
           <div className="mt-3">
-            <ProductosCatalogComponent vehiculos={vehiculos} />
+            <ProductosCatalogComponent vehiculos={vehiculos} modoClaro={modoClaro} />
           </div>
 
           <div className="mt-10 px-10 pb-20">
@@ -100,6 +111,7 @@ export const CatalogPage: FC = () => {
                 setPageSize(s);
                 setPaginaActual(0);
               }}
+              modoClaro={modoClaro}
             />
           </div>
         </div>

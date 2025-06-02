@@ -1,10 +1,10 @@
-import type { PageProps } from "./PageProps";
+
 import type { Vehiculo } from "./Vehiculo";
 
 export interface ProductosCatalogProps {
   vehiculos: {
     totalElements: number;
-    content: any[]; // o Vehiculo[] si tienes el tipo definido
+    content: Vehiculo[];
   };
   modoClaro: boolean;
 }

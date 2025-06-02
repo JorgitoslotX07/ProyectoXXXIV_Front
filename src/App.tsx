@@ -3,6 +3,7 @@ import "./i18n";
 import { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { HomePage } from "./pages/HomePage/HomePage";
+import { NavbarComponent } from "./components/NavbarComponent/NavbarComponent";
 import { FooterComponent } from "./components/FooterComponent/FooterComponent";
 import { CatalogPage } from "./pages/CatalogPage/CatalogPage";
 import { CarDetailPage } from "./pages/CarDetailPage/CarDetailPage";
@@ -20,12 +21,12 @@ import { VeriUserPage } from "./pages/VeriUserPage/VeriUserPage";
 import { ReservasPage } from "./pages/ReservasPage/ReservasPage";
 import { HistorialPage } from "./pages/HistorialPage/HistorialPage";
 import { PassPage } from "./pages/PassPage/PassPage";
-import { ThemeProvider } from "./context/ThemeContext";
-import { NavbarComponent } from "./components/NavbarComponent/NavbarComponent";
+import { useThemeContext } from "./context/ThemeContext";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [showOptionsPerfil, setShowOptionsPerfil] = useState(false);
+  const { modoClaro } = useThemeContext();
 
   const onClickOptionsPerfil = (): void => {
     if (showOptionsPerfil) {
@@ -35,37 +36,45 @@ function App() {
 
   useEffect(() => {
     const token: string | undefined = Cookies.get("sessionToken");
+
     if (token) {
       useUserStore.getState().setToken(token);
     }
   }, []);
 
   return (
-    <ThemeProvider>
-      <div className="bg-white text-black dark:bg-[#0f0f0f] dark:text-white transition-colors duration-300 min-h-screen">
-        <NavbarComponent onLoginClick={() => setShowLogin(true)} />
-        {showLogin && <LoginComponent onClose={() => setShowLogin(false)} />}
-        <ScrollToTop />
+    <>
+      <NavbarComponent onLoginClick={() => setShowLogin(true)} modoClaro={modoClaro} />
 
-        <Routes>
-          <Route path="/" element={<HomePage onLoginClick={() => setShowLogin(false)} onClickOptionsPerfil={onClickOptionsPerfil} />} />
-          <Route path="/register" element={<RegistroPage />} />
-          <Route path="/catalog" element={<CatalogPage />} />
-          <Route path="/catalog/carDetail" element={<CarDetailPage />} />
-          <Route path="/map" element={<MapPage />} />
-          <Route path="/panel" element={<UserMenuPage />} />
-          <Route path="/noticia" element={<NoticiaDetailPage />} />
-          <Route path="/panel/editar-perfil" element={<EditarPerfilPage />} />
-          <Route path="/panel/veri-user" element={<VeriUserPage />} />
-          <Route path="/panel/reservas" element={<ReservasPage />} />
-          <Route path="/panel/historial" element={<HistorialPage />} />
-          <Route path="/panel/pass" element={<PassPage />} />
-          <Route path="/cookies" element={<CookiesPage />} />
-        </Routes>
-
-        <FooterComponent />
-      </div>
-    </ThemeProvider>
+      {showLogin && <LoginComponent onClose={() => setShowLogin(false)} />}
+      <ScrollToTop />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HomePage
+              onLoginClick={() => setShowLogin(false)}
+              onClickOptionsPerfil={onClickOptionsPerfil}
+              modoClaro={modoClaro}
+            />
+          }
+        />
+        <Route path="/register" element={<RegistroPage />} />
+        <Route path="/catalog" element={<CatalogPage modoClaro={modoClaro} />} />
+        <Route path="/catalog/carDetail" element={<CarDetailPage modoClaro={modoClaro} />} />
+        <Route path="/map" element={<MapPage modoClaro={modoClaro} />} />
+        <Route path="/panel" element={<UserMenuPage modoClaro={modoClaro} />} />
+        <Route path="/noticia" element={<NoticiaDetailPage modoClaro={modoClaro} />} />
+        <Route path="/panel/editar-perfil" element={<EditarPerfilPage modoClaro={modoClaro} />} />
+        <Route path="/panel/veri-user" element={<VeriUserPage modoClaro={modoClaro} />} />
+        <Route path="/panel/reservas" element={<ReservasPage modoClaro={modoClaro} />} />
+        <Route path="/panel/historial" element={<HistorialPage modoClaro={modoClaro} />} />
+        <Route path="/panel/pass" element={<PassPage modoClaro={modoClaro} />} />
+        <Route path="/cookies" element={<CookiesPage />} />
+      </Routes>
+      <FooterComponent modoClaro={modoClaro} />
+    </>
   );
 }
-export default App; 
+
+export default App;

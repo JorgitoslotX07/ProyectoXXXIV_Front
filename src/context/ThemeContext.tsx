@@ -1,15 +1,33 @@
-import { createContext, useContext } from "react";
-import { useThemeMode } from "../hooks/themeMode";
+import { createContext, useContext, useState } from "react";
 
-const ThemeContext = createContext<ReturnType<typeof useThemeMode> | null>(null);
+interface ThemeContextProps {
+  modoClaro: boolean;
+  toggleModo: () => void;
+}
+
+const ThemeContext = createContext<ThemeContextProps>({
+  modoClaro: false,
+  toggleModo: () => {},
+});
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-    const theme = useThemeMode();
-    return <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>;
+  const [modoClaro, setModoClaro] = useState<boolean>(
+    localStorage.getItem("theme") === "light"
+  );
+
+  const toggleModo = () => {
+    setModoClaro((prev) => {
+      const nuevo = !prev;
+      localStorage.setItem("theme", nuevo ? "light" : "dark");
+      return nuevo;
+    });
+  };
+
+  return (
+    <ThemeContext.Provider value={{ modoClaro, toggleModo }}>
+      {children}
+    </ThemeContext.Provider>
+  );
 };
 
-export const useTheme = () => {
-    const context = useContext(ThemeContext);
-    if (!context) throw new Error("useTheme debe usarse dentro de ThemeProvider");
-    return context;
-};
+export const useThemeContext = () => useContext(ThemeContext);

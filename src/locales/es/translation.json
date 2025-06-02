@@ -21,7 +21,6 @@
   "search": {
   "title": "Encuentra tu próximo coche",
   "useCurrentLocation": "Usar mi ubicación",
-  "locationLabel": "Ubicación",
   "types": {
     "turismos": "Turismos",
     "suv": "SUV",

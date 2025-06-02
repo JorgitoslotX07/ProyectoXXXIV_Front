@@ -97,7 +97,7 @@ export const CochesPromoComponent: FC = () => {
     </div> */}
 
 <div className="px-4 py-10 ">
-<h2 className="text-yellow-500 text-2xl font-semibold mb-6">
+  <h2 className="text-2xl font-semibold mb-6" style={{ color: '#C4B5FD' }}>
     Coches Populares
   </h2>
 
