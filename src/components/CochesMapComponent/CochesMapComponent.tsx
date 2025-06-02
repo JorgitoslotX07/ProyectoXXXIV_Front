@@ -28,7 +28,7 @@ export const ParkingFilterComponent: FC<ParkingFilterComponentProp> = ({
   const { t } = useTranslation();
 
   return (
-    
+
     <div className="w-full">
       <label
         htmlFor="toggle-parkings"
@@ -263,20 +263,45 @@ const CochesMapComponent = () => {
   };
 
   useEffect(() => {
-    async function peticionVehiculos() {
-      const response = await httpGet<Vehiculo[]>(`/vehiculos/ubicaciones`);
-
-      if (response) {
-        console.log(response);
-        setVehiculos(response);
-        setVehiculosFiltrados(response);
-      } else {
-        console.error("Error al cargar vehículos");
-      }
-    }
-
-    peticionVehiculos();
+    obtenerTodosLosVehiculos();
   }, []);
+
+  // useEffect(() => {
+  //   async function peticionVehiculos() {
+  //     const response = await httpGet<any>(`/vehiculos?page=0&size=200`);
+
+  //     if (response?.content) {
+  //       setVehiculos(response.content);
+  //       setVehiculosFiltrados(response.content);
+  //     } else {
+  //       console.error("Error al cargar vehículos");
+  //     }
+  //   }
+
+  //   peticionVehiculos();
+  // }, []);
+
+  const obtenerTodosLosVehiculos = async () => {
+    let todos: Vehiculo[] = [];
+    let page = 0;
+    const size = 50;
+    let totalPages = 1;
+
+    do {
+      const res = await httpGet<any>(`/vehiculos?page=${page}&size=${size}`);
+      if (res?.content) {
+        todos = [...todos, ...res.content];
+        totalPages = res.totalPages;
+        page++;
+      } else {
+        break;
+      }
+    } while (page < totalPages);
+
+    setVehiculos(todos);
+    setVehiculosFiltrados(todos);
+  };
+
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -393,22 +418,40 @@ const CochesMapComponent = () => {
     }
   };
 
-  const handleClickVehiculo = async (id: number, coords: LatLngTuple) => {
-    setMostrarTarjeta(false);
-    setVehiculoSeleccionado(null);
-    centrarMapa(coords, 17);
+  // const handleClickVehiculo = async (id: number, coords: LatLngTuple) => {
+  //   setMostrarTarjeta(false);
+  //   setVehiculoSeleccionado(null);
+  //   centrarMapa(coords, 17);
 
-    try {
-      const res = await fetch(`localhost:8080/v1/vehiculos/${id}`);
-      const data = await res.json();
-      setTimeout(() => {
-        setVehiculoSeleccionado(data);
-        setMostrarTarjeta(true);
-      }, 400);
-    } catch (err) {
-      console.error("Error al obtener vehículo:", err);
-    }
-  };
+  //   try {
+  //     const res = await fetch(`localhost:8080/vehiculos/${id}`);
+
+  //     const data = await res.json();
+  //     setTimeout(() => {
+  //       setVehiculoSeleccionado(data);
+  //       setMostrarTarjeta(true);
+  //     }, 400);
+  //   } catch (err) {
+  //     console.error("Error al obtener vehículo:", err);
+  //   }
+  // };
+
+  const handleClickVehiculo = async (id: number, coords: LatLngTuple) => {
+  setMostrarTarjeta(false);
+  setVehiculoSeleccionado(null);
+  centrarMapa(coords, 17);
+
+  try {
+    const data = await httpGet<DatosVehiculo>(`/vehiculos/${id}`);
+    setTimeout(() => {
+      setVehiculoSeleccionado(data);
+      setMostrarTarjeta(true);
+    }, 400);
+  } catch (err) {
+    console.error("Error al obtener vehículo:", err);
+  }
+};
+
 
   return (
     <div className="pl-10 relative flex flex-col lg:flex-row gap-4 px-4 py-4 min-h-screen overflow-visible  ">
