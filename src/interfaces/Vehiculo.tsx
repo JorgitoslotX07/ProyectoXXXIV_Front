@@ -63,7 +63,7 @@ export type FiltroVehiculo =
 
 
 export interface VehiculoPos {
-  id: number;
+  idVehiculo: number;
   marca: string;
   modelo: string;
   ruta: Seguimiento[];

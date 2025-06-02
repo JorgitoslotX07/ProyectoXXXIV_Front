@@ -2,7 +2,6 @@ import { useState, type FC, useEffect } from "react";
 import { pos, type VehiculoPos } from "../../../interfaces/Vehiculo";
 import { MapContainer, Marker, Polyline, Popup, TileLayer } from "react-leaflet";
 import { httpGetTok } from "../../../utils/apiService";
-import type { LatLngExpression, LatLngTuple } from "leaflet";
 
 export const SeguimientoVehiculosAdminPage: FC = () => {
 
@@ -23,12 +22,10 @@ export const SeguimientoVehiculosAdminPage: FC = () => {
 
     }
 
-    // Simulación de updates en tiempo real empujando la última posición
     useEffect(() => {
         peticionVehiculosEnUso()
     }, []);
 
-    // Actualiza livePos cuando cambia selected vehicle
     useEffect(() => {
         if (selected) {
           const rutaPosiciones = selected.ruta.map(p => [p.latitud, p.longitud] as [number, number]);
@@ -47,11 +44,11 @@ export const SeguimientoVehiculosAdminPage: FC = () => {
                         <li
                             key={index}
                             onClick={() => setSelected(v)}
-                            className={`p-3 rounded-lg cursor-pointer transition hover:bg-white/10 ${selected?.id === v.id ? 'bg-white/20' : ''
+                            className={`p-3 rounded-lg cursor-pointer transition hover:bg-white/10 ${selected?.idVehiculo === v.idVehiculo ? 'bg-white/20' : ''
                                 }`}
                         >
                             <p className="font-medium">{v.marca} {v.modelo}</p>
-                            <p className="text-sm text-gray-300">ID: {v.id}</p>
+                            <p className="text-sm text-gray-300">ID: {v.idVehiculo}</p>
                         </li>
                     ))}
                 </ul>
@@ -75,7 +72,7 @@ export const SeguimientoVehiculosAdminPage: FC = () => {
                         return (
                             <Marker
                                 key={index}
-                                position={ultimoPunto} // solo un punto, no toda la ruta
+                                position={ultimoPunto}
                                 eventHandlers={{ click: () => setSelected(v) }}
                             >
                                 <Popup>{v.marca} {v.modelo}</Popup>

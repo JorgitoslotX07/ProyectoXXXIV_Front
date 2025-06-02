@@ -1,53 +1,59 @@
-import { useState, type FC } from "react";
+import { useState, type FC, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FondoPanelComponent } from "../../../components/__ConfigUser/FondoPanelComponent/FondoPanelComponent";
 import { TituloComponent } from "../../../components/__ConfigUser/PanelComonent/TituloComponent";
-
-const viajesFalsos = [
-    {
-        id: "viaje1",
-        origen: "Madrid",
-        destino: "Barcelona",
-        fecha: "2025-04-12",
-        duracion: "6h 30min",
-        costo: "45€",
-    },
-    {
-        id: "viaje2",
-        origen: "Valencia",
-        destino: "Sevilla",
-        fecha: "2025-03-28",
-        duracion: "7h 15min",
-        costo: "50€",
-    },
-    {
-        id: "viaje3",
-        origen: "Bilbao",
-        destino: "Zaragoza",
-        fecha: "2025-02-18",
-        duracion: "3h 45min",
-        costo: "30€",
-    },
-];
+import type { Historial } from "../../../interfaces/Historial";
+import { httpGetTok } from "../../../utils/apiService";
+import { UsuarioMe } from "../../../interfaces/Usuario";
 
 
 export const HistorialPage: FC = () => {
-    const [viajes] = useState(viajesFalsos);
+    const [historial, setHistorial] = useState<Historial[]>([]);
+    const [usuario, setUsuario] = useState<UsuarioMe>(UsuarioMe);
+
+    usuario.username = "Jorgito2"
+    
     const navigate = useNavigate();
+    useEffect(() => {
+        const fetch = async () => {
+            const data = await httpGetTok<UsuarioMe>("/usuarios/me");
+            if (data) {
+                setUsuario(data);
+            }
+        };
+        fetch();
+
+    }, []);
+
+    useEffect(() => {
+        const fetchReservas = async () => {
+            try {
+                const data = await httpGetTok<Historial[]>(`/historial/usuario/${usuario.username}`);
+                if (data) {
+                    setHistorial(data);
+                    console.log(data)
+                }
+            } catch (error) {
+                console.error("Error al cargar reservas:", error);
+            }
+        };
+
+        fetchReservas();
+    }, []);
 
     return (
         <FondoPanelComponent>
             <div className="relative min-h-screen  p-8 text-white">
-            <TituloComponent titulo={"Historial de Viajes"} />
+                <TituloComponent titulo={"Historial de Viajes"} />
 
                 <div className="max-w-4xl mx-auto w-full  p-6 rounded-2xl ">
 
 
-                    {viajes.length === 0 ? (
+                    {historial.length === 0 ? (
                         <p className="text-gray-400">No hay viajes registrados aún.</p>
                     ) : (
                         <div className="space-y-4">
-                            {viajes.map((viaje) => (
+                            {historial.map((viaje) => (
                                 <div
                                     key={viaje.id}
                                     onClick={() => navigate(`/panel/viajes/${viaje.id}`)}
@@ -57,15 +63,19 @@ export const HistorialPage: FC = () => {
                                         <div>
                                             <h2 className="text-lg font-semibold">
                                                 {viaje.origen} → {viaje.destino}
+                                                Prueba, aun falta aqui
                                             </h2>
                                             <p className="text-sm text-gray-400">
-                                                Fecha: {new Date(viaje.fecha).toLocaleDateString()}
+                                                Fecha Inicio: {new Date(viaje.fechaInicio).toLocaleDateString()}
+                                            </p>
+                                            <p className="text-sm text-gray-400">
+                                                Fecha Fin: {new Date(viaje.fechaFin).toLocaleDateString()}
                                             </p>
                                             <p className="text-sm text-gray-400">
                                                 Duración: {viaje.duracion}
                                             </p>
                                             <p className="text-sm text-gray-400">
-                                                Costo: {viaje.costo}
+                                                Km Recorridos: {viaje.kmRecorridos}
                                             </p>
                                         </div>
                                         {/* <button
