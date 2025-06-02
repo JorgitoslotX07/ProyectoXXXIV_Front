@@ -19,7 +19,6 @@ export const ReservasPage: FC = (): ReactElement => {
             const data = await httpGetTok<UsuarioMe>("/usuarios/me");
             if (data) {
                 setUsuario(data);
-
                 console.log(usuario)
             }
         };
@@ -42,7 +41,7 @@ export const ReservasPage: FC = (): ReactElement => {
 
     function colorPorEstado(estado: string): string {
         switch (estado) {
-            case "ACTIVA":
+            case "CONFIRMADA":
                 return "text-green-400";
             case "FINALIZADA":
                 return "text-gray-400";

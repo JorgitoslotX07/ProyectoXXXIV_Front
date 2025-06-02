@@ -63,18 +63,18 @@ export type FiltroVehiculo =
 
 
 export interface VehiculoPos {
-  idVehiculo: number;
+  id: number;
   marca: string;
   modelo: string;
-  ruta: Seguimiento[];
+  puntos:[number, number][]
 }
 
-export interface Seguimiento {
-  latitud: number,
-  longitud: number,
-  velocidad: number
-}
+// export interface Seguimiento {
+//   [
+//   latitud: number,
+//   longitud: number,]
+// }
 
-export function pos(rutas: Seguimiento[]): [number, number][] {
-  return rutas.map(ruta => [ruta.latitud, ruta.longitud]);
-}
+// export function pos(rutas: Seguimiento[]): [number, number][] {
+//   return rutas.map(ruta => [ruta.latitud, ruta.longitud]);
+// }
