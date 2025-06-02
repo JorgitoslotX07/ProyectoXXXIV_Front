@@ -1,17 +1,10 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-<<<<<<< HEAD:src/components/__Navbar/UserPopUpComponent/UserPopUpComponent.tsx
 import { deleteCookiesLogin } from "../../../utils/cookisLogin";
 import type { UsuarioCompleto } from "../../../interfaces/Usuario";
 import { httpGetTok } from "../../../utils/apiService";
 import { useUserStore } from "../../../hooks/userStore";
-=======
-import { deleteCookiesLogin } from "../../utils/cookisLogin";
-import type { UsuarioCompleto } from "../../interfaces/Usuario";
-import { httpGetTok } from "../../utils/apiService";
-import { useUserStore } from "../../hooks/userStore";
 import { useTranslation } from "react-i18next";
->>>>>>> ed7298899da3d054942e5116e70869e9c2dc47ce:src/components/UserPopUpComponent/UserPopUpComponent.tsx
 
 export const UserPopUpComponent = () => {
   const { t } = useTranslation(); // 🎯 hook de traducción

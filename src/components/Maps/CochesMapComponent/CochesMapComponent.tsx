@@ -9,51 +9,14 @@ import MarkerClusterGroup from "react-leaflet-markercluster";
 import L, { Map as LeafletMap, type LatLngTuple } from "leaflet";
 import type { MarkerCluster } from "leaflet";
 import "leaflet/dist/leaflet.css";
-<<<<<<< HEAD:src/components/Maps/CochesMapComponent/CochesMapComponent.tsx
 
 import { useEffect, useRef, useState } from "react";
 import type { Vehiculo, DatosVehiculo } from "../../../interfaces/Vehiculo";
 import { FiltrersCatalogComponent } from "../../FiltrersCatalogComponent/FiltrersCatalogComponent";
 import { httpGet } from "../../../utils/apiService";
-=======
-import type { ZonaParking } from "../../interfaces/ZonaParkinsProps";
-import { useEffect, useRef, useState, type FC } from "react";
-import type { Vehiculo, DatosVehiculo } from "../../interfaces/Vehiculo";
-import { FiltrersCatalogComponent } from "../FiltrersCatalogComponent/FiltrersCatalogComponent";
-import { httpGet } from "../../utils/apiService";
-import type { ParkingFilterComponentProp } from "../../interfaces/ParkingFilterComponentProp";
-import { LegendComponent } from "../../components/LegendComponent/LegendComponent";
+import type { ZonaParking } from "../../../interfaces/ZonaParkinsProps";
 import { useTranslation } from "react-i18next";
-
-
-
-export const ParkingFilterComponent: FC<ParkingFilterComponentProp> = ({
-  mostrar,
-  onToggle,
-}) => {
-
-  const { t } = useTranslation();
-
-  return (
-    
-    <div className="w-full">
-      <label
-        htmlFor="toggle-parkings"
-        className="w-[250px] flex items-center gap-3 bg-[#111827] px-4 py-3 rounded-xl text-white cursor-pointer hover:bg-[#1f2937] transition"
-      >
-        <input
-          type="checkbox"
-          id="toggle-parkings"
-          checked={mostrar}
-          onChange={onToggle}
-          className="form-checkbox h-5 w-5 text-green-500 accent-green-500 rounded focus:ring-0"
-        />
-        <span className="text-sm font-semibold">{t("map.showParkings")}</span>
-      </label>
-    </div>
-  );
-};
->>>>>>> ed7298899da3d054942e5116e70869e9c2dc47ce:src/components/CochesMapComponent/CochesMapComponent.tsx
+import { LegendComponent } from "../../LegendComponent/LegendComponent";
 
 const crearIconoCoche = (esSeleccionado: boolean) => {
   const color = esSeleccionado ? "#4ade80" : "#3b82f6";
@@ -667,10 +630,10 @@ const CochesMapComponent = () => {
           filtros={filtrosActivos}
         />
         <div className="p-10 space-y-6r">
-          <ParkingFilterComponent
+          {/* <ParkingFilterComponent
             mostrar={mostrarParkings}
             onToggle={() => setMostrarParkings(!mostrarParkings)}
-          />
+          /> */}
           <div className="mt-4">
             <LegendComponent />
           </div>
