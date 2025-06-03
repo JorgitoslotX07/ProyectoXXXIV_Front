@@ -1,11 +1,7 @@
 import type { FC } from "react";
-
-//     return <h2 className="text-xl font-semibold">Gestión de Vehículos</h2>;
-// }
-
-
-// src/pages/admin/VehiculosAdminPage.tsx
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import { Vehiculo, type FiltroVehiculo } from "../../../interfaces/Vehiculo";
 import { type PageProps, createEmptyPage } from "../../../interfaces/PageProps";
 import { httpGet, httpGetParam } from "../../../utils/apiService";
@@ -15,10 +11,10 @@ import { ModalCrearVehiculoComponent } from "../../../components/Modal/ModalCrea
 import { BotonAgregarComponent } from "../../../components/__Admin/BotonAgregarComponent/BotonAgregarComponent";
 import { ModalEliminarVehiculo } from "../../../components/Modal/ModalEliminarVehiculoComponent/ModalEliminarVehiculoComponent";
 import { ModalEditarVehiculo } from "../../../components/Modal/ModalEditarVehiculoComponent/ModalEditarVehiculoComponent";
-// import { BotonAgregar } from "../../components/ui/BotonAgregar";
-// import { ModalVehiculo } from "../../components/vehiculos/ModalVehiculo";
 
 export const VehiculosAdminPage: FC = () => {
+    const { t } = useTranslation();
+
     const [vehiculos, setVehiculos] = useState<PageProps<Vehiculo>>(createEmptyPage<Vehiculo>());
     const [vehiculosFiltro, setVehiculosFiltro] = useState<PageProps<Vehiculo>>(createEmptyPage<Vehiculo>());
     const [filtrosActivos, setFiltrosActivos] = useState<
@@ -28,11 +24,9 @@ export const VehiculosAdminPage: FC = () => {
     const [pageSize, setPageSize] = useState(20);
 
     const [vehiculoSeleccionado, setVehiculoSeleccionado] = useState<Vehiculo>(Vehiculo);
-
     const [showUpdate, setShowUpdate] = useState<boolean>(false);
     const [showDelete, setShowDelete] = useState<boolean>(false);
     const [showAdd, setShowAdd] = useState<boolean>(false);
-
 
     const peticionVehiculos = async () => {
         const response = await httpGet<PageProps<Vehiculo>>(
@@ -80,43 +74,43 @@ export const VehiculosAdminPage: FC = () => {
 
     const handleEditar = (vehiculo: Vehiculo) => {
         setVehiculoSeleccionado(vehiculo);
-        setShowUpdate(true)
+        setShowUpdate(true);
     };
+
     const handleEliminar = (vehiculo: Vehiculo) => {
         setVehiculoSeleccionado(vehiculo);
-        setShowDelete(true)
+        setShowDelete(true);
     };
+
     const handleAgregar = () => {
-        setShowAdd(true)
+        setShowAdd(true);
     };
 
     return (
         <div className="min-h-screen p-8 text-white bg-gradient-to-br from-[#0f172a] to-[#1e293b]">
             <div className="max-w-6xl mx-auto">
                 <div className="flex justify-between items-center mb-6">
-                    <h1 className="text-2xl font-bold">Gestión de Vehículos</h1>
-                    <BotonAgregarComponent text={"Añadir Vehiculo"} onClick={handleAgregar}/>
+                    <h1 className="text-2xl font-bold">{t("admin.vehiculos.titulo")}</h1>
+                    <BotonAgregarComponent text={t("admin.vehiculos.botonAgregar")} onClick={handleAgregar} />
                 </div>
 
                 <div className="overflow-x-auto rounded-xl bg-white/5 p-4 backdrop-blur-md border border-white/10">
+                    <FiltrersCatalogComponent
+                        onFilterChange={actualizarFiltro}
+                        vehiculos={vehiculosFiltro}
+                        vertical={false}
+                        onSubmit={() => buscar()}
+                        filtros={filtrosActivos}
+                    />
 
-                    <div>
-                        <FiltrersCatalogComponent
-                            onFilterChange={actualizarFiltro}
-                            vehiculos={vehiculosFiltro}
-                            vertical={false}
-                            onSubmit={() => buscar()}
-                            filtros={filtrosActivos} // para mantener valor visual
-                        />
-                    </div>
                     <table className="min-w-full text-left text-sm">
                         <thead className="border-b border-white/10 text-gray-300">
                             <tr>
-                                <th className="px-4 py-2">ID</th>
-                                <th className="px-4 py-2">Marca</th>
-                                <th className="px-4 py-2">Modelo</th>
-                                <th className="px-4 py-2">Estado</th>
-                                <th className="px-4 py-2">Acciones</th>
+                                <th className="px-4 py-2">{t("admin.vehiculos.tabla.id")}</th>
+                                <th className="px-4 py-2">{t("admin.vehiculos.tabla.marca")}</th>
+                                <th className="px-4 py-2">{t("admin.vehiculos.tabla.modelo")}</th>
+                                <th className="px-4 py-2">{t("admin.vehiculos.tabla.estado")}</th>
+                                <th className="px-4 py-2">{t("admin.vehiculos.tabla.acciones")}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -126,23 +120,36 @@ export const VehiculosAdminPage: FC = () => {
                                     <td className="px-4 py-2">{v.marca}</td>
                                     <td className="px-4 py-2">{v.modelo}</td>
                                     <td className="px-4 py-2">
-                                        <span className={`px-2 py-1 rounded text-xs font-medium ${{
-                                            "DISPONIBLE": "text-green-400",
-                                            "EN_USO": "text-blue-400",
-                                            "RESERVADO": "text-yellow-400",
-                                            "EN_MANTENIMIENTO": "text-red-400"
-                                        }[v.estado]}`}>
-                                            {v.estado.replace("_", " ")}
+                                        <span
+                                            className={`px-2 py-1 rounded text-xs font-medium ${{
+                                                DISPONIBLE: "text-green-400",
+                                                EN_USO: "text-blue-400",
+                                                RESERVADO: "text-yellow-400",
+                                                EN_MANTENIMIENTO: "text-red-400",
+                                            }[v.estado]}`}
+                                        >
+                                            {t(`admin.vehiculos.estado.${v.estado}`)}
                                         </span>
                                     </td>
                                     <td className="px-4 py-2 space-x-2">
-                                        <button onClick={() => handleEditar(v)} className="text-blue-400 hover:underline">Editar</button>
-                                        <button onClick={() => handleEliminar(v)} className="text-red-400 hover:underline">Eliminar</button>
+                                        <button
+                                            onClick={() => handleEditar(v)}
+                                            className="text-blue-400 hover:underline"
+                                        >
+                                            {t("admin.vehiculos.acciones.editar")}
+                                        </button>
+                                        <button
+                                            onClick={() => handleEliminar(v)}
+                                            className="text-red-400 hover:underline"
+                                        >
+                                            {t("admin.vehiculos.acciones.eliminar")}
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
                     </table>
+
                     <div className="mt-10 px-10 pb-20">
                         <PaginacionComponent
                             currentPage={paginaActual}
@@ -164,9 +171,7 @@ export const VehiculosAdminPage: FC = () => {
             {showUpdate && (
                 <ModalEditarVehiculo vehiculo={vehiculoSeleccionado} onClose={() => setShowUpdate(false)} />
             )}
-            {showAdd && (
-                <ModalCrearVehiculoComponent onClose={() => setShowAdd(false)} />
-            )}
+            {showAdd && <ModalCrearVehiculoComponent onClose={() => setShowAdd(false)} />}
         </div>
     );
 };

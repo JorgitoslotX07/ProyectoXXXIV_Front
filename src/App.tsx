@@ -136,7 +136,8 @@ function App() {
 
       </Routes>
 
-      <FooterComponent modoClaro={modoClaro} />
+      {/* <FooterComponent modoClaro={modoClaro} /> */}
+      <FooterComponent/>
     </>
   );
 }
