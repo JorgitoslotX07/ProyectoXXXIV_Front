@@ -62,22 +62,27 @@ export const usuarioCompletoVacio: UsuarioCompleto = {
 
 
 export type UsuarioAdministrar = {
-  id: number,
-  usuario: string,
-  nombre: string,
-  apellidos: string,
-  email: string,
-  activo: boolean,
+  id: number;
+  usuario: string;
+  email: string;
+  foto: string | null;
+  esAdministrador: boolean;
+  estaBloqueado: boolean;
+  motivoBloqueo: string | null;
+  createdAt: string;
 }
 
 export const usuarioAdministrarVacio: UsuarioAdministrar = {
-  id: 0,
+  id: 1,
   usuario: "",
-  nombre: "",
-  apellidos: "",
   email: "",
-  activo: true,
-};
+  foto: "",
+  esAdministrador: false,
+  estaBloqueado: false,
+  motivoBloqueo: "",
+  createdAt: "",
+}
+
 
 export interface UsuarioCarnet {
   id: number;

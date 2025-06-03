@@ -44,8 +44,8 @@ export const HomePage: FC<Props> = ({
           {/* Imagen de fondo con desenfoque */}
           <div
             className={`absolute inset-0 bg-cover bg-center ${modoClaro
-                ? "bg-[url('fondoFastSeartchClaro.jpeg')]"
-                : "bg-[url('fondoFastSeartch.webp')]"
+                ? "bg-[url('/fondoFastSeartchClaro.jpeg')]"
+                : "bg-[url('/fondoFastSeartch.webp')]"
               } blur-[3px]`}
           ></div>
 

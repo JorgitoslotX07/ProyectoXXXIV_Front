@@ -79,10 +79,10 @@ export async function httpPostTok<T, D>(ruta: string, data: D): Promise<T | null
 export async function httpPostTokImg<T, D>(ruta: string, data: D): Promise<T | null> {
   try {
     const axio =axiosInstance
-    axio.interceptors.request.use((config) => {
-        config.headers["Content-Type"] = "multipart/form-data";    
-      return config;
-    });
+    // axio.interceptors.request.use((config) => {
+    //     config.headers["Content-Type"] = "multipart/form-data";    
+    //   return config;
+    // });
     
 
     const response = await axio.post<T>(`${API_URL}${ruta}`, data);

@@ -6,60 +6,6 @@ import { ModalNoticiasDelComponent } from "../../../components/Modal/ModalNotici
 import { createEmptyPage, type PageProps } from "../../../interfaces/PageProps";
 import { httpGetTok } from "../../../utils/apiService";
 import { PaginacionComponent } from "../../../components/PaginacionComponent/PaginacionComponent";
-const noticiasMock = [
-    {
-        id: 1,
-        titulo: "Coche compartido",
-        imagen: "./parking_layout_img.png",
-        descripcion: "El uso del car sharing crece un 25% en ciudades españolas.",
-        contenido: "Hemos inaugurado una nueva sucursal en Barcelona.",
-        fecha: "2025-06-01T10:00:00Z",
-        autor: "",
-        publicado: true,
-    },
-
-    {
-        id: 2,
-        titulo: "Movilidad sostenible",
-        imagen: "./parking_layout_img.png",
-        descripcion: "Barcelona amplía su flota de vehículos eléctricos compartidos.",
-        contenido: "Hemos inaugurado una nueva sucursal en Barcelona.",
-        fecha: "2025-06-01T10:00:00Z",
-        autor: "",
-        publicado: true,
-    },
-    {
-        id: 3,
-        titulo: "Tecnología",
-        imagen: "./parking_layout_img.png",
-        descripcion: "Nueva app de car sharing con reservas instantáneas y GPS mejorado.",
-        contenido: "Hemos inaugurado una nueva sucursal en Barcelona.",
-        fecha: "2025-06-01T10:00:00Z",
-        autor: "",
-        publicado: true,
-    },
-    {
-        id: 4,
-        titulo: "Economía",
-        imagen: "./parking_layout_img.png",
-        descripcion: "Los usuarios ahorran hasta 200€ al mes usando coches compartidos.",
-        contenido: "Hemos inaugurado una nueva sucursal en Barcelona.",
-        fecha: "2025-06-01T10:00:00Z",
-        autor: "",
-        publicado: true,
-    },
-    {
-        id: 5,
-        titulo: "Sostenibilidad",
-        imagen: "./parking_layout_img.png",
-        descripcion: "El car sharing reduce 1 tonelada de CO₂ por usuario al año.",
-        contenido: "Hemos inaugurado una nueva sucursal en Barcelona.",
-        fecha: "2025-06-01T10:00:00Z",
-        autor: "",
-        publicado: true,
-    }
-];
-
 
 export const NoticiasAdminPage: FC = () => {
     // const [noticias, setNoticias] = useState<NoticiaProps[]>(noticiasMock);

@@ -27,6 +27,7 @@ export const UsuariosAdminPage: FC = () => {
         if (response) {
             setUsuarios(response);
             setPaginaActual(response.number);
+            console.log(response)
         } else {
             console.error("Fallo al obtener los datos de la página", paginaActual);
         }
@@ -53,8 +54,8 @@ export const UsuariosAdminPage: FC = () => {
 
     const handleAdmin = async (usuario: UsuarioAdministrar) => {
         const response = await httpPatchTokSin(`/usuarios/admin/${usuario.id}`)
-        console.log(response)
-
+        console.log("Admin =>",response)
+        peticionUsuairos();
     }
 
     
@@ -73,7 +74,6 @@ export const UsuariosAdminPage: FC = () => {
                         <thead>
                             <tr className="text-left border-b border-white/10">
                                 <th className="p-2">Usuario</th>
-                                <th className="p-2">Nombre</th>
                                 <th className="p-2">Email</th>
                                 <th className="p-2">Estado</th>
                                 <th className="p-2">Acciones</th>
@@ -86,14 +86,13 @@ export const UsuariosAdminPage: FC = () => {
                                     className="hover:bg-white/10 transition duration-200"
                                 >
                                     <td className="p-2">{usuario.usuario}</td>
-                                    <td className="p-2">{usuario.nombre + " " + usuario.apellidos}</td>
                                     <td className="p-2">{usuario.email}</td>
                                     <td className="p-2">
                                         <span
-                                            className={`px-2 py-1 rounded-full text-xs font-semibold ${usuario.activo ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"
+                                            className={`px-2 py-1 rounded-full text-xs font-semibold ${!usuario.estaBloqueado ? "bg-green-500/20 text-green-400" : "bg-red-500/20 text-red-400"
                                                 }`}
                                         >
-                                            {usuario.activo ? "Activo" : "Inactivo"}
+                                            {!usuario.estaBloqueado ? "Activo" : "Bloqueado"}
                                         </span>
                                     </td>
                                     <td className="p-2 space-x-2">
@@ -145,10 +144,10 @@ export const UsuariosAdminPage: FC = () => {
             </div>
 
             {showUpdateUser && (
-                <ModalEditUserComponent onClose={() => setShowUpdateUser(false)} usuario={userSelect} />
+                <ModalEditUserComponent onClose={() => {setShowUpdateUser(false);  peticionUsuairos();}} usuario={userSelect} />
             )}
             {showDeleteUser && (
-                <ModalConfirmDeleteUserComponent onClose={() => setShowDeleteUser(false)} usuario={userSelect} />
+                <ModalConfirmDeleteUserComponent onClose={() => {setShowDeleteUser(false);  peticionUsuairos();}} usuario={userSelect} />
             )}
 
         </>
