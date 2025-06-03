@@ -47,3 +47,8 @@ export interface ModalPayment {
   initialDuration?: number;
   onSubmit: (data: DataPayment) => void;
 }
+export interface ModalReserva {
+  onClose: () => void;
+  vehiculo: Vehiculo;
+  initialDuration?: number;
+}

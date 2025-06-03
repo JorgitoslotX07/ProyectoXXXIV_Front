@@ -52,6 +52,8 @@ export const Vehiculo: Vehiculo = {
   puertas: "CINCO",
   tipo: "TURISMO",
   esAccesible: false,
+  tarifaHora: 10,
+  tarifaDia: 10
 };
 
 export type FiltroVehiculo =

@@ -202,7 +202,7 @@ export const CarDetailPage: FC = () => {
         <CochesPromoComponent />
       </div>
 
-      {/* POPUP DE PAGO */}
+      {/* POPUP DE RESERVA */}
       {
         showPaymentPopup && (
 
