@@ -19,21 +19,21 @@
     "login": "Iniciar sesión"
   },
   "search": {
-  "title": "Encuentra tu próximo coche",
-  "useCurrentLocation": "Usar mi ubicación",
-  "types": {
-    "turismos": "Turismos",
-    "suv": "SUV",
-    "monovolumen": "Monovolumen",
-    "microcoche": "Microcoche"
+    "title": "Encuentra tu próximo coche",
+    "useCurrentLocation": "Usar mi ubicación",
+    "types": {
+      "turismos": "Turismos",
+      "suv": "SUV",
+      "monovolumen": "Monovolumen",
+      "microcoche": "Microcoche"
+    },
+    "placeholder": "Buscar ubicación...",
+    "button": "Buscar",
+    "errors": {
+      "geolocationNotSupported": "La geolocalización no es compatible con tu navegador.",
+      "locationPermissionDenied": "Permiso de ubicación denegado. Activa la localización para usar esta función."
+    }
   },
-  "placeholder": "Buscar ubicación...",
-  "button": "Buscar",
-  "errors": {
-    "geolocationNotSupported": "La geolocalización no es compatible con tu navegador.",
-    "locationPermissionDenied": "Permiso de ubicación denegado. Activa la localización para usar esta función."
-  }
-},
   "legend": {
     "title": "Leyenda del Mapa",
     "vehicle": "Vehículo disponible",
@@ -192,54 +192,19 @@
   "footer": {
     "cliente": "Atención al cliente",
     "devoluciones": "Devoluciones y garantía",
-    "pagos": {
-      "titulo": "Métodos de Pago",
-      "contenido1": "Aceptamos tarjetas de crédito, débito y pagos móviles como Apple Pay o Google Pay.",
-      "contenido2": "Tu información está protegida mediante protocolos seguros de encriptación.",
-      "contenido3": "Ofrecemos transparencia y confirmación instantánea en todas tus transacciones."
-    },
+    "pagos": "Pagos",
     "condiciones": "Condiciones de servicio",
-    "privacidad": {
-      "titulo": "Política de Privacidad",
-      "contenido1": "Nos comprometemos a proteger tu información personal con total transparencia.",
-      "contenido2": "Puedes revisar, modificar o eliminar tus datos en cualquier momento desde tu perfil.",
-      "contenido3": "Cumplimos con el RGPD y otras normativas internacionales de privacidad."
-    },
+    "privacidad": "Política de privacidad",
     "info": "Información corporativa",
     "sobreNosotros": "Sobre nosotros",
-    "marcas": {
-      "titulo": "Nuestras Marcas",
-      "contenido1": "Trabajamos con fabricantes líderes que garantizan calidad, tecnología y sostenibilidad.",
-      "contenido2": "Nuestra flota incluye marcas como Tesla, Ford, Kia, Toyota, entre otras.",
-      "contenido3": "Explora modelos exclusivos y mantente al día con nuestras nuevas incorporaciones."
-    },
+    "marcas": "Marcas",
     "afiliados": "Afiliados",
-    "inversores": {
-      "titulo": "Inversores",
-      "contenido1": "Estamos construyendo el futuro de la movilidad compartida con una visión clara y ambiciosa.",
-      "contenido2": "Ofrecemos oportunidades reales de inversión con transparencia y crecimiento continuo.",
-      "contenido3": "Solicita información financiera, reportes y planes de expansión desde este canal."
-    },
+    "inversores": "Inversores",
     "recursos": "Recursos",
     "blog": "Blog",
-    "faqs": {
-      "titulo": "Preguntas Frecuentes",
-      "contenido1": "Encuentra respuestas a las dudas más comunes sobre reservas, pagos, cancelaciones y más.",
-      "contenido2": "Nuestro centro de ayuda está diseñado para ser claro, útil y actualizado constantemente.",
-      "contenido3": "Si no encuentras lo que buscas, contáctanos directamente."
-    },
-    "soporte": {
-      "titulo": "Soporte Técnico",
-      "contenido1": "¿Tienes un problema técnico o necesitas ayuda urgente? Nuestro equipo está disponible 24/7.",
-      "contenido2": "Ofrecemos soporte por chat, correo electrónico y desde la aplicación.",
-      "contenido3": "Consulta nuestras guías o crea un ticket y te responderemos lo antes posible."
-    },
-    "foro": {
-      "titulo": "Foro de la Comunidad",
-      "contenido1": "Comparte ideas, dudas y sugerencias con otros usuarios en nuestro foro de la comunidad.",
-      "contenido2": "Nuestro equipo también participa para resolver inquietudes técnicas o administrativas.",
-      "contenido3": "Forma parte del crecimiento colaborativo que impulsa mejoras reales."
-    },
+    "faqs": "FAQs",
+    "soporte": "Soporte Técnico",
+    "foro": "Foro",
     "contactoDirecto": "Contacto directo",
     "contactar": "Contactar",
     "siguiente": "Siguiente",
@@ -248,14 +213,7 @@
     "deseasContacto": "¿Quieres que te contactemos?",
     "placeholderEmail": "Tu correo electrónico",
     "gracias": "¡Gracias por tu interés!",
-    "enviado": "La solicitud se ha mandado correctamente",
-    "sobrenosotros": {
-      "titulo": "Sobre Nosotros",
-      "contenido1": "Nacimos con la misión de transformar la movilidad urbana con tecnología e innovación.",
-      "contenido2": "Nuestro equipo está formado por profesionales apasionados por la sostenibilidad.",
-      "contenido3": "Crecemos contigo y para ti, creando soluciones que mejoren tu día a día."
-    }
-  
+    "enviado": "La solicitud se ha mandado correctamente"
   },
   "cookies": {
     "titulo": "Política de Cookies",
