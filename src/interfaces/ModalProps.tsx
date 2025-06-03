@@ -1,5 +1,6 @@
 import type { NoticiaProps } from "./NoticiasProps";
 import type { Parking } from "./Parking";
+import type { DataPayment } from "./PaymentProps";
 import type { UsuarioAdministrar } from "./Usuario";
 import type { Vehiculo } from "./Vehiculo";
 
@@ -38,4 +39,11 @@ export interface ModalNoticiaProps {
 export interface ModalParkingProps {
   onClose: () => void;
   parking: Parking;
+}
+
+export interface ModalPayment {
+  onClose: () => void;
+  vehicle: Vehiculo;
+  initialDuration?: number;
+  onSubmit: (data: DataPayment) => void;
 }

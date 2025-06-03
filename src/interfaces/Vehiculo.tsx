@@ -9,6 +9,7 @@ export interface DatosVehiculo {
   estado: string;
   latitud: number;
   longitud: number;
+
 }
 
 export interface UbicacionVehiculo {
@@ -32,6 +33,8 @@ export interface Vehiculo {
   puertas: "TRES" | "CINCO";
   tipo: "TURISMO" | "SUV" | "BIPLAZA" | "MONOVOLUMEN";
   esAccesible: boolean;
+  tarifaHora: number,
+  tarifaDia: number
 }
 
 export const Vehiculo: Vehiculo = {
