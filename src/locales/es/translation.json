@@ -403,5 +403,29 @@
   },
   "promo": {
   "title": "Coches Populares"
+},
+"profile": {
+  "title": "Editar Perfil",
+  "name": "Nombre",
+  "email": "Correo electrónico",
+  "placeholderEmail": "Introduce tu correo",
+  "saveButton": "Guardar cambios",
+  "errorEmail": "Correo inválido",
+  "changePhoto": "Cambiar foto"
+},
+"avatar": {
+  "title": "Subir nueva foto",
+  "changePhoto": "Cambiar foto",
+  "previewAlt": "Vista previa",
+  "cancel": "Cancelar",
+  "save": "Guardar"
+},
+"userMenu": {
+  "title": "Panel de Usuario",
+  "reservations": "Mis Reservas",
+  "changePassword": "Cambiar Contraseña",
+  "verification": "Verificación de Usuario",
+  "history": "Historial de Viajes",
+  "logout": "Cerrar Sesión"
 }
 }

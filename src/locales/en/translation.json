@@ -431,6 +431,32 @@
 },
 "promo": {
   "title": "Popular Cars"
+},
+"profile": {
+  "title": "Edit Profile",
+  "name": "Name",
+  "email": "Email",
+  "placeholderEmail": "Enter your email",
+  "saveButton": "Save changes",
+  "errorEmail": "Invalid email",
+  "changePhoto": "Change photo"
+},
+"avatar": {
+  "title": "Upload new photo",
+  "changePhoto": "Change photo",
+  "previewAlt": "Preview",
+  "cancel": "Cancel",
+  "save": "Save"
+},
+"userMenu": {
+  "title": "User Panel",
+  "reservations": "My Reservations",
+  "changePassword": "Change Password",
+  "verification": "User Verification",
+  "history": "Trip History",
+  "logout": "Log Out"
 }
+
+
 
 }

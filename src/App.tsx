@@ -16,7 +16,8 @@ import { NoticiaDetailPage } from "./pages/NoticiasDetailPage/NoticiasDetailPage
 import CookiesPage from "./pages/CookiesPage/CookiesPage";
 import ScrollToTop from "./components/ScrollToTopComponent/ScrollToTopComponent";
 import { HistorialPage } from "./pages/__ConfigUsersPages/HistorialPage/HistorialPage";
-import { UserMenuPage } from "./pages/__ConfigUsersPages/UserMenuPage/UserMenuPage";
+import UserMenuPage from "./pages/__ConfigUsersPages/UserMenuPage/UserMenuPage";
+
 import { EditarPerfilPage } from "./pages/__ConfigUsersPages/EditarPerfilPage/EditarPerfilPage";
 import { VeriUserPage } from "./pages/__ConfigUsersPages/VeriUserPage/VeriUserPage";
 import { ReservasPage } from "./pages/__ConfigUsersPages/ReservasPage/ReservasPage";
@@ -88,15 +89,15 @@ function App() {
         <Route path="/register" element={<RegistroPage modoClaro={modoClaro} />} />
         <Route path="/catalog">
           <Route index element={<CatalogPage modoClaro={modoClaro} />} />
-          <Route path="carDetail" element={<CarDetailPage />} />
+          <Route path="carDetail" element={<CarDetailPage modoClaro={modoClaro} º />} />
           <Route path="carDetail/finish-trip" element={<FinishTripPage />} />
         </Route>
         <Route path="/map" element={<MapPage modoClaro={modoClaro} />} />
         <Route path="/noticia" element={<NoticiaDetailPage />} />
 
         <Route path="/panel">
-          <Route index element={<UserMenuPage />} />
-          <Route path="editar-perfil" element={<EditarPerfilPage />} />
+          <Route index element={<UserMenuPage modoClaro={modoClaro}  />} />
+          <Route path="editar-perfil" element={<EditarPerfilPage  modoClaro={modoClaro} />} />
           <Route path="veri-user" element={<VeriUserPage />} />
           <Route path="reservas" element={<ReservasPage />} />
           <Route path="historial" element={<HistorialPage />} />
