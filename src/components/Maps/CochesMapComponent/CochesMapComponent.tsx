@@ -14,7 +14,6 @@ import { useEffect, useRef, useState } from "react";
 import type { Vehiculo, DatosVehiculo } from "../../../interfaces/Vehiculo";
 import { FiltrersCatalogComponent } from "../../FiltrersCatalogComponent/FiltrersCatalogComponent";
 import { httpGet, httpGetTok } from "../../../utils/apiService";
-import type { ZonaParking } from "../../../interfaces/ZonaParkinsProps";
 import { useTranslation } from "react-i18next";
 import { LegendComponent } from "../../LegendComponent/LegendComponent";
 import { TipoVehiculo } from "../../../utils/enum/tipoVehiculos";
@@ -23,6 +22,7 @@ import type { FilterCategory } from "../../../interfaces/GeneredFilterComponentP
 import { Parking } from "../../../interfaces/Parking";
 import type { PageProps } from "../../../interfaces/PageProps";
 import { getPolygonCenter } from "../../../utils/conversorServise";
+import { useLocation } from "react-router-dom";
 
 const crearIconoCoche = (esSeleccionado: boolean) => {
   const color = esSeleccionado ? "#4ade80" : "#3b82f6";
@@ -115,6 +115,19 @@ const CochesMapComponent = () => {
   );
   const [mostrarUbicacionUsuario, setMostrarUbicacionUsuario] = useState(false);
   const mapRef = useRef<LeafletMap | null>(null);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+
+  const tipo: string | null = queryParams.get("type");
+  const loca: string | null = queryParams.get("location");
+
+  useEffect(() => {
+    if (typeof tipo === "string") setTipoSeleccionado(tipo.toUpperCase());
+    if (typeof loca === "string") setFiltrosActivos({ localidad: loca });
+  
+    peticionVehiculos(tipo);
+  }, [tipo, loca]);
+
 
   const centrarMapa = (coords: LatLngTuple, zoom: number = 13) => {
     if (mapRef.current) {
@@ -160,9 +173,9 @@ const CochesMapComponent = () => {
     if (response) {
       setZonasParking(response.content);
     } else {
-        console.error("Fallo al obtener los datos de la página");
+      console.error("Fallo al obtener los datos de la página");
     }
-};
+  };
 
   useEffect(() => {
     peticionVehiculos();
