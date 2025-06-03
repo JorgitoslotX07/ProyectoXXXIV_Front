@@ -32,6 +32,21 @@ import { PanelInicialAdminPage } from "./pages/__AdminPages/PanelInicialAdminPag
 import { CrearParkingPage } from "./pages/__AdminPages/CrearParkingPage/CrearParkingPage";
 import { useThemeContext } from "./context/ThemeContext";
 
+// Footer pages
+import SobreNosotrosPage from "./pages/FooterPages/SobreNosotrosPage";
+import DevolucionesPage from "./pages/FooterPages/DevolucionesPage";
+import PagosPage from "./pages/FooterPages/PagosPage";
+import CondicionesPage from "./pages/FooterPages/CondicionesPage";
+import PrivacidadPage from "./pages/FooterPages/PrivacidadPage";
+import MarcasPage from "./pages/FooterPages/MarcasPage";
+import AfiliadosPage from "./pages/FooterPages/AfiliadosPage";
+import InversoresPage from "./pages/FooterPages/InversoresPage";
+import BlogPage from "./pages/FooterPages/BlogPage";
+import FaqPage from "./pages/FooterPages/FaqPage";
+import SoportePage from "./pages/FooterPages/SoportePage";
+import ForoPage from "./pages/FooterPages/ForoPage";
+
+
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [showOptionsPerfil, setShowOptionsPerfil] = useState(false);
@@ -45,7 +60,6 @@ function App() {
 
   useEffect(() => {
     const token: string | undefined = Cookies.get("sessionToken");
-
     if (token) {
       useUserStore.getState().setToken(token);
     }
@@ -54,7 +68,6 @@ function App() {
   return (
     <>
       <NavbarComponent onLoginClick={() => setShowLogin(true)} modoClaro={modoClaro} />
-
       {showLogin && <LoginComponent onClose={() => setShowLogin(false)} />}
       <ScrollToTop />
 
@@ -89,7 +102,6 @@ function App() {
         </Route>
 
         <Route path="/admin" element={<PanelAdminPage modoClaro={modoClaro} />}>
-
           <Route index element={<PanelInicialAdminPage modoClaro={modoClaro} />} />
           <Route path="usuarios" element={<UsuariosAdminPage />} />
           <Route path="usuarios/validacion-carnet" element={<ValidacionCarnetAdminPage />} />
@@ -102,6 +114,21 @@ function App() {
         </Route>
 
         <Route path="/cookies" element={<CookiesPage />} />
+
+        {/* Footer */}
+        <Route path="/sobre-nosotros" element={<SobreNosotrosPage />} />
+        <Route path="/devoluciones" element={<DevolucionesPage />} />
+        <Route path="/pagos" element={<PagosPage />} />
+        <Route path="/condiciones" element={<CondicionesPage />} />
+        <Route path="/privacidad" element={<PrivacidadPage />} />
+        <Route path="/marcas" element={<MarcasPage />} />
+        <Route path="/afiliados" element={<AfiliadosPage />} />
+        <Route path="/inversores" element={<InversoresPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/faq" element={<FaqPage />} />
+        <Route path="/soporte" element={<SoportePage />} />
+        <Route path="/foro" element={<ForoPage />} />
+
       </Routes>
 
       <FooterComponent modoClaro={modoClaro} />

@@ -2,42 +2,35 @@ import { useState, type FC } from "react";
 import Stepper from "../StepperComponent/StepperComponent";
 import { Step } from "../StepperComponent/StepperSubComponents";
 import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next"; // ✅ hook de traducción
+import { useTranslation } from "react-i18next";
 import { useThemeContext } from "../../../context/ThemeContext";
 
+// ⚙️ Enlaces disponibles (ajusta las rutas según tengas en App.tsx)
 const enlaces: Record<string, string> = {
-    Cookies: "/cookies",
+    devoluciones: "/devoluciones",
+    pagos: "/pagos",
+    condiciones: "/condiciones",
+    privacidad: "/privacidad",
+    sobrenosotros: "/sobre-nosotros",
+    marcas: "/marcas",
+    afiliados: "/afiliados",
+    inversores: "/inversores",
+    blog: "/blog",
+    faqs: "/faqs",
+    soporte: "/soporte",
+    foro: "/foro",
 };
 
 export const FooterComponent: FC = () => {
     const { t } = useTranslation();
-    const { modoClaro } = useThemeContext(); // ⬅️ Usar contexto
+    const { modoClaro } = useThemeContext();
     const [mostrarModal, setMostrarModal] = useState(false);
     const [email, setEmail] = useState("");
 
     const listaUl = [
-        [
-            t("footer.cliente"),
-            t("footer.devoluciones"),
-            t("footer.pagos"),
-            t("footer.condiciones"),
-            t("footer.privacidad"),
-        ],
-        [
-            t("footer.info"),
-            t("footer.sobreNosotros"),
-            t("footer.marcas"),
-            t("footer.afiliados"),
-            t("footer.inversores"),
-            "Cookies",
-        ],
-        [
-            t("footer.recursos"),
-            "Blog",
-            "FAQs",
-            t("footer.soporte"),
-            t("footer.foro"),
-        ],
+        ["cliente", "devoluciones", "pagos", "condiciones", "privacidad"],
+        ["info", "sobrenosotros", "marcas", "afiliados", "inversores"],
+        ["recursos", "blog", "faqs", "soporte", "foro"],
     ];
 
     return (
@@ -53,23 +46,21 @@ export const FooterComponent: FC = () => {
                                 className={`font-semibold text-lg mb-4 cursor-default ${modoClaro ? "text-[#222]" : "text-white"
                                     }`}
                             >
-                                {seccion[0]}
+                                {t(`footer.${seccion[0]}`)}
                             </li>
-                            {seccion.slice(1).map((item, idx) => (
-                                <li
-                                    key={idx}
-                                    className={`hover:underline cursor-pointer transition-colors duration-200 ${modoClaro ? "hover:text-black" : "hover:text-white"
-                                        }`}
-                                >
-                                    {enlaces[item] ? (
-                                        <Link to={enlaces[item]}>
-                                            {t(`footer.${item.toLowerCase().replace(/\s/g, "")}`, item)}
-                                        </Link>
-                                    ) : (
-                                        t(`footer.${item.toLowerCase().replace(/\s/g, "")}`, item)
-                                    )}
-                                </li>
-                            ))}
+                            {seccion.slice(1).map((clave, idx) => {
+                                const path = enlaces[clave];
+                                const label = t(`footer.${clave}`);
+                                return (
+                                    <li
+                                        key={idx}
+                                        className={`hover:underline transition-colors duration-200 ${modoClaro ? "hover:text-black" : "hover:text-white"
+                                            }`}
+                                    >
+                                        {path ? <Link to={path}>{label}</Link> : <span>{label}</span>}
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
                 ))}
@@ -84,8 +75,8 @@ export const FooterComponent: FC = () => {
                     <button
                         onClick={() => setMostrarModal(true)}
                         className={`font-semibold py-2 px-4 rounded transition ${modoClaro
-                            ? "bg-yellow-400 text-[#333] hover:bg-yellow-500"
-                            : "bg-indigo-600 hover:bg-indigo-700 text-white"
+                                ? "bg-yellow-400 text-[#333] hover:bg-yellow-500"
+                                : "bg-indigo-600 hover:bg-indigo-700 text-white"
                             }`}
                     >
                         {t("footer.contactar")}
@@ -95,9 +86,7 @@ export const FooterComponent: FC = () => {
 
             {mostrarModal && (
                 <div
-                    className={`fixed inset-0 flex items-center justify-center z-50 transition-all ${modoClaro
-                            ? "backdrop-blur-md bg-[#f3f4f6]/60" // claro: fondo translúcido claro
-                            : "backdrop-blur-md bg-black/60"     // oscuro: fondo translúcido oscuro
+                    className={`fixed inset-0 flex items-center justify-center z-50 transition-all ${modoClaro ? "backdrop-blur-md bg-[#f3f4f6]/60" : "backdrop-blur-md bg-black/60"
                         }`}
                 >
                     <div
