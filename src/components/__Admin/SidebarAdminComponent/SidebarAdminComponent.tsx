@@ -1,5 +1,6 @@
 import type { FC } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useThemeContext } from "../../../context/ThemeContext";
 
 const links = [
   { to: "/admin", label: "Panel Inicial" },
@@ -8,22 +9,41 @@ const links = [
   { to: "/admin/vehiculos", label: "Vehículos" },
   { to: "/admin/vehiculos/seguimiento", label: "Seguimiento" },
   { to: "/admin/parkings", label: "Parkings" },
-  { to: "/admin/noticias", label: "Noticias" }
+  { to: "/admin/noticias", label: "Noticias" },
 ];
 
-export const SidebarAdminComponent :FC = () => {
+export const SidebarAdminComponent: FC = () => {
   const location = useLocation();
+  const { modoClaro } = useThemeContext();
 
   return (
-    <aside className="w-64 bg-gray-800 p-6 space-y-4">
-      <h2 className="text-lg font-bold">Admin</h2>
+    <aside
+      className={`w-64 p-6 shadow-md transition-colors duration-300 ${
+        modoClaro
+          ? "bg-gradient-to-b from-[#fdf6e3] via-[#fef9ef] to-[#fefcea] text-[#3a3a3a]"
+          : "bg-[#111827] text-gray-200"
+      }`}
+    >
+      <h2
+        className={`text-lg font-bold mb-6 pb-2 border-b ${
+          modoClaro ? "border-[#f5e9c8]" : "border-gray-700"
+        }`}
+      >
+        🛠️ Admin
+      </h2>
       <nav className="flex flex-col space-y-2">
         {links.map(({ to, label }) => (
           <Link
             key={to}
             to={to}
-            className={`py-2 px-3 rounded-md hover:bg-gray-700 transition ${
-              location.pathname === to ? "bg-gray-700 font-semibold" : ""
+            className={`py-2 px-3 rounded-md transition duration-200 ${
+              location.pathname === to
+                ? modoClaro
+                  ? "bg-[#fdf1cd] text-[#2b2b2b] font-semibold"
+                  : "bg-[#1f2937] text-white font-semibold"
+                : modoClaro
+                ? "hover:bg-[#fdf6df]"
+                : "hover:bg-[#1f1f2f]"
             }`}
           >
             {label}
@@ -32,4 +52,4 @@ export const SidebarAdminComponent :FC = () => {
       </nav>
     </aside>
   );
-}
+};

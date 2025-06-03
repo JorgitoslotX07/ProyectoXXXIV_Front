@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import i18n from "../../../i18n";
-
 
 const flags: Record<string, string> = {
   es: "https://upload.wikimedia.org/wikipedia/commons/7/70/Flag_of_Spain_%28civil%29.svg",
@@ -15,7 +13,11 @@ const nombresIdiomas: Record<string, string> = {
   en: "ENG",
 };
 
-export const SelectorLenguajeComponent: React.FC = () => {
+interface Props {
+  modoClaro: boolean;
+}
+
+export const SelectorLenguajeComponent: React.FC<Props> = ({ modoClaro }) => {
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
 
@@ -29,7 +31,9 @@ export const SelectorLenguajeComponent: React.FC = () => {
     <div className="relative inline-block text-left">
       <button
         onClick={toggleDropdown}
-        className="w-10 h-7 border-2 border-white/20 rounded overflow-hidden shadow"
+        className={`w-10 h-7 border-2 rounded overflow-hidden shadow transition-all duration-300 ${
+          modoClaro ? "border-gray-300" : "border-white/20"
+        }`}
       >
         <img
           src={flags[i18n.language] || flags.en}
@@ -39,19 +43,33 @@ export const SelectorLenguajeComponent: React.FC = () => {
       </button>
 
       {open && (
-        <div className="absolute left-[-20px] mt-2 w-20 bg-white dark:bg-gray-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+        <div
+          className={`absolute left-[-20px] mt-2 w-20 rounded-md shadow-lg ring-1 ring-opacity-5 z-50 transition-all duration-300 ${
+            modoClaro
+              ? "bg-white ring-gray-300"
+              : "bg-[#1f2937] ring-black text-white"
+          }`}
+        >
           {Object.entries(flags).map(([lang, url]) => (
             <button
               key={lang}
               onClick={() => cambiarLenguaje(lang)}
-              className={`w-full flex items-center gap-2 px-2 py-1 hover:bg-gray-100 dark:hover:bg-gray-700 transition ${i18n.language === lang ? "bg-gray-200 dark:bg-gray-600" : ""
-                }`}
+              className={`w-full flex items-center gap-2 px-2 py-1 text-sm font-semibold transition-colors ${
+                modoClaro
+                  ? `hover:bg-[#fef9c3] ${
+                      i18n.language === lang ? "bg-[#e0fbea]" : ""
+                    } text-[#1f2937]`
+                  : `hover:bg-gray-700 ${
+                      i18n.language === lang ? "bg-gray-600" : ""
+                    } text-white`
+              }`}
             >
-              <img src={url} alt={lang} className="w-5 h-5 object-cover rounded" />
-              <span className="text-sm font-semibold">
-                {nombresIdiomas[lang] || lang.toUpperCase()}
-              </span>
-
+              <img
+                src={url}
+                alt={lang}
+                className="w-5 h-5 object-cover rounded"
+              />
+              <span>{nombresIdiomas[lang] || lang.toUpperCase()}</span>
             </button>
           ))}
         </div>

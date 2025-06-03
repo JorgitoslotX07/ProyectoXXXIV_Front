@@ -1,11 +1,16 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import { useThemeContext } from "../../context/ThemeContext";
 
 const CookiesPage: React.FC = () => {
     const { t } = useTranslation();
+    const { modoClaro } = useThemeContext();
 
     return (
-        <main className="p-6 max-w-3xl mx-auto text-justify text-sm leading-relaxed">
+        <main
+            className={`p-6 my-10 max-w-3xl mx-auto text-justify text-sm leading-relaxed transition-all duration-300 rounded-xl shadow-lg ${modoClaro ? "bg-white text-[#333]" : "bg-[#1f2937] text-white"
+                }`}
+        >
             <h1 className="text-3xl font-bold mb-4 text-center">
                 {t("cookies.titulo")}
             </h1>
@@ -32,7 +37,7 @@ const CookiesPage: React.FC = () => {
             </h2>
             <p>{t("cookies.consentimientoTexto")}</p>
 
-            <p className="mt-6 text-center text-gray-500 text-xs">
+            <p className="mt-6 text-center text-xs text-gray-400">
                 {t("cookies.ultimaActualizacion")}
             </p>
         </main>

@@ -30,10 +30,12 @@ import { ParkingsAdminPage } from "./pages/__AdminPages/ParkingsAdminPage/Parkin
 import { NoticiasAdminPage } from "./pages/__AdminPages/NoticiasAdminPage/NoticiasAdminPage";
 import { PanelInicialAdminPage } from "./pages/__AdminPages/PanelInicialAdminPage/PanelInicialAdminPage";
 import { CrearParkingPage } from "./pages/__AdminPages/CrearParkingPage/CrearParkingPage";
+import { useThemeContext } from "./context/ThemeContext";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
   const [showOptionsPerfil, setShowOptionsPerfil] = useState(false);
+  const { modoClaro } = useThemeContext();
 
   const onClickOptionsPerfil = (): void => {
     if (showOptionsPerfil) {
@@ -51,8 +53,7 @@ function App() {
 
   return (
     <>
-
-      <NavbarComponent onLoginClick={() => setShowLogin(true)} />
+      <NavbarComponent onLoginClick={() => setShowLogin(true)} modoClaro={modoClaro} />
 
       {showLogin && <LoginComponent onClose={() => setShowLogin(false)} />}
       <ScrollToTop />
@@ -63,19 +64,21 @@ function App() {
           element={
             <HomePage
               onLoginClick={() => setShowLogin(false)}
-              onClickOptionsPerfil={onClickOptionsPerfil} modoClaro={false}            />
+              onClickOptionsPerfil={onClickOptionsPerfil}
+              modoClaro={modoClaro}
+            />
           }
         />
 
         <Route path="/register" element={<RegistroPage />} />
-        <Route path="/catalog" >
-          <Route index element={<CatalogPage />} />
+        <Route path="/catalog">
+          <Route index element={<CatalogPage modoClaro={modoClaro} />} />
           <Route path="carDetail" element={<CarDetailPage />} />
         </Route>
-        <Route path="/map" element={<MapPage />} />
+        <Route path="/map" element={<MapPage modoClaro={modoClaro} />} />
         <Route path="/noticia" element={<NoticiaDetailPage />} />
 
-        <Route path="/panel" >
+        <Route path="/panel">
           <Route index element={<UserMenuPage />} />
           <Route path="editar-perfil" element={<EditarPerfilPage />} />
           <Route path="veri-user" element={<VeriUserPage />} />
@@ -85,8 +88,9 @@ function App() {
           <Route path="*" element={<Navigate to="/panel" replace />} />
         </Route>
 
-        <Route path="/admin" element={<PanelAdminPage />} >
-          <Route index element={<PanelInicialAdminPage />} />
+        <Route path="/admin" element={<PanelAdminPage modoClaro={modoClaro} />}>
+
+          <Route index element={<PanelInicialAdminPage modoClaro={modoClaro} />} />
           <Route path="usuarios" element={<UsuariosAdminPage />} />
           <Route path="usuarios/validacion-carnet" element={<ValidacionCarnetAdminPage />} />
           <Route path="vehiculos" element={<VehiculosAdminPage />} />
@@ -99,7 +103,8 @@ function App() {
 
         <Route path="/cookies" element={<CookiesPage />} />
       </Routes>
-      <FooterComponent />
+
+      <FooterComponent modoClaro={modoClaro} />
     </>
   );
 }

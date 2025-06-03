@@ -7,45 +7,73 @@ import { UserPopUpComponent } from "../UserPopUpComponent/UserPopUpComponent";
 import ThemeButtonComponent from "../ThemeButtonComponent/ThemeButtonComponent";
 import { useTranslation } from "react-i18next";
 
-export const NavbarComponent: FC<NavbarProps> = ({ onLoginClick }) => {
+interface Props extends NavbarProps {
+  modoClaro: boolean;
+}
+
+export const NavbarComponent: FC<Props> = ({ onLoginClick, modoClaro }) => {
   const user = useUserStore((state) => state.token);
   const { t } = useTranslation();
 
   return (
-    <nav className="flex justify-between items-center px-6 py-4 shadow-md bg-[#070F1A] text-gray-300">
+    <nav
+      className={`flex justify-between items-center px-6 py-4 shadow-md transition-all duration-300 ${modoClaro ? "bg-[#FFFDF2] text-[#333]" : "bg-[#070F1A] text-gray-300"
+        }`}
+    >
+      {/* Logo y título */}
       <div className="flex items-center space-x-2">
         <img src="/logo.webp" alt="Logo" className="w-8 h-8 object-contain" />
-        <span className="text-xl font-semibold text-white">
+        <span className={`text-xl font-semibold ${modoClaro ? "text-[#222]" : "text-white"}`}>
           <Link to="/">Share&Go34</Link>
         </span>
       </div>
 
+      {/* Enlaces */}
       <ul className="flex space-x-8 font-medium">
-        <li className="hover:text-white transition-colors duration-200">
+        <li
+          className={`transition-colors duration-200 ${modoClaro ? "hover:text-black" : "hover:text-white"
+            }`}
+        >
           <Link to="/catalog">{t("navbar.catalog")}</Link>
         </li>
-        <li className="hover:text-white transition-colors duration-200">
+        <li
+          className={`transition-colors duration-200 ${modoClaro ? "hover:text-black" : "hover:text-white"
+            }`}
+        >
           <Link to="/map">{t("navbar.map")}</Link>
         </li>
-        <li className="hover:text-white transition-colors duration-200">
-          <Link to="/admin">Administracion</Link>
+        <li
+          className={`transition-colors duration-200 ${modoClaro ? "hover:text-black" : "hover:text-white"
+            }`}
+        >
+          <Link to="/admin">Administración</Link>
         </li>
       </ul>
 
+      {/* Botones y selector */}
       <div className="flex items-center space-x-4">
         {user != null && user !== "" ? (
           <UserPopUpComponent />
         ) : (
           <span
             onClick={onLoginClick}
-            className="cursor-pointer bg-white/10 text-white px-4 py-1.5 rounded-full hover:bg-white/20 transition duration-200"
+            className={`cursor-pointer px-4 py-1.5 rounded-full transition duration-200 ${modoClaro
+                ? "bg-yellow-400 text-[#333] hover:bg-yellow-500"
+                : "bg-white/10 text-white hover:bg-white/20"
+              }`}
           >
             {t("navbar.login")}
           </span>
         )}
         <ThemeButtonComponent />
-        <div className="w-14 h-8 border border-gray-500 rounded flex items-center justify-center text-xs font-bold bg-[#111827] text-white">
-          <SelectorLenguajeComponent />
+        <div
+          className={`w-14 h-8 border rounded flex items-center justify-center text-xs font-bold transition ${modoClaro
+              ? "bg-[#F1F1DA] border-[#ccc] text-[#333]"
+              : "bg-[#111827] border-gray-500 text-white"
+            }`}
+        >
+          <SelectorLenguajeComponent modoClaro={modoClaro} />
+
         </div>
       </div>
     </nav>
