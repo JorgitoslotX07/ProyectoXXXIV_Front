@@ -10,9 +10,7 @@ export const conversiorFile = (
   }
 };
 
-
 export function base64ToBlob(base64: string, contentType = "image/png"): Blob {
-  // 1) Decode Base64 a bytes
   const byteCharacters = atob(base64);
   const byteNumbers = new Array(byteCharacters.length);
   for (let i = 0; i < byteCharacters.length; i++) {
@@ -20,6 +18,5 @@ export function base64ToBlob(base64: string, contentType = "image/png"): Blob {
   }
   const byteArray = new Uint8Array(byteNumbers);
 
-  // 2) Construye un Blob con esos bytes
   return new Blob([byteArray], { type: contentType });
 }

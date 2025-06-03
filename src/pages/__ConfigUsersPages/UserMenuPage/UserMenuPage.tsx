@@ -4,17 +4,14 @@ import { deleteCookiesLogin } from "../../../utils/cookisLogin";
 import { useUserStore } from "../../../hooks/userStore";
 import { useEffect, useState } from "react";
 import { httpGetTok } from "../../../utils/apiService";
-import {
-  usuarioCompletoVacio,
-  type UsuarioCompleto,
-} from "../../../interfaces/Usuario";
+import { UsuarioMe } from "../../../interfaces/Usuario";
 import { FondoPanelComponent } from "../../../components/__ConfigUser/FondoPanelComponent/FondoPanelComponent";
 import { TituloComponent } from "../../../components/__ConfigUser/PanelComonent/TituloComponent";
 
 export const UserMenuPage = () => {
   const navigate = useNavigate();
   const setToken = useUserStore((state) => state.setToken);
-  const [usuario, setUsuario] = useState<UsuarioCompleto>(usuarioCompletoVacio);
+  const [usuario, setUsuario] = useState<UsuarioMe>(UsuarioMe);
 
   const logOut = () => {
     deleteCookiesLogin();
@@ -24,7 +21,7 @@ export const UserMenuPage = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const data = await httpGetTok<UsuarioCompleto>("/usuarios/me");
+      const data = await httpGetTok<UsuarioMe>("/usuarios/me");
       if (data) {
         setUsuario(data);
         console.log(data);
@@ -70,10 +67,10 @@ export const UserMenuPage = () => {
   return (
     <FondoPanelComponent>
       <div className="relative min-h-screen p-8 text-white">
-        <TituloComponent titulo="Panel de Usuario" runtaOut="/"/>
-        
+        <TituloComponent titulo="Panel de Usuario" runtaOut="/" />
+
         <div className="relative flex flex-col lg:flex-row gap-8">
-          <div className="relative w-full max-w-xs bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 mx-auto text-center">
+          <div className="relative w-full max-w-xs bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 mx-auto text-center  justify-center">
             <Link to="editar-perfil">
               <button className="absolute top-3 right-3 text-purple-300 hover:text-white transition">
                 <svg
@@ -93,44 +90,38 @@ export const UserMenuPage = () => {
               </button>
             </Link>
 
-            <div className="relative w-28 h-28 mx-auto mb-2">
-              {usuario.avatar ? (
-                <img
-                  src={usuario.avatar}
-                  alt="Avatar"
-                  className="w-28 h-28 rounded-full border-4 border-purple-400/30 mb-4 shadow-md"
-                />
-              ) : (
-                <div className="w-28 h-28 rounded-full border-4 border-purple-400/30 mb-4 shadow-md flex items-center justify-center bg-purple-500/10">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-14 h-14 text-purple-300"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M12 12c2.7 0 4.9-2.2 4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 7.1 9.3 12 12 12zm0 2c-3.1 0-9.3 1.6-9.3 4.7v1.1c0 .6.5 1.1 1.1 1.1h16.4c.6 0 1.1-.5 1.1-1.1v-1.1c0-3.1-6.2-4.7-9.3-4.7z" />
-                  </svg>
-                </div>
-              )}
-            </div>
+            <div>
+              <div className="relative w-28 h-28 mx-auto mb-2  ">
+                {usuario.fotoUrl ? (
+                  <img
+                    src={usuario.fotoUrl}
+                    alt="Avatar"
+                    className="w-28 h-28 rounded-full border-4 border-purple-400/30 mb-4 shadow-md"
+                  />
+                ) : (
+                  <div className="w-28 h-28 rounded-full border-4 border-purple-400/30 mb-4 shadow-md flex items-center justify-center bg-purple-500/10">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="w-14 h-14 text-purple-300"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                    >
+                      <path d="M12 12c2.7 0 4.9-2.2 4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 7.1 9.3 12 12 12zm0 2c-3.1 0-9.3 1.6-9.3 4.7v1.1c0 .6.5 1.1 1.1 1.1h16.4c.6 0 1.1-.5 1.1-1.1v-1.1c0-3.1-6.2-4.7-9.3-4.7z" />
+                    </svg>
+                  </div>
+                )}
+              </div>
 
-            <h2 className="text-lg font-semibold text-white">
-              {usuario.usuario}
-            </h2>
+              <h2 className="text-xl font-semibold text-white">
+                {usuario.username}
+              </h2>
 
-            <div className="mt-2 space-y-1 text-sm text-white">
-              <p>
-                <span className="text-[#A7F3D0] font-medium">Email:</span>{" "}
-                {usuario.email}
-              </p>
-              <p>
-                <span className="text-[#A7F3D0] font-medium">Nacimiento:</span>{" "}
-                {usuario.fechaNacimiento}
-              </p>
-              <p>
-                <span className="text-[#A7F3D0] font-medium">DNI:</span>{" "}
-                {usuario.dni}
-              </p>
+              <div className="mt-2 space-y-1 text-sm text-white">
+                <p>
+                  <span className="text-[#A7F3D0] font-medium">Email:</span>{" "}
+                  {usuario.email}
+                </p>
+              </div>
             </div>
           </div>
 
@@ -139,8 +130,9 @@ export const UserMenuPage = () => {
               <div
                 key={i}
                 onClick={onClick}
-                className={`flex items-center justify-between bg-white/5 backdrop-blur-md rounded-2xl p-4 shadow-md border border-white/10 cursor-pointer transition-transform duration-200 ease-in-out hover:scale-[1.02] active:scale-95 transition ${i === sections.length - 1 ? "hover:bg-[#F93943]/60" : ""
-                  }`}
+                className={`flex items-center justify-between bg-white/5 backdrop-blur-md rounded-2xl p-4 shadow-md border border-white/10 cursor-pointer transition-transform duration-200 ease-in-out hover:scale-[1.02] active:scale-95 transition ${
+                  i === sections.length - 1 ? "hover:bg-[#F93943]/60" : ""
+                }`}
               >
                 <div className="text-3xl">{icon}</div>
                 <div className="flex-1 ml-4 text-white text-base font-medium">
@@ -152,8 +144,6 @@ export const UserMenuPage = () => {
           </div>
         </div>
       </div>
-
-    </ FondoPanelComponent>
-
+    </FondoPanelComponent>
   );
 };

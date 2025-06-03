@@ -1,8 +1,5 @@
 import { useEffect, useState, type FC, type ReactElement } from "react";
-import {
-  usuarioCompletoVacio,
-  type UsuarioCompleto,
-} from "../../../interfaces/Usuario";
+import { UsuarioMe } from "../../../interfaces/Usuario";
 import { conversiorFile } from "../../../utils/conversorServise";
 import { FondoPanelComponent } from "../../../components/__ConfigUser/FondoPanelComponent/FondoPanelComponent";
 import { TituloComponent } from "../../../components/__ConfigUser/PanelComonent/TituloComponent";
@@ -11,37 +8,34 @@ import { httpGetTok, httpPostTok } from "../../../utils/apiService";
 
 export const VeriUserPage: FC = (): ReactElement => {
   // const navigate = useNavigate();
-  const [usuario, setUsuario] = useState<UsuarioCompleto>(usuarioCompletoVacio);
+  const [usuario, setUsuario] = useState<UsuarioMe>(UsuarioMe);
   const [imageSource, setImageSource] = useState<string>("webcam");
   const [image, setImage] = useState<File>();
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-
   useEffect(() => {
     const fetch = async () => {
-      const data = await httpGetTok<UsuarioCompleto>("/usuarios/me");
+      const data = await httpGetTok<UsuarioMe>("/usuarios/me");
       if (data) {
         setUsuario(data);
-        usuario.usuario = "Jorgito2"
       }
     };
     fetch();
-
   }, []);
 
   function setImageConversor(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (file) {
-      setImage(file)
-      console.log(file)
+      setImage(file);
+      console.log(file);
     }
     conversiorFile(e, setImagePreview);
   }
 
   function setImageWebCam(dataUrl: string) {
     fetch(dataUrl)
-      .then(res => res.blob())
-      .then(blob => {
+      .then((res) => res.blob())
+      .then((blob) => {
         const file = new File([blob], "webcam.jpg", { type: "image/jpeg" });
         setImage(file);
         setImagePreview(dataUrl);
@@ -51,12 +45,12 @@ export const VeriUserPage: FC = (): ReactElement => {
   async function handleVerificarImagen() {
     if (!image) return;
     const formData = new FormData();
-    formData.append("usuario", "Jorgito2");
+    formData.append("usuario", usuario.username);
     formData.append("imagen", image);
 
     const resul = await httpPostTok("/carnets/saveimg", formData);
 
-    console.log(resul)
+    console.log(resul);
     console.log("Enviando imagen:", image);
   }
 
@@ -66,7 +60,6 @@ export const VeriUserPage: FC = (): ReactElement => {
         <TituloComponent titulo={"Verificar Identidad"} />
 
         <div className="max-w-4xl mx-auto w-full bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 cursor-pointer">
-
           <div className="mt-6">
             <h3 className="mb-2 text-lg font-semibold">Previsualización:</h3>
             <div className="w-full aspect-video rounded-xl border border-gray-700 shadow-md bg-[#111827] flex items-center justify-center ">
@@ -126,7 +119,9 @@ export const VeriUserPage: FC = (): ReactElement => {
             </div>
           )}
 
-          {imageSource === "webcam" && <ImageWebCame setImage={setImageWebCam} />}
+          {imageSource === "webcam" && (
+            <ImageWebCame setImage={setImageWebCam} />
+          )}
 
           <div className="mt-6 flex justify-center">
             <button

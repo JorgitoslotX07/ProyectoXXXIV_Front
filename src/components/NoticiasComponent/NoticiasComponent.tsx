@@ -1,47 +1,39 @@
-import type { FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import { useNavigate } from "react-router-dom";
+import { httpGetTok } from "../../utils/apiService";
+import { NoticiaProps } from "../../interfaces/NoticiasProps";
+import { createEmptyPage, type PageProps } from "../../interfaces/PageProps";
 
-export const NoticiasComponent: FC = () => {
-  const noticiasMock = [
-    {
-      id: 1,
-      titulo: "Coche compartido",
-      imagen: "./parking_layout_img.png",
-      descripcion: "El uso del car sharing crece un 25% en ciudades españolas.",
-    },
-    {
-      id: 2,
-      titulo: "Movilidad sostenible",
-      imagen: "./parking_layout_img.png",
-      descripcion: "Barcelona amplía su flota de vehículos eléctricos compartidos.",
-    },
-    {
-      id: 3,
-      titulo: "Tecnología",
-      imagen: "./parking_layout_img.png",
-      descripcion: "Nueva app de car sharing con reservas instantáneas y GPS mejorado.",
-    },
-    {
-      id: 4,
-      titulo: "Economía",
-      imagen: "./parking_layout_img.png",
-      descripcion: "Los usuarios ahorran hasta 200€ al mes usando coches compartidos.",
-    },
-    {
-      id: 5,
-      titulo: "Sostenibilidad",
-      imagen: "./parking_layout_img.png",
-      descripcion: "El car sharing reduce 1 tonelada de CO₂ por usuario al año.",
+export const NoticiasComponent: FC<{ size: number }> = ({ size }) => {
+  const [noticias, setNoticias] = useState<PageProps<NoticiaProps>>(
+    createEmptyPage<NoticiaProps>()
+  );
+
+  const peticionNoticias = async () => {
+    const response = await httpGetTok<PageProps<NoticiaProps>>(
+      `/noticias?page=0&size=${size}`
+    );
+    if (response) {
+      setNoticias(response);
+      console.log(response);
+    } else {
+      console.error("Fallo al obtener los datos de la página");
     }
-  ];
+  };
+
+  useEffect(() => {
+    peticionNoticias();
+  }, []);
+
   const navigate = useNavigate();
-  const verNoticia = (noticia: typeof noticiasMock[0]) => {
+  const verNoticia = (noticia: NoticiaProps) => {
     navigate("/noticia", { state: noticia });
   };
+
   return (
     <div className="px-4">
       <div className="flex justify-center items-center gap-4 flex-wrap">
-        {noticiasMock.map((item) => (
+        {noticias.content.map((item) => (
           <div
             key={item.id}
             onClick={() => verNoticia(item)}

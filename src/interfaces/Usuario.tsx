@@ -60,7 +60,6 @@ export const usuarioCompletoVacio: UsuarioCompleto = {
   createdAt: "",
 };
 
-
 export type UsuarioAdministrar = {
   id: number;
   usuario: string;
@@ -70,7 +69,7 @@ export type UsuarioAdministrar = {
   estaBloqueado: boolean;
   motivoBloqueo: string | null;
   createdAt: string;
-}
+};
 
 export const usuarioAdministrarVacio: UsuarioAdministrar = {
   id: 1,
@@ -81,12 +80,11 @@ export const usuarioAdministrarVacio: UsuarioAdministrar = {
   estaBloqueado: false,
   motivoBloqueo: "",
   createdAt: "",
-}
-
+};
 
 export interface UsuarioCarnet {
   id: number;
-  usuario: string,
+  usuario: string;
   nombre: string;
   email: string;
   numeroCarnet: string;
@@ -95,14 +93,14 @@ export interface UsuarioCarnet {
   estado: "PENDIENTE" | "APROBADO" | "RECHAZADO";
 }
 
-
 export interface UsuarioMe {
   email: string;
-  username: string
+  username: string;
+  fotoUrl: string;
 }
 
 export const UsuarioMe: UsuarioMe = {
   email: "",
-  username: ""
-}
-
+  username: "",
+  fotoUrl: "",
+};

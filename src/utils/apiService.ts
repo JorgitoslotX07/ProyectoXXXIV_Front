@@ -66,7 +66,10 @@ export async function httpPost<T, D>(ruta: string, data: D): Promise<T | null> {
   }
 }
 
-export async function httpPostTok<T, D>(ruta: string, data: D): Promise<T | null> {
+export async function httpPostTok<T, D>(
+  ruta: string,
+  data: D
+): Promise<T | null> {
   try {
     const response = await axiosInstance.post<T>(`${API_URL}${ruta}`, data);
     return response.data;
@@ -76,14 +79,16 @@ export async function httpPostTok<T, D>(ruta: string, data: D): Promise<T | null
   }
 }
 
-export async function httpPostTokImg<T, D>(ruta: string, data: D): Promise<T | null> {
+export async function httpPostTokImg<T, D>(
+  ruta: string,
+  data: D
+): Promise<T | null> {
   try {
-    const axio =axiosInstance
+    const axio = axiosInstance;
     // axio.interceptors.request.use((config) => {
-    //     config.headers["Content-Type"] = "multipart/form-data";    
+    //     config.headers["Content-Type"] = "multipart/form-data";
     //   return config;
     // });
-    
 
     const response = await axio.post<T>(`${API_URL}${ruta}`, data);
     return response.data;
@@ -103,7 +108,10 @@ export async function httpPut<T, D>(ruta: string, data: D): Promise<T | null> {
   }
 }
 
-export async function httpPutTok<T, D>(ruta: string, data: D): Promise<T | null> {
+export async function httpPutTok<T, D>(
+  ruta: string,
+  data: D
+): Promise<T | null> {
   try {
     const response = await axiosInstance.put<T>(`${API_URL}${ruta}`, data);
     return response.data;
@@ -113,7 +121,10 @@ export async function httpPutTok<T, D>(ruta: string, data: D): Promise<T | null>
   }
 }
 
-export async function httpPatch<T, D>(ruta: string, data: D): Promise<T | null> {
+export async function httpPatch<T, D>(
+  ruta: string,
+  data: D
+): Promise<T | null> {
   try {
     const response = await axios.patch<T>(`${API_URL}${ruta}`, data);
     return response.data;
@@ -123,7 +134,10 @@ export async function httpPatch<T, D>(ruta: string, data: D): Promise<T | null> 
   }
 }
 
-export async function httpPatchTok<T, D>(ruta: string, data: D): Promise<T | null> {
+export async function httpPatchTok<T, D>(
+  ruta: string,
+  data: D
+): Promise<T | null> {
   try {
     const response = await axiosInstance.patch<T>(`${API_URL}${ruta}`, data);
     return response.data;
@@ -133,7 +147,7 @@ export async function httpPatchTok<T, D>(ruta: string, data: D): Promise<T | nul
   }
 }
 
-export async function httpPatchTokSin<T, D>(ruta: string): Promise<T | null> {
+export async function httpPatchTokSin<T>(ruta: string): Promise<T | null> {
   try {
     const response = await axiosInstance.patch<T>(`${API_URL}${ruta}`);
     return response.data;
@@ -143,7 +157,24 @@ export async function httpPatchTokSin<T, D>(ruta: string): Promise<T | null> {
   }
 }
 
+export async function httpPatchTokImg<T, D>(
+  ruta: string,
+  data: D
+): Promise<T | null> {
+  try {
+    const response = await axiosInstance.patch<T>(`${API_URL}${ruta}`, data, {
+      headers: {
+        ...axiosInstance.defaults.headers.common,
+        "Content-Type": "multipart/form-data",
+      },
+    });
 
+    return response.data;
+  } catch (error) {
+    console.error("PATCH - Error:", error);
+    return null;
+  }
+}
 
 export async function httpDelete<T>(ruta: string): Promise<T | null> {
   try {

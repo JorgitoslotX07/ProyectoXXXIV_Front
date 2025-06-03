@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteCookiesLogin } from "../../../utils/cookisLogin";
-import type { UsuarioCompleto } from "../../../interfaces/Usuario";
+import { UsuarioMe } from "../../../interfaces/Usuario";
 import { httpGetTok } from "../../../utils/apiService";
 import { useUserStore } from "../../../hooks/userStore";
 import { useTranslation } from "react-i18next";
@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 export const UserPopUpComponent = () => {
   const { t } = useTranslation(); // 🎯 hook de traducción
   const [isOpen, setIsOpen] = useState(false);
-  const [usuario, setUsuario] = useState<UsuarioCompleto | null>(null);
+  const [usuario, setUsuario] = useState<UsuarioMe | null>(null);
 
   const setToken = useUserStore((state) => state.setToken);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -17,7 +17,7 @@ export const UserPopUpComponent = () => {
 
   useEffect(() => {
     const fetch = async () => {
-      const data = await httpGetTok<UsuarioCompleto>("/usuarios/me");
+      const data = await httpGetTok<UsuarioMe>("/usuarios/me");
       if (data) {
         setUsuario(data);
       }
@@ -51,7 +51,7 @@ export const UserPopUpComponent = () => {
   return (
     <div className="relative" ref={menuRef}>
       <img
-        src={usuario?.avatar || "/avatar-placeholder.png"}
+        src={usuario?.fotoUrl || "/avatar-placeholder.png"}
         alt="User avatar"
         className="w-10 h-10 rounded-full cursor-pointer border border-gray-500 shadow-md"
         onClick={() => setIsOpen(!isOpen)}
@@ -60,16 +60,16 @@ export const UserPopUpComponent = () => {
       {isOpen && usuario && (
         <div className="absolute right-0 mt-2 w-72 bg-[#1F2937] rounded-xl shadow-2xl p-4 z-50 border border-gray-700 text-white">
           <div className="flex items-center space-x-3">
-            {usuario.avatar && (
+            {usuario.fotoUrl && (
               <img
-                src={usuario.avatar}
+                src={usuario.fotoUrl}
                 alt="avatar"
                 className="w-12 h-12 rounded-full border border-gray-500 shadow"
               />
             )}
 
             <div>
-              <h2 className="text-lg font-semibold">{usuario.usuario}</h2>
+              <h2 className="text-lg font-semibold">{usuario.username}</h2>
               <p className="text-sm text-gray-400">{usuario.email}</p>
             </div>
           </div>

@@ -47,8 +47,7 @@ export const NoticiaDetailPage: FC = () => {
           <h2 className="text-lg font-semibold text-gray-900 mb-5 pl-21">
             Otras noticias
           </h2>
-          <NoticiasComponent />{" "}
-          {/* Puedes personalizarlo para que no sea clicable si ya estás en una */}
+          <NoticiasComponent size={20} />{" "}
         </aside>
       </div>
     </main>
