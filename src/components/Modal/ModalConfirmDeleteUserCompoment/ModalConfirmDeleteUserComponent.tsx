@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { httpDelete } from "../../../utils/apiService";
+import { httpDelete, httpDeleteTok } from "../../../utils/apiService";
 import type { ModalGestionUserProps } from "../../../interfaces/ModalProps";
 import { ModalBaseComponent } from "../ModalBaseComponent/ModalBaseComponent";
 
@@ -8,6 +8,9 @@ export const ModalConfirmDeleteUserComponent: FC<ModalGestionUserProps> = ({ onC
   const onConfirm = async () => {
     // await httpDelete("rutaDeleteUser" + usuario?.id);
     console.log("Delete User", usuario)
+
+    const response = await httpDeleteTok(`/usuarios/${usuario?.id}`)
+    console.log(response)
 
   }
 
@@ -31,7 +34,7 @@ export const ModalConfirmDeleteUserComponent: FC<ModalGestionUserProps> = ({ onC
           </button>
         </div>
       </ModalBaseComponent>
-      
+
     </>
   );
 }

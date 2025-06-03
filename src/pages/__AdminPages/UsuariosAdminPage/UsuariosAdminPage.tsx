@@ -3,12 +3,10 @@ import { useEffect, useState } from "react";
 import { usuarioAdministrarVacio, type UsuarioAdministrar } from "../../../interfaces/Usuario";
 import { ModalEditUserComponent } from "../../../components/Modal/ModalEditUserComponent/ModalEditUserComponent";
 import { ModalConfirmDeleteUserComponent } from "../../../components/Modal/ModalConfirmDeleteUserCompoment/ModalConfirmDeleteUserComponent";
-import { BotonAgregarComponent } from "../../../components/__Admin/BotonAgregarComponent/BotonAgregarComponent";
-import { ModalAddUserComponent } from "../../../components/Modal/ModalAddUserComponent/ModalAddUserComponent";
+
 import { PaginacionComponent } from "../../../components/PaginacionComponent/PaginacionComponent";
 import { createEmptyPage, type PageProps } from "../../../interfaces/PageProps";
-import { httpGetTok } from "../../../utils/apiService";
-import type { NoticiaProps } from "../../../interfaces/NoticiasProps";
+import { httpGetTok, httpPatchTokSin } from "../../../utils/apiService";
 
 
 export const UsuariosAdminPage: FC = () => {
@@ -18,7 +16,6 @@ export const UsuariosAdminPage: FC = () => {
 
     const [showUpdateUser, setShowUpdateUser] = useState<boolean>(false);
     const [showDeleteUser, setShowDeleteUser] = useState<boolean>(false);
-    const [showAddUser, setShowAddUser] = useState<boolean>(false);
 
     const [paginaActual, setPaginaActual] = useState(0);
     const [pageSize, setPageSize] = useState(20);
@@ -54,16 +51,20 @@ export const UsuariosAdminPage: FC = () => {
         setShowDeleteUser(true);
     };
 
-    const handleAgregar = () => {
-        setShowAddUser(true);
+    const handleAdmin = async (usuario: UsuarioAdministrar) => {
+        const response = await httpPatchTokSin(`/usuarios/admin/${usuario.id}`)
+        console.log(response)
 
     }
+
+    
 
     return (
         <>
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-bold">Gestión de Usuarios</h1>
-                <BotonAgregarComponent text={"Añadir Usuario"} onClick={handleAgregar} />
+                {/* <BotonAgregarComponent text={"Añadir Usuario"} onClick={handleAgregar} /> */}
+
             </div>
             <div className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-lg text-white">
 
@@ -98,15 +99,21 @@ export const UsuariosAdminPage: FC = () => {
                                     <td className="p-2 space-x-2">
                                         <button
                                             onClick={() => handleEditar(usuario)}
-                                            className="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-md text-xs"
+                                            className="bg-orange-600 hover:bg-orange-500 text-white px-3 py-1 rounded-md text-xs"
                                         >
-                                            Editar
+                                            Bloquear
                                         </button>
                                         <button
                                             onClick={() => handleEliminar(usuario)}
                                             className="bg-red-600 hover:bg-red-500 text-white px-3 py-1 rounded-md text-xs"
                                         >
                                             Eliminar
+                                        </button>
+                                        <button
+                                            onClick={() => handleAdmin(usuario)}
+                                            className="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-md text-xs"
+                                        >
+                                            Hacer ADMIN
                                         </button>
                                     </td>
                                 </tr>
@@ -137,9 +144,6 @@ export const UsuariosAdminPage: FC = () => {
 
             </div>
 
-            {showAddUser && (
-                <ModalAddUserComponent onClose={() => setShowAddUser(false)}/>
-            )}
             {showUpdateUser && (
                 <ModalEditUserComponent onClose={() => setShowUpdateUser(false)} usuario={userSelect} />
             )}

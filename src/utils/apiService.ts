@@ -113,6 +113,38 @@ export async function httpPutTok<T, D>(ruta: string, data: D): Promise<T | null>
   }
 }
 
+export async function httpPatch<T, D>(ruta: string, data: D): Promise<T | null> {
+  try {
+    const response = await axios.patch<T>(`${API_URL}${ruta}`, data);
+    return response.data;
+  } catch (error) {
+    console.error("PUT - Error:", error);
+    return null;
+  }
+}
+
+export async function httpPatchTok<T, D>(ruta: string, data: D): Promise<T | null> {
+  try {
+    const response = await axiosInstance.patch<T>(`${API_URL}${ruta}`, data);
+    return response.data;
+  } catch (error) {
+    console.error("PUT - Error:", error);
+    return null;
+  }
+}
+
+export async function httpPatchTokSin<T, D>(ruta: string): Promise<T | null> {
+  try {
+    const response = await axiosInstance.patch<T>(`${API_URL}${ruta}`);
+    return response.data;
+  } catch (error) {
+    console.error("PUT - Error:", error);
+    return null;
+  }
+}
+
+
+
 export async function httpDelete<T>(ruta: string): Promise<T | null> {
   try {
     const response = await axios.delete<T>(`${API_URL}${ruta}`);
