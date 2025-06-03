@@ -25,11 +25,6 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
       options: obtenerOpcionesUnicas(vehiculos, "marca"),
     },
     {
-      label: t("catalog.filters.model"),
-      name: "modelo",
-      options: obtenerOpcionesUnicas(vehiculos, "modelo"),
-    },
-    {
       label: t("catalog.filters.type"),
       name: "tipo",
       options: obtenerOpcionesUnicas(vehiculos, "tipo"),

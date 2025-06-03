@@ -47,6 +47,7 @@ export const VeriUserPage: FC = (): ReactElement => {
     const formData = new FormData();
     formData.append("usuario", usuario.username);
     formData.append("imagen", image);
+    console.log(usuario.username)
 
     const resul = await httpPostTok("/carnets/saveimg", formData);
 

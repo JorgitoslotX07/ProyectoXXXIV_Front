@@ -2,8 +2,8 @@ import {
   MapContainer,
   TileLayer,
   Marker,
-  // Rectangle,
-  // Tooltip,
+  Rectangle,
+  Tooltip,
 } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import L, { Map as LeafletMap, type LatLngTuple } from "leaflet";
@@ -13,13 +13,16 @@ import "leaflet/dist/leaflet.css";
 import { useEffect, useRef, useState } from "react";
 import type { Vehiculo, DatosVehiculo } from "../../../interfaces/Vehiculo";
 import { FiltrersCatalogComponent } from "../../FiltrersCatalogComponent/FiltrersCatalogComponent";
-import { httpGet } from "../../../utils/apiService";
+import { httpGet, httpGetTok } from "../../../utils/apiService";
 import type { ZonaParking } from "../../../interfaces/ZonaParkinsProps";
 import { useTranslation } from "react-i18next";
 import { LegendComponent } from "../../LegendComponent/LegendComponent";
 import { TipoVehiculo } from "../../../utils/enum/tipoVehiculos";
 import { GeneredFilterComponent } from "../../GeneredFilterComponent/GeneredFilterComponent";
 import type { FilterCategory } from "../../../interfaces/GeneredFilterComponentProp";
+import { Parking } from "../../../interfaces/Parking";
+import type { PageProps } from "../../../interfaces/PageProps";
+import { getPolygonCenter } from "../../../utils/conversorServise";
 
 const crearIconoCoche = (esSeleccionado: boolean) => {
   const color = esSeleccionado ? "#4ade80" : "#3b82f6";
@@ -43,37 +46,37 @@ const crearIconoCoche = (esSeleccionado: boolean) => {
   });
 };
 
-// const crearIconoParking = (esSeleccionado: boolean) => {
-//   const color = esSeleccionado ? "#4ade80" : "#10b981";
-//   const sombra = esSeleccionado ? "filter: drop-shadow(0 0 6px #4ade80);" : "";
+const crearIconoParking = (esSeleccionado: boolean) => {
+  const color = esSeleccionado ? "#4ade80" : "#10b981";
+  const sombra = esSeleccionado ? "filter: drop-shadow(0 0 6px #4ade80);" : "";
 
-//   const extraStyle = esSeleccionado
-//     ? "animation: bounce 0.6s ease; transform: translate(-50%, -50%) scale(1.1);"
-//     : "transform: translate(-50%, -50%) scale(1);";
-//   //el extraStyle no esta comillado, revisar mas adelante
-//   return L.divIcon({
-//     className: "",
-//     html: `
-//     <div style=${extraStyle} ${sombra}">
-//           <svg width="40" height="45" viewBox="0 0 40 45" xmlns="http://www.w3.org/2000/svg">
-//           <circle cx="15" cy="15" r="14" fill="${color}" />
-//           <text
-//             x="40%"
-//             y="35%"
-//             text-anchor="middle"
-//             dominant-baseline="central"
-//             fill="white"
-//             font-size="20px"
-//             font-family="Arial, sans-serif">
-//             P
-//           </text>
-//         </svg>
-//       </div>
-//     `,
-//     iconSize: [30, 30],
-//     iconAnchor: [15, 30],
-//   });
-// };
+  const extraStyle = esSeleccionado
+    ? "animation: bounce 0.6s ease; transform: translate(-50%, -50%) scale(1.1);"
+    : "transform: translate(-50%, -50%) scale(1);";
+  //el extraStyle no esta comillado, revisar mas adelante
+  return L.divIcon({
+    className: "",
+    html: `
+    <div style=${extraStyle} ${sombra}">
+          <svg width="40" height="45" viewBox="0 0 40 45" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="15" cy="15" r="14" fill="${color}" />
+          <text
+            x="40%"
+            y="35%"
+            text-anchor="middle"
+            dominant-baseline="central"
+            fill="white"
+            font-size="20px"
+            font-family="Arial, sans-serif">
+            P
+          </text>
+        </svg>
+      </div>
+    `,
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+  });
+};
 
 const ciudades = [
   { nombre: "Tarragona", coords: [41.1189, 1.2445] as LatLngTuple },
@@ -95,9 +98,11 @@ const CochesMapComponent = () => {
     useState<DatosVehiculo | null>(null);
   const [mostrarTarjeta, setMostrarTarjeta] = useState(false);
   // const [parkingSeleccionado, setParkingSeleccionado] = useState<typeof zonasParking[0] | null>(null);
+  const [zonasParking, setZonasParking] =
+    useState<Parking[]>([]);
   const [parkingSeleccionado, setParkingSeleccionado] =
-    useState<ZonaParking | null>(null);
-  // const [mostrarParkings, setMostrarParkings] = useState(true);
+    useState<Parking>(Parking);
+  const [mostrarParkings, setMostrarParkings] = useState(true);
 
   const [posicionInicialMapa, setPosicionInicialMapa] = useState<LatLngTuple>([
     41.1189, 1.2445,
@@ -129,12 +134,12 @@ const CochesMapComponent = () => {
     options: Object.values(TipoVehiculo).map((tipo) => ({
       value: tipo,
       label: tipo,
-      logo: `/iconosVehiculo/${tipo.toLowerCase()}.svg`, // Opcional
+      logo: `/iconosVehiculo/${tipo.toLowerCase()}.svg`,
     })),
   };
 
   async function peticionVehiculos(tipo: string | null = null) {
-    const filTipo: string = tipo ? `?tipo=${tipoSeleccionado}` : "";
+    const filTipo: string = tipo ? `?tipo=${tipo}` : "";
     const response = await httpGet<Vehiculo[]>(
       `/vehiculos/ubicaciones${filTipo}`
     );
@@ -143,14 +148,30 @@ const CochesMapComponent = () => {
       console.log(response);
       setVehiculos(response);
       setVehiculosFiltrados(response);
+      console.log(filtrosActivos)
+      // tipo && actualizarFiltro("localidad", filtrosActivos["localidad"]);
     } else {
       console.error("Error al cargar vehículos");
     }
   }
 
+  const peticionParkings = async () => {
+    const response = await httpGetTok<PageProps<Parking>>(`/parkings?page=0&size=100`);
+    if (response) {
+      setZonasParking(response.content);
+    } else {
+        console.error("Fallo al obtener los datos de la página");
+    }
+};
+
   useEffect(() => {
     peticionVehiculos();
+    peticionParkings();
   }, []);
+
+  useEffect(() => {
+    Object.keys(filtrosActivos).length !== 0 && actualizarFiltro("localidad", filtrosActivos["localidad"]);
+  }, [vehiculos]);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -210,52 +231,55 @@ const CochesMapComponent = () => {
     clave: string,
     valor: string | number | boolean
   ) => {
-    const nuevosFiltros = { ...filtrosActivos, [clave]: valor };
-    if (valor === "" || valor === null) delete nuevosFiltros[clave];
-    setFiltrosActivos(nuevosFiltros);
+    console.log("por aqui no pasar")
+    if (vehiculos.length != 0) {
+      const nuevosFiltros = { ...filtrosActivos, [clave]: valor };
+      if (valor === "" || valor === null) delete nuevosFiltros[clave];
+      setFiltrosActivos(nuevosFiltros);
 
-    const contenidoFiltrado = vehiculos.filter((vehiculo) => {
-      return Object.entries(nuevosFiltros).every(([clave, valor]) => {
-        const propiedad = vehiculo[clave as keyof Vehiculo];
-        switch (clave) {
-          case "localidad":
-            return typeof propiedad === "string"
-              ? propiedad
+      const contenidoFiltrado = vehiculos.filter((vehiculo) => {
+        return Object.entries(nuevosFiltros).every(([clave, valor]) => {
+          const propiedad = vehiculo[clave as keyof Vehiculo];
+          switch (clave) {
+            case "localidad":
+              return typeof propiedad === "string"
+                ? propiedad
                   .toLowerCase()
                   .includes((valor as string).toLowerCase())
-              : false;
-          default:
-            return true;
-        }
+                : false;
+            default:
+              return true;
+          }
+        });
       });
-    });
 
-    setVehiculosFiltrados(contenidoFiltrado);
+      setVehiculosFiltrados(contenidoFiltrado);
 
-    if (clave === "localidad") {
-      const normalizar = (t: string) => t.toLowerCase().replace(/[\s-_]/g, "");
-      const ciudad = ciudades.find(
-        (c) => normalizar(c.nombre) === normalizar(valor as string)
-      );
-      if (ciudad) {
-        centrarMapa(ciudad.coords, 13);
-      }
-    } else {
-      // Si no hay filtro de ciudad activo, y se aplicó otro filtro, ajustamos a todas las zonas
-      const hayFiltroCiudad = Object.keys(nuevosFiltros).includes("localidad");
-
-      if (!hayFiltroCiudad && contenidoFiltrado.length > 0) {
-        // Cerrar tarjeta si hay alguna
-        setVehiculoSeleccionado(null);
-        setMostrarTarjeta(false);
-        const bounds = L.latLngBounds(
-          contenidoFiltrado.map((v) => [v.latitud, v.longitud])
+      if (clave === "localidad") {
+        const normalizar = (t: string) => t.toLowerCase().replace(/[\s-_]/g, "");
+        const ciudad = ciudades.find(
+          (c) => normalizar(c.nombre) === normalizar(valor as string)
         );
-        if (mapRef.current) {
-          mapRef.current.flyToBounds(bounds, {
-            padding: [80, 80],
-            duration: 2,
-          });
+        if (ciudad) {
+          centrarMapa(ciudad.coords, 13);
+        }
+      } else {
+        // Si no hay filtro de ciudad activo, y se aplicó otro filtro, ajustamos a todas las zonas
+        const hayFiltroCiudad = Object.keys(nuevosFiltros).includes("localidad");
+
+        if (!hayFiltroCiudad && contenidoFiltrado.length > 0) {
+          // Cerrar tarjeta si hay alguna
+          setVehiculoSeleccionado(null);
+          setMostrarTarjeta(false);
+          const bounds = L.latLngBounds(
+            contenidoFiltrado.map((v) => [v.latitud, v.longitud])
+          );
+          if (mapRef.current) {
+            mapRef.current.flyToBounds(bounds, {
+              padding: [80, 80],
+              duration: 2,
+            });
+          }
         }
       }
     }
@@ -315,11 +339,11 @@ const CochesMapComponent = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             noWrap={true}
           />
-          {/* {mostrarParkings &&
+          {mostrarParkings &&
             zonasParking.map((zona) => (
               <Rectangle
                 key={zona.id}
-                bounds={zona.bounds}
+                bounds={zona.polygon}
                 pathOptions={{ color: "green", weight: 2, fillOpacity: 0.2 }}
                 eventHandlers={{
                   click: () => {
@@ -331,7 +355,7 @@ const CochesMapComponent = () => {
                 }}
               >
                 <Tooltip direction="top" offset={[0, 10]} opacity={1}>
-                  {zona.nombre}
+                  {zona.name}
                 </Tooltip>
               </Rectangle>
             ))}
@@ -339,10 +363,10 @@ const CochesMapComponent = () => {
             zonasParking.map((zona) => (
               <Marker
                 key={`marker-${zona.id}`}
-                position={[
-                  (zona.bounds[0][0] + zona.bounds[1][0]) / 2,
-                  (zona.bounds[0][1] + zona.bounds[1][1]) / 2,
-                ]}
+                position={getPolygonCenter(zona.polygon)
+                  // (zona.bounds[0][0] + zona.bounds[1][0]) / 2,
+                  // (zona.bounds[0][1] + zona.bounds[1][1]) / 2,
+                }
                 icon={crearIconoParking(parkingSeleccionado?.id === zona.id)}
                 eventHandlers={{
                   click: () => {
@@ -352,7 +376,7 @@ const CochesMapComponent = () => {
                     setTimeout(() => setMostrarTarjeta(true), 500);
 
                     if (mapRef.current) {
-                      mapRef.current.fitBounds(zona.bounds, {
+                      mapRef.current.fitBounds(zona.polygon, {
                         padding: [40, 40],
                         duration: 1.5,
                       });
@@ -360,9 +384,10 @@ const CochesMapComponent = () => {
                   },
                 }}
               />
-            ))} */}
+            ))}
 
           <MarkerClusterGroup
+            key={vehiculosFiltrados.map(v => v.id).join("-")}
             chunkedLoading
             spiderfyOnMaxZoom
             zoomToBoundsOnClick
@@ -471,20 +496,20 @@ const CochesMapComponent = () => {
           <div className="fixed bottom-6 left-8 bg-white p-4 rounded-xl shadow-xl w-80 animate-fadein z-[11]">
             <button
               onClick={() => {
-                setParkingSeleccionado(null);
+                setParkingSeleccionado(Parking);
                 setMostrarTarjeta(false);
               }}
               className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-lg"
             >
               ✕
             </button>
-            <img
-              src={parkingSeleccionado.foto}
-              alt={parkingSeleccionado.nombre}
+            {/* <img
+              src={parkingSeleccionado.name}
+              alt={parkingSeleccionado.name}
               className="w-full h-36 object-cover rounded mb-4"
-            />
+            /> */}
             <h2 className="text-xl font-bold mb-1">
-              {parkingSeleccionado.nombre}
+              {parkingSeleccionado.name}
             </h2>
             <p className="text-sm text-gray-500 mb-2">
               🅿️ {t("map.parkingZone")}
