@@ -1,39 +1,41 @@
 import type { FC } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   modoClaro: boolean;
 }
 
-const adminItems = [
-  {
-    icon: "👥",
-    title: "Gestión de Usuarios",
-    description: "Agregar, editar, validar y eliminar usuarios.",
-    route: "/admin/usuarios",
-  },
-  {
-    icon: "🚗",
-    title: "Gestión de Vehículos",
-    description: "Control y seguimiento de vehículos.",
-    route: "/admin/vehiculos",
-  },
-  {
-    icon: "📍",
-    title: "Mapa de Parkings",
-    description: "Crear y administrar parkings en el mapa.",
-    route: "/admin/parkings",
-  },
-  {
-    icon: "📰",
-    title: "Noticias",
-    description: "Publicar y gestionar novedades.",
-    route: "/admin/noticias",
-  },
-];
-
 export const PanelInicialAdminPage: FC<Props> = ({ modoClaro }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
+  const adminItems = [
+    {
+      icon: "👥",
+      title: t("adminPanel.users.title"),
+      description: t("adminPanel.users.description"),
+      route: "/admin/usuarios",
+    },
+    {
+      icon: "🚗",
+      title: t("adminPanel.vehicles.title"),
+      description: t("adminPanel.vehicles.description"),
+      route: "/admin/vehiculos",
+    },
+    {
+      icon: "📍",
+      title: t("adminPanel.parkings.title"),
+      description: t("adminPanel.parkings.description"),
+      route: "/admin/parkings",
+    },
+    {
+      icon: "📰",
+      title: t("adminPanel.news.title"),
+      description: t("adminPanel.news.description"),
+      route: "/admin/noticias",
+    },
+  ];
 
   return (
     <div
@@ -43,7 +45,9 @@ export const PanelInicialAdminPage: FC<Props> = ({ modoClaro }) => {
           : "bg-[rgb(22,23,64)] [background-image:radial-gradient(at_47%_33%,hsl(163.5,83%,24%)_0,#0a0a0a_59%),radial-gradient(at_82%_65%,hsl(218.82,77%,21%)_0,transparent_55%)] text-white"
       }`}
     >
-      <h1 className="text-3xl font-bold text-center mb-10">Panel de Administración</h1>
+      <h1 className="text-3xl font-bold text-center mb-10">
+        {t("adminPanel.title")}
+      </h1>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto">
         {adminItems.map((item) => (

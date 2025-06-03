@@ -197,7 +197,7 @@
     "condiciones": "Terms of Service",
     "privacidad": "Privacy Policy",
     "info": "Corporate Information",
-    "sobreNosotros": "About Us",
+    "sobrenosotros": "About Us",
     "marcas": "Brands",
     "afiliados": "Affiliates",
     "inversores": "Investors",
@@ -256,5 +256,173 @@
     "tracking": "Tracking",
     "parkings": "Parkings",
     "news": "News"
+  },
+  "adminPanel": {
+    "title": "Admin Dashboard",
+    "users": {
+      "title": "User Management",
+      "description": "Add, edit, validate and remove users."
+    },
+    "vehicles": {
+      "title": "Vehicle Management",
+      "description": "Monitor and manage vehicles."
+    },
+    "parkings": {
+      "title": "Parking Map",
+      "description": "Create and manage parking locations on the map."
+    },
+    "news": {
+      "title": "News",
+      "description": "Publish and manage updates."
+    }
+  },
+
+  "adminUsers": {
+    "title": "User Management",
+    "table": {
+      "username": "Username",
+      "email": "Email",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "active": "Active",
+      "blocked": "Blocked"
+    },
+    "actions": {
+      "block": "Block",
+      "delete": "Delete",
+      "makeAdmin": "Make ADMIN"
+    },
+    "noUsers": "No users registered."
+  },
+
+  "carnet": {
+    "title": "License Validation",
+    "loading": "Loading licenses…",
+    "noPending": "No licenses to validate.",
+    "fields": {
+      "name": "Name",
+      "cardNumber": "License No.",
+      "issueDate": "Issue Date",
+      "status": "Status"
+    },
+    "status": {
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "actions": {
+      "approve": "Approve",
+      "reject": "Reject"
+    }
+  },
+  "adminVehicles": {
+    "title": "Vehicle Management",
+    "addButton": "Add Vehicle",
+    "table": {
+      "id": "ID",
+      "brand": "Brand",
+      "model": "Model",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "DISPONIBLE": "Available",
+      "EN_USO": "In Use",
+      "RESERVADO": "Reserved",
+      "EN_MANTENIMIENTO": "Under Maintenance"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+    "track": {
+    "title": "Vehicle Tracking",
+    "vehicles": "Vehicles",
+    "id": "ID",
+    "route": "Route of",
+    "lat": "Lat",
+    "lng": "Lng"
+  },
+
+  "createParking": {
+    "title": "New Parking",
+    "alert": {
+      "noPolygon": "Please draw the parking area on the map."
+    }
+  },
+  "parkingForm": {
+    "label": {
+      "name": "Name",
+      "capacity": "Capacity"
+    },
+    "placeholder": {
+      "name": "Enter the parking name...",
+      "capacity": "Enter maximum capacity..."
+    },
+    "button": {
+      "save": "Save"
+    },
+    "validation": {
+      "nameRequired": "Name is required.",
+      "capacityRequired": "Capacity must be greater than 0."
+    }
+  },
+
+"admin": {
+  "vehiculos": {
+    "titulo": "Vehicle Management",
+    "botonAgregar": "Add Vehicle",
+    "tabla": {
+      "id": "ID",
+      "marca": "Brand",
+      "modelo": "Model",
+      "estado": "Status",
+      "acciones": "Actions"
+    },
+    "acciones": {
+      "editar": "Edit",
+      "eliminar": "Delete"
+    },
+    "estado": {
+      "DISPONIBLE": "Available",
+      "EN_USO": "In Use",
+      "RESERVADO": "Reserved",
+      "EN_MANTENIMIENTO": "Under Maintenance"
+    }
+  },
+  "parkings": {
+    "title": "Parking Management",
+    "addButton": "Add Parking",
+    "table": {
+      "name": "Name",
+      "capacity": "Capacity",
+      "location": "Location",
+      "actions": "Actions"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    }
+  },
+ "news": {
+    "title": "News Management",
+    "addButton": "Add News",
+    "table": {
+      "title": "Title",
+      "date": "Date",
+      "published": "Published",
+      "actions": "Actions"
+    },
+    "status": {
+      "yes": "Yes",
+      "no": "No"
+    },
+    "actions": {
+      "edit": "Edit",
+      "delete": "Delete"
+    }
   }
-}
+}}
