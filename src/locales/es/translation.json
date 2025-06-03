@@ -400,5 +400,8 @@
         "delete": "Eliminar"
       }
     }
-  }
+  },
+  "promo": {
+  "title": "Coches Populares"
+}
 }

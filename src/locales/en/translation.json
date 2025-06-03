@@ -424,5 +424,13 @@
       "edit": "Edit",
       "delete": "Delete"
     }
-  }
-}}
+  },
+  "promo": {
+  "title": "Popular Cars"
+}
+},
+"promo": {
+  "title": "Popular Cars"
+}
+
+}

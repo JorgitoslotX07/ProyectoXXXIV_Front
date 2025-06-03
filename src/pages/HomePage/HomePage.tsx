@@ -3,12 +3,12 @@ import { NoticiasComponent } from "../../components/NoticiasComponent/NoticiasCo
 import { CochesPromoComponent } from "../../components/CochesPromoComponent/CochesPromoComponent";
 import { SearchFastComponent } from "../../components/SearchFastComponent/SearchFastComponent";
 import { NotiToastComponent } from "../../components/NotiToastComponents/NotiToastComponet";
-import {
-  mostrarError,
-  mostrarInfo,
-  mostrarSuccess,
-  mostrarWarning,
-} from "../../utils/notiToast";
+// import {
+//   mostrarError,
+//   mostrarInfo,
+//   mostrarSuccess,
+//   mostrarWarning,
+// } from "../../utils/notiToast";
 import { Link } from "react-router-dom";
 import type { HomePageProps } from "../../interfaces/HomePageProps";
 import { useTranslation } from "react-i18next";
@@ -25,10 +25,10 @@ export const HomePage: FC<Props> = ({
   const { t } = useTranslation();
 
   useEffect(() => {
-    mostrarError("Error al Entrar");
-    mostrarInfo("Info al Entrar");
-    mostrarWarning("Warning al Entrar");
-    mostrarSuccess("Success al Entrar");
+    // mostrarError("Error al Entrar");
+    // mostrarInfo("Info al Entrar");
+    // mostrarWarning("Warning al Entrar");
+    // mostrarSuccess("Success al Entrar");
   }, []);
 
   // text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); filter: sepia(0.4);
@@ -43,7 +43,7 @@ export const HomePage: FC<Props> = ({
       >
         {/* 🔍 Sección de búsqueda inicial */}
         <div className="relative">
-     <div
+  <div
   className={`absolute inset-0 overflow-hidden z-0`}
 >
   {/* Imagen de fondo ampliada y difuminada */}
@@ -78,7 +78,7 @@ export const HomePage: FC<Props> = ({
           className={`pt-20 px-10 ${modoClaro ? "text-yellow-500" : "text-[#C4B5FD]"
             }`}
         >
-          <CochesPromoComponent />
+          <CochesPromoComponent modoClaro={modoClaro} />
         </div>
 
         {/* 🧊 Sección beneficios */}
