@@ -128,7 +128,8 @@ export const SearchFastComponent: FC<Props> = ({
           ? "bg-[#A7F3D0] text-[#111827] border-transparent shadow-md"
           : modoClaro
             ? "bg-black/20 text-white border-white/30 hover:bg-black/30"
-            : "bg-white/10 text-white border-white/20 hover:bg-white/20"
+            // : "bg-white/10 text-white border-white/20 hover:bg-white/20"
+            :"bg-black/20 text-white border-white/30 hover:bg-black/30"
       }`}
     >
       <img src={icon} alt={label} className="w-6 h-6" />
