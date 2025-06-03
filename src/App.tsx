@@ -31,6 +31,8 @@ import { NoticiasAdminPage } from "./pages/__AdminPages/NoticiasAdminPage/Notici
 import { PanelInicialAdminPage } from "./pages/__AdminPages/PanelInicialAdminPage/PanelInicialAdminPage";
 import { CrearParkingPage } from "./pages/__AdminPages/CrearParkingPage/CrearParkingPage";
 import { useThemeContext } from "./context/ThemeContext";
+import { FinishTripPage } from "./pages/FinishTripPage/FinishTripPage";
+
 
 // Footer pages
 import SobreNosotrosPage from "./pages/FooterPages/SobreNosotrosPage";
@@ -86,7 +88,8 @@ function App() {
         <Route path="/register" element={<RegistroPage modoClaro={modoClaro} />} />
         <Route path="/catalog">
           <Route index element={<CatalogPage modoClaro={modoClaro} />} />
-          <Route path="carDetail" element={<CarDetailPage modoClaro={modoClaro} />} />
+          <Route path="carDetail" element={<CarDetailPage />} />
+          <Route path="carDetail/finish-trip" element={<FinishTripPage />} />
         </Route>
         <Route path="/map" element={<MapPage modoClaro={modoClaro} />} />
         <Route path="/noticia" element={<NoticiaDetailPage />} />
@@ -128,6 +131,8 @@ function App() {
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/soporte" element={<SoportePage />} />
         <Route path="/foro" element={<ForoPage />} />
+        
+
 
       </Routes>
 

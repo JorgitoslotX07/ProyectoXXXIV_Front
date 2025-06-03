@@ -234,14 +234,13 @@ export const CarDetailPage: FC<Props> = ({ modoClaro }) => {
         <CochesPromoComponent modoClaro={modoClaro} />
       </div>
 
-      {/* POPUP DE PAGO */}
-      {showPaymentPopup && (
-        <ModalPaymentComponent
-          onClose={() => setShowPaymentPopup(false)}
-          vehicle={vehiculo}
-          onSubmit={peticionPago}
-        />
-      )}
-    </div>
+      {/* POPUP DE RESERVA */}
+      {
+        showPaymentPopup && (
+
+          <ModalPaymentComponent onClose={() => setShowPaymentPopup(false)} vehicle={vehiculo} onSubmit={peticionPago} />
+        )
+      }
+    </div >
   );
 };
