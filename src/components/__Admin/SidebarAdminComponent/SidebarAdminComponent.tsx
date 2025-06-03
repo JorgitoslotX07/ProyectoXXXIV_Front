@@ -1,20 +1,22 @@
 import type { FC } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useThemeContext } from "../../../context/ThemeContext";
-
-const links = [
-  { to: "/admin", label: "Panel Inicial" },
-  { to: "/admin/usuarios", label: "Usuarios" },
-  { to: "/admin/usuarios/validacion-carnet", label: "Validar Carnets" },
-  { to: "/admin/vehiculos", label: "Vehículos" },
-  { to: "/admin/vehiculos/seguimiento", label: "Seguimiento" },
-  { to: "/admin/parkings", label: "Parkings" },
-  { to: "/admin/noticias", label: "Noticias" },
-];
+import { useTranslation } from "react-i18next";
 
 export const SidebarAdminComponent: FC = () => {
   const location = useLocation();
   const { modoClaro } = useThemeContext();
+  const { t } = useTranslation();
+
+  const links = [
+    { to: "/admin", label: t("sidebarAdmin.initialPanel") },
+    { to: "/admin/usuarios", label: t("sidebarAdmin.users") },
+    { to: "/admin/usuarios/validacion-carnet", label: t("sidebarAdmin.validateLicenses") },
+    { to: "/admin/vehiculos", label: t("sidebarAdmin.vehicles") },
+    { to: "/admin/vehiculos/seguimiento", label: t("sidebarAdmin.tracking") },
+    { to: "/admin/parkings", label: t("sidebarAdmin.parkings") },
+    { to: "/admin/noticias", label: t("sidebarAdmin.news") },
+  ];
 
   return (
     <aside
@@ -29,7 +31,7 @@ export const SidebarAdminComponent: FC = () => {
           modoClaro ? "border-[#f5e9c8]" : "border-gray-700"
         }`}
       >
-        🛠️ Admin
+        {t("sidebarAdmin.title")}
       </h2>
       <nav className="flex flex-col space-y-2">
         {links.map(({ to, label }) => (

@@ -83,7 +83,7 @@ function App() {
           }
         />
 
-        <Route path="/register" element={<RegistroPage />} />
+        <Route path="/register" element={<RegistroPage modoClaro={modoClaro} />} />
         <Route path="/catalog">
           <Route index element={<CatalogPage modoClaro={modoClaro} />} />
           <Route path="carDetail" element={<CarDetailPage />} />

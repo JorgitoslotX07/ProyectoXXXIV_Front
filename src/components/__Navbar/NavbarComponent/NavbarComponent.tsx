@@ -31,24 +31,22 @@ export const NavbarComponent: FC<Props> = ({ onLoginClick, modoClaro }) => {
       {/* Enlaces */}
       <ul className="flex space-x-8 font-medium">
         <li
-          className={`transition-colors duration-200 ${modoClaro ? "hover:text-black" : "hover:text-white"
-            }`}
+          className={`transition-colors duration-200 ${modoClaro ? "hover:text-black" : "hover:text-white"}`}
         >
           <Link to="/catalog">{t("navbar.catalog")}</Link>
         </li>
         <li
-          className={`transition-colors duration-200 ${modoClaro ? "hover:text-black" : "hover:text-white"
-            }`}
+          className={`transition-colors duration-200 ${modoClaro ? "hover:text-black" : "hover:text-white"}`}
         >
           <Link to="/map">{t("navbar.map")}</Link>
         </li>
         <li
-          className={`transition-colors duration-200 ${modoClaro ? "hover:text-black" : "hover:text-white"
-            }`}
+          className={`transition-colors duration-200 ${modoClaro ? "hover:text-black" : "hover:text-white"}`}
         >
-          <Link to="/admin">Administración</Link>
+          <Link to="/admin">{t("navbar.admin")}</Link>
         </li>
       </ul>
+
 
       {/* Botones y selector */}
       <div className="flex items-center space-x-4">
@@ -58,8 +56,8 @@ export const NavbarComponent: FC<Props> = ({ onLoginClick, modoClaro }) => {
           <span
             onClick={onLoginClick}
             className={`cursor-pointer px-4 py-1.5 rounded-full transition duration-200 ${modoClaro
-                ? "bg-yellow-400 text-[#333] hover:bg-yellow-500"
-                : "bg-white/10 text-white hover:bg-white/20"
+              ? "bg-yellow-400 text-[#333] hover:bg-yellow-500"
+              : "bg-white/10 text-white hover:bg-white/20"
               }`}
           >
             {t("navbar.login")}
@@ -68,8 +66,8 @@ export const NavbarComponent: FC<Props> = ({ onLoginClick, modoClaro }) => {
         <ThemeButtonComponent />
         <div
           className={`w-14 h-8 border rounded flex items-center justify-center text-xs font-bold transition ${modoClaro
-              ? "bg-[#F1F1DA] border-[#ccc] text-[#333]"
-              : "bg-[#111827] border-gray-500 text-white"
+            ? "bg-[#F1F1DA] border-[#ccc] text-[#333]"
+            : "bg-[#111827] border-gray-500 text-white"
             }`}
         >
           <SelectorLenguajeComponent modoClaro={modoClaro} />

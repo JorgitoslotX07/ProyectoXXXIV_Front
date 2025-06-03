@@ -16,7 +16,8 @@
   "navbar": {
     "catalog": "Catalog",
     "map": "Map",
-    "login": "Login"
+    "login": "Log in",
+    "admin": "Administration"
   },
   "search": {
     "title": "Find your next car",
@@ -245,5 +246,15 @@
       "errorCoincidencia": "Passwords do not match.",
       "cambioOk": "Password updated successfully."
     }
+  },
+  "sidebarAdmin": {
+    "title": "🛠️ Administration",
+    "initialPanel": "Dashboard",
+    "users": "Users",
+    "validateLicenses": "Validate Licenses",
+    "vehicles": "Vehicles",
+    "tracking": "Tracking",
+    "parkings": "Parkings",
+    "news": "News"
   }
 }

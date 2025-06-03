@@ -16,7 +16,8 @@
   "navbar": {
     "catalog": "Catálogo",
     "map": "Mapa",
-    "login": "Iniciar sesión"
+    "login": "Iniciar sesión",
+    "admin": "Administración"
   },
   "search": {
     "title": "Encuentra tu próximo coche",
@@ -245,5 +246,15 @@
       "errorCoincidencia": "Las contraseñas no coinciden.",
       "cambioOk": "Contraseña actualizada correctamente."
     }
+  },
+  "sidebarAdmin": {
+    "title": "🛠️ Administración",
+    "initialPanel": "Panel Inicial",
+    "users": "Usuarios",
+    "validateLicenses": "Validar Carnets",
+    "vehicles": "Vehículos",
+    "tracking": "Seguimiento",
+    "parkings": "Parkings",
+    "news": "Noticias"
   }
 }

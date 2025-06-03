@@ -2,15 +2,24 @@ import { useRef, useState } from "react";
 import type { UserData } from "../../../interfaces/UserData";
 import { setLoginCookiesAndRedirect } from "../../../utils/cookisLogin";
 import { useNavigate } from "react-router-dom";
-import { validateMail, validateName, validatePassword, valodateForm, verificarUsuario } from "../../../utils/verificaciones";
+import {
+  validateMail,
+  validateName,
+  validatePassword,
+  verificarUsuario,
+} from "../../../utils/verificaciones";
 import { Usuario } from "../../../interfaces/Usuario";
 import { httpPost } from "../../../utils/apiService";
 import { useUserStore } from "../../../hooks/userStore";
 import { mostrarError } from "../../../utils/notiToast";
 import { useTranslation } from "react-i18next";
 
-export const RegisterComponent = () => {
-  const { t } = useTranslation(); // 🟢 Hook de traducción
+interface Props {
+  modoClaro: boolean;
+}
+
+export const RegisterComponent = ({ modoClaro }: Props) => {
+  const { t } = useTranslation();
   const setToken = useUserStore((state) => state.setToken);
   const navigate = useNavigate();
 
@@ -30,11 +39,7 @@ export const RegisterComponent = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-
-    setErroresCampos((prev) => ({
-      ...prev,
-      [name]: false,
-    }));
+    setErroresCampos((prev) => ({ ...prev, [name]: false }));
     setMensajeError("");
   };
 
@@ -66,12 +71,10 @@ export const RegisterComponent = () => {
 
     if (camposInvalidos.length > 0) {
       setErroresCampos(nuevosErrores);
-
       const mensajes = [];
       if (!nombreValido) mensajes.push(t("registro.nombreValido"));
       if (!emailValido) mensajes.push(t("registro.correoValido"));
       if (!passValida) mensajes.push(t("registro.passValida"));
-
       const combinado = `${t("registro.introduce")} ${mensajes.join(" y ")}`;
       setMensajeError(combinado);
       mostrarError(combinado);
@@ -79,7 +82,6 @@ export const RegisterComponent = () => {
       if (!nombreValido) refNombre.current?.focus();
       else if (!emailValido) refEmail.current?.focus();
       else if (!passValida) refPass.current?.focus();
-
       return;
     }
 
@@ -97,7 +99,7 @@ export const RegisterComponent = () => {
         mostrarError(msg);
         refNombre.current?.focus();
       }
-    } catch (error) {
+    } catch {
       const msg = t("registro.errorGeneral");
       setErroresCampos({ usuario: false, email: false, contrasenya: false });
       setMensajeError(msg);
@@ -108,9 +110,15 @@ export const RegisterComponent = () => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-[#1F2937] p-8 rounded-lg shadow-lg w-full max-w-md mx-auto"
+      className={`p-8 rounded-lg shadow-lg w-full max-w-md mx-auto transition-all duration-300 ${
+        modoClaro ? "bg-[#fff7ed] text-[#1f2937]" : "bg-[#1F2937] text-white"
+      }`}
     >
-      <h2 className="text-2xl font-bold mb-4 text-center" style={{ color: "#C4B5FD" }}>
+      <h2
+        className={`text-2xl font-bold mb-4 text-center ${
+          modoClaro ? "text-yellow-500" : "text-[#C4B5FD]"
+        }`}
+      >
         {t("registro.titulo")}
       </h2>
 
@@ -118,6 +126,7 @@ export const RegisterComponent = () => {
         <p className="text-red-500 text-sm text-center mb-4">{mensajeError}</p>
       )}
 
+      {/* Nombre */}
       <input
         ref={refNombre}
         type="text"
@@ -125,13 +134,18 @@ export const RegisterComponent = () => {
         placeholder={t("registro.placeholderNombre")}
         value={form.usuario}
         onChange={handleChange}
-        className={`w-full p-3 mb-4 rounded bg-[#374151] text-white placeholder-gray-400 border focus:outline-none focus:ring-2 transition ${
+        className={`w-full p-3 mb-4 rounded border focus:outline-none focus:ring-2 transition ${
+          modoClaro
+            ? "bg-white text-[#1f2937] placeholder-gray-500 focus:ring-yellow-400"
+            : "bg-[#374151] text-white placeholder-gray-400 focus:ring-[#C4B5FD]"
+        } ${
           erroresCampos.usuario
             ? "border-red-500 focus:ring-red-500"
-            : "border-transparent focus:ring-[#C4B5FD]"
+            : "border-transparent"
         }`}
       />
 
+      {/* Email */}
       <input
         ref={refEmail}
         type="email"
@@ -139,13 +153,18 @@ export const RegisterComponent = () => {
         placeholder={t("registro.placeholderCorreo")}
         value={form.email}
         onChange={handleChange}
-        className={`w-full p-3 mb-4 rounded bg-[#374151] text-white placeholder-gray-400 border focus:outline-none focus:ring-2 transition ${
+        className={`w-full p-3 mb-4 rounded border focus:outline-none focus:ring-2 transition ${
+          modoClaro
+            ? "bg-white text-[#1f2937] placeholder-gray-500 focus:ring-yellow-400"
+            : "bg-[#374151] text-white placeholder-gray-400 focus:ring-[#C4B5FD]"
+        } ${
           erroresCampos.email
             ? "border-red-500 focus:ring-red-500"
-            : "border-transparent focus:ring-[#C4B5FD]"
+            : "border-transparent"
         }`}
       />
 
+      {/* Contraseña */}
       <input
         ref={refPass}
         type="password"
@@ -153,10 +172,14 @@ export const RegisterComponent = () => {
         placeholder={t("registro.placeholderPass")}
         value={form.contrasenya}
         onChange={handleChange}
-        className={`w-full p-3 mb-2 rounded bg-[#374151] text-white placeholder-gray-400 border focus:outline-none focus:ring-2 transition ${
+        className={`w-full p-3 mb-2 rounded border focus:outline-none focus:ring-2 transition ${
+          modoClaro
+            ? "bg-white text-[#1f2937] placeholder-gray-500 focus:ring-yellow-400"
+            : "bg-[#374151] text-white placeholder-gray-400 focus:ring-[#C4B5FD]"
+        } ${
           erroresCampos.contrasenya
             ? "border-red-500 focus:ring-red-500"
-            : "border-transparent focus:ring-[#C4B5FD]"
+            : "border-transparent"
         }`}
       />
 
@@ -168,7 +191,11 @@ export const RegisterComponent = () => {
 
       <button
         type="submit"
-        className="w-full py-3 rounded bg-[#A7F3D0] text-gray-900 font-semibold hover:bg-[#9EE6C4] transition"
+        className={`w-full py-3 rounded font-semibold transition ${
+          modoClaro
+            ? "bg-yellow-300 text-gray-900 hover:bg-yellow-400"
+            : "bg-[#A7F3D0] text-gray-900 hover:bg-[#9EE6C4]"
+        }`}
       >
         {t("registro.boton")}
       </button>

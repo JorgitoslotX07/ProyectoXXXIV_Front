@@ -16,7 +16,8 @@
   "navbar": {
     "catalog": "Catàleg",
     "map": "Mapa",
-    "login": "Iniciar sessió"
+    "login": "Iniciar sessió",
+    "admin": "Administració"
   },
   "search": {
     "title": "Troba el teu proper cotxe",
@@ -245,5 +246,15 @@
       "errorCoincidencia": "Les contrasenyes no coincideixen.",
       "cambioOk": "Contrasenya actualitzada correctament."
     }
+  },
+  "sidebarAdmin": {
+    "title": "🛠️ Administració",
+    "initialPanel": "Panell inicial",
+    "users": "Usuaris",
+    "validateLicenses": "Validar carnets",
+    "vehicles": "Vehicles",
+    "tracking": "Seguiment",
+    "parkings": "Parkings",
+    "news": "Notícies"
   }
 }

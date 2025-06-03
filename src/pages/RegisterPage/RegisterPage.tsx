@@ -1,32 +1,39 @@
+import type { FC } from "react";
 import { NotiToastComponent } from "../../components/NotiToastComponents/NotiToastComponet";
 import { RegisterComponent } from "../../components/Form/RegisterComponent/RegisterComponent";
 
-export const RegistroPage = () => {
+interface Props {
+  modoClaro: boolean;
+}
+
+export const RegistroPage: FC<Props> = ({ modoClaro }) => {
   return (
-    // <div className="min-h-screen flex items-center justify-center bg-slate-300">
-    //   <RegisterComponent />
-    // </div>
-
-    // <div className="min-h-screen flex items-center justify-center px-4 py-6">
-    //   <div className="w-full max-w-4xl bg-[#1F2937] rounded-lg shadow-lg p-10">
-    //     <RegisterComponent />
-    //   </div>
-    // </div>
-
-    <div className="min-h-screen flex">
-      <div className="w-full md:w-1/2 flex items-center justify-center bg-[#1F2937] p-10">
+    <div
+      className={`min-h-screen flex transition-colors duration-300 ${
+        modoClaro ? "bg-gradient-to-br from-[#e0fbea] to-[#fef9c3]" : "bg-[#111827]"
+      }`}
+    >
+      <div
+        className={`w-full md:w-1/2 flex items-center justify-center p-10 ${
+          modoClaro
+            ? "bg-white/80 border border-gray-200 text-[#1f2937]"
+            : "bg-[rgba(17,25,40,0.75)] border border-[rgba(255,255,255,0.125)] text-white"
+        } backdrop-blur-[16px] backdrop-saturate-[180%]`}
+      >
         <div className="w-full max-w-md">
-          <RegisterComponent />
+          <RegisterComponent modoClaro={modoClaro} />
         </div>
       </div>
 
       <div
         className="hidden md:block md:w-1/2 bg-cover bg-center"
         style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80')",
+          backgroundImage: modoClaro
+            ? "url('/fondoFastSeartchClaro.jpeg')"
+            : "url('/fondoFastSeartch.webp')",
         }}
       />
+
       <NotiToastComponent />
     </div>
   );

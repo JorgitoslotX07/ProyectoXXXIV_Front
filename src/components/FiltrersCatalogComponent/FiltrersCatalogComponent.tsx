@@ -1,3 +1,4 @@
+// ✅ FilterCatalogComponent.tsx completo adaptado para logos en marcas
 import { useTranslation } from "react-i18next";
 import type { FC } from "react";
 import { GeneredFilterComponent } from "../GeneredFilterComponent/GeneredFilterComponent";
@@ -5,7 +6,7 @@ import type {
     FilterCategory,
     FilterOption,
 } from "../../interfaces/GeneredFilterComponentProp";
-import type { Vehiculo, } from "../../interfaces/Vehiculo";
+import type { Vehiculo } from "../../interfaces/Vehiculo";
 import type { FiltrersCatalogProps } from "../../interfaces/FiltrersCatalogProps";
 
 export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
@@ -77,6 +78,10 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
         return unicos.map((valor) => ({
             label: valor,
             value: valor,
+            logo:
+                campo === "marca"
+                    ? `/logosMarca/${valor.toLowerCase()}Logo.svg`
+                    : undefined,
         }));
     }
 
@@ -88,10 +93,11 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
         <div className="p-6 space-y-6 rounded-md">
             <div className="space-y-4">
                 <div
-                    className={`${vertical
-                            ? "flex flex-col gap-6"
-                            : "flex flex-wrap gap-4 justify-between items-start"
-                        }`}
+                    className={`$ {
+            vertical
+              ? "flex flex-col gap-6"
+              : "flex flex-wrap gap-4 justify-between items-start"
+          }`}
                 >
                     <div className="flex flex-wrap gap-4 flex-1">
                         {categorias.map((filter, index) => (
@@ -116,19 +122,7 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
                         </div>
                     )}
                 </div>
-{/* 
-                {vertical && (
-                    <div className="flex justify-end">
-                        <button
-                            onClick={onSubmit}
-                            className="h-10 px-6 bg-blue-600 text-white text-sm font-medium rounded-full shadow hover:bg-blue-700 transition duration-200"
-                        >
-                            Buscar
-                        </button>
-                    </div>
-                )} */}
             </div>
         </div>
-
     );
 };
