@@ -143,9 +143,11 @@ export const SearchFastComponent: FC<Props> = ({
             <button
               ref={botonRef}
               onClick={manejarClickUbicacion}
-              className="w-6.5 h-5.5 flex items-center justify-center mr-2 rounded-full border border-black bg-red-600 hover:bg-red-900 text-white font-bold transition-all"
+              // className="w-6.5 h-5.5 flex items-center justify-center mr-2 rounded-full border border-black bg-red-600 hover:bg-red-900 text-white font-bold transition-all"
+              className="w-6.5 h-5.5 flex items-center justify-center mr-2 rounded-full  hover:bg-red-700 text-white font-bold transition-all"
+
               title={t("search.useCurrentLocation")}
-            ></button>
+            >📍</button>
 
             <div
               className={`flex items-center border rounded-l-full px-4 py-3 w-full ${modoClaro ? "bg-gray-100 border-gray-300" : "bg-[#1F2937] border-gray-600"
