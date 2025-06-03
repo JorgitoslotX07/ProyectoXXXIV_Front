@@ -39,9 +39,9 @@ export const PanelInicialAdminPage: FC<Props> = ({ modoClaro }) => {
 
   return (
     <div
-      className={`min-h-screen p-8 transition-all duration-300 ${
+      className={`rounded-xl min-h-screen p-8 transition-all duration-300 ${
         modoClaro
-          ? "bg-gradient-to-br from-[#fef9c3] to-[#e0fbea] text-[#111]"
+          ? "bg-gradient-to-br from-[#fef9c3] to-[#e0fbea] text-[#111]" 
           : "bg-[rgb(22,23,64)] [background-image:radial-gradient(at_47%_33%,hsl(163.5,83%,24%)_0,#0a0a0a_59%),radial-gradient(at_82%_65%,hsl(218.82,77%,21%)_0,transparent_55%)] text-white"
       }`}
     >
