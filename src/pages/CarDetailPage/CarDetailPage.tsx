@@ -4,13 +4,17 @@ import { Star } from "lucide-react";
 import { Vehiculo } from "../../interfaces/Vehiculo";
 import { httpGet, httpGetTok } from "../../utils/apiService";
 import { CochesPromoComponent } from "../../components/CochesPromoComponent/CochesPromoComponent";
-import { useTranslation } from "react-i18next"; // 🟢 Importamos traducción
+import { useTranslation } from "react-i18next";
 import { ModalPaymentComponent } from "../../components/Modal/ModalPaymentComponent/ModalPaymentComponent";
 import type { DataPayment } from "../../interfaces/PaymentProps";
 import type { CalificionProps } from "../../interfaces/CalificacionProps";
 
-export const CarDetailPage: FC = () => {
-  const { t } = useTranslation(); // 🟢 Usamos traducción
+interface Props {
+  modoClaro: boolean;
+}
+
+export const CarDetailPage: FC<Props> = ({ modoClaro }) => {
+  const { t } = useTranslation();
   const location = useLocation();
   const { state } = location;
   const product: number = state;
@@ -18,7 +22,6 @@ export const CarDetailPage: FC = () => {
   const [vehiculo, setVehiculo] = useState<Vehiculo>(Vehiculo);
   const [showPaymentPopup, setShowPaymentPopup] = useState(false);
   const [showAllReviews, setShowAllReviews] = useState(false);
-
   const [calificaciones, setCalificaciones] = useState<CalificionProps[]>();
 
   useEffect(() => {
@@ -29,25 +32,38 @@ export const CarDetailPage: FC = () => {
     fetch();
   }, [product]);
 
-  async function peticionPago(data: DataPayment) {
-    console.log(data)
-  }
-
   useEffect(() => {
     const fetch = async () => {
-      const data = await httpGetTok<CalificionProps[]>("/calificaciones/vehiculo/" + product);
+      const data = await httpGetTok<CalificionProps[]>(
+        "/calificaciones/vehiculo/" + product
+      );
       if (data) setCalificaciones(data);
     };
     fetch();
   }, [product]);
 
-  return (
-    <div className="min-h-screen bg-[#111827] [background-image:radial-gradient(at_47%_33%,hsl(163,80%,20%)_0,transparent_59%),radial-gradient(at_82%_65%,hsl(218,75%,14%)_0,transparent_55%)] bg-no-repeat bg-cover text-white font-sans px-4 sm:px-6 md:px-10 pt-20 pb-32">
+  const peticionPago = async (data: DataPayment) => {
+    console.log(data);
+  };
 
+  return (
+    <div
+      className={`min-h-screen font-sans px-4 sm:px-6 md:px-10 pt-20 pb-32 ${
+        modoClaro
+          ? "bg-[#f9fafb] text-[#1f2937]"
+          : "bg-[#111827] text-white [background-image:radial-gradient(at_47%_33%,hsl(163,80%,20%)_0,transparent_59%),radial-gradient(at_82%_65%,hsl(218,75%,14%)_0,transparent_55%)] bg-no-repeat bg-cover"
+      }`}
+    >
       {/* INFO VEHÍCULO */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 w-full">
         <div className="w-full">
-          <div className="backdrop-blur-[18px] backdrop-saturate-[180%] bg-[rgba(31,41,55,0.6)] border border-white/10 rounded-xl shadow-xl p-6 w-full">
+          <div
+            className={`rounded-xl shadow-xl p-6 w-full border ${
+              modoClaro
+                ? "bg-white border-gray-200"
+                : "bg-[rgba(31,41,55,0.6)] border-white/10 backdrop-blur-[18px] backdrop-saturate-[180%]"
+            }`}
+          >
             {vehiculo.imagen ? (
               <img
                 src={vehiculo.imagen}
@@ -55,7 +71,11 @@ export const CarDetailPage: FC = () => {
                 className="object-contain max-h-full max-w-full rounded-lg"
               />
             ) : (
-              <div className="w-full h-64 bg-gray-700 rounded flex items-center justify-center">
+              <div
+                className={`w-full h-64 rounded flex items-center justify-center ${
+                  modoClaro ? "bg-gray-200 text-gray-600" : "bg-gray-700 text-white"
+                }`}
+              >
                 {t("carDetail.sinImagen")}
               </div>
             )}
@@ -63,25 +83,37 @@ export const CarDetailPage: FC = () => {
         </div>
 
         <div className="w-full">
-          <h1 className="text-3xl font-bold text-[#C4B5FD] mb-1">
+          <h1
+            className={`text-3xl font-bold mb-1 ${
+              modoClaro ? "text-yellow-600" : "text-[#C4B5FD]"
+            }`}
+          >
             {vehiculo.marca} {vehiculo.modelo}
           </h1>
-          <p className="text-gray-300 mb-2">
+          <p className={`mb-2 ${modoClaro ? "text-gray-700" : "text-gray-300"}`}>
             {t("carDetail.kilometraje")}:{" "}
-            <span className="text-white font-semibold">
+            <span className={`font-semibold ${modoClaro ? "text-black" : "text-white"}`}>
               {vehiculo.kilometraje} km
             </span>
           </p>
 
-          <p className="text-sm text-gray-400 mb-1">{t("carDetail.caracteristicas")}:</p>
-          <ul className="text-sm text-gray-200 list-disc list-inside mb-6">
+          <p className="text-sm text-gray-500 mb-1">{t("carDetail.caracteristicas")}:</p>
+          <ul
+            className={`text-sm list-disc list-inside mb-6 ${
+              modoClaro ? "text-gray-700" : "text-gray-200"
+            }`}
+          >
             {/* {vehiculo.caracteristicas?.map((item, index) => (
               <li key={index}>{item}</li>
             ))} */}
           </ul>
 
           <button
-            className="w-full bg-[#C4B5FD] text-black hover:bg-[#a78bfa] transition-colors font-semibold py-3 rounded-md shadow-md mb-6"
+            className={`w-full font-semibold py-3 rounded-md shadow-md mb-6 transition-colors ${
+              modoClaro
+                ? "bg-yellow-400 text-black hover:bg-yellow-500"
+                : "bg-[#C4B5FD] text-black hover:bg-[#a78bfa]"
+            }`}
             onClick={() => setShowPaymentPopup(true)}
           >
             {t("carDetail.botonReservar")}
@@ -97,71 +129,14 @@ export const CarDetailPage: FC = () => {
               {t("carDetail.reseñasDestacadas")}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {calificaciones && calificaciones.length > 0 ? (
-                calificaciones.slice(0, 4).map((rev, i) => (
-                  <div
-                    key={i}
-                    className="bg-[rgba(31,41,55,0.6)] p-4 rounded-lg shadow-md"
-                  >
-                    <div className="flex items-center gap-4 mb-2">
-                      <img
-                        src={rev.avatar}
-                        alt={rev.username}
-                        className="w-10 h-10 rounded-full object-cover"
-                      />
-                      <div>
-                        <p className="font-semibold text-white">{rev.username}</p>
-                        <div className="flex gap-1">
-                          {[...Array(5)].map((_, j) => (
-                            <Star
-                              key={j}
-                              className={`w-4 h-4 ${j < rev.calificacion
-                                ? "fill-[#fbff0e] text-[#C4B5FD]"
-                                : "fill-gray-600 text-[#C4B5FD]"
-                                }`}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                    <p className="text-gray-300 italic truncate">
-                      "{rev.contenido}"
-                    </p>
-                  </div>
-                ))
-              ) : (
-                null
-              )}
-            </div>
-          </>
-        )}
-      </div>
-
-
-      {/* BOTÓN TOGGLE */}
-      <div className="mt-6 flex justify-center">
-        <button
-          onClick={() => setShowAllReviews(!showAllReviews)}
-          className="text-sm font-medium text-[#C4B5FD] hover:underline"
-        >
-          {showAllReviews
-            ? t("carDetail.ocultarTodas")
-            : t("carDetail.verTodas")}
-        </button>
-      </div>
-
-      {/* SECCIÓN TODAS LAS RESEÑAS */}
-      {showAllReviews && (
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold text-[#C4B5FD] mb-6 text-center">
-            {t("carDetail.tituloTodasReseñas")}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {calificaciones && calificaciones.length > 0 ? (
-              calificaciones.map((rev, i) => (
+              {calificaciones?.slice(0, 4).map((rev, i) => (
                 <div
                   key={i}
-                  className="bg-[rgba(31,41,55,0.6)] p-4 rounded-lg shadow-md"
+                  className={`p-4 rounded-lg shadow-md ${
+                    modoClaro
+                      ? "bg-white border border-gray-200"
+                      : "bg-[rgba(31,41,55,0.6)]"
+                  }`}
                 >
                   <div className="flex items-center gap-4 mb-2">
                     <img
@@ -170,45 +145,103 @@ export const CarDetailPage: FC = () => {
                       className="w-10 h-10 rounded-full object-cover"
                     />
                     <div>
-                      <p className="font-semibold text-white">{rev.username}</p>
+                      <p className="font-semibold">{rev.username}</p>
                       <div className="flex gap-1">
                         {[...Array(5)].map((_, j) => (
                           <Star
                             key={j}
-                            className={`w-4 h-4 ${j < rev.calificacion
-                              ? "fill-[#fbff0e] text-[#C4B5FD]"
-                              : "fill-gray-600 text-[#C4B5FD]"
-                              }`}
+                            className={`w-4 h-4 ${
+                              j < rev.calificacion
+                                ? "fill-[#fbff0e] text-yellow-400"
+                                : "fill-gray-300 text-gray-400"
+                            }`}
                           />
                         ))}
                       </div>
                     </div>
                   </div>
-                  <p className="text-gray-300 italic truncate">
-                    "{rev.contenido}"
-                  </p>
+                  <p className="text-sm italic truncate text-gray-500">"{rev.contenido}"</p>
                 </div>
-              ))
-            ) : (
-              null
-            )}
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* BOTÓN TOGGLE */}
+      <div className="mt-6 flex justify-center">
+        <button
+          onClick={() => setShowAllReviews(!showAllReviews)}
+          className={`text-sm font-medium hover:underline ${
+            modoClaro ? "text-yellow-600" : "text-[#C4B5FD]"
+          }`}
+        >
+          {showAllReviews ? t("carDetail.ocultarTodas") : t("carDetail.verTodas")}
+        </button>
+      </div>
+
+      {/* TODAS LAS RESEÑAS */}
+      {showAllReviews && (
+        <div className="mt-16">
+          <h2
+            className={`text-2xl font-bold mb-6 text-center ${
+              modoClaro ? "text-yellow-700" : "text-[#C4B5FD]"
+            }`}
+          >
+            {t("carDetail.tituloTodasReseñas")}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {calificaciones?.map((rev, i) => (
+              <div
+                key={i}
+                className={`p-4 rounded-lg shadow-md ${
+                  modoClaro
+                    ? "bg-white border border-gray-200"
+                    : "bg-[rgba(31,41,55,0.6)]"
+                }`}
+              >
+                <div className="flex items-center gap-4 mb-2">
+                  <img
+                    src={rev.avatar}
+                    alt={rev.username}
+                    className="w-10 h-10 rounded-full object-cover"
+                  />
+                  <div>
+                    <p className="font-semibold">{rev.username}</p>
+                    <div className="flex gap-1">
+                      {[...Array(5)].map((_, j) => (
+                        <Star
+                          key={j}
+                          className={`w-4 h-4 ${
+                            j < rev.calificacion
+                              ? "fill-[#fbff0e] text-yellow-400"
+                              : "fill-gray-300 text-gray-400"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                <p className="text-sm italic truncate text-gray-500">"{rev.contenido}"</p>
+              </div>
+            ))}
           </div>
         </div>
       )}
 
-
       {/* VEHÍCULOS PROMO */}
       <div className="mt-20">
-        <CochesPromoComponent />
+        <CochesPromoComponent modoClaro={modoClaro} />
       </div>
 
       {/* POPUP DE PAGO */}
-      {
-        showPaymentPopup && (
-
-          <ModalPaymentComponent onClose={() => setShowPaymentPopup(false)} vehicle={vehiculo} onSubmit={peticionPago} />
-        )
-      }
-    </div >
+      {showPaymentPopup && (
+        <ModalPaymentComponent
+          onClose={() => setShowPaymentPopup(false)}
+          vehicle={vehiculo}
+          onSubmit={peticionPago}
+        />
+      )}
+    </div>
   );
 };

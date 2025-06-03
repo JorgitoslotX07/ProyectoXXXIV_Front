@@ -5,6 +5,8 @@ import type { FC } from "react";
 
 // src/pages/admin/VehiculosAdminPage.tsx
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+
 import { Vehiculo, type FiltroVehiculo } from "../../../interfaces/Vehiculo";
 import { type PageProps, createEmptyPage } from "../../../interfaces/PageProps";
 import { httpGet, httpGetParam } from "../../../utils/apiService";
@@ -14,8 +16,6 @@ import { ModalCrearVehiculoComponent } from "../../../components/Modal/ModalCrea
 import { BotonAgregarComponent } from "../../../components/__Admin/BotonAgregarComponent/BotonAgregarComponent";
 import { ModalEliminarVehiculo } from "../../../components/Modal/ModalEliminarVehiculoComponent/ModalEliminarVehiculoComponent";
 import { ModalEditarVehiculo } from "../../../components/Modal/ModalEditarVehiculoComponent/ModalEditarVehiculoComponent";
-// import { BotonAgregar } from "../../components/ui/BotonAgregar";
-// import { ModalVehiculo } from "../../components/vehiculos/ModalVehiculo";
 
 export const VehiculosAdminPage: FC = () => {
   const [vehiculos, setVehiculos] = useState<PageProps<Vehiculo>>(

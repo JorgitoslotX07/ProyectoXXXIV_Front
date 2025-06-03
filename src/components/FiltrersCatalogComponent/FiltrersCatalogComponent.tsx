@@ -58,12 +58,6 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
     vehiculos: Vehiculo[]
   ): FilterCategory[] => [
     {
-      label: t("catalog.filters.type"),
-      name: "tipo",
-      options: obtenerOpcionesUnicas(vehiculos, "tipo"),
-    },
-
-    {
       label: t("catalog.filters.location"),
       name: "localidad",
       options: obtenerOpcionesUnicas(vehiculos, "localidad"),
@@ -91,7 +85,7 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
     <div className="p-6 space-y-6 rounded-md">
       <div className="space-y-4">
         <div
-          className={`$ {
+          className={`${
             vertical
               ? "flex flex-col gap-6"
               : "flex flex-wrap gap-4 justify-between items-start"

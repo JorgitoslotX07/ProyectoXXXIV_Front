@@ -1,4 +1,3 @@
-// ✅ GeneredFilterComponent.tsx adaptado para logos de marcas con react-select
 import type { FC } from "react";
 import type { FiltersProps } from "../../interfaces/GeneredFilterComponentProp";
 import Select, { components } from "react-select";
@@ -11,7 +10,7 @@ export const GeneredFilterComponent: FC<FiltersProps> = ({
   valorActual,
 }) => {
   // Componente personalizado para mostrar logo + label
-  const CustomOption = (props: any) => {
+  const CustomOption = (props: T) => {
     const { data, innerRef, innerProps } = props;
     return (
       <div
@@ -34,7 +33,7 @@ export const GeneredFilterComponent: FC<FiltersProps> = ({
     );
   };
 
-  const CustomSingleValue = (props: any) => {
+  const CustomSingleValue = (props: T) => {
     const { data } = props;
     return (
       <components.SingleValue {...props}>

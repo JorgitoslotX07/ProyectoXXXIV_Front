@@ -197,7 +197,7 @@
     "condiciones": "Condicions del servei",
     "privacidad": "Política de privacitat",
     "info": "Informació corporativa",
-    "sobreNosotros": "Sobre nosaltres",
+    "sobrenosotros": "Sobre nosaltres",
     "marcas": "Marques",
     "afiliados": "Afiliats",
     "inversores": "Inversors",
@@ -256,5 +256,148 @@
     "tracking": "Seguiment",
     "parkings": "Parkings",
     "news": "Notícies"
-  }
+  },
+  "adminPanel": {
+    "title": "Panell d'Administració",
+    "users": {
+      "title": "Gestió d'Usuaris",
+      "description": "Afegir, editar, validar i eliminar usuaris."
+    },
+    "vehicles": {
+      "title": "Gestió de Vehicles",
+      "description": "Control i seguiment dels vehicles."
+    },
+    "parkings": {
+      "title": "Mapa d'Aparcaments",
+      "description": "Crear i administrar aparcaments al mapa."
+    },
+    "news": {
+      "title": "Notícies",
+      "description": "Publicar i gestionar novetats."
+    }
+  },
+  "adminUsers": {
+    "title": "Gestió d'Usuaris",
+    "table": {
+      "username": "Usuari",
+      "email": "Correu",
+      "status": "Estat",
+      "actions": "Accions"
+    },
+    "status": {
+      "active": "Actiu",
+      "blocked": "Blocat"
+    },
+    "actions": {
+      "block": "Bloquejar",
+      "delete": "Eliminar",
+      "makeAdmin": "Fer ADMIN"
+    },
+    "noUsers": "No hi ha usuaris registrats."
+  },
+  "carnet": {
+    "title": "Validació del Carnet",
+    "loading": "Carregant carnets…",
+    "noPending": "No hi ha carnets per validar.",
+    "fields": {
+      "name": "Nom",
+      "cardNumber": "Nº Carnet",
+      "issueDate": "Expedició",
+      "status": "Estat"
+    },
+    "status": {
+      "pending": "Pendent",
+      "approved": "Aprovat",
+      "rejected": "Rebutjat"
+    },
+    "actions": {
+      "approve": "Aprovar",
+      "reject": "Rebutjar"
+    }
+  },
+  "track": {
+    "title": "Seguiment de Vehicles",
+    "vehicles": "Vehicles",
+    "id": "ID",
+    "route": "Ruta de",
+    "lat": "Latitud",
+    "lng": "Longitud"
+  },
+  "createParking": {
+    "title": "Nou Aparcament",
+    "alert": {
+      "noPolygon": "Si us plau, dibuixa la zona de l'aparcament al mapa."
+    }
+  },
+  "parkingForm": {
+    "label": {
+      "name": "Nom",
+      "capacity": "Capacitat"
+    },
+    "placeholder": {
+      "name": "Introdueix el nom de l'aparcament...",
+      "capacity": "Introdueix la capacitat màxima..."
+    },
+    "button": {
+      "save": "Desar"
+    },
+    "validation": {
+      "nameRequired": "El nom és obligatori.",
+      "capacityRequired": "La capacitat ha de ser superior a 0."
+    }
+  },
+  "admin": {
+    "vehiculos": {
+      "titulo": "Gestió de Vehicles",
+      "botonAgregar": "Afegir Vehicle",
+      "tabla": {
+        "id": "ID",
+        "marca": "Marca",
+        "modelo": "Model",
+        "estado": "Estat",
+        "acciones": "Accions"
+      },
+      "acciones": {
+        "editar": "Edita",
+        "eliminar": "Elimina"
+      },
+      "estado": {
+        "DISPONIBLE": "Disponible",
+        "EN_USO": "En ús",
+        "RESERVADO": "Reservat",
+        "EN_MANTENIMIENTO": "En manteniment"
+      }
+    },
+    "parkings": {
+      "title": "Gestió d'Aparcaments",
+      "addButton": "Afegir Aparcament",
+      "table": {
+        "name": "Nom",
+        "capacity": "Capacitat",
+        "location": "Ubicació",
+        "actions": "Accions"
+      },
+      "actions": {
+        "edit": "Editar",
+        "delete": "Eliminar"
+      }
+    },
+"news": {
+    "title": "Gestió de Notícies",
+    "addButton": "Afegir Notícia",
+    "table": {
+      "title": "Títol",
+      "date": "Data",
+      "published": "Publicat",
+      "actions": "Accions"
+    },
+    "status": {
+      "yes": "Sí",
+      "no": "No"
+    },
+    "actions": {
+      "edit": "Editar",
+      "delete": "Eliminar"
+    }
+  }}
 }

@@ -86,7 +86,7 @@ function App() {
         <Route path="/register" element={<RegistroPage modoClaro={modoClaro} />} />
         <Route path="/catalog">
           <Route index element={<CatalogPage modoClaro={modoClaro} />} />
-          <Route path="carDetail" element={<CarDetailPage />} />
+          <Route path="carDetail" element={<CarDetailPage modoClaro={modoClaro} />} />
         </Route>
         <Route path="/map" element={<MapPage modoClaro={modoClaro} />} />
         <Route path="/noticia" element={<NoticiaDetailPage />} />
@@ -131,7 +131,8 @@ function App() {
 
       </Routes>
 
-      <FooterComponent modoClaro={modoClaro} />
+      {/* <FooterComponent modoClaro={modoClaro} /> */}
+      <FooterComponent/>
     </>
   );
 }

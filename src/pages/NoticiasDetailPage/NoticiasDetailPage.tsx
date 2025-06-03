@@ -1,9 +1,11 @@
 import type { FC } from "react";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import type { NoticiaProps } from "../../interfaces/NoticiasProps";
 import { NoticiasComponent } from "../../components/NoticiasComponent/NoticiasComponent";
 
 export const NoticiaDetailPage: FC = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const noticia: NoticiaProps = location.state;
 
@@ -16,7 +18,7 @@ export const NoticiaDetailPage: FC = () => {
           </h1>
 
           <p className="text-sm text-gray-500 mb-6">
-            {noticia.fecha} · por{" "}
+            {noticia.fecha} · {t("noticia.autor")}{" "}
             <span className="italic">{noticia.autor}</span>
           </p>
 
@@ -37,7 +39,7 @@ export const NoticiaDetailPage: FC = () => {
                 .map((p, idx) => <p key={idx}>{p}</p>)
             ) : (
               <p className="italic text-gray-500">
-                No hay contenido disponible.
+                {t("noticia.sinContenido")}
               </p>
             )}
           </article>
@@ -45,7 +47,7 @@ export const NoticiaDetailPage: FC = () => {
 
         <aside className="hidden lg:block h-screen overflow-auto pr-2 py-16">
           <h2 className="text-lg font-semibold text-gray-900 mb-5 pl-21">
-            Otras noticias
+            {t("noticia.otrasNoticias")}
           </h2>
           <NoticiasComponent size={20} />{" "}
         </aside>

@@ -197,7 +197,7 @@
     "condiciones": "Condiciones de servicio",
     "privacidad": "Política de privacidad",
     "info": "Información corporativa",
-    "sobreNosotros": "Sobre nosotros",
+    "sobrenosotros": "Sobre nosotros",
     "marcas": "Marcas",
     "afiliados": "Afiliados",
     "inversores": "Inversores",
@@ -256,5 +256,152 @@
     "tracking": "Seguimiento",
     "parkings": "Parkings",
     "news": "Noticias"
-  }
+  },
+  "adminPanel": {
+    "title": "Panel de Administración",
+    "users": {
+      "title": "Gestión de Usuarios",
+      "description": "Agregar, editar, validar y eliminar usuarios."
+    },
+    "vehicles": {
+      "title": "Gestión de Vehículos",
+      "description": "Control y seguimiento de vehículos."
+    },
+    "parkings": {
+      "title": "Mapa de Parkings",
+      "description": "Crear y administrar parkings en el mapa."
+    },
+    "news": {
+      "title": "Noticias",
+      "description": "Publicar y gestionar novedades."
+    }
+  },
+  "adminUsers": {
+    "title": "Gestión de Usuarios",
+    "table": {
+      "username": "Usuario",
+      "email": "Email",
+      "status": "Estado",
+      "actions": "Acciones"
+    },
+    "status": {
+      "active": "Activo",
+      "blocked": "Bloqueado"
+    },
+    "actions": {
+      "block": "Bloquear",
+      "delete": "Eliminar",
+      "makeAdmin": "Hacer ADMIN"
+    },
+    "noUsers": "No hay usuarios registrados."
+  },
+  "carnet": {
+    "title": "Validación de Carnet",
+    "loading": "Cargando carnets…",
+    "noPending": "No hay carnets por validar.",
+    "fields": {
+      "name": "Nombre",
+      "cardNumber": "Nº Carnet",
+      "issueDate": "Expedición",
+      "status": "Estado"
+    },
+    "status": {
+      "pending": "Pendiente",
+      "approved": "Aprobado",
+      "rejected": "Rechazado"
+    },
+    "actions": {
+      "approve": "Aprobar",
+      "reject": "Rechazar"
+    }
+  },
+  "track": {
+    "title": "Seguimiento de Vehículos",
+    "vehicles": "Vehículos",
+    "id": "ID",
+    "route": "Ruta de",
+    "lat": "Latitud",
+    "lng": "Longitud"
+  },
+  "createParking": {
+    "title": "Nuevo Parking",
+    "alert": {
+      "noPolygon": "Por favor dibuja la zona del parking en el mapa."
+    }
+  },
+  "parkingForm": {
+    "label": {
+      "name": "Nombre",
+      "capacity": "Capacidad"
+    },
+    "placeholder": {
+      "name": "Introduce el nombre del parking...",
+      "capacity": "Introduce la capacidad máxima..."
+    },
+    "button": {
+      "save": "Guardar"
+    },
+    "validation": {
+      "nameRequired": "El nombre es obligatorio.",
+      "capacityRequired": "La capacidad debe ser mayor que 0."
+    }
+  },
+  "admin": {
+    "parkings": {
+      "title": "Gestión de Parkings",
+      "addButton": "Añadir Parking",
+      "table": {
+        "name": "Nombre",
+        "capacity": "Capacidad",
+        "location": "Ubicación",
+        "actions": "Acciones"
+      },
+      "actions": {
+        "edit": "Editar",
+        "delete": "Eliminar"
+      }
+    },
+    "vehiculos": {
+      "titulo": "Gestión de Vehículos",
+      "botonAgregar": "Añadir Vehículo",
+      "tabla": {
+        "id": "ID",
+        "marca": "Marca",
+        "modelo": "Modelo",
+        "estado": "Estado",
+        "acciones": "Acciones"
+      },
+      "acciones": {
+        "editar": "Editar",
+        "eliminar": "Eliminar"
+      },
+      "estado": {
+        "DISPONIBLE": "Disponible",
+        "EN_USO": "En uso",
+        "RESERVADO": "Reservado",
+        "EN_MANTENIMIENTO": "En mantenimiento"
+      }
+    },
+    "news": {
+      "title": "Gestión de Noticias",
+      "addButton": "Agregar Noticia",
+      "table": {
+        "title": "Título",
+        "date": "Fecha",
+        "published": "Publicado",
+        "actions": "Acciones"
+      },
+      "status": {
+        "yes": "Sí",
+        "no": "No"
+      },
+      "actions": {
+        "edit": "Editar",
+        "delete": "Eliminar"
+      }
+    }
+  },
+  "promo": {
+  "title": "Coches Populares"
+}
 }

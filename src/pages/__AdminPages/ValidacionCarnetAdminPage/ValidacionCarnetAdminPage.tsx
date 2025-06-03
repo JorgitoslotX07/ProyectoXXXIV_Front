@@ -1,4 +1,5 @@
 import { useState, type FC, useEffect } from "react";
+// import { useTranslation } from "react-i18next";
 import type { UsuarioCarnet } from "../../../interfaces/Usuario";
 import {
   httpGetImageTok,

@@ -29,7 +29,8 @@ export const MapPage: FC<Props> = ({ modoClaro }) => {
       ></div>
 
       {/* Componente del mapa */}
-      <CochesMapComponent modoClaro={modoClaro} />
+      {/* <CochesMapComponent modoClaro={modoClaro} /> */}
+      <CochesMapComponent/>
     </div>
   );
 };

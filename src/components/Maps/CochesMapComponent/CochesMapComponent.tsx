@@ -2,8 +2,8 @@ import {
   MapContainer,
   TileLayer,
   Marker,
-  Rectangle,
-  Tooltip,
+  // Rectangle,
+  // Tooltip,
 } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import L, { Map as LeafletMap, type LatLngTuple } from "leaflet";
@@ -17,6 +17,9 @@ import { httpGet } from "../../../utils/apiService";
 import type { ZonaParking } from "../../../interfaces/ZonaParkinsProps";
 import { useTranslation } from "react-i18next";
 import { LegendComponent } from "../../LegendComponent/LegendComponent";
+import { TipoVehiculo } from "../../../utils/enum/tipoVehiculos";
+import { GeneredFilterComponent } from "../../GeneredFilterComponent/GeneredFilterComponent";
+import type { FilterCategory } from "../../../interfaces/GeneredFilterComponentProp";
 
 const crearIconoCoche = (esSeleccionado: boolean) => {
   const color = esSeleccionado ? "#4ade80" : "#3b82f6";
@@ -40,37 +43,37 @@ const crearIconoCoche = (esSeleccionado: boolean) => {
   });
 };
 
-const crearIconoParking = (esSeleccionado: boolean) => {
-  const color = esSeleccionado ? "#4ade80" : "#10b981";
-  const sombra = esSeleccionado ? "filter: drop-shadow(0 0 6px #4ade80);" : "";
+// const crearIconoParking = (esSeleccionado: boolean) => {
+//   const color = esSeleccionado ? "#4ade80" : "#10b981";
+//   const sombra = esSeleccionado ? "filter: drop-shadow(0 0 6px #4ade80);" : "";
 
-  const extraStyle = esSeleccionado
-    ? "animation: bounce 0.6s ease; transform: translate(-50%, -50%) scale(1.1);"
-    : "transform: translate(-50%, -50%) scale(1);";
-  //el extraStyle no esta comillado, revisar mas adelante
-  return L.divIcon({
-    className: "",
-    html: `
-    <div style=${extraStyle} ${sombra}">   
-          <svg width="40" height="45" viewBox="0 0 40 45" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="15" cy="15" r="14" fill="${color}" />
-          <text 
-            x="40%" 
-            y="35%" 
-            text-anchor="middle" 
-            dominant-baseline="central"
-            fill="white" 
-            font-size="20px" 
-            font-family="Arial, sans-serif">
-            P
-          </text>
-        </svg>
-      </div>
-    `,
-    iconSize: [30, 30],
-    iconAnchor: [15, 30],
-  });
-};
+//   const extraStyle = esSeleccionado
+//     ? "animation: bounce 0.6s ease; transform: translate(-50%, -50%) scale(1.1);"
+//     : "transform: translate(-50%, -50%) scale(1);";
+//   //el extraStyle no esta comillado, revisar mas adelante
+//   return L.divIcon({
+//     className: "",
+//     html: `
+//     <div style=${extraStyle} ${sombra}">
+//           <svg width="40" height="45" viewBox="0 0 40 45" xmlns="http://www.w3.org/2000/svg">
+//           <circle cx="15" cy="15" r="14" fill="${color}" />
+//           <text
+//             x="40%"
+//             y="35%"
+//             text-anchor="middle"
+//             dominant-baseline="central"
+//             fill="white"
+//             font-size="20px"
+//             font-family="Arial, sans-serif">
+//             P
+//           </text>
+//         </svg>
+//       </div>
+//     `,
+//     iconSize: [30, 30],
+//     iconAnchor: [15, 30],
+//   });
+// };
 
 const ciudades = [
   { nombre: "Tarragona", coords: [41.1189, 1.2445] as LatLngTuple },
@@ -80,125 +83,11 @@ const ciudades = [
   { nombre: "Cambrils", coords: [41.0748, 1.0522] as LatLngTuple },
 ];
 
-// export interface ZonaParking {
-//   id: number;
-//   nombre: string;
-//   foto: string;
-//   bounds: [LatLngTuple, LatLngTuple];
-// }
-
-// export const zonasParking: {
-//   id: number;
-//   nombre: string;
-//   foto: string;
-//   bounds: [LatLngTuple, LatLngTuple];
-// }[] = [
-export const zonasParking: ZonaParking[] = [
-  // Tarragona
-  {
-    id: 1,
-    nombre: "Parking Estación Tarragona",
-    foto: "/parking_layout_img.png",
-    bounds: [
-      [41.118, 1.242],
-      [41.1192, 1.245],
-    ],
-  },
-  {
-    id: 2,
-    nombre: "Parking Rambla Nova",
-    foto: "/parking-rambla.jpg",
-    bounds: [
-      [41.116, 1.249],
-      [41.117, 1.251],
-    ],
-  },
-
-  // Salou
-  {
-    id: 3,
-    nombre: "Parking Centro Salou",
-    foto: "/parking-centro.jpg",
-    bounds: [
-      [41.075, 1.139],
-      [41.0763, 1.142],
-    ],
-  },
-  {
-    id: 4,
-    nombre: "Parking Playa Ponent",
-    foto: "/parking-salou-playa.jpg",
-    bounds: [
-      [41.0715, 1.134],
-      [41.0725, 1.137],
-    ],
-  },
-
-  // Cambrils
-  {
-    id: 5,
-    nombre: "Parking Playa Cambrils",
-    foto: "/parking-cambrils-playa.jpg",
-    bounds: [
-      [41.0645, 1.057],
-      [41.0655, 1.06],
-    ],
-  },
-  {
-    id: 6,
-    nombre: "Parking Centro Cambrils",
-    foto: "/parking-cambrils-centro.jpg",
-    bounds: [
-      [41.071, 1.052],
-      [41.0722, 1.054],
-    ],
-  },
-
-  // Vila-seca
-  {
-    id: 7,
-    nombre: "Parking Vila-seca Centro",
-    foto: "/parking-vilaseca.jpg",
-    bounds: [
-      [41.107, 1.144],
-      [41.108, 1.146],
-    ],
-  },
-  {
-    id: 8,
-    nombre: "Parking Estación Vila-seca",
-    foto: "/parking-estacion-vilaseca.jpg",
-    bounds: [
-      [41.1035, 1.143],
-      [41.1045, 1.145],
-    ],
-  },
-
-  // Reus
-  {
-    id: 9,
-    nombre: "Parking Centro Reus",
-    foto: "/parking-reus.jpg",
-    bounds: [
-      [41.1565, 1.108],
-      [41.1575, 1.111],
-    ],
-  },
-  {
-    id: 10,
-    nombre: "Parking Hospital Reus",
-    foto: "/parking-hospital-reus.jpg",
-    bounds: [
-      [41.147, 1.117],
-      [41.148, 1.12],
-    ],
-  },
-];
-
 const CochesMapComponent = () => {
   const { t } = useTranslation();
   const [vehiculos, setVehiculos] = useState<Vehiculo[]>([]);
   const [vehiculosFiltrados, setVehiculosFiltrados] = useState<Vehiculo[]>([]);
+  const [tipoSeleccionado, setTipoSeleccionado] = useState<string | null>(null);
   const [filtrosActivos, setFiltrosActivos] = useState<
     Record<string, string | number | boolean>
   >({});
@@ -208,7 +97,7 @@ const CochesMapComponent = () => {
   // const [parkingSeleccionado, setParkingSeleccionado] = useState<typeof zonasParking[0] | null>(null);
   const [parkingSeleccionado, setParkingSeleccionado] =
     useState<ZonaParking | null>(null);
-  const [mostrarParkings, setMostrarParkings] = useState(true);
+  // const [mostrarParkings, setMostrarParkings] = useState(true);
 
   const [posicionInicialMapa, setPosicionInicialMapa] = useState<LatLngTuple>([
     41.1189, 1.2445,
@@ -233,19 +122,33 @@ const CochesMapComponent = () => {
     centrarMapa(destino, 13);
   };
 
-  useEffect(() => {
-    async function peticionVehiculos() {
-      const response = await httpGet<Vehiculo[]>(`/vehiculos/ubicaciones`);
+  const filtroTipoVehiculo: FilterCategory = {
+    label: "Tipo de Vehículo",
+    name: "tipo",
 
-      if (response) {
-        console.log(response);
-        setVehiculos(response);
-        setVehiculosFiltrados(response);
-      } else {
-        console.error("Error al cargar vehículos");
-      }
+    options: Object.values(TipoVehiculo).map((tipo) => ({
+      value: tipo,
+      label: tipo,
+      logo: `/iconosVehiculo/${tipo.toLowerCase()}.svg`, // Opcional
+    })),
+  };
+
+  async function peticionVehiculos(tipo: string | null = null) {
+    const filTipo: string = tipo ? `?tipo=${tipoSeleccionado}` : "";
+    const response = await httpGet<Vehiculo[]>(
+      `/vehiculos/ubicaciones${filTipo}`
+    );
+
+    if (response) {
+      console.log(response);
+      setVehiculos(response);
+      setVehiculosFiltrados(response);
+    } else {
+      console.error("Error al cargar vehículos");
     }
+  }
 
+  useEffect(() => {
     peticionVehiculos();
   }, []);
 
@@ -315,18 +218,12 @@ const CochesMapComponent = () => {
       return Object.entries(nuevosFiltros).every(([clave, valor]) => {
         const propiedad = vehiculo[clave as keyof Vehiculo];
         switch (clave) {
-          case "estado":
-          case "tipo":
           case "localidad":
             return typeof propiedad === "string"
               ? propiedad
-                .toLowerCase()
-                .includes((valor as string).toLowerCase())
+                  .toLowerCase()
+                  .includes((valor as string).toLowerCase())
               : false;
-          case "esAccesible":
-            return (
-              vehiculo.esAccesible === (valor === true || valor === "true")
-            );
           default:
             return true;
         }
@@ -369,16 +266,16 @@ const CochesMapComponent = () => {
     setVehiculoSeleccionado(null);
     centrarMapa(coords, 17);
 
-  try {
-    const data = await httpGet<DatosVehiculo>(`/vehiculos/${id}`);
-    setTimeout(() => {
-      setVehiculoSeleccionado(data);
-      setMostrarTarjeta(true);
-    }, 400);
-  } catch (err) {
-    console.error("Error al obtener vehículo:", err);
-  }
-};
+    try {
+      const data = await httpGet<DatosVehiculo>(`/vehiculos/${id}`);
+      setTimeout(() => {
+        setVehiculoSeleccionado(data);
+        setMostrarTarjeta(true);
+      }, 400);
+    } catch (err) {
+      console.error("Error al obtener vehículo:", err);
+    }
+  };
 
   return (
     <div className="pl-10 relative flex flex-col lg:flex-row gap-4 px-4 py-4 min-h-screen overflow-visible  ">
@@ -418,7 +315,7 @@ const CochesMapComponent = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             noWrap={true}
           />
-          {mostrarParkings &&
+          {/* {mostrarParkings &&
             zonasParking.map((zona) => (
               <Rectangle
                 key={zona.id}
@@ -463,7 +360,7 @@ const CochesMapComponent = () => {
                   },
                 }}
               />
-            ))}
+            ))} */}
 
           <MarkerClusterGroup
             chunkedLoading
@@ -603,6 +500,25 @@ const CochesMapComponent = () => {
       </div>
 
       <div className="w-full lg:w-1/4  p-4 h-fit top-4">
+        <div className="p-6 space-y-6 rounded-md">
+          <div className="space-y-4">
+            <div className={"flex flex-wrap gap-4 justify-between items-start"}>
+              <div className="flex flex-wrap gap-4 flex-1">
+                <GeneredFilterComponent
+                  index={0}
+                  filter={filtroTipoVehiculo}
+                  valorActual={tipoSeleccionado}
+                  onFilterChange={(nombreFiltro, nuevoValor) => {
+                    setTipoSeleccionado(nuevoValor as string);
+                    console.log(nuevoValor);
+                    peticionVehiculos(nuevoValor as string);
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
         <FiltrersCatalogComponent
           vehiculos={{
             content: vehiculos,
