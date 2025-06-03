@@ -3,6 +3,7 @@ import { SearchFast } from "../../interfaces/SearchFast";
 import type { HomePageProps } from "../../interfaces/HomePageProps";
 import { httpGet } from "../../utils/apiService";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 interface Props extends HomePageProps {
   modoClaro: boolean;
@@ -14,6 +15,7 @@ export const SearchFastComponent: FC<Props> = ({
   modoClaro,
 }): ReactElement => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [optionsSelected, setOptionsSelected] = useState<Array<string>>([
     t("search.types.turismos"),
   ]);
@@ -33,18 +35,28 @@ export const SearchFastComponent: FC<Props> = ({
   }, []);
 
   const tipos = [
-    { label: t("search.types.turismos"), icon: "/turismo.png" },
-    { label: t("search.types.suv"), icon: "/suv.png" },
-    { label: t("search.types.monovolumen"), icon: "/monovolumen.png" },
-    { label: t("search.types.microcoche"), icon: "/MicroCoche.webp" },
+    { label: t("search.types.turismos"), icon: "/turismo.png", value: "TURISMOS" },
+    { label: t("search.types.suv"), icon: "/suv.png" , value: "SUV" },
+    { label: t("search.types.monovolumen"), icon: "/monovolumen.png" , value: "MONOVOLUMEN" },
+    { label: t("search.types.microcoche"), icon: "/MicroCoche.webp" , value: "BIPLAZA" },
   ];
 
+  // const addOrDeleteOption = (carType: string) => {
+  //   setOptionsSelected((prevOptions) =>
+  //     prevOptions.includes(carType)
+  //       ? prevOptions.filter((option) => option !== carType)
+  //       : [...prevOptions, carType]
+  //   );
+  // };
+
   const addOrDeleteOption = (carType: string) => {
-    setOptionsSelected((prevOptions) =>
-      prevOptions.includes(carType)
-        ? prevOptions.filter((option) => option !== carType)
-        : [...prevOptions, carType]
-    );
+    setOptionsSelected((prevOptions) => {
+      if (prevOptions[0] === carType) {
+        return prevOptions;
+      } else {
+        return [carType];
+      }
+    });
   };
 
   const onClickOutEmergent = () => {
@@ -55,6 +67,15 @@ export const SearchFastComponent: FC<Props> = ({
   const onSubmit = () => {
     searchFast.types = optionsSelected;
     searchFast.locate = location;
+
+    const params = new URLSearchParams();
+
+    if (optionsSelected.length > 0) {
+      params.set("type", optionsSelected[0]);
+      params.set("location", location);
+    }
+  
+    navigate(`/map?${params.toString()}`);
   };
 
   const manejarSeleccionUbicacion = (ubicacion: string) => {
@@ -119,10 +140,10 @@ export const SearchFastComponent: FC<Props> = ({
   </h1>
 
   <div className="flex flex-wrap justify-center gap-3">
-  {tipos.map(({ label, icon }) => (
+  {tipos.map(({ label, icon, value}) => (
     <button
       key={label}
-      onClick={() => addOrDeleteOption(label)}
+      onClick={() => addOrDeleteOption(value)}
       className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all border ${
         optionsSelected.includes(label)
           ? "bg-[#A7F3D0] text-[#111827] border-transparent shadow-md"
