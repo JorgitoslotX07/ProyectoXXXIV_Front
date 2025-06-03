@@ -31,6 +31,8 @@ export const HomePage: FC<Props> = ({
     mostrarSuccess("Success al Entrar");
   }, []);
 
+  // text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); filter: sepia(0.4);
+  //    filter: brightness(0.7) sepia(0.1);
   return (
     <>
       <div
@@ -41,17 +43,30 @@ export const HomePage: FC<Props> = ({
       >
         {/* 🔍 Sección de búsqueda inicial */}
         <div className="relative">
-          {/* Imagen de fondo con desenfoque */}
-          <div
-            className={`absolute inset-0 bg-cover bg-center ${modoClaro
-                ? "bg-[url('/fondoFastSeartchClaro.jpeg')]"
-                : "bg-[url('/fondoFastSeartch.webp')]"
-              } blur-[3px]`}
-          ></div>
+     <div
+  className={`absolute inset-0 overflow-hidden z-0`}
+>
+  {/* Imagen de fondo ampliada y difuminada */}
+<div
+  className={`absolute inset-0 bg-cover bg-center blur-[3px] ${
+    modoClaro
+      ? "bg-[url('/fondoFastSeartchClaro.jpeg')]"
+      : "bg-[url('/fondoFastSeartch.webp')]"
+  }`}
+  style={{
+    filter: "brightness(0.7) sepia(0.1)",
+  }}
+/>
+
+  {/* Superposición oscura solo en modo claro */}
+  {modoClaro && (
+    <div className="absolute inset-0 bg-black/20 z-10"></div>
+  )}
+</div>
 
           {/* Contenido del buscador */}
           <div className="relative z-10 p-10">
-            <SearchFastComponent
+          <SearchFastComponent modoClaro={modoClaro}
               onClickOptionsPerfil={onClickOptionsPerfil}
               onLoginClick={onLoginClick}
             />
@@ -60,7 +75,7 @@ export const HomePage: FC<Props> = ({
 
         {/* 🔥 Coches Populares */}
         <div
-          className={`pt-20 px-10 ${modoClaro ? "bg-gradient-to-br from-[#e0fbea] to-[#fef9c3]" : ""
+          className={`pt-20 px-10 ${modoClaro ? "text-yellow-500" : "text-[#C4B5FD]"
             }`}
         >
           <CochesPromoComponent />
