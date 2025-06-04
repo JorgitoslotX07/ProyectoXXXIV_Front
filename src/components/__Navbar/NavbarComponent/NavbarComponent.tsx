@@ -6,6 +6,7 @@ import { useUserStore } from "../../../hooks/userStore";
 import { UserPopUpComponent } from "../UserPopUpComponent/UserPopUpComponent";
 import ThemeButtonComponent from "../ThemeButtonComponent/ThemeButtonComponent";
 import { useTranslation } from "react-i18next";
+import { getCookiesLogin, isAdminFromToken } from "../../../utils/cookisLogin";
 
 interface Props extends NavbarProps {
   modoClaro: boolean;
@@ -14,6 +15,8 @@ interface Props extends NavbarProps {
 export const NavbarComponent: FC<Props> = ({ onLoginClick, modoClaro }) => {
   const user = useUserStore((state) => state.token);
   const { t } = useTranslation();
+  const isAdmin = isAdminFromToken(getCookiesLogin());
+
 
   return (
     <nav
@@ -40,11 +43,13 @@ export const NavbarComponent: FC<Props> = ({ onLoginClick, modoClaro }) => {
         >
           <Link to="/map">{t("navbar.map")}</Link>
         </li>
-        <li
-          className={`transition-colors duration-200 ${modoClaro ? "hover:text-black" : "hover:text-white"}`}
-        >
-          <Link to="/admin">{t("navbar.admin")}</Link>
-        </li>
+        {isAdmin && (
+          <li
+            className={`transition-colors duration-200 ${modoClaro ? "hover:text-black" : "hover:text-white"}`}
+          >
+            <Link to="/admin">{t("navbar.admin")}</Link>
+          </li>
+        )}
       </ul>
 
 

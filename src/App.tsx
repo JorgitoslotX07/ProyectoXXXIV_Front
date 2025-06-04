@@ -46,6 +46,8 @@ import FaqPage from "./pages/FooterPages/FaqPage";
 import SoportePage from "./pages/FooterPages/SoportePage";
 import ForoPage from "./pages/FooterPages/ForoPage";
 import UserMenuPage from "./pages/__ConfigUsersPages/UserMenuPage/UserMenuPage";
+import { PrivateRoute } from "./components/___Route/PrivateRoute/PrivateRoute";
+import { AdminRoute } from "./components/___Route/AdminRoute/AdminRoute";
 
 
 function App() {
@@ -72,7 +74,7 @@ function App() {
       {showLogin && <LoginComponent onClose={() => setShowLogin(false)} />}
       <ScrollToTop />
 
-      <Routes>
+      {/* <Routes>
         <Route
           path="/"
           element={
@@ -114,9 +116,8 @@ function App() {
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Route>
 
-        <Route path="/cookies" element={<CookiesPage />} />
 
-        {/* Footer */}
+        <Route path="/cookies" element={<CookiesPage />} />
         <Route path="/sobre-nosotros" element={<SobreNosotrosPage />} />
         <Route path="/devoluciones" element={<DevolucionesPage />} />
         <Route path="/pagos" element={<PagosPage />} />
@@ -132,10 +133,82 @@ function App() {
         
 
 
+      </Routes> */}
+
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HomePage
+              onLoginClick={() => setShowLogin(false)}
+              onClickOptionsPerfil={onClickOptionsPerfil}
+              modoClaro={modoClaro}
+            />
+          }
+        />
+
+        <Route path="/register" element={<RegistroPage modoClaro={modoClaro} />} />
+        <Route path="/catalog">
+          <Route index element={<CatalogPage modoClaro={modoClaro} />} />
+          <Route path="carDetail" element={<CarDetailPage modoClaro={modoClaro} />} />
+          <Route path="carDetail/finish-trip" element={<FinishTripPage />} />
+        </Route>
+
+        <Route path="/map" element={<MapPage modoClaro={modoClaro} />} />
+        <Route path="/noticia" element={<NoticiaDetailPage />} />
+
+        <Route
+          path="/panel"
+          element={
+            <PrivateRoute>
+              <UserMenuPage modoClaro={modoClaro} />
+            </PrivateRoute>
+          }
+        >
+          <Route path="editar-perfil" element={<EditarPerfilPage modoClaro={modoClaro} />} />
+          <Route path="veri-user" element={<VeriUserPage />} />
+          <Route path="reservas" element={<ReservasPage />} />
+          <Route path="pass" element={<PassPage />} />
+          <Route path="*" element={<Navigate to="/panel" replace />} />
+        </Route>
+
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <PanelAdminPage modoClaro={modoClaro} />
+            </AdminRoute>
+          }
+        >
+          <Route index element={<PanelInicialAdminPage modoClaro={modoClaro} />} />
+          <Route path="usuarios" element={<UsuariosAdminPage />} />
+          <Route path="usuarios/validacion-carnet" element={<ValidacionCarnetAdminPage />} />
+          <Route path="vehiculos" element={<VehiculosAdminPage />} />
+          <Route path="vehiculos/seguimiento" element={<SeguimientoVehiculosAdminPage />} />
+          <Route path="parkings" element={<ParkingsAdminPage />} />
+          <Route path="parkings/crear" element={<CrearParkingPage />} />
+          <Route path="noticias" element={<NoticiasAdminPage />} />
+          <Route path="*" element={<Navigate to="/admin" replace />} />
+        </Route>
+
+        {/* Páginas públicas */}
+        <Route path="/cookies" element={<CookiesPage />} />
+        <Route path="/sobre-nosotros" element={<SobreNosotrosPage />} />
+        <Route path="/devoluciones" element={<DevolucionesPage />} />
+        <Route path="/pagos" element={<PagosPage />} />
+        <Route path="/condiciones" element={<CondicionesPage />} />
+        <Route path="/privacidad" element={<PrivacidadPage />} />
+        <Route path="/marcas" element={<MarcasPage />} />
+        <Route path="/afiliados" element={<AfiliadosPage />} />
+        <Route path="/inversores" element={<InversoresPage />} />
+        <Route path="/blog" element={<BlogPage />} />
+        <Route path="/faq" element={<FaqPage />} />
+        <Route path="/soporte" element={<SoportePage />} />
+        <Route path="/foro" element={<ForoPage />} />
       </Routes>
 
       {/* <FooterComponent modoClaro={modoClaro} /> */}
-      <FooterComponent/>
+      <FooterComponent />
     </>
   );
 }

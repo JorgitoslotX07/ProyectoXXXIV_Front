@@ -580,7 +580,6 @@ const CochesMapComponent = () => {
           }}
           onFilterChange={actualizarFiltro}
           vertical={true}
-          onSubmit={() => console.log()}
           filtros={filtrosActivos}
         />
         <div className="p-10 space-y-6r">

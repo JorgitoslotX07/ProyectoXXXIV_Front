@@ -24,6 +24,8 @@
     "useCurrentLocation": "Usar mi ubicación",
     "types": {
       "turismos": "Turismos",
+      "turismo": "Turismo",
+
       "suv": "SUV",
       "monovolumen": "Monovolumen",
       "microcoche": "Microcoche"
@@ -132,6 +134,10 @@
     "autonomia": "Autonomía"
   },
   "carDetail": {
+    "tipo": "Tipo",
+    "puertas": "Puertas",
+    "autonomia": "Autonomía",
+    "ubicacionActual": "Ubicacion Actual",
     "sinImagen": "Sin imagen",
     "kilometraje": "Kilometraje",
     "caracteristicas": "Características",

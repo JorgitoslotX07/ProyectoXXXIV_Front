@@ -24,6 +24,7 @@
     "useCurrentLocation": "Utilitza la meva ubicació",
     "types": {
       "turismos": "Turismes",
+      "turismo": "Turisme",
       "suv": "SUV",
       "monovolumen": "Monovolum",
       "microcoche": "Microcotxe"
@@ -132,6 +133,10 @@
     "autonomia": "Autonomia"
   },
   "carDetail": {
+    "tipo": "Tipus",
+    "puertas": "Portes",
+    "autonomia": "Autonomia",
+    "ubicacionActual": "Ubicació Actual",
     "sinImagen": "Sense imatge disponible",
     "kilometraje": "Quilometratge",
     "caracteristiques": "Característiques",

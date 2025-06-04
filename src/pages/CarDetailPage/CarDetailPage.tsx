@@ -9,13 +9,12 @@ import { ModalPaymentComponent } from "../../components/Modal/ModalPaymentCompon
 import type { DataPayment } from "../../interfaces/PaymentProps";
 import type { CalificionProps } from "../../interfaces/CalificacionProps";
 import type { ModoClaroProps } from "../../interfaces/ModoClaroProps";
-
+9
 export const CarDetailPage: FC<ModoClaroProps> = ({ modoClaro }) => {
   const { t } = useTranslation();
   const location = useLocation();
   const { state } = location;
   const product: number = state;
-
   const [vehiculo, setVehiculo] = useState<Vehiculo>(Vehiculo);
   const [showPaymentPopup, setShowPaymentPopup] = useState(false);
   const [showAllReviews, setShowAllReviews] = useState(false);
@@ -24,6 +23,7 @@ export const CarDetailPage: FC<ModoClaroProps> = ({ modoClaro }) => {
   useEffect(() => {
     const fetch = async () => {
       const data = await httpGet<Vehiculo>("/vehiculos/" + product);
+      console.log(data)
       if (data) setVehiculo(data);
     };
     fetch();
@@ -42,24 +42,21 @@ export const CarDetailPage: FC<ModoClaroProps> = ({ modoClaro }) => {
   const peticionPago = async (data: DataPayment) => {
     console.log(data);
   };
-
   return (
     <div
-      className={`min-h-screen font-sans px-4 sm:px-6 md:px-10 pt-20 pb-32 ${
-        modoClaro
-          ? "bg-[#f9fafb] text-[#1f2937]"
-          : "bg-[#111827] text-white [background-image:radial-gradient(at_47%_33%,hsl(163,80%,20%)_0,transparent_59%),radial-gradient(at_82%_65%,hsl(218,75%,14%)_0,transparent_55%)] bg-no-repeat bg-cover"
-      }`}
+      className={`min-h-screen font-sans px-4 sm:px-6 md:px-10 pt-20 pb-32 ${modoClaro
+        ? "bg-[#f9fafb] text-[#1f2937]"
+        : "bg-[#111827] text-white [background-image:radial-gradient(at_47%_33%,hsl(163,80%,20%)_0,transparent_59%),radial-gradient(at_82%_65%,hsl(218,75%,14%)_0,transparent_55%)] bg-no-repeat bg-cover"
+        }`}
     >
       {/* INFO VEHÍCULO */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 w-full">
         <div className="w-full">
           <div
-            className={`rounded-xl shadow-xl p-6 w-full border ${
-              modoClaro
-                ? "bg-white border-gray-200"
-                : "bg-[rgba(31,41,55,0.6)] border-white/10 backdrop-blur-[18px] backdrop-saturate-[180%]"
-            }`}
+            className={`rounded-xl shadow-xl p-6 w-full border ${modoClaro
+              ? "bg-white border-gray-200"
+              : "bg-[rgba(31,41,55,0.6)] border-white/10 backdrop-blur-[18px] backdrop-saturate-[180%]"
+              }`}
           >
             {vehiculo.imagen ? (
               <img
@@ -69,9 +66,8 @@ export const CarDetailPage: FC<ModoClaroProps> = ({ modoClaro }) => {
               />
             ) : (
               <div
-                className={`w-full h-64 rounded flex items-center justify-center ${
-                  modoClaro ? "bg-gray-200 text-gray-600" : "bg-gray-700 text-white"
-                }`}
+                className={`w-full h-64 rounded flex items-center justify-center ${modoClaro ? "bg-gray-200 text-gray-600" : "bg-gray-700 text-white"
+                  }`}
               >
                 {t("carDetail.sinImagen")}
               </div>
@@ -81,9 +77,8 @@ export const CarDetailPage: FC<ModoClaroProps> = ({ modoClaro }) => {
 
         <div className="w-full">
           <h1
-            className={`text-3xl font-bold mb-1 ${
-              modoClaro ? "text-yellow-600" : "text-[#C4B5FD]"
-            }`}
+            className={`text-3xl font-bold mb-1 ${modoClaro ? "text-yellow-600" : "text-[#C4B5FD]"
+              }`}
           >
             {vehiculo.marca} {vehiculo.modelo}
           </h1>
@@ -96,21 +91,29 @@ export const CarDetailPage: FC<ModoClaroProps> = ({ modoClaro }) => {
 
           <p className="text-sm text-gray-500 mb-1">{t("carDetail.caracteristicas")}:</p>
           <ul
-            className={`text-sm list-disc list-inside mb-6 ${
-              modoClaro ? "text-gray-700" : "text-gray-200"
-            }`}
+            className={`text-sm list-disc list-inside mb-6 ${modoClaro ? "text-gray-700" : "text-gray-200"
+              }`}
           >
-            {/* {vehiculo.caracteristicas?.map((item, index) => (
-              <li key={index}>{item}</li>
-            ))} */}
+            <li className="flex items-start gap-2">
+              <span className="font-semibold">{t("carDetail.tipo")}:</span> {t(`search.types.${vehiculo.tipo.toLowerCase()}`)}
+              
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="font-semibold">{t("carDetail.puertas")}:</span> {vehiculo.puertas == "CINCO" ? 5 : 3}
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="font-semibold">{t("carDetail.autonomia")}:</span> {vehiculo.autonomia} km
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="font-semibold">{t("carDetail.ubicacionActual")}:</span> {vehiculo.localidad}
+            </li>
           </ul>
 
           <button
-            className={`w-full font-semibold py-3 rounded-md shadow-md mb-6 transition-colors ${
-              modoClaro
-                ? "bg-yellow-400 text-black hover:bg-yellow-500"
-                : "bg-[#C4B5FD] text-black hover:bg-[#a78bfa]"
-            }`}
+            className={`w-full font-semibold py-3 rounded-md shadow-md mb-6 transition-colors ${modoClaro
+              ? "bg-yellow-400 text-black hover:bg-yellow-500"
+              : "bg-[#C4B5FD] text-black hover:bg-[#a78bfa]"
+              }`}
             onClick={() => setShowPaymentPopup(true)}
           >
             {t("carDetail.botonReservar")}
@@ -129,11 +132,10 @@ export const CarDetailPage: FC<ModoClaroProps> = ({ modoClaro }) => {
               {calificaciones?.slice(0, 4).map((rev, i) => (
                 <div
                   key={i}
-                  className={`p-4 rounded-lg shadow-md ${
-                    modoClaro
-                      ? "bg-white border border-gray-200"
-                      : "bg-[rgba(31,41,55,0.6)]"
-                  }`}
+                  className={`p-4 rounded-lg shadow-md ${modoClaro
+                    ? "bg-white border border-gray-200"
+                    : "bg-[rgba(31,41,55,0.6)]"
+                    }`}
                 >
                   <div className="flex items-center gap-4 mb-2">
                     <img
@@ -147,11 +149,10 @@ export const CarDetailPage: FC<ModoClaroProps> = ({ modoClaro }) => {
                         {[...Array(5)].map((_, j) => (
                           <Star
                             key={j}
-                            className={`w-4 h-4 ${
-                              j < rev.calificacion
-                                ? "fill-[#fbff0e] text-yellow-400"
-                                : "fill-gray-300 text-gray-400"
-                            }`}
+                            className={`w-4 h-4 ${j < rev.calificacion
+                              ? "fill-[#fbff0e] text-yellow-400"
+                              : "fill-gray-300 text-gray-400"
+                              }`}
                           />
                         ))}
                       </div>
@@ -169,9 +170,8 @@ export const CarDetailPage: FC<ModoClaroProps> = ({ modoClaro }) => {
       <div className="mt-6 flex justify-center">
         <button
           onClick={() => setShowAllReviews(!showAllReviews)}
-          className={`text-sm font-medium hover:underline ${
-            modoClaro ? "text-yellow-600" : "text-[#C4B5FD]"
-          }`}
+          className={`text-sm font-medium hover:underline ${modoClaro ? "text-yellow-600" : "text-[#C4B5FD]"
+            }`}
         >
           {showAllReviews ? t("carDetail.ocultarTodas") : t("carDetail.verTodas")}
         </button>
@@ -181,9 +181,8 @@ export const CarDetailPage: FC<ModoClaroProps> = ({ modoClaro }) => {
       {showAllReviews && (
         <div className="mt-16">
           <h2
-            className={`text-2xl font-bold mb-6 text-center ${
-              modoClaro ? "text-yellow-700" : "text-[#C4B5FD]"
-            }`}
+            className={`text-2xl font-bold mb-6 text-center ${modoClaro ? "text-yellow-700" : "text-[#C4B5FD]"
+              }`}
           >
             {t("carDetail.tituloTodasReseñas")}
           </h2>
@@ -191,11 +190,10 @@ export const CarDetailPage: FC<ModoClaroProps> = ({ modoClaro }) => {
             {calificaciones?.map((rev, i) => (
               <div
                 key={i}
-                className={`p-4 rounded-lg shadow-md ${
-                  modoClaro
-                    ? "bg-white border border-gray-200"
-                    : "bg-[rgba(31,41,55,0.6)]"
-                }`}
+                className={`p-4 rounded-lg shadow-md ${modoClaro
+                  ? "bg-white border border-gray-200"
+                  : "bg-[rgba(31,41,55,0.6)]"
+                  }`}
               >
                 <div className="flex items-center gap-4 mb-2">
                   <img
@@ -209,11 +207,10 @@ export const CarDetailPage: FC<ModoClaroProps> = ({ modoClaro }) => {
                       {[...Array(5)].map((_, j) => (
                         <Star
                           key={j}
-                          className={`w-4 h-4 ${
-                            j < rev.calificacion
-                              ? "fill-[#fbff0e] text-yellow-400"
-                              : "fill-gray-300 text-gray-400"
-                          }`}
+                          className={`w-4 h-4 ${j < rev.calificacion
+                            ? "fill-[#fbff0e] text-yellow-400"
+                            : "fill-gray-300 text-gray-400"
+                            }`}
                         />
                       ))}
                     </div>

@@ -24,6 +24,7 @@
     "useCurrentLocation": "Use my location",
     "types": {
       "turismos": "Sedan",
+      "turismo": "Sedan",
       "suv": "SUV",
       "monovolumen": "Minivan",
       "microcoche": "Microcar"
@@ -112,6 +113,10 @@
     "errorGenerico": "An unexpected error occurred. Please try again."
   },
   "registro": {
+    "tipo": "Type",
+    "puertas": "Doors",
+    "autonomia": "Range",
+    "ubicacionActual": "Current Location",
     "titulo": "User Registration",
     "placeholderNombre": "Name",
     "placeholderCorreo": "Email",

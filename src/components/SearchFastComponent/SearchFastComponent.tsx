@@ -32,6 +32,8 @@ export const SearchFastComponent: FC<Props> = ({
       }
     };
     fetch();
+
+    addOrDeleteOption("TURISMOS")
   }, []);
 
   const tipos = [
@@ -50,10 +52,6 @@ export const SearchFastComponent: FC<Props> = ({
   // };
 
   const addOrDeleteOption = (carType: string) => {
-    console.log(carType , "carType")
-    console.log(optionsSelected)
-    console.log(optionsLocation)
-
     setOptionsSelected((prevOptions) => {
       if (prevOptions[0] === carType) {
         return prevOptions;

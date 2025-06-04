@@ -1,5 +1,7 @@
 import Cookies from "js-cookie";
 import type { UserData } from "../interfaces/UserData";
+import type { JwtPayload } from "jsonwebtoken";
+import { jwtDecode } from "jwt-decode";
 
 export const deleteCookiesLogin = (): void => {
   Cookies.remove("sessionToken");
@@ -16,7 +18,6 @@ export const getCookiesLogin = (): string | null => {
 };
 
 export const setLoginCookiesAndRedirect = (userData: UserData) => {
-  // Guardar cookies por 3 días
   Cookies.set("sessionToken", JSON.stringify(userData.token), {
     expires: 1 / 24,
     sameSite: "Strict",
@@ -24,3 +25,18 @@ export const setLoginCookiesAndRedirect = (userData: UserData) => {
     // secure: true,
   });
 };
+
+export function isAdminFromToken(token: string | null): boolean {
+  if (!token) return false;
+  console.log("DECODE")
+
+  console.log(token)
+  try {
+    const decoded = jwtDecode<JwtPayload>(token);
+    console.log(decoded)
+
+    return decoded.esAdmin;
+  } catch (e) {
+    return false;
+  }
+}

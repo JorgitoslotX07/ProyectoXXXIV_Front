@@ -13,7 +13,6 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
   onFilterChange,
   vehiculos,
   vertical,
-  onSubmit,
   filtros,
 }) => {
   const { t } = useTranslation();
@@ -98,7 +97,7 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
             ))}
           </div>
 
-          {!vertical && (
+          {/* {!vertical && (
             <div className="flex justify-end w-full sm:w-auto">
               <button
                 onClick={onSubmit}
@@ -107,7 +106,7 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
                 {t("catalog.filters.search")}
               </button>
             </div>
-          )}
+          )} */}
         </div>
       </div>
     </div>

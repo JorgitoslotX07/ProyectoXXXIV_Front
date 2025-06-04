@@ -38,7 +38,7 @@ export const CatalogPage: FC<ModoClaroProps> = ({ modoClaro }) => {
     peticionVehiculos();
   }, []);
 
-  function actualizarFiltro(clave: FiltroVehiculo, valor: string | number | boolean) {
+  async function actualizarFiltro(clave: FiltroVehiculo, valor: string | number | boolean) {
     const nuevosFiltros = {
       ...filtrosActivos,
       [clave]: valor,
@@ -47,13 +47,14 @@ export const CatalogPage: FC<ModoClaroProps> = ({ modoClaro }) => {
       delete nuevosFiltros[clave];
     }
     setFiltrosActivos(nuevosFiltros);
+    await buscar(nuevosFiltros);
   }
 
-  async function buscar(): Promise<void> {
+  async function buscar(filtro: Partial<Record<FiltroVehiculo, string | number | boolean>> = filtrosActivos): Promise<void> {
     const response = await httpGetParam<
       PageProps<Vehiculo>,
       Partial<Record<FiltroVehiculo, string | number | boolean>>
-    >(`/vehiculos?page=${paginaActual}&size=${pageSize}`, filtrosActivos);
+    >(`/vehiculos?page=${paginaActual}&size=${pageSize}`, filtro);
     if (response) {
       setVehiculos(response);
     } else {
@@ -67,7 +68,6 @@ export const CatalogPage: FC<ModoClaroProps> = ({ modoClaro }) => {
         } transition-colors duration-300`}
     >
       <div className="relative">
-        {/* Fondo decorativo según modo */}
         <div
           className={`absolute inset-0 ${modoClaro
             ? "bg-[url('/fondoFastSeartchClaro.jpeg')]"
@@ -98,7 +98,6 @@ export const CatalogPage: FC<ModoClaroProps> = ({ modoClaro }) => {
               onFilterChange={actualizarFiltro}
               vehiculos={vehiculosFiltro}
               vertical={false}
-              onSubmit={() => buscar()}
               filtros={filtrosActivos}
             />
           </div>

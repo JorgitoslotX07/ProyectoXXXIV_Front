@@ -9,7 +9,7 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config) => {
   const token: string | null = getCookiesLogin();
-  console.log(token)
+  // console.log(token)
   if (token !== null) {
     config.headers.Authorization = `Bearer ${token}`;
   } else {
