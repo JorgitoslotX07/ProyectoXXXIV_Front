@@ -104,7 +104,7 @@ function App() {
 
         <Route path="/admin" element={<PanelAdminPage modoClaro={modoClaro} />}>
           <Route index element={<PanelInicialAdminPage modoClaro={modoClaro} />} />
-          <Route path="usuarios" element={<UsuariosAdminPage />} />
+          <Route path="usuarios" element={<UsuariosAdminPage modoClaro={modoClaro} />} />
           <Route path="usuarios/validacion-carnet" element={<ValidacionCarnetAdminPage modoClaro={modoClaro} />} />
           <Route path="vehiculos" element={<VehiculosAdminPage modoClaro={modoClaro} />} />
           <Route path="vehiculos/seguimiento" element={<SeguimientoVehiculosAdminPage modoClaro={modoClaro}/>} />

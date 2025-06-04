@@ -17,7 +17,7 @@ export const ModalNoticiasDelComponent: FC<Props> = ({ onClose, noticia, modoCla
   }
 
   return (
-    <ModalBaseComponent onClose={onClose} titulo={t("modal.deleteNews.title")}>
+    <ModalBaseComponent onClose={onClose} titulo={t("modal.deleteNews.title")} modoClaro={modoClaro}>
       <p className={`mb-4 ${modoClaro ? "text-[#111]" : "text-white"}`}>
         {t("modal.deleteNews.confirm")}{" "}
         <strong>{noticia?.titulo}</strong>?

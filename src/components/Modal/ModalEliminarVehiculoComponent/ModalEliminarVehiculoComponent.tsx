@@ -18,7 +18,7 @@ export const ModalEliminarVehiculo: FC<Props> = ({ vehiculo, onClose, modoClaro 
   }
 
   return (
-    <ModalBaseComponent onClose={onClose} titulo={t("modal.deleteVehicle.title")}>
+    <ModalBaseComponent onClose={onClose} titulo={t("modal.deleteVehicle.title")} modoClaro={modoClaro} >
       <p className={`mb-6 ${modoClaro ? "text-[#111]" : "text-white"}`}>
         {t("modal.deleteVehicle.confirm")}{" "}
         <strong>

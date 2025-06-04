@@ -31,7 +31,7 @@ export const ModalEditUserComponent: FC<Props> = ({ onClose, usuario, modoClaro 
         : "bg-gray-800 text-white border-gray-600 placeholder-gray-400";
 
     return (
-        <ModalBaseComponent onClose={onClose} titulo={t("modal.editUser.title")}>
+        <ModalBaseComponent onClose={onClose} titulo={t("modal.editUser.title")} modoClaro={modoClaro} >
             <form onSubmit={handleSubmit} className="space-y-4">
                 <p className={`text-sm ${modoClaro ? "text-gray-700" : "text-gray-300"}`}>
                     {t("modal.editUser.question")}
