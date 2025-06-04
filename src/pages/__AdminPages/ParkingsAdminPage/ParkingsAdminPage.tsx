@@ -62,7 +62,7 @@ export const ParkingsAdminPage: FC = () => {
             </div>
 
             <table
-                className={`w-full backdrop-blur-md rounded-2xl overflow-hidden text-left border ${modoClaro ? "bg-white border-gray-300" : "bg-white/5 border-white/10"
+                className={`w-full backdrop-blur-md rounded-2xl overflow-hidden text-left border ${modoClaro ? "bg-gray-200 border-gray-300" : "bg-white/5 border-white/10"
                     }`}
             >
                 <thead className={`${modoClaro ? "bg-gray-100 text-gray-700" : "bg-white/10 text-gray-300"}`}>

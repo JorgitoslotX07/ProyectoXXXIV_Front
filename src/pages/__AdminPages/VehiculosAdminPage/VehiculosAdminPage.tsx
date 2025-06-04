@@ -186,8 +186,7 @@ export const VehiculosAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => {
           onClose={() => {
             setShowDelete(false);
             peticionVehiculos();
-          }}
-        />
+          } } modoClaro={modoClaro}        />
       )}
       {showUpdate && (
         <ModalEditarVehiculo

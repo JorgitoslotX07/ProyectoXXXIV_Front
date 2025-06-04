@@ -328,11 +328,19 @@
     "lng": "Longitud"
   },
   "createParking": {
-    "title": "Nuevo Parking",
-    "alert": {
-      "noPolygon": "Por favor dibuja la zona del parking en el mapa."
-    }
+  "title": "Nou Aparcament",
+  "alert": {
+    "noPolygon": "Si us plau, dibuixa la zona de l'aparcament abans de guardar."
   },
+  "fields": {
+    "name": "Nombre",
+    "capacity": "Capacidad",
+    "polygon": "Coordenadas (puntos)"
+  },
+  "buttons": {
+    "save": "Guardar Parking"
+  }
+},
   "parkingForm": {
     "label": {
       "name": "Nombre",
@@ -422,5 +430,26 @@
   "verification": "Verificación de Usuario",
   "history": "Historial de Viajes",
   "logout": "Cerrar Sesión"
+},
+"modal": {
+  "editUser": {
+    "title": "Editar Usuario",
+    "question": "¿Deseas banear al usuario?",
+    "placeholder": "Escribe el motivo del baneo",
+    "cancel": "Cancelar",
+    "ban": "Banear"
+  },  "deleteVehicle": {
+    "title": "Eliminar Vehículo",
+    "confirm": "¿Estás seguro de que deseas eliminar el vehículo",
+    "cancel": "Cancelar",
+    "delete": "Eliminar"
+  },
+    "deleteNews": {
+    "title": "Eliminar Noticia",
+    "confirm": "¿Eliminar la noticia",
+    "cancel": "Cancelar",
+    "delete": "Eliminar"
+  }
+  
 }
 }

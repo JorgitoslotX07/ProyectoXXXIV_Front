@@ -427,7 +427,25 @@
   "verification": "Verificació d'usuari",
   "history": "Historial de viatges",
   "logout": "Tancar sessió"
+},
+"modal": {
+  "editUser": {
+    "title": "Editar Usuari",
+    "question": "Vols bloquejar aquest usuari?",
+    "placeholder": "Escriu el motiu del bloqueig",
+    "cancel": "Cancel·lar",
+    "ban": "Bloquejar"
+  },"deleteVehicle": {
+    "title": "Eliminar Vehicle",
+    "confirm": "Estàs segur que vols eliminar el vehicle",
+    "cancel": "Cancel·lar",
+    "delete": "Eliminar"
+  },
+    "deleteNews": {
+    "title": "Eliminar Notícia",
+    "confirm": "Vols eliminar la notícia",
+    "cancel": "Cancel·lar",
+    "delete": "Eliminar"
+  }
 }
-
-
 }

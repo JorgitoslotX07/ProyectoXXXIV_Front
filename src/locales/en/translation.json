@@ -350,12 +350,20 @@
     "lng": "Lng"
   },
 
-  "createParking": {
-    "title": "New Parking",
-    "alert": {
-      "noPolygon": "Please draw the parking area on the map."
-    }
+"createParking": {
+  "title": "New Parking",
+  "alert": {
+    "noPolygon": "Please draw the parking area before saving."
   },
+  "fields": {
+    "name": "Name",
+    "capacity": "Capacity",
+    "polygon": "Coordinates (points)"
+  },
+  "buttons": {
+    "save": "Save Parking"
+  }
+},
   "parkingForm": {
     "label": {
       "name": "Name",
@@ -451,8 +459,26 @@
   "verification": "User Verification",
   "history": "Trip History",
   "logout": "Log Out"
+},
+"modal": {
+  "editUser": {
+    "title": "Edit User",
+    "question": "Do you want to ban this user?",
+    "placeholder": "Write the reason for banning",
+    "cancel": "Cancel",
+    "ban": "Ban"
+  },
+    "deleteVehicle": {
+    "title": "Delete Vehicle",
+    "confirm": "Are you sure you want to delete the vehicle",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+    "deleteNews": {
+    "title": "Delete News",
+    "confirm": "Delete the news",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  }
 }
-
-
-
 }

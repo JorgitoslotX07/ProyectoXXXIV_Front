@@ -107,9 +107,9 @@ function App() {
           <Route path="usuarios" element={<UsuariosAdminPage />} />
           <Route path="usuarios/validacion-carnet" element={<ValidacionCarnetAdminPage modoClaro={modoClaro} />} />
           <Route path="vehiculos" element={<VehiculosAdminPage modoClaro={modoClaro} />} />
-          <Route path="vehiculos/seguimiento" element={<SeguimientoVehiculosAdminPage />} />
+          <Route path="vehiculos/seguimiento" element={<SeguimientoVehiculosAdminPage modoClaro={modoClaro}/>} />
           <Route path="parkings" element={<ParkingsAdminPage />} />
-          <Route path="parkings/crear" element={<CrearParkingPage />} />
+          <Route path="parkings/crear" element={<CrearParkingPage modoClaro={modoClaro} />} />
           <Route path="noticias" element={<NoticiasAdminPage />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Route>
