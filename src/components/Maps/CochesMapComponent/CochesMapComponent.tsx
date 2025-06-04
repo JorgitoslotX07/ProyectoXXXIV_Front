@@ -22,7 +22,7 @@ import type { FilterCategory } from "../../../interfaces/GeneredFilterComponentP
 import { Parking } from "../../../interfaces/Parking";
 import type { PageProps } from "../../../interfaces/PageProps";
 import { getPolygonCenter } from "../../../utils/conversorServise";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 const crearIconoCoche = (esSeleccionado: boolean) => {
   const color = esSeleccionado ? "#4ade80" : "#3b82f6";
@@ -98,8 +98,7 @@ const CochesMapComponent = () => {
     useState<DatosVehiculo | null>(null);
   const [mostrarTarjeta, setMostrarTarjeta] = useState(false);
   // const [parkingSeleccionado, setParkingSeleccionado] = useState<typeof zonasParking[0] | null>(null);
-  const [zonasParking, setZonasParking] =
-    useState<Parking[]>([]);
+  const [zonasParking, setZonasParking] = useState<Parking[]>([]);
   const [parkingSeleccionado, setParkingSeleccionado] =
     useState<Parking>(Parking);
   const mostrarParkings: boolean = true;
@@ -124,10 +123,9 @@ const CochesMapComponent = () => {
   useEffect(() => {
     if (typeof tipo === "string") setTipoSeleccionado(tipo.toUpperCase());
     if (typeof loca === "string") setFiltrosActivos({ localidad: loca });
-  
+
     peticionVehiculos(tipo);
   }, [tipo, loca]);
-
 
   const centrarMapa = (coords: LatLngTuple, zoom: number = 13) => {
     if (mapRef.current) {
@@ -161,7 +159,7 @@ const CochesMapComponent = () => {
       console.log(response);
       setVehiculos(response);
       setVehiculosFiltrados(response);
-      console.log(filtrosActivos)
+      console.log(filtrosActivos);
       // tipo && actualizarFiltro("localidad", filtrosActivos["localidad"]);
     } else {
       console.error("Error al cargar vehículos");
@@ -169,7 +167,9 @@ const CochesMapComponent = () => {
   }
 
   const peticionParkings = async () => {
-    const response = await httpGetTok<PageProps<Parking>>(`/parkings?page=0&size=100`);
+    const response = await httpGetTok<PageProps<Parking>>(
+      `/parkings?page=0&size=100`
+    );
     if (response) {
       setZonasParking(response.content);
     } else {
@@ -183,7 +183,9 @@ const CochesMapComponent = () => {
   }, []);
 
   useEffect(() => {
-    Object.keys(filtrosActivos).length !== 0 && actualizarFiltro("localidad", filtrosActivos["localidad"]);
+    if (Object.keys(filtrosActivos).length !== 0) {
+      actualizarFiltro("localidad", filtrosActivos["localidad"]);
+    }
   }, [vehiculos]);
 
   useEffect(() => {
@@ -244,7 +246,7 @@ const CochesMapComponent = () => {
     clave: string,
     valor: string | number | boolean
   ) => {
-    console.log("por aqui no pasar")
+    console.log("por aqui no pasar");
     if (vehiculos.length != 0) {
       const nuevosFiltros = { ...filtrosActivos, [clave]: valor };
       if (valor === "" || valor === null) delete nuevosFiltros[clave];
@@ -257,8 +259,8 @@ const CochesMapComponent = () => {
             case "localidad":
               return typeof propiedad === "string"
                 ? propiedad
-                  .toLowerCase()
-                  .includes((valor as string).toLowerCase())
+                    .toLowerCase()
+                    .includes((valor as string).toLowerCase())
                 : false;
             default:
               return true;
@@ -269,7 +271,8 @@ const CochesMapComponent = () => {
       setVehiculosFiltrados(contenidoFiltrado);
 
       if (clave === "localidad") {
-        const normalizar = (t: string) => t.toLowerCase().replace(/[\s-_]/g, "");
+        const normalizar = (t: string) =>
+          t.toLowerCase().replace(/[\s-_]/g, "");
         const ciudad = ciudades.find(
           (c) => normalizar(c.nombre) === normalizar(valor as string)
         );
@@ -278,7 +281,8 @@ const CochesMapComponent = () => {
         }
       } else {
         // Si no hay filtro de ciudad activo, y se aplicó otro filtro, ajustamos a todas las zonas
-        const hayFiltroCiudad = Object.keys(nuevosFiltros).includes("localidad");
+        const hayFiltroCiudad =
+          Object.keys(nuevosFiltros).includes("localidad");
 
         if (!hayFiltroCiudad && contenidoFiltrado.length > 0) {
           // Cerrar tarjeta si hay alguna
@@ -376,7 +380,8 @@ const CochesMapComponent = () => {
             zonasParking.map((zona) => (
               <Marker
                 key={`marker-${zona.id}`}
-                position={getPolygonCenter(zona.polygon)
+                position={
+                  getPolygonCenter(zona.polygon)
                   // (zona.bounds[0][0] + zona.bounds[1][0]) / 2,
                   // (zona.bounds[0][1] + zona.bounds[1][1]) / 2,
                 }
@@ -400,7 +405,7 @@ const CochesMapComponent = () => {
             ))}
 
           <MarkerClusterGroup
-            key={vehiculosFiltrados.map(v => v.id).join("-")}
+            key={vehiculosFiltrados.map((v) => v.id).join("-")}
             chunkedLoading
             spiderfyOnMaxZoom
             zoomToBoundsOnClick
@@ -476,32 +481,37 @@ const CochesMapComponent = () => {
             >
               ✕
             </button>
-            {vehiculoSeleccionado.imagen && (
-              <img
-                src={vehiculoSeleccionado.imagen}
-                alt={`${vehiculoSeleccionado.marca} ${vehiculoSeleccionado.modelo}`}
-                className="w-full h-36 object-cover rounded mb-4"
-              />
-            )}
-            <h2 className="text-xl font-bold mb-1">
-              {vehiculoSeleccionado.marca} {vehiculoSeleccionado.modelo}
-            </h2>
-            <p className="text-sm text-gray-500 mb-2">
-              🔋 {vehiculoSeleccionado.autonomia} km · 📅{" "}
-              {t("map.lastRevision")}: {vehiculoSeleccionado.ultimaRevision}
-            </p>
-            <div className="border-t border-gray-200 pt-2 text-sm">
-              <p className="text-gray-600">
-                🚗 {t("map.status")}: {vehiculoSeleccionado.estado}
+            <Link to="/catalog/carDetail" state={vehiculoSeleccionado.id}>
+              {vehiculoSeleccionado.imagen && (
+                <img
+                  src={vehiculoSeleccionado.imagen}
+                  alt={`${vehiculoSeleccionado.marca} ${vehiculoSeleccionado.modelo}`}
+                  className="w-full h-36 object-cover rounded mb-4"
+                />
+              )}
+              <h2 className="text-xl font-bold mb-1">
+                {vehiculoSeleccionado.marca} {vehiculoSeleccionado.modelo}
+              </h2>
+              <p className="text-sm text-gray-500 mb-2">
+                🔋 {vehiculoSeleccionado.autonomia} km · 📅{" "}
+                {t("map.lastRevision")}: {vehiculoSeleccionado.ultimaRevision}
               </p>
-              <p className="text-gray-600">
-                📍 Lat: {vehiculoSeleccionado.latitud}, Lng:{" "}
-                {vehiculoSeleccionado.longitud}
-              </p>
-            </div>
-            <button className="mt-4 w-full bg-green-600 text-white font-bold py-2 rounded hover:bg-green-700 transition">
-              {t("map.moreDetails")}
-            </button>
+              <div className="border-t border-gray-200 pt-2 text-sm">
+                <p className="text-gray-600">
+                  🚗 {t("map.status")}: {vehiculoSeleccionado.estado}
+                </p>
+                <p className="text-gray-600">
+                  📍 Lat: {vehiculoSeleccionado.latitud}, Lng:{" "}
+                  {vehiculoSeleccionado.longitud}
+                </p>
+              </div>
+              <button
+                className="mt-4 w-full bg-green-600 text-white font-bold py-2 rounded hover:bg-green-700 transition"
+                onClick={() => console.log(vehiculoSeleccionado)}
+              >
+                {t("map.moreDetails")}
+              </button>
+            </Link>
           </div>
         )}
 
@@ -531,7 +541,7 @@ const CochesMapComponent = () => {
               <p className="text-gray-600">📍 {t("map.sampleAddress")}</p>
             </div>
             <button className="mt-4 w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600 transition">
-              {t("map.viewNearby")}
+              {t("map.moreDetails")}
             </button>
           </div>
         )}

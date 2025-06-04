@@ -1,9 +1,10 @@
 import { useState, useEffect, type FC } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Vehiculo } from "../../interfaces/Vehiculo";
 import { httpGet } from "../../utils/apiService";
 import { createEmptyPage, type PageProps } from "../../interfaces/PageProps";
 import { useTranslation } from "react-i18next";
+import { CardcocheComponent } from "../CardProductComponent/CardProductComponent";
 
 interface Props {
   modoClaro: boolean;
@@ -75,39 +76,37 @@ export const CochesPromoComponent: FC<Props> = ({ modoClaro }) => {
         </h2>
         <div className="flex flex-wrap justify-center gap-6">
           {vehiculos.content.map((product, index) => (
-            <Link to="/catalog/carDetail" state={product} key={index}>
-              <div
-                className="p-4 rounded-lg shadow-lg transition-shadow duration-300 w-64"
-                style={{ backgroundColor: "#1F2937" }}
-              >
-                <div
-                  className="h-40 mb-4 rounded overflow-hidden flex items-center justify-center"
-                  style={{ backgroundColor: "#374151" }}
-                >
-                  {product.imagen && (
-                    <img
-                      src={product.imagen}
-                      alt={product.modelo}
-                      className="object-cover h-full w-full hover:scale-105 transition-transform duration-300"
-                    />
-                  )}
-                </div>
+            // <Link to="/catalog/carDetail" state={product} key={index}>
+            //   <div
+            //     className="p-4 rounded-lg shadow-lg transition-shadow duration-300 w-64"
+            //     style={{ backgroundColor: "#1F2937" }}
+            //   >
+            //     <div
+            //       className="h-40 mb-4 rounded overflow-hidden flex items-center justify-center"
+            //       style={{ backgroundColor: "#374151" }}
+            //     >
+            //       {product.imagen && (
+            //         <img
+            //           src={product.imagen}
+            //           alt={product.modelo}
+            //           className="object-cover h-full w-full hover:scale-105 transition-transform duration-300"
+            //         />
+            //       )}
+            //     </div>
 
-                <h3
-                  className="font-semibold text-base"
-                  style={{ color: "#FBCFE8" }}
-                >
-                  {product.marca} {product.modelo}
-                </h3>
-                <p className="text-sm text-gray-300 line-clamp-2">
-                  Autonomia: {product.autonomia}
-                </p>
+            //     <h3
+            //       className="font-semibold text-base"
+            //       style={{ color: "#FBCFE8" }}
+            //     >
+            //       {product.marca} {product.modelo}
+            //     </h3>
+            //     <p className="text-sm text-gray-300 line-clamp-2">
+            //       Autonomia: {product.autonomia}
+            //     </p>
+            //   </div>
+            // </Link>
 
-                {/* <p className="mt-2 font-bold" style={{ color: "#A7F3D0" }}>
-                  {product.price} €
-                </p> */}
-              </div>
-            </Link>
+            <CardcocheComponent coche={product} index={index} />
           ))}
         </div>
       </div>
