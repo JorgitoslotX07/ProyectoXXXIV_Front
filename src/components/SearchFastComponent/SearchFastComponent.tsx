@@ -50,6 +50,10 @@ export const SearchFastComponent: FC<Props> = ({
   // };
 
   const addOrDeleteOption = (carType: string) => {
+    console.log(carType , "carType")
+    console.log(optionsSelected)
+    console.log(optionsLocation)
+
     setOptionsSelected((prevOptions) => {
       if (prevOptions[0] === carType) {
         return prevOptions;
@@ -80,6 +84,7 @@ export const SearchFastComponent: FC<Props> = ({
 
   const manejarSeleccionUbicacion = (ubicacion: string) => {
     setLocation(ubicacion);
+    console.log(ubicacion)
     setMostrarDesplegable(false);
   };
 
@@ -145,7 +150,7 @@ export const SearchFastComponent: FC<Props> = ({
       key={label}
       onClick={() => addOrDeleteOption(value)}
       className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all border ${
-        optionsSelected.includes(label)
+        optionsSelected.includes(value)
           ? "bg-[#A7F3D0] text-[#111827] border-transparent shadow-md"
           : modoClaro
             ? "bg-black/20 text-white border-white/30 hover:bg-black/30"
@@ -188,7 +193,7 @@ export const SearchFastComponent: FC<Props> = ({
               <input
                 type="text"
                 value={location}
-                onChange={(e) => setLocation(e.target.value)}
+                onChange={(e) => {setLocation(e.target.value); console.log(e.target.value, "hola");}}
                 onFocus={() => setMostrarDesplegable(true)}
                 onBlur={() => setTimeout(() => setMostrarDesplegable(false), 100)}
                 placeholder={t("search.placeholder")}
@@ -218,7 +223,7 @@ export const SearchFastComponent: FC<Props> = ({
               {optionsLocation.map((ubicacion) => (
                 <li
                   key={ubicacion}
-                  onClick={() => manejarSeleccionUbicacion(ubicacion)}
+                  onClick={() => {manejarSeleccionUbicacion(ubicacion); console.log(ubicacion)}}
                   className={`px-4 py-2 text-sm cursor-pointer transition-colors duration-150 rounded-md mx-1 my-1 whitespace-nowrap overflow-hidden text-ellipsis ${modoClaro
                       ? "text-gray-800 hover:bg-gray-100 hover:text-black"
                       : "text-gray-100 hover:bg-[#4B5563] hover:text-white"

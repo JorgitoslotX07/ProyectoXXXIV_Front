@@ -1,6 +1,6 @@
 import { useEffect, useState, type FC } from "react";
 import { ModalPagarComponent } from "../../components/Modal/ModalPagarComponent/ModalPagarComponent";
-import { httpGet } from "../../utils/apiService";
+import { httpGet, httpGetTok } from "../../utils/apiService";
 import type { Vehiculo } from "../../interfaces/Vehiculo";
 import { useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -32,12 +32,11 @@ export const FinishTripPage: FC = () => {
     }
   }, [vehicleFromState, vehiculo]);
 
-  // Opcional: fetch datos viaje para actualizar km, tiempo e importe
   useEffect(() => {
     async function fetchDatosViaje() {
       if (!vehiculo?.id) return;
       try {
-        const data = await httpGet<{ km: number; tiempo: number; importe: number }>(`/viajes/${vehiculo.id}`);
+        const data = await httpGetTok<{ km: number; tiempo: number; importe: number }>(`/viajes/${vehiculo.id}`);
         if (data) {
           setKm(data.km);
           setTiempo(data.tiempo);

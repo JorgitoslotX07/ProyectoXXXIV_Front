@@ -11,6 +11,8 @@ import { useTranslation } from "react-i18next";
 export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => {
   const { t } = useTranslation();
   const [usuarios, setUsuarios] = useState<UsuarioCarnet[]>([]);
+  const [usuariosEditables, setUsuariosEditables] = useState<Record<string, UsuarioCarnet>>({});
+
   const [loading, setLoading] = useState<boolean>(true);
   const [imagenes, setImagenes] = useState<Record<string, string>>({});
 
@@ -34,6 +36,11 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
   }, []);
 
   useEffect(() => {
+    const inicial = Object.fromEntries(usuarios.map(u => [u.usuario!, { ...u }]));
+    setUsuariosEditables(inicial);
+  }, [usuarios]);
+
+  useEffect(() => {
     const cargarImagenes = async () => {
       const nuevasImagenes: Record<string, string> = {};
       for (const u of usuarios) {
@@ -50,9 +57,31 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
     }
   }, [usuarios]);
 
+  const handleChange = (
+    usuario: string,
+    campo: keyof UsuarioCarnet,
+    valor: string | Date
+  ) => {
+    setUsuariosEditables((prev) => ({
+      ...prev,
+      [usuario]: {
+        ...prev[usuario],
+        [campo]: valor,
+      },
+    }));
+  };
+
+
   const handleValidar = async (usu: string, aprobado: boolean) => {
     setUsuarios((prev) => prev.filter((u) => u.usuario !== usu));
-    await httpPutTok(`/carnets/${usu}/estado`, {
+    const datosActualizados = usuariosEditables[usu];
+
+    // const payload = {
+    //   ...datosActualizados,
+    //   estado: aprobado ? "APROBADO" : "RECHAZADO",
+    // };
+
+    const result = await httpPutTok(`/carnets/${usu}/estado`, {
       estado: aprobado ? "APROBADO" : "RECHAZADO",
     });
   };
@@ -86,6 +115,8 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
 
         <div className="space-y-6">
           {usuarios.map((u, index) => (
+
+
             <div
               key={index}
               className={`p-6 rounded-2xl flex flex-col lg:flex-row gap-6 border ${
@@ -122,20 +153,38 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
                     {u.usuario}
                   </span>
                 </h2>
-                <p>
-                  <span className="font-semibold">{t("carnet.fields.name")}:</span> {u.nombre}
-                </p>
-                <p>
-                  <span className="font-semibold">{t("carnet.fields.email")}:</span> {u.email}
-                </p>
-                <p>
-                  <span className="font-semibold">{t("carnet.fields.cardNumber")}:</span>{" "}
-                  {u.numeroCarnet}
-                </p>
-                <p>
-                  <span className="font-semibold">{t("carnet.fields.issueDate")}:</span>{" "}
-                  {new Date(u.fechaExpedicion).toLocaleDateString()}
-                </p>
+                <input
+                  type="text"
+                  placeholder="Nombre: "
+                  value={usuariosEditables[u.usuario!]?.nombre || ""}
+                  onChange={(e) => handleChange(u.usuario!, "nombre", e.target.value)}
+                  className="bg-transparent border border-white/20 rounded px-2 py-1 w-full"
+                />
+
+                {/* <input
+                  type="email"
+                  placeholder="Email: "
+
+                  value={usuariosEditables[u.usuario!]?.email || ""}
+                  onChange={(e) => handleChange(u.usuario!, "email", e.target.value)}
+                  className="bg-transparent border border-white/20 rounded px-2 py-1 w-full"
+                /> */}
+
+                <input
+                  type="text"
+                  placeholder="Nº Carnet: "
+
+                  value={usuariosEditables[u.usuario!]?.numeroCarnet || ""}
+                  onChange={(e) => handleChange(u.usuario!, "numeroCarnet", e.target.value)}
+                  className="bg-transparent border border-white/20 rounded px-2 py-1 w-full"
+                />
+                <input
+                  type="date"
+                  placeholder="Expedición:"
+                  value={usuariosEditables[u.usuario!]?.fechaExpedicion || ""}
+                  onChange={(e) => handleChange(u.usuario!, "fechaExpedicion", e.target.value)}
+                  className="bg-transparent border border-white/20 rounded px-2 py-1 w-full"
+                />
                 <p>
                   <span className="font-semibold">{t("carnet.fields.status")}:</span>{" "}
                   <span
