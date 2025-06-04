@@ -365,23 +365,22 @@
     "estado_EN_USO": "En ús",
     "estado_RESERVADO": "Reservat",
     "estado_EN_MANTENIMIENTO": "En manteniment"
-  }
-},
-    "parkings": {
-      "title": "Gestió d'Aparcaments",
-      "addButton": "Afegir Aparcament",
-      "table": {
-        "name": "Nom",
-        "capacity": "Capacitat",
-        "location": "Ubicació",
-        "actions": "Accions"
-      },
-      "actions": {
-        "edit": "Editar",
-        "delete": "Eliminar"
-      }
+  },
+  "parkings": {
+    "title": "Gestió d'Aparcaments",
+    "addButton": "Afegir Aparcament",
+    "table": {
+      "name": "Nom",
+      "capacity": "Capacitat",
+      "location": "Ubicació",
+      "actions": "Accions"
     },
-"news": {
+    "actions": {
+      "edit": "Editar",
+      "delete": "Eliminar"
+    }
+  },
+  "news": {
     "title": "Gestió de Notícies",
     "addButton": "Afegir Notícia",
     "table": {
@@ -398,7 +397,9 @@
       "edit": "Editar",
       "delete": "Eliminar"
     }
-  },
+  }
+}
+,
     "promo": {
   "title": "Cotxes Populars"
 

@@ -389,9 +389,7 @@
     "estado_en_uso": "In use",
     "estado_reservado": "Reserved",
     "estado_en_mantenimiento": "Under maintenance"
-  }
-}
-,
+  },
   "parkings": {
     "title": "Parking Management",
     "addButton": "Add Parking",
@@ -423,7 +421,9 @@
       "edit": "Edit",
       "delete": "Delete"
     }
-  },
+  }
+}
+,
   "promo": {
   "title": "Popular Cars"
 
