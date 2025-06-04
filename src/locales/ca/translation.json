@@ -380,6 +380,7 @@
         "location": "Ubicació",
         "actions": "Accions"
       },
+      
       "actions": {
         "edit": "Editar",
         "delete": "Eliminar"

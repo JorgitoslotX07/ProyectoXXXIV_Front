@@ -382,6 +382,9 @@
     "parkings": {
       "title": "Gestión de Parkings",
       "addButton": "Agregar Parking",
+        "actions": {
+        "edit": "Editar",
+        "delete": "Eliminar"},
       "table": {
         "name": "Nombre",
         "capacity": "Capacidad",
