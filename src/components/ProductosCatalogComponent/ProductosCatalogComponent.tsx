@@ -26,7 +26,7 @@ export const ProductosCatalogComponent: FC<ProductosCatalogProps> = ({
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 px-4">
         {vehiculos.content.map((product, index) => (
-          <CardcocheComponent key={index} coche={product} index={index} />
+          <CardcocheComponent key={index} coche={product} index={index} modoClaro={modoClaro} />
         ))}
       </div>
     </>
