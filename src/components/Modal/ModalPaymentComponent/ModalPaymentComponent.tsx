@@ -12,9 +12,8 @@ export const ModalPaymentComponent: FC<ModalPayment> = ({
   initialDuration = 1,
   onSubmit,
 }) => {
-  const [paymentType, setPaymentType] =
-    useState<PaymentType>("Alquiler por hora");
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("Tarjeta");
+  const paymentType: PaymentType = "Alquiler por hora";
+  const paymentMethod: PaymentMethod = "Tarjeta";
   const [duration, setDuration] = useState<number>(initialDuration);
   const [estimatedKm, setEstimatedKm] = useState<number | undefined>(undefined);
   const [amount, setAmount] = useState<number>(0);
@@ -67,7 +66,7 @@ export const ModalPaymentComponent: FC<ModalPayment> = ({
       ? "Duración (días)"
       : "Duración no aplicable";
 
-  const durationDisabled = paymentType === "Reservación";
+  const durationDisabled = paymentType === "Reservación" as PaymentType;
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50">
@@ -138,7 +137,7 @@ export const ModalPaymentComponent: FC<ModalPayment> = ({
                 durationDisabled ? "bg-gray-100 cursor-not-allowed" : "bg-white"
               } text-gray-800`}
             />
-            {paymentType === "Reservación" && (
+            {paymentType === "Reservación" as PaymentType && (
               <p className="mt-2 text-sm text-gray-600">
                 Anticipo fijo de 20% de la tarifa diaria:{" "}
                 <span className="font-medium">

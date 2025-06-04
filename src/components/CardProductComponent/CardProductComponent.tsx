@@ -3,11 +3,7 @@ import type { CardProductProps } from "../../interfaces/CardProductProps";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-interface Props extends CardProductProps {
-  modoClaro: boolean;
-}
-
-export const CardcocheComponent: FC<Props> = ({ coche, index, modoClaro }) => {
+export const CardcocheComponent: FC<CardProductProps> = ({ coche, index, modoClaro = false}) => {
   const { t } = useTranslation();
 
   return (

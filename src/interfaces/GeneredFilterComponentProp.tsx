@@ -20,3 +20,10 @@ export interface FiltersProps {
   ) => void;
   valorActual?: string | number | boolean | null;
 }
+
+
+export type OptionType = {
+  value: string;
+  label: string;
+  logo?: string;
+};

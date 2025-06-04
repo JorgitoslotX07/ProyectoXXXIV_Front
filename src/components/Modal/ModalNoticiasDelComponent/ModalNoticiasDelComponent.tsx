@@ -4,11 +4,7 @@ import type { ModalNoticiaProps } from "../../../interfaces/ModalProps";
 import { ModalBaseComponent } from "../ModalBaseComponent/ModalBaseComponent";
 import { httpDeleteTok } from "../../../utils/apiService";
 
-interface Props extends ModalNoticiaProps {
-  modoClaro: boolean;
-}
-
-export const ModalNoticiasDelComponent: FC<Props> = ({ onClose, noticia, modoClaro }) => {
+export const ModalNoticiasDelComponent: FC<ModalNoticiaProps> = ({ onClose, noticia, modoClaro = false}) => {
   const { t } = useTranslation();
 
   async function onConfirm() {

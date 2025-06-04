@@ -1,8 +1,8 @@
 import { MapContainer, TileLayer, Polygon } from "react-leaflet";
-import L, { type LatLngTuple } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import type { FC } from "react";
 import type { MiniMapProps } from "../../../interfaces/MapProps";
+import type { LatLngTuple } from "leaflet";
 
 
 

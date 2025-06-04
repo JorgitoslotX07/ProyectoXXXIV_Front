@@ -53,7 +53,7 @@ export const PassPage: FC = () => {
   };
 
   return (
-    <FondoPanelComponent>
+    <FondoPanelComponent modoClaro={false}>
       <div className="relative min-h-screen  p-8 text-white">
         <TituloComponent titulo={t("pass.titulo")} />
 

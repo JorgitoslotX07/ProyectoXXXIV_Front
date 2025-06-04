@@ -56,7 +56,7 @@ export const VeriUserPage: FC = (): ReactElement => {
   }
 
   return (
-    <FondoPanelComponent>
+    <FondoPanelComponent >
       <div className="relative min-h-screen  p-8 text-white">
         <TituloComponent titulo={"Verificar Identidad"} />
 

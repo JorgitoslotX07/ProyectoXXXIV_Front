@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { httpDelete, httpDeleteTok } from "../../../utils/apiService";
+import { httpDeleteTok } from "../../../utils/apiService";
 import type { ModalGestionUserProps } from "../../../interfaces/ModalProps";
 import { ModalBaseComponent } from "../ModalBaseComponent/ModalBaseComponent";
 

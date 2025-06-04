@@ -1,9 +1,6 @@
-import type { ReactNode, FC } from "react";
+import type { FC } from "react";
+import type { FondoPanelProps } from "../../../interfaces/FondoPanelProps";
 
-interface FondoPanelProps {
-  children: ReactNode;
-  modoClaro: boolean;
-}
 
 export const FondoPanelComponent: FC<FondoPanelProps> = ({ children, modoClaro }) => {
   return (

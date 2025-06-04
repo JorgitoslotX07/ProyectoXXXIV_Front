@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import type { VolverProps } from "../../interfaces/PanelProps";
 import { useTranslation } from "react-i18next"; // 🟣 i18n
+import type { VolverProps } from "../../../interfaces/PanelProps";
 
 export const VolverComonent: FC<VolverProps> = ({ url }) => {
     const navigate = useNavigate();

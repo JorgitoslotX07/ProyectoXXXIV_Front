@@ -1,6 +1,6 @@
 import type { FC } from "react";
-import type { FiltersProps } from "../../interfaces/GeneredFilterComponentProp";
-import Select, { components } from "react-select";
+import type { FiltersProps, OptionType } from "../../interfaces/GeneredFilterComponentProp";
+import Select, { components, type OptionProps, type SingleValueProps } from "react-select";
 import type { FiltroVehiculo } from "../../interfaces/Vehiculo";
 
 export const GeneredFilterComponent: FC<FiltersProps> = ({
@@ -10,7 +10,7 @@ export const GeneredFilterComponent: FC<FiltersProps> = ({
   valorActual,
 }) => {
   // Componente personalizado para mostrar logo + label
-  const CustomOption = (props: T) => {
+  const CustomOption = (props: OptionProps<OptionType, false>) => {
     const { data, innerRef, innerProps } = props;
     return (
       <div
@@ -32,8 +32,8 @@ export const GeneredFilterComponent: FC<FiltersProps> = ({
       </div>
     );
   };
-
-  const CustomSingleValue = (props: T) => {
+  
+  const CustomSingleValue = (props: SingleValueProps<OptionType, false>) => {
     const { data } = props;
     return (
       <components.SingleValue {...props}>
@@ -53,7 +53,6 @@ export const GeneredFilterComponent: FC<FiltersProps> = ({
       </components.SingleValue>
     );
   };
-
   return (
     <div className="flex flex-col w-48 gap-1">
       <label

@@ -1,6 +1,6 @@
 import type { FC } from "react";
-import type { TituloProps } from "../../interfaces/PanelProps";
 import { VolverComonent } from "./VolverComponent";
+import type { TituloProps } from "../../../interfaces/PanelProps";
 
 export const TituloComponent: FC<TituloProps> = ({ titulo, runtaOut = "*"}) => {
 

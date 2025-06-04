@@ -56,13 +56,14 @@ export const VehiculosAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => {
     const nuevosFiltros = { ...filtrosActivos, [clave]: valor };
     if (valor === "" || valor === null) delete nuevosFiltros[clave];
     setFiltrosActivos(nuevosFiltros);
+    buscar(nuevosFiltros)
   }
 
-  async function buscar() {
+  async function buscar(fitro: Partial<Record<FiltroVehiculo, string | number | boolean>> = filtrosActivos) {
     const response = await httpGetParam<
       PageProps<Vehiculo>,
       Partial<Record<FiltroVehiculo, string | number | boolean>>
-    >(`/vehiculos?page=${paginaActual}&size=${pageSize}`, filtrosActivos);
+    >(`/vehiculos?page=${paginaActual}&size=${pageSize}`, fitro);
     if (response) {
       setVehiculos(response);
     }
@@ -103,7 +104,6 @@ export const VehiculosAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => {
             onFilterChange={actualizarFiltro}
             vehiculos={vehiculosFiltro}
             vertical={false}
-            onSubmit={buscar}
             filtros={filtrosActivos}
           />
 

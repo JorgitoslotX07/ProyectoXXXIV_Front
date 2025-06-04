@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  getCookiesLogin,
   setLoginCookiesAndRedirect,
 } from "../../../utils/cookisLogin";
 import type { UserData } from "../../../interfaces/UserData";

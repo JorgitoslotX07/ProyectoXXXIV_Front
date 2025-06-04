@@ -17,5 +17,6 @@ export const Parking = {
 export interface ParkingFormProps {
   polygon: LatLngTuple[];
   onSave: (data: { name: string; capacity: number; polygon:  LatLngTuple[] }) => void;
+  modoClaro: boolean
 }
 

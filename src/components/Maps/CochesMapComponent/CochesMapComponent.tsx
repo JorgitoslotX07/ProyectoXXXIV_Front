@@ -102,7 +102,7 @@ const CochesMapComponent = () => {
     useState<Parking[]>([]);
   const [parkingSeleccionado, setParkingSeleccionado] =
     useState<Parking>(Parking);
-  const [mostrarParkings, setMostrarParkings] = useState(true);
+  const mostrarParkings: boolean = true;
 
   const [posicionInicialMapa, setPosicionInicialMapa] = useState<LatLngTuple>([
     41.1189, 1.2445,
@@ -548,7 +548,7 @@ const CochesMapComponent = () => {
                   valorActual={tipoSeleccionado}
                   onFilterChange={(nombreFiltro, nuevoValor) => {
                     setTipoSeleccionado(nuevoValor as string);
-                    console.log(nuevoValor);
+                    console.log(nombreFiltro);
                     peticionVehiculos(nuevoValor as string);
                   }}
                 />

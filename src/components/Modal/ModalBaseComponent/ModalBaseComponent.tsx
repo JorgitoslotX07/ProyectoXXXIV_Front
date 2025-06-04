@@ -15,11 +15,7 @@
 import type { FC } from "react";
 import type { ModalBaseProps } from "../../../interfaces/ModalProps";
 
-interface Props extends ModalBaseProps {
-    modoClaro: boolean;
-}
-
-export const ModalBaseComponent: FC<Props> = ({ onClose, children, titulo, modoClaro }) => (
+export const ModalBaseComponent: FC<ModalBaseProps> = ({ onClose, children, titulo, modoClaro = false }) => (
     <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
         <div
             className={`rounded-2xl border shadow-lg w-full max-w-xl transition-all duration-300 ${modoClaro

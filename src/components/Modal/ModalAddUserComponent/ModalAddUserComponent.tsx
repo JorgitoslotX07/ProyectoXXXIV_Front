@@ -24,7 +24,7 @@ export const ModalAddUserComponent: FC<ModalCrearVehiculoProps> = ({ onClose }):
 
 
     return (
-        <ModalBaseComponent onClose={onClose} titulo="Agregar Usuario">
+        <ModalBaseComponent modoClaro onClose={onClose} titulo="Agregar Usuario">
             <form onSubmit={handleSubmit} className="space-y-4 text-white">
                 <div>
                     <label className="block mb-1">Nombre de usuario</label>

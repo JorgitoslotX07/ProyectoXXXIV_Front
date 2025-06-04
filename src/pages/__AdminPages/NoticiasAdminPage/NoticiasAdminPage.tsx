@@ -162,6 +162,7 @@ export const NoticiasAdminPage: FC = () => {
                         peticionNoticias();
                     }}
                     noticia={selected || undefined}
+                    modoClaro={modoClaro}
                 />
             )}
         </div>

@@ -1,6 +1,3 @@
-import type { UsuarioCompleto } from "./Usuario";
-import type { Vehiculo } from "./Vehiculo";
-
 export interface SortInfo {
   empty: boolean;
   sorted: boolean;

@@ -74,14 +74,14 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
 
   const handleValidar = async (usu: string, aprobado: boolean) => {
     setUsuarios((prev) => prev.filter((u) => u.usuario !== usu));
-    const datosActualizados = usuariosEditables[usu];
+    // const datosActualizados = usuariosEditables[usu];
 
     // const payload = {
     //   ...datosActualizados,
     //   estado: aprobado ? "APROBADO" : "RECHAZADO",
     // };
 
-    const result = await httpPutTok(`/carnets/${usu}/estado`, {
+    await httpPutTok(`/carnets/${usu}/estado`, {
       estado: aprobado ? "APROBADO" : "RECHAZADO",
     });
   };
@@ -89,11 +89,10 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
   if (loading) {
     return (
       <div
-        className={`min-h-screen flex items-center justify-center ${
-          modoClaro
+        className={`min-h-screen flex items-center justify-center ${modoClaro
             ? "bg-gradient-to-br from-[#FFFBEA] to-[#FDF6E3] text-gray-800"
             : "bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white"
-        }`}
+          }`}
       >
         <span className="text-xl font-semibold">{t("carnet.loading")}</span>
       </div>
@@ -102,11 +101,10 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
 
   return (
     <div
-      className={`min-h-screen p-8 ${
-        modoClaro
+      className={`min-h-screen p-8 ${modoClaro
           ? "bg-gradient-to-br from-[#FFFBEA] to-[#FDF6E3] text-gray-800"
           : "bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white"
-      }`}
+        }`}
     >
       <div className="max-w-4xl mx-auto">
         <div className="flex justify-between items-center mb-6">
@@ -119,11 +117,10 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
 
             <div
               key={index}
-              className={`p-6 rounded-2xl flex flex-col lg:flex-row gap-6 border ${
-                modoClaro
+              className={`p-6 rounded-2xl flex flex-col lg:flex-row gap-6 border ${modoClaro
                   ? "bg-white shadow-md border-gray-300"
                   : "bg-white/5 backdrop-blur-md border-white/10"
-              }`}
+                }`}
             >
               <div className="w-full lg:w-1/3">
                 {imagenes[u.usuario!] ? (
@@ -131,24 +128,21 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
                     src={imagenes[u.usuario!]}
                     alt={`Carnet de ${u.nombre}`}
                     loading="lazy"
-                    className={`w-full h-auto rounded-lg border ${
-                      modoClaro ? "border-gray-300" : "border-white/20"
-                    } object-cover`}
+                    className={`w-full h-auto rounded-lg border ${modoClaro ? "border-gray-300" : "border-white/20"
+                      } object-cover`}
                   />
                 ) : (
                   <div
-                    className={`w-full h-64 rounded-lg animate-pulse ${
-                      modoClaro ? "bg-gray-200" : "bg-gray-700"
-                    }`}
+                    className={`w-full h-64 rounded-lg animate-pulse ${modoClaro ? "bg-gray-200" : "bg-gray-700"
+                      }`}
                   ></div>
                 )}
               </div>
               <div className="flex-1 space-y-2">
                 <h2>
                   <span
-                    className={`font-bold text-3xl ${
-                      modoClaro ? "text-amber-600" : "text-purple-300"
-                    }`}
+                    className={`font-bold text-3xl ${modoClaro ? "text-amber-600" : "text-purple-300"
+                      }`}
                   >
                     {u.usuario}
                   </span>
@@ -192,8 +186,8 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
                       u.estado === "PENDIENTE"
                         ? "text-yellow-500"
                         : u.estado === "APROBADO"
-                        ? "text-green-500"
-                        : "text-red-500"
+                          ? "text-green-500"
+                          : "text-red-500"
                     }
                   >
                     {t(`carnet.status.${u.estado.toLowerCase()}`)}
