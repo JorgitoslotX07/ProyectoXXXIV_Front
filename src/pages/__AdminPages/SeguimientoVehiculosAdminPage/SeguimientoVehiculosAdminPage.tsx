@@ -36,6 +36,7 @@ export const SeguimientoVehiculosAdminPage: FC = () => {
       const response = await httpGetTok<VehiculoPos[]>("/rutas/activas");
       if (response) {
         setVehiculos(response);
+        console.log(response)
       }
     } catch (error) {
       console.log("Error => ", error);
@@ -69,9 +70,8 @@ export const SeguimientoVehiculosAdminPage: FC = () => {
             <li
               key={index}
               onClick={() => setSelected(v)}
-              className={`p-3 rounded-lg cursor-pointer transition hover:bg-white/10 ${
-                selected?.id === v.id ? "bg-white/20" : ""
-              }`}
+              className={`p-3 rounded-lg cursor-pointer transition hover:bg-white/10 ${selected?.id === v.id ? "bg-white/20" : ""
+                }`}
             >
               <p className="font-medium">
                 {v.marca} {v.modelo}
@@ -136,3 +136,4 @@ export const SeguimientoVehiculosAdminPage: FC = () => {
     </div>
   );
 };
+

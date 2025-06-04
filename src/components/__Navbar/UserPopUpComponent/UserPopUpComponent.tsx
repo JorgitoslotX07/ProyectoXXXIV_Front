@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, type FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteCookiesLogin } from "../../../utils/cookisLogin";
 import { UsuarioMe } from "../../../interfaces/Usuario";
@@ -6,7 +6,7 @@ import { httpGetTok } from "../../../utils/apiService";
 import { useUserStore } from "../../../hooks/userStore";
 import { useTranslation } from "react-i18next";
 
-export const UserPopUpComponent = () => {
+export const UserPopUpComponent: FC = () => {
   const { t } = useTranslation(); // 🎯 hook de traducción
   const [isOpen, setIsOpen] = useState(false);
   const [usuario, setUsuario] = useState<UsuarioMe | null>(null);
@@ -58,7 +58,7 @@ export const UserPopUpComponent = () => {
       />
 
       {isOpen && usuario && (
-        <div className="absolute right-0 mt-2 w-72 bg-[#1F2937] rounded-xl shadow-2xl p-4 z-50 border border-gray-700 text-white">
+        <div className="absolute right-0 mt-2 w-72 bg-[#1F2937] rounded-xl shadow-2xl p-4 z-50 border border-gray-700 text-white"> 
           <div className="flex items-center space-x-3">
             {usuario.fotoUrl && (
               <img
