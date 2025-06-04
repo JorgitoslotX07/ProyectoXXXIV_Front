@@ -100,7 +100,7 @@ export const VehiculosAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => {
             modoClaro ? "bg-white border-gray-300" : "bg-white/5 border-white/10"
           }`}
         >
-          <FiltrersCatalogComponent
+          <FiltrersCatalogComponent modoClaro={modoClaro}
             onFilterChange={actualizarFiltro}
             vehiculos={vehiculosFiltro}
             vertical={false}
@@ -166,7 +166,7 @@ export const VehiculosAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => {
           </table>
 
           <div className="mt-10 px-10 pb-20">
-            <PaginacionComponent
+            <PaginacionComponent modoClaro={modoClaro}
               currentPage={paginaActual}
               totalItems={vehiculos.totalElements}
               pageSize={pageSize}

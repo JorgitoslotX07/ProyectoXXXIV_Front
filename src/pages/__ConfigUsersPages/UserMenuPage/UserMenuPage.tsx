@@ -66,9 +66,18 @@ const UserMenuPage: React.FC<ModoClaroProps> = ({ modoClaro }) => {
             }`}
           >
             <Link to="editar-perfil">
-              <button className="absolute top-3 right-3 text-orange-400 hover:text-green-400 transition">
+              <button
+                className={`absolute top-3 right-3 transition ${
+                  modoClaro ? "text-orange-400 hover:text-red-600" : "text-purple-400 hover:text-purple-300"
+                }`}
+              >
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L7.5 21H3v-4.5L16.732 3.732z" />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L7.5 21H3v-4.5L16.732 3.732z"
+                  />
                 </svg>
               </button>
             </Link>
@@ -78,13 +87,19 @@ const UserMenuPage: React.FC<ModoClaroProps> = ({ modoClaro }) => {
                 <img
                   src={usuario.fotoUrl}
                   alt="Avatar"
-                  className="w-28 h-28 rounded-full border-4 border-orange-400/30 mb-4 shadow-md"
+                  className={`w-28 h-28 rounded-full border-4 mb-4 shadow-md ${
+                    modoClaro ? "border-orange-400/30" : "border-purple-400/30"
+                  }`}
                 />
               ) : (
-                <div className="w-28 h-28 rounded-full border-4 border-orange-400/30 mb-4 shadow-md flex items-center justify-center bg-orange-100 dark:bg-orange-500/10">
+                <div
+                  className={`w-28 h-28 rounded-full mb-4 shadow-md flex items-center justify-center border-4 ${
+                    modoClaro ? "bg-orange-100 border-orange-400/30" : "bg-purple-900/40 border-purple-400/30"
+                  }`}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="w-14 h-14 text-orange-400"
+                    className={`w-14 h-14 ${modoClaro ? "text-orange-400" : "text-purple-300"}`}
                     viewBox="0 0 24 24"
                     fill="currentColor"
                   >
