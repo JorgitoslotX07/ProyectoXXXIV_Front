@@ -113,10 +113,7 @@
     "errorGenerico": "An unexpected error occurred. Please try again."
   },
   "registro": {
-    "tipo": "Type",
-    "puertas": "Doors",
-    "autonomia": "Range",
-    "ubicacionActual": "Current Location",
+    
     "titulo": "User Registration",
     "placeholderNombre": "Name",
     "placeholderCorreo": "Email",
@@ -137,6 +134,10 @@
     "autonomia": "Range"
   },
   "carDetail": {
+    "tipo": "Type",
+    "puertas": "Doors",
+    "autonomia": "Range",
+    "ubicacionActual": "Current Location",
     "sinImagen": "No image available",
     "kilometraje": "Mileage",
     "caracteristicas": "Features",
