@@ -98,7 +98,7 @@ export const CatalogPage: FC<ModoClaroProps> = ({ modoClaro }) => {
   vehiculos={vehiculosFiltro}
   vertical={false}
   filtros={filtrosActivos}
-  modoClaro={modoClaro} // ✅ añadido
+  modoClaro={modoClaro}
 />
 
           <div className="mt-6">

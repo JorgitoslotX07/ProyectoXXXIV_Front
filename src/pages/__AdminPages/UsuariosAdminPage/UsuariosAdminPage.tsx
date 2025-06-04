@@ -127,7 +127,7 @@ export const UsuariosAdminPage: FC<Props> = ({ modoClaro }) => {
                     </table>
 
                     <div className="mt-10 px-10 pb-20">
-                        <PaginacionComponent
+                        <PaginacionComponent modoClaro={modoClaro}
                             currentPage={paginaActual}
                             totalItems={usuarios.totalElements}
                             pageSize={pageSize}
