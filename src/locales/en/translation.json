@@ -433,52 +433,32 @@
       }
     }
   },
-  "promo": {
-    "title": "Popular Cars"
-  },
-  "profile": {
-    "title": "Edit Profile",
-    "name": "Name",
-    "email": "Email",
-    "placeholderEmail": "Enter your email",
-    "saveButton": "Save changes",
-    "errorEmail": "Invalid email",
-    "changePhoto": "Change photo"
-  },
-  "avatar": {
-    "title": "Upload new photo",
-    "changePhoto": "Change photo",
-    "previewAlt": "Preview",
-    "cancel": "Cancel",
-    "save": "Save"
-  },
-  "userMenu": {
-    "title": "User Panel",
-    "reservations": "My Reservations",
-    "changePassword": "Change Password",
-    "verification": "User Verification",
-    "history": "Trip History",
-    "logout": "Log Out"
-  },
-  "modal": {
-    "editUser": {
-      "title": "Edit User",
-      "question": "Do you want to ban this user?",
-      "placeholder": "Write the reason for banning",
-      "cancel": "Cancel",
-      "ban": "Ban"
+  "news": {
+    "title": "News Management",
+    "addButton": "Add News",
+    "table": {
+      "title": "Title",
+      "date": "Date",
+      "published": "Published",
+      "actions": "Actions"
     },
-    "deleteVehicle": {
-      "title": "Delete Vehicle",
-      "confirm": "Are you sure you want to delete the vehicle",
-      "cancel": "Cancel",
-      "delete": "Delete"
+    "status": {
+      "yes": "Yes",
+      "no": "No"
     },
-    "deleteNews": {
-      "title": "Delete News",
-      "confirm": "Delete the news",
-      "cancel": "Cancel",
+    "actions": {
+      "edit": "Edit",
       "delete": "Delete"
+    }
+  },
+  "admin": {
+    "users": {
+      "modalDelete": {
+        "title": "Confirm Deletion",
+        "confirmText": "Are you sure you want to delete the user {{username}}?",
+        "cancel": "Cancel",
+        "delete": "Delete"
+      }
     }
   }
 }

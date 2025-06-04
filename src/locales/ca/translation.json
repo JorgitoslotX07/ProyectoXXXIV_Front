@@ -404,6 +404,32 @@
       }
     }
   },
+  "news": {
+    "title": "Gestió de Notícies",
+    "addButton": "Afegir Notícia",
+    "table": {
+      "title": "Títol",
+      "date": "Data",
+      "published": "Publicat",
+      "actions": "Accions"
+    },
+    "status": {
+      "yes": "Sí",
+      "no": "No"
+    },
+    "actions": {
+      "edit": "Editar",
+      "delete": "Eliminar"
+    }
+  },
+  "users": {
+    "modalDelete": {
+      "title": "Confirmar Eliminació",
+      "confirmText": "Estàs segur que vols eliminar l'usuari {{username}}?",
+      "cancel": "Cancel·la",
+      "delete": "Elimina"
+    }
+  },
   "promo": {
     "title": "Cotxes Populars"
   },
