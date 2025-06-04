@@ -56,7 +56,7 @@ export const NavbarComponent: FC<Props> = ({ onLoginClick, modoClaro }) => {
       {/* Botones y selector */}
       <div className="flex items-center space-x-4">
         {user != null && user !== "" ? (
-          <UserPopUpComponent />
+          <UserPopUpComponent modoClaro={modoClaro} />
         ) : (
           <span
             onClick={onLoginClick}

@@ -1,21 +1,26 @@
 import type { FC } from "react";
+import { useTranslation } from "react-i18next";
 import { ModalBaseComponent } from "../ModalBaseComponent/ModalBaseComponent";
 import type { ModalElimarVehiculoProps } from "../../../interfaces/ModalProps";
 import { httpDeleteTok } from "../../../utils/apiService";
 
-export const ModalEliminarVehiculo: FC<ModalElimarVehiculoProps> = ({
-  vehiculo,
-  onClose,
-}) => {
+interface Props extends ModalElimarVehiculoProps {
+  modoClaro: boolean;
+}
+
+export const ModalEliminarVehiculo: FC<Props> = ({ vehiculo, onClose, modoClaro }) => {
+  const { t } = useTranslation();
+
   async function onConfirmar() {
     const respons = await httpDeleteTok(`/vehiculos/${vehiculo.id}`);
     console.log(respons);
+    onClose(); // Opcional: cerrar tras eliminar
   }
 
   return (
-    <ModalBaseComponent onClose={onClose} titulo="Eliminar Vehículo">
-      <p className="mb-6">
-        ¿Estás seguro de que deseas eliminar el vehículo{" "}
+    <ModalBaseComponent onClose={onClose} titulo={t("modal.deleteVehicle.title")} modoClaro={modoClaro} >
+      <p className={`mb-6 ${modoClaro ? "text-[#111]" : "text-white"}`}>
+        {t("modal.deleteVehicle.confirm")}{" "}
         <strong>
           {vehiculo.marca} {vehiculo.modelo}
         </strong>
@@ -24,15 +29,19 @@ export const ModalEliminarVehiculo: FC<ModalElimarVehiculoProps> = ({
       <div className="flex justify-end space-x-2">
         <button
           onClick={onClose}
-          className="px-4 py-2 rounded bg-gray-600 hover:bg-gray-500"
+          className={`px-4 py-2 rounded ${
+            modoClaro
+              ? "bg-gray-200 text-[#111] hover:bg-gray-300"
+              : "bg-gray-600 text-white hover:bg-gray-500"
+          }`}
         >
-          Cancelar
+          {t("modal.deleteVehicle.cancel")}
         </button>
         <button
           onClick={onConfirmar}
-          className="px-4 py-2 rounded bg-red-600 hover:bg-red-500"
+          className="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-500"
         >
-          Eliminar
+          {t("modal.deleteVehicle.delete")}
         </button>
       </div>
     </ModalBaseComponent>

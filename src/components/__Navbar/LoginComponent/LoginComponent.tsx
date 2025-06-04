@@ -1,4 +1,4 @@
-import { useState, type FC } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   getCookiesLogin,
@@ -14,10 +14,16 @@ import type { LoginProps } from "../../../interfaces/LoginProps";
 import { Usuario } from "../../../interfaces/Usuario";
 import { useUserStore } from "../../../hooks/userStore";
 import { mostrarError } from "../../../utils/notiToast";
+import { useTranslation } from "react-i18next";
 
-export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
+interface Props extends LoginProps {
+  modoClaro: boolean;
+}
+
+export const LoginComponent = ({ onClose, modoClaro }: Props) => {
   const setToken = useUserStore((state) => state.setToken);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [form, setForm] = useState<Usuario>(Usuario());
 
@@ -29,20 +35,14 @@ export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
     e.preventDefault();
     if (validateName(form.usuario) && validatePassword(form.contrasenya)) {
       const token: UserData | null = await verificarUsuario(form);
-      console.log(token);
-
       if (token) {
         try {
-          console.log("TOken => ", token);
-
           setToken(token.token);
           onClose();
           setLoginCookiesAndRedirect(token);
-          console.log(getCookiesLogin());
           navigate("/");
         } catch (error) {
-          console.error("Error al generar el token:", error);
-          mostrarError("No se pudo generar el token. Intenta de nuevo.");
+          mostrarError(t("login.errorToken"));
         }
       }
     }
@@ -51,60 +51,82 @@ export const LoginComponent: FC<LoginProps> = ({ onClose }) => {
   return (
     <div className="fixed inset-0 backdrop-blur-[5px] bg-opacity-70 flex items-center justify-center z-50">
       <div
-        className="p-6 rounded-lg shadow-lg w-full max-w-sm relative"
-        style={{ backgroundColor: "#1F2937" }}
+        className={`p-6 rounded-lg shadow-lg w-full max-w-sm relative transition-all duration-300 ${
+          modoClaro ? "bg-white text-gray-800" : "bg-[#1F2937] text-white"
+        }`}
       >
         <button
           onClick={onClose}
           aria-label="Cerrar modal"
-          className="absolute top-3 right-3 text-gray-400 hover:text-white text-xl transition"
+          className={`absolute top-3 right-3 text-xl transition ${
+            modoClaro ? "text-gray-500 hover:text-black" : "text-gray-400 hover:text-white"
+          }`}
         >
           ×
         </button>
 
         <h2
-          className="text-2xl font-semibold mb-6 text-center"
-          style={{ color: "#C4B5FD" }}
+          className={`text-2xl font-semibold mb-6 text-center ${
+            modoClaro ? "text-yellow-500" : "text-[#C4B5FD]"
+          }`}
         >
-          Iniciar Sesión
+          {t("login.titulo")}
         </h2>
 
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="usuario"
-            placeholder="Usuario"
+            placeholder={t("login.placeholderUsuario")}
             value={form.usuario}
             onChange={handleChange}
-            className="w-full p-3 rounded mb-4 bg-[#374151] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#C4B5FD] transition"
+            className={`w-full p-3 rounded mb-4 focus:outline-none focus:ring-2 transition ${
+              modoClaro
+                ? "bg-gray-100 text-gray-900 placeholder-gray-500 focus:ring-yellow-400"
+                : "bg-[#374151] text-white placeholder-gray-400 focus:ring-[#C4B5FD]"
+            }`}
             required
           />
           <input
             type="password"
             name="contrasenya"
-            placeholder="Contraseña"
+            placeholder={t("login.placeholderContrasenya")}
             value={form.contrasenya}
             onChange={handleChange}
-            className="w-full p-3 rounded mb-6 bg-[#374151] text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#C4B5FD] transition"
+            className={`w-full p-3 rounded mb-6 focus:outline-none focus:ring-2 transition ${
+              modoClaro
+                ? "bg-gray-100 text-gray-900 placeholder-gray-500 focus:ring-yellow-400"
+                : "bg-[#374151] text-white placeholder-gray-400 focus:ring-[#C4B5FD]"
+            }`}
             required
           />
 
-          <p className="text-center text-sm text-gray-300 mb-6">
-            ¿No tienes una cuenta?{" "}
+          <p
+            className={`text-center text-sm mb-6 ${
+              modoClaro ? "text-gray-600" : "text-gray-300"
+            }`}
+          >
+            {t("login.noCuenta")}{" "}
             <Link
               to="register"
-              className="text-[#C4B5FD] hover:underline font-semibold"
+              className={`font-semibold hover:underline ${
+                modoClaro ? "text-yellow-600" : "text-[#C4B5FD]"
+              }`}
               onClick={onClose}
             >
-              Regístrate aquí
+              {t("login.linkRegistro")}
             </Link>
           </p>
 
           <button
             type="submit"
-            className="w-full py-3 rounded bg-[#A7F3D0] text-gray-900 font-semibold hover:bg-[#9EE6C4] transition"
+            className={`w-full py-3 rounded font-semibold transition ${
+              modoClaro
+                ? "bg-yellow-400 text-gray-900 hover:bg-yellow-500"
+                : "bg-[#A7F3D0] text-gray-900 hover:bg-[#9EE6C4]"
+            }`}
           >
-            Entrar
+            {t("login.boton")}
           </button>
         </form>
       </div>

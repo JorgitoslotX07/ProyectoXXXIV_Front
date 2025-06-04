@@ -8,7 +8,11 @@ import { PaginacionComponent } from "../../../components/PaginacionComponent/Pag
 import { createEmptyPage, type PageProps } from "../../../interfaces/PageProps";
 import { httpGetTok, httpPatchTokSin } from "../../../utils/apiService";
 
-export const UsuariosAdminPage: FC = () => {
+interface Props {
+  modoClaro: boolean;
+}
+
+export const UsuariosAdminPage: FC<Props> = ({ modoClaro }) => {
     const { t } = useTranslation();
     const [usuarios, setUsuarios] = useState<PageProps<UsuarioAdministrar>>(createEmptyPage<UsuarioAdministrar>());
     const [userSelect, setUserSelect] = useState<UsuarioAdministrar>(usuarioAdministrarVacio);
@@ -77,8 +81,8 @@ export const UsuariosAdminPage: FC = () => {
                                     <td className="p-2">
                                         <span
                                             className={`px-2 py-1 rounded-full text-xs font-semibold ${!usuario.estaBloqueado
-                                                    ? "bg-green-500/20 text-green-400"
-                                                    : "bg-red-500/20 text-red-400"
+                                                ? "bg-green-500/20 text-green-400"
+                                                : "bg-red-500/20 text-red-400"
                                                 }`}
                                         >
                                             {!usuario.estaBloqueado
@@ -140,6 +144,7 @@ export const UsuariosAdminPage: FC = () => {
                         peticionUsuairos();
                     }}
                     usuario={userSelect}
+                    modoClaro={modoClaro}
                 />
             )}
 

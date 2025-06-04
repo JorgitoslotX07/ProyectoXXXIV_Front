@@ -6,7 +6,11 @@ import type { LatLngTuple } from "leaflet";
 import { httpPostTok } from "../../../utils/apiService";
 import { useNavigate } from "react-router-dom";
 
-export const CrearParkingPage: FC = () => {
+interface Props {
+  modoClaro: boolean;
+}
+
+export const CrearParkingPage: FC<Props> = ({ modoClaro }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [polygon, setPolygon] = useState<LatLngTuple[]>([]);
@@ -36,15 +40,34 @@ export const CrearParkingPage: FC = () => {
 
   return (
     <>
-      <h1 className="text-2xl font-bold mb-4">{t("createParking.title")}</h1>
+      <h1
+        className={`text-2xl font-bold mb-4 ${
+          modoClaro ? "text-[#111]" : "text-white"
+        }`}
+      >
+        {t("createParking.title")}
+      </h1>
 
-      <div className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl text-white">
-        <div className="flex flex-col lg:flex-row p-6 text-white gap-6">
+      <div
+        className={`p-6 rounded-2xl border ${
+          modoClaro
+            ? "bg-white border-gray-300 text-[#111]"
+            : "bg-white/5 backdrop-blur-md border-white/10 text-white"
+        }`}
+      >
+        <div
+          className={`flex flex-col lg:flex-row p-6 gap-6 ${
+            modoClaro ? "text-[#111]" : "text-white"
+          }`}
+        >
           <section className="flex-1">
-            <MapEditorComponent onPolygonChange={setPolygon} initialPolygon={[]} />
+            <MapEditorComponent
+              onPolygonChange={setPolygon}
+              initialPolygon={[]}
+            />
           </section>
           <aside className="lg:w-1/3">
-            <ParkingForm polygon={polygon} onSave={handleSave} />
+            <ParkingForm polygon={polygon} onSave={handleSave} modoClaro={modoClaro} />
           </aside>
         </div>
       </div>
