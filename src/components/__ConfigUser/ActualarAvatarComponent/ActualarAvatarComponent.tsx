@@ -1,10 +1,15 @@
 import { useState, type ChangeEvent, type FC } from "react";
 import type { UsuarioMe } from "../../../interfaces/Usuario";
 import { httpPatchTokImg } from "../../../utils/apiService";
+import { useTranslation } from "react-i18next";
 
-export const ActualarAvatarComponent: FC<{ usuario: UsuarioMe }> = ({
-  usuario,
-}) => {
+interface Props {
+  usuario: UsuarioMe;
+  modoClaro: boolean;
+}
+
+export const ActualarAvatarComponent: FC<Props> = ({ usuario, modoClaro }) => {
+  const { t } = useTranslation();
   const [mostrarPopup, setMostrarPopup] = useState(false);
   const [imagen, setImagen] = useState<File>();
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -24,20 +29,11 @@ export const ActualarAvatarComponent: FC<{ usuario: UsuarioMe }> = ({
     formData.append("foto", imagen);
 
     try {
-      console.log("formData");
-
-      for (const [key, value] of formData.entries()) {
-        console.log(key, value);
-      }
-
       const response = await httpPatchTokImg(
         "/usuarios/me/cambiar-foto",
         formData
       );
-      console.log(response);
-
-      // if (response) {
-      console.log("Imagen subida con éxito");
+      console.log("Imagen subida con éxito", response);
       setMostrarPopup(false);
       window.location.reload();
       // } else {
@@ -74,20 +70,24 @@ export const ActualarAvatarComponent: FC<{ usuario: UsuarioMe }> = ({
         className="text-sm mt-2 text-purple-400 hover:underline cursor-pointer"
         onClick={() => setMostrarPopup(true)}
       >
-        Cambiar foto
+        {t("avatar.changePhoto")}
       </button>
 
       {mostrarPopup && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-black rounded-2xl p-6 shadow-lg w-96">
-            <h2 className="text-lg font-semibold mb-4 text-purple-700">
-              Subir nueva foto
+          <div
+            className={`rounded-2xl p-6 shadow-lg w-96 transition-all duration-300 ${
+              modoClaro ? "bg-white text-[#222]" : "bg-[#111] text-white"
+            }`}
+          >
+            <h2 className="text-lg font-semibold mb-4 text-purple-600">
+              {t("avatar.title")}
             </h2>
 
             {previewUrl && (
               <img
                 src={previewUrl}
-                alt="Vista previa"
+                alt={t("avatar.previewAlt")}
                 className="w-24 h-24 object-cover rounded-full mx-auto mb-4"
               />
             )}
@@ -101,16 +101,20 @@ export const ActualarAvatarComponent: FC<{ usuario: UsuarioMe }> = ({
 
             <div className="flex justify-end space-x-2">
               <button
-                className="px-4 py-1 rounded-md text-sm bg-gray-200 hover:bg-gray-300"
+                className={`px-4 py-1 rounded-md text-sm ${
+                  modoClaro
+                    ? "bg-gray-200 hover:bg-gray-300 text-gray-800"
+                    : "bg-gray-600 hover:bg-gray-500 text-white"
+                }`}
                 onClick={() => setMostrarPopup(false)}
               >
-                Cancelar
+                {t("avatar.cancel")}
               </button>
               <button
                 className="px-4 py-1 rounded-md text-sm bg-purple-500 text-white hover:bg-purple-600"
                 onClick={handleGuardar}
               >
-                Guardar
+                {t("avatar.save")}
               </button>
             </div>
           </div>

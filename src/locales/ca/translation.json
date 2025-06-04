@@ -399,5 +399,35 @@
       "edit": "Editar",
       "delete": "Eliminar"
     }
-  }}
+  }},
+    "promo": {
+  "title": "Cotxes Populars"
+
+},
+  "profile": {
+  "title": "Editar Perfil",
+  "name": "Nom",
+  "email": "Correu electrònic",
+  "placeholderEmail": "Introdueix el teu correu",
+  "saveButton": "Desar canvis",
+  "errorEmail": "Correu electrònic no vàlid",
+  "changePhoto": "Canviar foto"
+},
+"avatar": {
+  "title": "Pujar una nova foto",
+  "changePhoto": "Canviar foto",
+  "previewAlt": "Vista prèvia",
+  "cancel": "Cancel·lar",
+  "save": "Desar"
+},
+"userMenu": {
+  "title": "Panell d'Usuari",
+  "reservations": "Les meves reserves",
+  "changePassword": "Canviar contrasenya",
+  "verification": "Verificació d'usuari",
+  "history": "Historial de viatges",
+  "logout": "Tancar sessió"
+}
+
+
 }
