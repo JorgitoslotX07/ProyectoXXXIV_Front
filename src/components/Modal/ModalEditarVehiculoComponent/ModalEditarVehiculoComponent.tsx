@@ -31,6 +31,8 @@ export const ModalEditarVehiculo: FC<ModalEditarVehiculoProps> = ({ vehiculo, on
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log("patata");
+
 
     const payloadVehiculo = {
       marca: editado.marca,
@@ -44,38 +46,38 @@ export const ModalEditarVehiculo: FC<ModalEditarVehiculoProps> = ({ vehiculo, on
       autonomia: Number(editado.autonomia),
       longitud: Number(editado.longitud),
       latitud: Number(editado.latitud),
-      ultimaRevision: editado.ultimaRevision, 
+      ultimaRevision: editado.ultimaRevision,
     };
-  
+    console.log("patat3");
+
 
     const blobVehiculo = new Blob(
       [JSON.stringify(payloadVehiculo)],
       { type: "application/json" }
     );
-  
+    console.log("patat4");
+
     const formData = new FormData();
     formData.append("vehiculo", blobVehiculo);
     if (image) {
+      formData.append("imagen", image);
+      console.log("patat2");
 
-    formData.append("imagen", image);
+      try {
+        console.log("formData");
 
-
-
-    try {
-      console.log("formData");
-
-      for (const [key, value] of formData.entries()) {
-        console.log(key, value);
+        for (const [key, value] of formData.entries()) {
+          console.log(key, value);
+        }
+        const response = await httpPatchTok(`/vehiculos/${vehiculo.id}`, formData);
+        console.log("Vehículo actualizado:", response);
+        if (response) {
+          onClose();
+        }
+      } catch (err) {
+        console.error("Error al actualizar vehículo:", err);
       }
-      const response = await httpPatchTok(`/vehiculos/${vehiculo.id}`, formData);
-      console.log("Vehículo actualizado:", response);
-      if (response) {
-        onClose();
-      }
-    } catch (err) {
-      console.error("Error al actualizar vehículo:", err);
     }
-  }
 
   };
 

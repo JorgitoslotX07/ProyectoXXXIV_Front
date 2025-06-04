@@ -5,6 +5,7 @@ import type {
 } from "../../../interfaces/PaymentProps";
 import type { ModalPayment } from "../../../interfaces/ModalProps";
 import { useNavigate } from "react-router-dom";
+import { httpPostTok } from "../../../utils/apiService";
 
 export const ModalPaymentComponent: FC<ModalPayment> = ({
   onClose,
@@ -17,6 +18,13 @@ export const ModalPaymentComponent: FC<ModalPayment> = ({
   const [duration, setDuration] = useState<number>(initialDuration);
   const [estimatedKm, setEstimatedKm] = useState<number | undefined>(undefined);
   const [amount, setAmount] = useState<number>(0);
+  const [reserva, setReserva] =useState<number>(0);
+
+  
+
+  useEffect(() => {
+    peticionReserva()
+  },[])
 
   const navigate = useNavigate();
 
@@ -63,10 +71,33 @@ export const ModalPaymentComponent: FC<ModalPayment> = ({
     paymentType === "Alquiler por hora"
       ? "Duración (horas)"
       : paymentType === "Alquiler por día"
-      ? "Duración (días)"
-      : "Duración no aplicable";
+        ? "Duración (días)"
+        : "Duración no aplicable";
 
   const durationDisabled = paymentType === "Reservación" as PaymentType;
+
+
+  async function peticionReserva() {
+    const response = await httpPostTok("/reservas", {vehiculoId: vehicle.id, parkingRecogidaId: 1})
+    console.log(response)
+
+      
+
+    //   onSubmit({
+    //     vehicleId: vehicle.id,
+    //     paymentType,
+    //     paymentMethod,
+    //     amount,
+    //     duration,
+    //   });
+
+    //   // 3. Navegar a pantalla final
+    //   navigate("finish-trip", { state: vehicle });
+    // } catch (error) {
+    //   console.error("Error al reservar el vehículo:", error);
+    //   alert("No se pudo reservar el vehículo. Intenta de nuevo.");
+    // }
+  }
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black/60 z-50">
@@ -133,9 +164,8 @@ export const ModalPaymentComponent: FC<ModalPayment> = ({
               value={duration}
               disabled={durationDisabled}
               onChange={(e) => setDuration(Number(e.target.value))}
-              className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${
-                durationDisabled ? "bg-gray-100 cursor-not-allowed" : "bg-white"
-              } text-gray-800`}
+              className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${durationDisabled ? "bg-gray-100 cursor-not-allowed" : "bg-white"
+                } text-gray-800`}
             />
             {paymentType === "Reservación" as PaymentType && (
               <p className="mt-2 text-sm text-gray-600">
@@ -191,36 +221,7 @@ export const ModalPaymentComponent: FC<ModalPayment> = ({
             Cancelar
           </button>
           <button
-            onClick={async () => {
-              try {
-                // 1. Actualizar estado en backend
-                await fetch(
-                  `http://localhost:8080/v1/vehiculos/${vehicle.id}/estado`,
-                  {
-                    method: "PATCH",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ estado: "RESERVADO" }),
-                  }
-                );
-
-                // 2. Enviar reserva
-                onSubmit({
-                  vehicleId: vehicle.id,
-                  paymentType,
-                  paymentMethod,
-                  amount,
-                  duration,
-                });
-
-                // 3. Navegar a pantalla final
-                navigate("finish-trip", { state: vehicle });
-              } catch (error) {
-                console.error("Error al reservar el vehículo:", error);
-                alert("No se pudo reservar el vehículo. Intenta de nuevo.");
-              }
-            }}
+            onClick={() => console.log(2) }
             className="px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
           >
             Reservar
