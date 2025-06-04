@@ -29,11 +29,6 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
       options: obtenerOpcionesUnicas(vehiculos, "tipo"),
     },
     {
-      label: t("catalog.filters.status"),
-      name: "estado",
-      options: obtenerOpcionesUnicas(vehiculos, "estado"),
-    },
-    {
       label: t("catalog.filters.location"),
       name: "localidad",
       options: obtenerOpcionesUnicas(vehiculos, "localidad"),

@@ -31,7 +31,6 @@ import { CrearParkingPage } from "./pages/__AdminPages/CrearParkingPage/CrearPar
 import { useThemeContext } from "./context/ThemeContext";
 import { FinishTripPage } from "./pages/FinishTripPage/FinishTripPage";
 
-
 // Footer pages
 import SobreNosotrosPage from "./pages/FooterPages/SobreNosotrosPage";
 import DevolucionesPage from "./pages/FooterPages/DevolucionesPage";
@@ -48,7 +47,6 @@ import ForoPage from "./pages/FooterPages/ForoPage";
 import UserMenuPage from "./pages/__ConfigUsersPages/UserMenuPage/UserMenuPage";
 import { PrivateRoute } from "./components/___Route/PrivateRoute/PrivateRoute";
 import { AdminRoute } from "./components/___Route/AdminRoute/AdminRoute";
-
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -70,10 +68,17 @@ function App() {
 
   return (
     <>
-      <NavbarComponent onLoginClick={() => setShowLogin(true)} modoClaro={modoClaro} />
-      {showLogin && <LoginComponent onClose={() => setShowLogin(false)} modoClaro={modoClaro} />}
+      <NavbarComponent
+        onLoginClick={() => setShowLogin(true)}
+        modoClaro={modoClaro}
+      />
+      {showLogin && (
+        <LoginComponent
+          onClose={() => setShowLogin(false)}
+          modoClaro={modoClaro}
+        />
+      )}
       <ScrollToTop />
-
 
       <Routes>
         <Route
@@ -87,29 +92,66 @@ function App() {
           }
         />
 
-        <Route path="/register" element={<RegistroPage modoClaro={modoClaro} />} />
+        <Route
+          path="/register"
+          element={<RegistroPage modoClaro={modoClaro} />}
+        />
         <Route path="/catalog">
           <Route index element={<CatalogPage modoClaro={modoClaro} />} />
-          <Route path="carDetail" element={<CarDetailPage modoClaro={modoClaro} />} />
+          <Route
+            path="carDetail"
+            element={<CarDetailPage modoClaro={modoClaro} />}
+          />
           <Route path="carDetail/finish-trip" element={<FinishTripPage />} />
         </Route>
 
         <Route path="/map" element={<MapPage modoClaro={modoClaro} />} />
         <Route path="/noticia" element={<NoticiaDetailPage />} />
 
-        <Route
-          path="/panel"
-          
-        >
-          <Route index element={<UserMenuPage modoClaro={modoClaro} />} />
+        <Route path="/panel">
+          <Route
+            index
+            element={
+              <PrivateRoute>
+                <UserMenuPage modoClaro={modoClaro} />
+              </PrivateRoute>
+            }
+          />
 
-          <Route path="editar-perfil" element={<EditarPerfilPage modoClaro={modoClaro} />} />
-          <Route path="veri-user" element={<VeriUserPage />} />
-          <Route path="reservas" element={<ReservasPage />} />
-          <Route path="pass" element={<PassPage />} />
+          <Route
+            path="editar-perfil"
+            element={
+              <PrivateRoute>
+                <EditarPerfilPage modoClaro={modoClaro} />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="veri-user"
+            element={
+              <PrivateRoute>
+                <VeriUserPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="reservas"
+            element={
+              <PrivateRoute>
+                <ReservasPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="pass"
+            element={
+              <PrivateRoute>
+                <PassPage />
+              </PrivateRoute>
+            }
+          />
           <Route path="*" element={<Navigate to="/panel" replace />} />
         </Route>
-
         <Route
           path="/admin"
           element={
@@ -118,13 +160,31 @@ function App() {
             </AdminRoute>
           }
         >
-          <Route index element={<PanelInicialAdminPage modoClaro={modoClaro} />} />
-          <Route path="usuarios" element={<UsuariosAdminPage modoClaro={modoClaro} />} />
-          <Route path="usuarios/validacion-carnet" element={<ValidacionCarnetAdminPage modoClaro={modoClaro} />} />
-          <Route path="vehiculos" element={<VehiculosAdminPage modoClaro={modoClaro} />} />
-          <Route path="vehiculos/seguimiento" element={<SeguimientoVehiculosAdminPage modoClaro={modoClaro} />} />
+          <Route
+            index
+            element={<PanelInicialAdminPage modoClaro={modoClaro} />}
+          />
+          <Route
+            path="usuarios"
+            element={<UsuariosAdminPage modoClaro={modoClaro} />}
+          />
+          <Route
+            path="usuarios/validacion-carnet"
+            element={<ValidacionCarnetAdminPage modoClaro={modoClaro} />}
+          />
+          <Route
+            path="vehiculos"
+            element={<VehiculosAdminPage modoClaro={modoClaro} />}
+          />
+          <Route
+            path="vehiculos/seguimiento"
+            element={<SeguimientoVehiculosAdminPage modoClaro={modoClaro} />}
+          />
           <Route path="parkings" element={<ParkingsAdminPage />} />
-          <Route path="parkings/crear" element={<CrearParkingPage modoClaro={modoClaro} />} />
+          <Route
+            path="parkings/crear"
+            element={<CrearParkingPage modoClaro={modoClaro} />}
+          />
           <Route path="noticias" element={<NoticiasAdminPage />} />
           <Route path="*" element={<Navigate to="/admin" replace />} />
         </Route>

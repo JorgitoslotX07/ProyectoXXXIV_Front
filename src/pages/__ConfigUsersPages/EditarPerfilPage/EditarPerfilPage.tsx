@@ -6,6 +6,7 @@ import { FondoPanelComponent } from "../../../components/__ConfigUser/FondoPanel
 import { TituloComponent } from "../../../components/__ConfigUser/PanelComonent/TituloComponent";
 import { UsuarioMe } from "../../../interfaces/Usuario";
 import { httpGetTok, httpPatchTok } from "../../../utils/apiService";
+import { ActualarAvatarComponent } from "../../../components/__ConfigUser/ActualarAvatarComponent/ActualarAvatarComponent";
 
 interface Props {
   modoClaro: boolean;
@@ -54,7 +55,11 @@ export const EditarPerfilPage: FC<Props> = ({ modoClaro }) => {
           modoClaro ? "text-[#222]" : "text-white"
         }`}
       >
-        <TituloComponent titulo={t("profile.title")} runtaOut="/panel" modoClaro={modoClaro} />
+        <TituloComponent
+          titulo={t("profile.title")}
+          runtaOut="/panel"
+          modoClaro={modoClaro}
+        />
 
         <div
           className={`max-w-4xl mx-auto rounded-3xl p-4 shadow-md border transition-all duration-300 ${
@@ -65,7 +70,7 @@ export const EditarPerfilPage: FC<Props> = ({ modoClaro }) => {
         >
           <div className="flex gap-10">
             {/* Avatar */}
-            <div className="w-1/3 flex flex-col items-center">
+            {/* <div className="w-1/3 flex flex-col items-center">
               {usuario.fotoUrl ? (
                 <img
                   src={usuario.fotoUrl}
@@ -91,10 +96,13 @@ export const EditarPerfilPage: FC<Props> = ({ modoClaro }) => {
               >
                 {t("profile.changePhoto")}
               </button>
-            </div>
-
+            </div> */}
+            <ActualarAvatarComponent modoClaro={modoClaro} usuario={usuario} />
             {/* Formulario */}
-            <form onSubmit={handleSubmit} className="w-2/3 space-y-5 p-8 rounded-2xl">
+            <form
+              onSubmit={handleSubmit}
+              className="w-2/3 space-y-5 p-8 rounded-2xl"
+            >
               {errores.length > 0 && (
                 <div className="bg-red-600/20 border border-red-600 text-red-300 p-3 rounded-md">
                   <ul className="text-sm space-y-1">

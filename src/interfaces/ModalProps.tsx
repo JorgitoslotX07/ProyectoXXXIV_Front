@@ -11,46 +11,39 @@ export interface ModalBaseProps {
   modoClaro?: boolean;
 }
 
-
 export interface ModalGestionUserProps {
   onClose: () => void;
   usuario: UsuarioAdministrar | null;
-  modoClaro?:boolean;
-
+  modoClaro?: boolean;
 }
 
 export interface ModalCrearVehiculoProps {
   onClose: () => void;
-  modoClaro?:boolean;
-
+  modoClaro?: boolean;
 }
 
 export interface ModalEditarVehiculoProps {
   vehiculo: Vehiculo;
   onClose: () => void;
-  modoClaro?:boolean;
-
+  modoClaro?: boolean;
 }
 
 export interface ModalElimarVehiculoProps {
   vehiculo: Vehiculo;
   onClose: () => void;
-  modoClaro?:boolean;
-
+  modoClaro?: boolean;
 }
 
 export interface ModalNoticiaProps {
   onClose: () => void;
   noticia?: NoticiaProps;
-  modoClaro?:boolean;
+  modoClaro?: boolean;
 }
-
 
 export interface ModalParkingProps {
   onClose: () => void;
   parking: Parking;
-  modoClaro?:boolean;
-
+  modoClaro?: boolean;
 }
 
 export interface ModalPayment {
@@ -58,13 +51,11 @@ export interface ModalPayment {
   vehicle: Vehiculo;
   initialDuration?: number;
   onSubmit: (data: DataPayment) => void;
-  modoClaro?:boolean;
-
+  modoClaro?: boolean;
 }
 export interface ModalReserva {
   onClose: () => void;
   vehiculo: Vehiculo;
   initialDuration?: number;
-  modoClaro?:boolean;
-
+  modoClaro?: boolean;
 }
