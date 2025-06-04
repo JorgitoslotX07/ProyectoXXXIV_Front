@@ -16,9 +16,7 @@ export const SearchFastComponent: FC<Props> = ({
 }): ReactElement => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [optionsSelected, setOptionsSelected] = useState<Array<string>>([
-    t("search.types.turismos"),
-  ]);
+  const [optionsSelected, setOptionsSelected] = useState<Array<string>>([]);
   const searchFast: SearchFast = SearchFast();
   const [location, setLocation] = useState<string>("");
   const [optionsLocation, setOptionsLocation] = useState<Array<string>>([]);
@@ -39,29 +37,25 @@ export const SearchFastComponent: FC<Props> = ({
   const tipos = [
     {
       label: t("search.types.turismos"),
-      icon: "/turismo-claro.png",
+      iconBase: "turismo",
       value: "TURISMO",
     },
-    { label: t("search.types.suv"), icon: "/suv-claro.png", value: "SUV" },
+    {
+      label: t("search.types.suv"),
+      iconBase: "suv",
+      value: "SUV",
+    },
     {
       label: t("search.types.monovolumen"),
-      icon: "/monovolumen-claro.png",
+      iconBase: "monovolumen",
       value: "MONOVOLUMEN",
     },
     {
       label: t("search.types.microcoche"),
-      icon: "/MicroCoche-claro.png",
+      iconBase: "MicroCoche",
       value: "BIPLAZA",
     },
   ];
-
-  // const addOrDeleteOption = (carType: string) => {
-  //   setOptionsSelected((prevOptions) =>
-  //     prevOptions.includes(carType)
-  //       ? prevOptions.filter((option) => option !== carType)
-  //       : [...prevOptions, carType]
-  //   );
-  // };
 
   const addOrDeleteOption = (carType: string) => {
     setOptionsSelected((prevOptions) => {
@@ -94,7 +88,6 @@ export const SearchFastComponent: FC<Props> = ({
 
   const manejarSeleccionUbicacion = (ubicacion: string) => {
     setLocation(ubicacion);
-    console.log(ubicacion);
     setMostrarDesplegable(false);
   };
 
@@ -143,8 +136,7 @@ export const SearchFastComponent: FC<Props> = ({
     >
       <div className="w-full max-w-screen-lg text-center space-y-8">
         <h1
-          className={`text-4xl font-bold ${modoClaro ? "text-green-100" : "text-[#C4B5FD]"
-            }`}
+          className={`text-4xl font-bold ${modoClaro ? "text-green-100" : "text-[#C4B5FD]"}`}
           style={{
             textShadow: "2px 2px 5px rgba(0, 0, 0, 0.7)",
             filter: "sepia(0.4)",
@@ -154,22 +146,27 @@ export const SearchFastComponent: FC<Props> = ({
         </h1>
 
         <div className="flex flex-wrap justify-center gap-3">
-          {tipos.map(({ label, icon, value }) => (
-            <button
-              key={label}
-              onClick={() => addOrDeleteOption(value)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all border ${optionsSelected.includes(value)
-                ? "bg-[#A7F3D0] text-[#111827] border-transparent shadow-md"
-                : modoClaro
-                  ? "bg-black/20 text-white border-white/30 hover:bg-black/30"
-                  : // : "bg-white/10 text-white border-white/20 hover:bg-white/20"
-                  "bg-black/20 text-white border-white/30 hover:bg-black/30"
+          {tipos.map(({ label, iconBase, value }) => {
+            const isSelected = optionsSelected.includes(value);
+            const icon = isSelected ? `/${iconBase}.png` : `/${iconBase}-claro.png`;
+
+            return (
+              <button
+                key={label}
+                onClick={() => addOrDeleteOption(value)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all border ${
+                  isSelected
+                    ? "bg-[#A7F3D0] text-[#111827] border-transparent shadow-md"
+                    : modoClaro
+                    ? "bg-black/20 text-white border-white/30 hover:bg-black/30"
+                    : "bg-black/20 text-white border-white/30 hover:bg-black/30"
                 }`}
-            >
-              <img src={icon} alt={label} className="w-6 h-6" />
-              <span className="text-sm font-medium">{label}</span>
-            </button>
-          ))}
+              >
+                <img src={icon} alt={label} className="w-6 h-6" />
+                <span className="text-sm font-medium">{label}</span>
+              </button>
+            );
+          })}
         </div>
 
         <div className="relative inline-block w-full max-w-2xl mx-auto">
@@ -177,22 +174,21 @@ export const SearchFastComponent: FC<Props> = ({
             <button
               ref={botonRef}
               onClick={manejarClickUbicacion}
-              // className="w-6.5 h-5.5 flex items-center justify-center mr-2 rounded-full border border-black bg-red-600 hover:bg-red-900 text-white font-bold transition-all"
-              className="w-6.5 h-5.5 flex items-center justify-center mr-2 rounded-full  hover:bg-red-700 text-white font-bold transition-all"
+              className="w-6.5 h-5.5 flex items-center justify-center mr-2 rounded-full hover:bg-red-700 text-white font-bold transition-all"
               title={t("search.useCurrentLocation")}
             >
               📍
             </button>
 
             <div
-              className={`flex items-center border rounded-l-full px-4 py-3 w-full ${modoClaro
-                ? "bg-gray-100 border-gray-300"
-                : "bg-[#1F2937] border-gray-600"
-                }`}
+              className={`flex items-center border rounded-l-full px-4 py-3 w-full ${
+                modoClaro ? "bg-gray-100 border-gray-300" : "bg-[#1F2937] border-gray-600"
+              }`}
             >
               <svg
-                className={`w-5 h-5 mr-2 ${modoClaro ? "text-purple-600" : "text-purple-400"
-                  }`}
+                className={`w-5 h-5 mr-2 ${
+                  modoClaro ? "text-purple-600" : "text-purple-400"
+                }`}
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
@@ -204,28 +200,25 @@ export const SearchFastComponent: FC<Props> = ({
               <input
                 type="text"
                 value={location}
-                onChange={(e) => {
-                  setLocation(e.target.value);
-                  console.log(e.target.value, "hola");
-                }}
+                onChange={(e) => setLocation(e.target.value)}
                 onFocus={() => setMostrarDesplegable(true)}
-                onBlur={() =>
-                  setTimeout(() => setMostrarDesplegable(false), 100)
-                }
+                onBlur={() => setTimeout(() => setMostrarDesplegable(false), 100)}
                 placeholder={t("search.placeholder")}
-                className={`w-full bg-transparent focus:outline-none transition placeholder-opacity-100 ${modoClaro
-                  ? "text-gray-800 placeholder:!text-gray-500"
-                  : "text-white placeholder:!text-gray-400"
-                  }`}
+                className={`w-full bg-transparent focus:outline-none transition placeholder-opacity-100 ${
+                  modoClaro
+                    ? "text-gray-800 placeholder:!text-gray-500"
+                    : "text-white placeholder:!text-gray-400"
+                }`}
               />
             </div>
 
             <button
               onClick={onSubmit}
-              className={`font-semibold px-6 py-3 rounded-r-full shadow-sm transition duration-200 backdrop-blur-md border-t border-b border-r ${modoClaro
-                ? "bg-white text-gray-900 hover:bg-gray-100 border-gray-300"
-                : "bg-white/80 text-gray-900 hover:bg-white border-gray-600"
-                }`}
+              className={`font-semibold px-6 py-3 rounded-r-full shadow-sm transition duration-200 backdrop-blur-md border-t border-b border-r ${
+                modoClaro
+                  ? "bg-white text-gray-900 hover:bg-gray-100 border-gray-300"
+                  : "bg-white/80 text-gray-900 hover:bg-white border-gray-600"
+              }`}
             >
               {t("search.button")}
             </button>
@@ -233,22 +226,19 @@ export const SearchFastComponent: FC<Props> = ({
 
           {mostrarDesplegable && (
             <ul
-              className={`absolute left-0 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border shadow-xl backdrop-blur-sm ring-1 ring-black/10 z-20 ${modoClaro
-                ? "bg-white border-gray-300"
-                : "bg-[#1F2937] border-gray-600"
-                }`}
+              className={`absolute left-0 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border shadow-xl backdrop-blur-sm ring-1 ring-black/10 z-20 ${
+                modoClaro ? "bg-white border-gray-300" : "bg-[#1F2937] border-gray-600"
+              }`}
             >
               {optionsLocation.map((ubicacion) => (
                 <li
                   key={ubicacion}
-                  onClick={() => {
-                    manejarSeleccionUbicacion(ubicacion);
-                    console.log(ubicacion);
-                  }}
-                  className={`px-4 py-2 text-sm cursor-pointer transition-colors duration-150 rounded-md mx-1 my-1 whitespace-nowrap overflow-hidden text-ellipsis ${modoClaro
-                    ? "text-gray-800 hover:bg-gray-100 hover:text-black"
-                    : "text-gray-100 hover:bg-[#4B5563] hover:text-white"
-                    }`}
+                  onClick={() => manejarSeleccionUbicacion(ubicacion)}
+                  className={`px-4 py-2 text-sm cursor-pointer transition-colors duration-150 rounded-md mx-1 my-1 whitespace-nowrap overflow-hidden text-ellipsis ${
+                    modoClaro
+                      ? "text-gray-800 hover:bg-gray-100 hover:text-black"
+                      : "text-gray-100 hover:bg-[#4B5563] hover:text-white"
+                  }`}
                   title={ubicacion}
                 >
                   {ubicacion}
