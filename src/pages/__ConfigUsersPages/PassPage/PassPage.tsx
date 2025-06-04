@@ -1,15 +1,19 @@
 import { useState, type FC } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { httpPost } from "../../../utils/apiService";
 import { mostrarError, mostrarSuccess } from "../../../utils/notiToast";
 import { FondoPanelComponent } from "../../../components/__ConfigUser/FondoPanelComponent/FondoPanelComponent";
 import { TituloComponent } from "../../../components/__ConfigUser/PanelComonent/TituloComponent";
 import { NotiToastComponent } from "../../../components/NotiToastComponents/NotiToastComponet";
 import { useTranslation } from "react-i18next";
+import { useUserStore } from "../../../hooks/userStore";
+import { deleteCookiesLogin } from "../../../utils/cookisLogin";
 
 export const PassPage: FC = () => {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const setToken = useUserStore((state) => state.setToken);
   const token = searchParams.get("token");
   const [step, setStep] = useState<"email" | "codigo" | "nueva">(
     token === null ? "email" : "nueva"
@@ -49,6 +53,9 @@ export const PassPage: FC = () => {
       console.log("Contraseña actualizada para:", email);
       // setMensaje("Contraseña actualizada correctamente.");
       mostrarSuccess(t("pass.toast.cambioOk"));
+      deleteCookiesLogin();
+      setToken("");
+      navigate("/");
     }
   };
 

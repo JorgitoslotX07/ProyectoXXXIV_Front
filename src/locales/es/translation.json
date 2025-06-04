@@ -25,7 +25,6 @@
     "types": {
       "turismos": "Turismos",
       "turismo": "Turismo",
-
       "suv": "SUV",
       "monovolumen": "Monovolumen",
       "microcoche": "Microcoche"
@@ -102,19 +101,20 @@
   },
   "login": {
     "cerrarModal": "Cerrar modal",
-  "titulo": "Iniciar sesión",
-  "error": "El usuario o la contraseña no son correctos",
-  "placeholderUsuario": "Usuario",
-  "placeholderContrasenya": "Contraseña",
-  "noCuenta": "¿No tienes cuenta?",
-  "registrate": "Regístrate aquí",
-  "botonEntrar": "Entrar",
-  "camposObligatorios": "Por favor, completa todos los campos.",
-  "datosInvalidos": "Usuario o contraseña no válidos.",
-  "errorGenerico": "Se ha producido un error inesperado. Inténtalo de nuevo.",
-  "linkRegistro": "Regístrate aquí",
-  "boton": "Entrar",
-  "errorToken": "No se pudo generar el token. Intenta de nuevo."
+    "titulo": "Iniciar sesión",
+    "error": "El usuario o la contraseña no son correctos",
+    "placeholderUsuario": "Usuario",
+    "placeholderContrasenya": "Contraseña",
+    "noCuenta": "¿No tienes cuenta?",
+    "registrate": "Regístrate aquí",
+    "botonEntrar": "Entrar",
+    "camposObligatorios": "Por favor, completa todos los campos.",
+    "datosInvalidos": "Usuario o contraseña no válidos.",
+    "errorGenerico": "Se ha producido un error inesperado. Inténtalo de nuevo.",
+    "linkRegistro": "Regístrate aquí",
+    "boton": "Entrar",
+    "errorToken": "No se pudo generar el token. Intenta de nuevo.",
+    "passOlvidada" : "¿Te olvidaste la contraseña?"
   },
   "registro": {
     "titulo": "Registro de Usuario",
@@ -285,7 +285,6 @@
       "description": "Publicar y gestionar novedades."
     }
   },
-
   "adminUsers": {
     "title": "Gestión de Usuarios",
     "table": {
@@ -334,19 +333,19 @@
     "lng": "Longitud"
   },
   "createParking": {
-  "title": "Nou Aparcament",
-  "alert": {
-    "noPolygon": "Si us plau, dibuixa la zona de l'aparcament abans de guardar."
+    "title": "Nou Aparcament",
+    "alert": {
+      "noPolygon": "Si us plau, dibuixa la zona de l'aparcament abans de guardar."
+    },
+    "fields": {
+      "name": "Nombre",
+      "capacity": "Capacidad",
+      "polygon": "Coordenadas (puntos)"
+    },
+    "buttons": {
+      "save": "Guardar Parking"
+    }
   },
-  "fields": {
-    "name": "Nombre",
-    "capacity": "Capacidad",
-    "polygon": "Coordenadas (puntos)"
-  },
-  "buttons": {
-    "save": "Guardar Parking"
-  }
-},
   "parkingForm": {
     "label": {
       "name": "Nombre",
@@ -364,98 +363,97 @@
       "capacityRequired": "La capacidad debe ser mayor que 0."
     }
   },
-"admin": {
-  "vehiculos": {
-    "titulo": "Gestión de Vehículos",
-    "agregar": "Añadir Vehículo",
-    "id": "ID",
-    "marca": "Marca",
-    "modelo": "Modelo",
-    "estado": "Estado",
-    "acciones": "Acciones",
-    "editar": "Editar",
-    "eliminar": "Eliminar",
-    "estado_disponible": "Disponible",
-    "estado_en_uso": "En uso",
-    "estado_reservado": "Reservado",
-    "estado_en_mantenimiento": "En mantenimiento"
-  },
-  "parkings": {
-    "title": "Gestión de Parkings",
-    "addButton": "Agregar Parking",
-    "table": {
-      "name": "Nombre",
-      "capacity": "Capacidad",
-      "location": "Ubicación",
-      "actions": "Acciones"
+  "admin": {
+    "vehiculos": {
+      "titulo": "Gestión de Vehículos",
+      "agregar": "Añadir Vehículo",
+      "id": "ID",
+      "marca": "Marca",
+      "modelo": "Modelo",
+      "estado": "Estado",
+      "acciones": "Acciones",
+      "editar": "Editar",
+      "eliminar": "Eliminar",
+      "estado_disponible": "Disponible",
+      "estado_en_uso": "En uso",
+      "estado_reservado": "Reservado",
+      "estado_en_mantenimiento": "En mantenimiento"
+    },
+    "parkings": {
+      "title": "Gestión de Parkings",
+      "addButton": "Agregar Parking",
+      "table": {
+        "name": "Nombre",
+        "capacity": "Capacidad",
+        "location": "Ubicación",
+        "actions": "Acciones"
+      }
+    },
+    "news": {
+      "title": "Gestión de Noticias",
+      "addButton": "Agregar Noticia",
+      "table": {
+        "title": "Título",
+        "date": "Fecha",
+        "published": "Publicado",
+        "actions": "Acciones"
+      },
+      "status": {
+        "yes": "Sí",
+        "no": "No"
+      },
+      "actions": {
+        "edit": "Editar",
+        "delete": "Eliminar"
+      }
     }
   },
-  "news": {
-    "title": "Gestión de Noticias",
-    "addButton": "Agregar Noticia",
-    "table": {
-      "title": "Título",
-      "date": "Fecha",
-      "published": "Publicado",
-      "actions": "Acciones"
+  "promo": {
+    "title": "Coches Populares"
+  },
+  "profile": {
+    "title": "Editar Perfil",
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "placeholderEmail": "Introduce tu correo",
+    "saveButton": "Guardar cambios",
+    "errorEmail": "Correo inválido",
+    "changePhoto": "Cambiar foto"
+  },
+  "avatar": {
+    "title": "Subir nueva foto",
+    "changePhoto": "Cambiar foto",
+    "previewAlt": "Vista previa",
+    "cancel": "Cancelar",
+    "save": "Guardar"
+  },
+  "userMenu": {
+    "title": "Panel de Usuario",
+    "reservations": "Mis Reservas",
+    "changePassword": "Cambiar Contraseña",
+    "verification": "Verificación de Usuario",
+    "history": "Historial de Viajes",
+    "logout": "Cerrar Sesión"
+  },
+  "modal": {
+    "editUser": {
+      "title": "Editar Usuario",
+      "question": "¿Deseas banear al usuario?",
+      "placeholder": "Escribe el motivo del baneo",
+      "cancel": "Cancelar",
+      "ban": "Banear"
     },
-    "status": {
-      "yes": "Sí",
-      "no": "No"
+    "deleteVehicle": {
+      "title": "Eliminar Vehículo",
+      "confirm": "¿Estás seguro de que deseas eliminar el vehículo",
+      "cancel": "Cancelar",
+      "delete": "Eliminar"
     },
-    "actions": {
-      "edit": "Editar",
+    "deleteNews": {
+      "title": "Eliminar Noticia",
+      "confirm": "¿Eliminar la noticia",
+      "cancel": "Cancelar",
       "delete": "Eliminar"
     }
   }
-},
-
-  "promo": {
-  "title": "Coches Populares"
-},
-"profile": {
-  "title": "Editar Perfil",
-  "name": "Nombre",
-  "email": "Correo electrónico",
-  "placeholderEmail": "Introduce tu correo",
-  "saveButton": "Guardar cambios",
-  "errorEmail": "Correo inválido",
-  "changePhoto": "Cambiar foto"
-},
-"avatar": {
-  "title": "Subir nueva foto",
-  "changePhoto": "Cambiar foto",
-  "previewAlt": "Vista previa",
-  "cancel": "Cancelar",
-  "save": "Guardar"
-},
-"userMenu": {
-  "title": "Panel de Usuario",
-  "reservations": "Mis Reservas",
-  "changePassword": "Cambiar Contraseña",
-  "verification": "Verificación de Usuario",
-  "history": "Historial de Viajes",
-  "logout": "Cerrar Sesión"
-},
-"modal": {
-  "editUser": {
-    "title": "Editar Usuario",
-    "question": "¿Deseas banear al usuario?",
-    "placeholder": "Escribe el motivo del baneo",
-    "cancel": "Cancelar",
-    "ban": "Banear"
-  },  "deleteVehicle": {
-    "title": "Eliminar Vehículo",
-    "confirm": "¿Estás seguro de que deseas eliminar el vehículo",
-    "cancel": "Cancelar",
-    "delete": "Eliminar"
-  },
-    "deleteNews": {
-    "title": "Eliminar Noticia",
-    "confirm": "¿Eliminar la noticia",
-    "cancel": "Cancelar",
-    "delete": "Eliminar"
-  }
-  
-}
 }

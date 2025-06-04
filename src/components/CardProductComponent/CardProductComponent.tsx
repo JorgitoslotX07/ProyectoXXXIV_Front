@@ -5,7 +5,9 @@ import { useTranslation } from "react-i18next";
 
 export const CardcocheComponent: FC<CardProductProps> = ({ coche, index, modoClaro = false}) => {
   const { t } = useTranslation();
+  console.log(coche)
 
+  coche.imagen = null
   return (
     <Link to="/catalog/carDetail" state={coche.id} key={index}>
       <div
@@ -15,7 +17,7 @@ export const CardcocheComponent: FC<CardProductProps> = ({ coche, index, modoCla
             : "bg-[#1F2937] text-white"
         }`}
       >
-        {coche.imagen ? (
+        {coche.imagen || coche.imagen == "" ? (
           <img
             src={coche.imagen}
             alt={`${coche.marca} ${coche.modelo}`}
@@ -24,10 +26,11 @@ export const CardcocheComponent: FC<CardProductProps> = ({ coche, index, modoCla
         ) : (
           <div
             className={`w-full h-40 rounded-xl mb-4 flex items-center justify-center text-gray-400 ${
-              modoClaro ? "bg-yellow-100 text-yellow-500" : "bg-gray-700"
+              modoClaro ? "bg-yellow-100 text-yellow-500" : "bg-gray-100"
             }`}
           >
-            {t("card.sinImagen")}
+            {/* {t("card.sinImagen")} */}
+            <img src="/logo.webp" alt="" />
           </div>
         )}
 

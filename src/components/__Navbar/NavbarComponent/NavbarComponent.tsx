@@ -24,12 +24,15 @@ export const NavbarComponent: FC<Props> = ({ onLoginClick, modoClaro }) => {
         }`}
     >
       {/* Logo y título */}
-      <div className="flex items-center space-x-2">
-        <img src="/logo.webp" alt="Logo" className="w-8 h-8 object-contain" />
-        <span className={`text-xl font-semibold ${modoClaro ? "text-[#222]" : "text-white"}`}>
-          <Link to="/">Share&Go34</Link>
-        </span>
-      </div>
+      <Link to="/">
+        <div className="flex items-center space-x-2">
+          <img src="/logo.webp" alt="Logo" className="w-30 h-10 object-contain" />
+          {/* <span className={`text-xl font-semibold ${modoClaro ? "text-[#222]" : "text-white"}`}>
+            Share&Go34
+          </span> */}
+        </div>
+      </Link>
+
 
       {/* Enlaces */}
       <ul className="flex space-x-8 font-medium">

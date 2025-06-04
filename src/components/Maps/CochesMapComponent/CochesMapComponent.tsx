@@ -139,13 +139,12 @@ const CochesMapComponent = () => {
   };
 
   const filtroTipoVehiculo: FilterCategory = {
-    label: "Tipo de Vehículo",
+    label: t("catalog.filters.type"),
     name: "tipo",
 
     options: Object.values(TipoVehiculo).map((tipo) => ({
       value: tipo,
       label: tipo,
-      logo: `/iconosVehiculo/${tipo.toLowerCase()}.svg`,
     })),
   };
 

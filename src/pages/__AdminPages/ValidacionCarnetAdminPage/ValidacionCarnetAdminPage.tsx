@@ -24,6 +24,7 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
           {}
         );
         setUsuarios(data ?? []);
+        console.log(data)
       } catch (error) {
         console.error("Error al obtener carnets con imagen:", error);
         setUsuarios([]);
@@ -74,12 +75,12 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
 
   const handleValidar = async (usu: string, aprobado: boolean) => {
     setUsuarios((prev) => prev.filter((u) => u.usuario !== usu));
-    // const datosActualizados = usuariosEditables[usu];
+    const datosActualizados = usuariosEditables[usu];
 
-    // const payload = {
-    //   ...datosActualizados,
-    //   estado: aprobado ? "APROBADO" : "RECHAZADO",
-    // };
+    const payload = {
+      ...datosActualizados,
+      estado: aprobado ? "APROBADO" : "RECHAZADO",
+    };
 
     await httpPutTok(`/carnets/${usu}/estado`, {
       estado: aprobado ? "APROBADO" : "RECHAZADO",

@@ -100,23 +100,23 @@
     "of": "of"
   },
   "login": {
-  "cerrarModal": "Close modal",
-  "titulo": "Log In",
-  "error": "The username or password is incorrect",
-  "placeholderUsuario": "Username",
-  "placeholderContrasenya": "Password",
-  "noCuenta": "Don't have an account?",
-  "registrate": "Register here",
-  "botonEntrar": "Log In",
-  "camposObligatorios": "Please fill in all fields.",
-  "datosInvalidos": "Invalid username or password.",
-  "errorGenerico": "An unexpected error occurred. Please try again.",
-  "linkRegistro": "Register here",
-  "boton": "Log In",
-  "errorToken": "Could not generate token. Please try again."
+    "cerrarModal": "Close modal",
+    "titulo": "Log In",
+    "error": "The username or password is incorrect",
+    "placeholderUsuario": "Username",
+    "placeholderContrasenya": "Password",
+    "noCuenta": "Don't have an account?",
+    "registrate": "Register here",
+    "botonEntrar": "Log In",
+    "camposObligatorios": "Please fill in all fields.",
+    "datosInvalidos": "Invalid username or password.",
+    "errorGenerico": "An unexpected error occurred. Please try again.",
+    "linkRegistro": "Register here",
+    "boton": "Log In",
+    "errorToken": "Could not generate token. Please try again.",
+    "passOlvidada": "Did you forget your password?"
   },
   "registro": {
-    
     "titulo": "User Registration",
     "placeholderNombre": "Name",
     "placeholderCorreo": "Email",
@@ -285,7 +285,6 @@
       "description": "Publish and manage updates."
     }
   },
-
   "adminUsers": {
     "title": "User Management",
     "table": {
@@ -305,7 +304,6 @@
     },
     "noUsers": "No users registered."
   },
-
   "carnet": {
     "title": "License Validation",
     "loading": "Loading licenses…",
@@ -347,7 +345,7 @@
       "delete": "Delete"
     }
   },
-    "track": {
+  "track": {
     "title": "Vehicle Tracking",
     "vehicles": "Vehicles",
     "id": "ID",
@@ -355,21 +353,20 @@
     "lat": "Lat",
     "lng": "Lng"
   },
-
-"createParking": {
-  "title": "New Parking",
-  "alert": {
-    "noPolygon": "Please draw the parking area before saving."
+  "createParking": {
+    "title": "New Parking",
+    "alert": {
+      "noPolygon": "Please draw the parking area before saving."
+    },
+    "fields": {
+      "name": "Name",
+      "capacity": "Capacity",
+      "polygon": "Coordinates (points)"
+    },
+    "buttons": {
+      "save": "Save Parking"
+    }
   },
-  "fields": {
-    "name": "Name",
-    "capacity": "Capacity",
-    "polygon": "Coordinates (points)"
-  },
-  "buttons": {
-    "save": "Save Parking"
-  }
-},
   "parkingForm": {
     "label": {
       "name": "Name",
@@ -387,104 +384,101 @@
       "capacityRequired": "Capacity must be greater than 0."
     }
   },
-
-"admin": {
-  "vehiculos": {
-    "titulo": "Vehicle Management",
-    "agregar": "Add Vehicle",
-    "id": "ID",
-    "marca": "Brand",
-    "modelo": "Model",
-    "estado": "Status",
-    "acciones": "Actions",
-    "editar": "Edit",
-    "eliminar": "Delete",
-    "estado_disponible": "Available",
-    "estado_en_uso": "In use",
-    "estado_reservado": "Reserved",
-    "estado_en_mantenimiento": "Under maintenance"
-  },
-  "parkings": {
-    "title": "Parking Management",
-    "addButton": "Add Parking",
-    "table": {
-      "name": "Name",
-      "capacity": "Capacity",
-      "location": "Location",
-      "actions": "Actions"
+  "admin": {
+    "vehiculos": {
+      "titulo": "Vehicle Management",
+      "agregar": "Add Vehicle",
+      "id": "ID",
+      "marca": "Brand",
+      "modelo": "Model",
+      "estado": "Status",
+      "acciones": "Actions",
+      "editar": "Edit",
+      "eliminar": "Delete",
+      "estado_disponible": "Available",
+      "estado_en_uso": "In use",
+      "estado_reservado": "Reserved",
+      "estado_en_mantenimiento": "Under maintenance"
     },
-    "actions": {
-      "edit": "Edit",
-      "delete": "Delete"
+    "parkings": {
+      "title": "Parking Management",
+      "addButton": "Add Parking",
+      "table": {
+        "name": "Name",
+        "capacity": "Capacity",
+        "location": "Location",
+        "actions": "Actions"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    },
+    "news": {
+      "title": "News Management",
+      "addButton": "Add News",
+      "table": {
+        "title": "Title",
+        "date": "Date",
+        "published": "Published",
+        "actions": "Actions"
+      },
+      "status": {
+        "yes": "Yes",
+        "no": "No"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      }
     }
   },
-  "news": {
-    "title": "News Management",
-    "addButton": "Add News",
-    "table": {
-      "title": "Title",
-      "date": "Date",
-      "published": "Published",
-      "actions": "Actions"
-    },
-    "status": {
-      "yes": "Yes",
-      "no": "No"
-    },
-    "actions": {
-      "edit": "Edit",
-      "delete": "Delete"
-    }
-  }
-}
-,
   "promo": {
-  "title": "Popular Cars"
-
-},
-"profile": {
-  "title": "Edit Profile",
-  "name": "Name",
-  "email": "Email",
-  "placeholderEmail": "Enter your email",
-  "saveButton": "Save changes",
-  "errorEmail": "Invalid email",
-  "changePhoto": "Change photo"
-},
-"avatar": {
-  "title": "Upload new photo",
-  "changePhoto": "Change photo",
-  "previewAlt": "Preview",
-  "cancel": "Cancel",
-  "save": "Save"
-},
-"userMenu": {
-  "title": "User Panel",
-  "reservations": "My Reservations",
-  "changePassword": "Change Password",
-  "verification": "User Verification",
-  "history": "Trip History",
-  "logout": "Log Out"
-},
-"modal": {
-  "editUser": {
-    "title": "Edit User",
-    "question": "Do you want to ban this user?",
-    "placeholder": "Write the reason for banning",
-    "cancel": "Cancel",
-    "ban": "Ban"
+    "title": "Popular Cars"
   },
+  "profile": {
+    "title": "Edit Profile",
+    "name": "Name",
+    "email": "Email",
+    "placeholderEmail": "Enter your email",
+    "saveButton": "Save changes",
+    "errorEmail": "Invalid email",
+    "changePhoto": "Change photo"
+  },
+  "avatar": {
+    "title": "Upload new photo",
+    "changePhoto": "Change photo",
+    "previewAlt": "Preview",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "userMenu": {
+    "title": "User Panel",
+    "reservations": "My Reservations",
+    "changePassword": "Change Password",
+    "verification": "User Verification",
+    "history": "Trip History",
+    "logout": "Log Out"
+  },
+  "modal": {
+    "editUser": {
+      "title": "Edit User",
+      "question": "Do you want to ban this user?",
+      "placeholder": "Write the reason for banning",
+      "cancel": "Cancel",
+      "ban": "Ban"
+    },
     "deleteVehicle": {
-    "title": "Delete Vehicle",
-    "confirm": "Are you sure you want to delete the vehicle",
-    "cancel": "Cancel",
-    "delete": "Delete"
-  },
+      "title": "Delete Vehicle",
+      "confirm": "Are you sure you want to delete the vehicle",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
     "deleteNews": {
-    "title": "Delete News",
-    "confirm": "Delete the news",
-    "cancel": "Cancel",
-    "delete": "Delete"
+      "title": "Delete News",
+      "confirm": "Delete the news",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    }
   }
-}
 }

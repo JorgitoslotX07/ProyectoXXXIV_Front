@@ -50,29 +50,48 @@ export const UserPopUpComponent: FC<ModoClaroProps> = ({ modoClaro }) => {
 
   return (
     <div className="relative" ref={menuRef}>
-      <img
-        src={usuario?.fotoUrl || "/avatar-placeholder.png"}
-        alt="User avatar"
-        className="w-10 h-10 rounded-full cursor-pointer border border-gray-500 shadow-md"
-        onClick={() => setIsOpen(!isOpen)}
-      />
+      {usuario?.fotoUrl ? (
+        <img
+          src={usuario?.fotoUrl || "/avatar-placeholder.png"}
+          alt="User avatar"
+          className="w-10 h-10 rounded-full cursor-pointer border border-gray-500 shadow-md"
+          onClick={() => setIsOpen(!isOpen)}
+        />
+      ) : (
+        <div
+          onClick={() => setIsOpen(!isOpen)}
+          className={"w-10 h-10 rounded-full cursor-pointer border border-gray-500 shadow-md flex items-center justify-center" + (modoClaro ? " bg-gray-100" : " bg-gray-700")}
+        >
+          <svg
+            className="w-6 h-6 text-gray-500"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M5.121 17.804A11.955 11.955 0 0112 15c2.485 0 4.78.78 6.879 2.104M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+            />
+          </svg>
+        </div>
+        )}
 
       {isOpen && usuario && (
         <div
-          className={`absolute right-0 mt-2 w-72 z-50 rounded-xl shadow-2xl p-4 border transition-all duration-300 ${
-            modoClaro
-              ? "bg-white text-gray-800 border-gray-300"
-              : "bg-[#1F2937] text-white border-gray-700"
-          }`}
+          className={`absolute right-0 mt-2 w-72 z-50 rounded-xl shadow-2xl p-4 border transition-all duration-300 ${modoClaro
+            ? "bg-white text-gray-800 border-gray-300"
+            : "bg-[#1F2937] text-white border-gray-700"
+            }`}
         >
           <div className="flex items-center space-x-3">
             {usuario.fotoUrl && (
               <img
                 src={usuario.fotoUrl}
                 alt="avatar"
-                className={`w-12 h-12 rounded-full border shadow ${
-                  modoClaro ? "border-gray-300" : "border-gray-500"
-                }`}
+                className={`w-12 h-12 rounded-full border shadow ${modoClaro ? "border-gray-300" : "border-gray-500"
+                  }`}
               />
             )}
 
@@ -88,21 +107,19 @@ export const UserPopUpComponent: FC<ModoClaroProps> = ({ modoClaro }) => {
 
           <button
             onClick={handleConfiguracion}
-            className={`block w-full text-left text-sm py-2 rounded px-2 transition duration-150 ${
-              modoClaro
-                ? "hover:bg-gray-100 text-gray-800"
-                : "hover:bg-[#374151] text-white"
-            }`}
+            className={`block w-full text-left text-sm py-2 rounded px-2 transition duration-150 ${modoClaro
+              ? "hover:bg-gray-100 text-gray-800"
+              : "hover:bg-[#374151] text-white"
+              }`}
           >
             ⚙️ {t("popup.configuracion")}
           </button>
           <button
             onClick={handleCerrarSesion}
-            className={`block w-full text-left text-sm py-2 rounded px-2 transition duration-150 ${
-              modoClaro
-                ? "text-red-500 hover:bg-red-100"
-                : "text-red-400 hover:bg-[#F93943] hover:text-white"
-            }`}
+            className={`block w-full text-left text-sm py-2 rounded px-2 transition duration-150 ${modoClaro
+              ? "text-red-500 hover:bg-red-100"
+              : "text-red-400 hover:bg-[#F93943] hover:text-white"
+              }`}
           >
             🔐 {t("popup.cerrarSesion")}
           </button>

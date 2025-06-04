@@ -45,11 +45,6 @@ const UserMenuPage: React.FC<ModoClaroProps> = ({ modoClaro }) => {
       title: t("userMenu.verification"),
       onClick: () => navigate("veri-user"),
     },
-    // {
-    //   icon: "📜",
-    //   title: t("userMenu.history"),
-    //   onClick: () => navigate("historial"),
-    // },
     {
       icon: "📤",
       title: t("userMenu.logout"),

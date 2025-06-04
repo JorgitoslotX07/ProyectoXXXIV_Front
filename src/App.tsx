@@ -145,9 +145,9 @@ function App() {
           <Route
             path="pass"
             element={
-              <PrivateRoute>
+              // <PrivateRoute>
                 <PassPage />
-              </PrivateRoute>
+              // </PrivateRoute>
             }
           />
           <Route path="*" element={<Navigate to="/panel" replace />} />
