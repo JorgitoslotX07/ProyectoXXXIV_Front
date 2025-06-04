@@ -435,6 +435,16 @@
       "edit": "Edit",
       "delete": "Delete"
     }
+  },
+    "admin": {
+    "users": {
+      "modalDelete": {
+        "title": "Confirm Deletion",
+        "confirmText": "Are you sure you want to delete the user {{username}}?",
+        "cancel": "Cancel",
+        "delete": "Delete"
+      }
+    }
   }
 }
 ,

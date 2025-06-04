@@ -316,9 +316,9 @@
       "status": "Estado"
     },
     "status": {
-      "pending": "Pendiente",
-      "approved": "Aprobado",
-      "rejected": "Rechazado"
+      "pendiente": "Pendiente",
+      "aprobado": "Aprobado",
+      "rechazado": "Rechazado"
     },
     "actions": {
       "approve": "Aprobar",
@@ -407,7 +407,15 @@
       "edit": "Editar",
       "delete": "Eliminar"
     }
-  }
+  },
+    "users": {
+      "modalDelete": {
+        "title": "Confirmar Eliminación",
+        "confirmText": "¿Estás seguro de eliminar al usuario {{username}}?",
+        "cancel": "Cancelar",
+        "delete": "Eliminar"
+      }
+    }
 },
 
   "promo": {
@@ -458,4 +466,7 @@
   }
   
 }
+
+
+
 }

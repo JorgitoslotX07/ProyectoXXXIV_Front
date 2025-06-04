@@ -402,7 +402,15 @@
       "edit": "Editar",
       "delete": "Eliminar"
     }
-  }
+  },
+      "users": {
+      "modalDelete": {
+        "title": "Confirmar Eliminació",
+        "confirmText": "Estàs segur que vols eliminar l'usuari {{username}}?",
+        "cancel": "Cancel·la",
+        "delete": "Elimina"
+      }
+    }
 }
 ,
     "promo": {
