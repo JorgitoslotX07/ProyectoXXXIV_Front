@@ -1,12 +1,10 @@
 import type { FC } from "react";
 import { NotiToastComponent } from "../../components/NotiToastComponents/NotiToastComponet";
 import { RegisterComponent } from "../../components/Form/RegisterComponent/RegisterComponent";
+import type { ModoClaroProps } from "../../interfaces/ModoClaroProps";
 
-interface Props {
-  modoClaro: boolean;
-}
 
-export const RegistroPage: FC<Props> = ({ modoClaro }) => {
+export const RegistroPage: FC<ModoClaroProps> = ({ modoClaro }) => {
   return (
     <div
       className={`min-h-screen flex transition-colors duration-300 ${

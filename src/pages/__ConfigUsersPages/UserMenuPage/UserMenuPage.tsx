@@ -47,11 +47,11 @@ export const UserMenuPage = () => {
       title: "Verificacion de Usuario",
       onClick: () => navigate("veri-user"),
     },
-    {
-      icon: "📜",
-      title: "Historial de Viajes",
-      onClick: () => navigate("historial"),
-    },
+    // {
+    //   icon: "📜",
+    //   title: "Historial de Viajes",
+    //   onClick: () => navigate("historial"),
+    // },
     // {
     //   icon: "🔒",
     //   title: "Seguridad",

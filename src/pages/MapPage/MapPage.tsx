@@ -1,11 +1,9 @@
 import type { FC } from "react";
 import CochesMapComponent from "../../components/Maps/CochesMapComponent/CochesMapComponent";
+import type { ModoClaroProps } from "../../interfaces/ModoClaroProps";
 
-interface Props {
-  modoClaro: boolean;
-}
 
-export const MapPage: FC<Props> = ({ modoClaro }) => {
+export const MapPage: FC<ModoClaroProps> = ({ modoClaro }) => {
   return (
     <div
       className={`relative min-h-screen bg-no-repeat bg-cover transition-all duration-300 ${

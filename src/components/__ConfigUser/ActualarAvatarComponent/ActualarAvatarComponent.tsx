@@ -39,12 +39,14 @@ export const ActualarAvatarComponent: FC<{ usuario: UsuarioMe }> = ({
       // if (response) {
       console.log("Imagen subida con éxito");
       setMostrarPopup(false);
+      window.location.reload();
       // } else {
       //   console.error("Error al subir la imagen");
       // }
     } catch (error) {
       console.error("Error en la petición", error);
     }
+    console.log("a")
   };
 
   return (

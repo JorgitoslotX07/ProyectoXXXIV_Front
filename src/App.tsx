@@ -15,7 +15,6 @@ import { useUserStore } from "./hooks/userStore";
 import { NoticiaDetailPage } from "./pages/NoticiasDetailPage/NoticiasDetailPage";
 import CookiesPage from "./pages/CookiesPage/CookiesPage";
 import ScrollToTop from "./components/ScrollToTopComponent/ScrollToTopComponent";
-import { HistorialPage } from "./pages/__ConfigUsersPages/HistorialPage/HistorialPage";
 import { UserMenuPage } from "./pages/__ConfigUsersPages/UserMenuPage/UserMenuPage";
 import { EditarPerfilPage } from "./pages/__ConfigUsersPages/EditarPerfilPage/EditarPerfilPage";
 import { VeriUserPage } from "./pages/__ConfigUsersPages/VeriUserPage/VeriUserPage";
@@ -88,7 +87,7 @@ function App() {
         <Route path="/register" element={<RegistroPage modoClaro={modoClaro} />} />
         <Route path="/catalog">
           <Route index element={<CatalogPage modoClaro={modoClaro} />} />
-          <Route path="carDetail" element={<CarDetailPage />} />
+          <Route path="carDetail" element={<CarDetailPage modoClaro={modoClaro} />} />
           <Route path="carDetail/finish-trip" element={<FinishTripPage />} />
         </Route>
         <Route path="/map" element={<MapPage modoClaro={modoClaro} />} />
@@ -99,7 +98,6 @@ function App() {
           <Route path="editar-perfil" element={<EditarPerfilPage />} />
           <Route path="veri-user" element={<VeriUserPage />} />
           <Route path="reservas" element={<ReservasPage />} />
-          <Route path="historial" element={<HistorialPage />} />
           <Route path="pass" element={<PassPage />} />
           <Route path="*" element={<Navigate to="/panel" replace />} />
         </Route>

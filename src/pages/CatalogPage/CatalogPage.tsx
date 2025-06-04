@@ -6,12 +6,9 @@ import { createEmptyPage, type PageProps } from "../../interfaces/PageProps";
 import type { FiltroVehiculo, Vehiculo } from "../../interfaces/Vehiculo";
 import { httpGet, httpGetParam } from "../../utils/apiService";
 import { PaginacionComponent } from "../../components/PaginacionComponent/PaginacionComponent";
+import type { ModoClaroProps } from "../../interfaces/ModoClaroProps";
 
-interface Props {
-  modoClaro: boolean;
-}
-
-export const CatalogPage: FC<Props> = ({ modoClaro }) => {
+export const CatalogPage: FC<ModoClaroProps> = ({ modoClaro }) => {
   const [vehiculos, setVehiculos] = useState<PageProps<Vehiculo>>(createEmptyPage<Vehiculo>());
   const [vehiculosFiltro, setVehiculosFiltro] = useState<PageProps<Vehiculo>>(createEmptyPage<Vehiculo>());
   const [filtrosActivos, setFiltrosActivos] = useState<Partial<Record<FiltroVehiculo, string | number | boolean>>>({});

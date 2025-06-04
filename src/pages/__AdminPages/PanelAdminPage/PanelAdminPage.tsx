@@ -1,12 +1,10 @@
 import { Outlet } from "react-router-dom";
 import type { FC } from "react";
 import { SidebarAdminComponent } from "../../../components/__Admin/SidebarAdminComponent/SidebarAdminComponent";
+import type { ModoClaroProps } from "../../../interfaces/ModoClaroProps";
 
-interface Props {
-  modoClaro: boolean;
-}
 
-export const PanelAdminPage: FC<Props> = ({ modoClaro }) => {
+export const PanelAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => {
   return (
     <div
       className={`flex min-h-screen transition-colors duration-300 ${

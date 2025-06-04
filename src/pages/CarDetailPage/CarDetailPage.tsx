@@ -8,12 +8,9 @@ import { useTranslation } from "react-i18next";
 import { ModalPaymentComponent } from "../../components/Modal/ModalPaymentComponent/ModalPaymentComponent";
 import type { DataPayment } from "../../interfaces/PaymentProps";
 import type { CalificionProps } from "../../interfaces/CalificacionProps";
+import type { ModoClaroProps } from "../../interfaces/ModoClaroProps";
 
-interface Props {
-  modoClaro: boolean;
-}
-
-export const CarDetailPage: FC<Props> = ({ modoClaro }) => {
+export const CarDetailPage: FC<ModoClaroProps> = ({ modoClaro }) => {
   const { t } = useTranslation();
   const location = useLocation();
   const { state } = location;

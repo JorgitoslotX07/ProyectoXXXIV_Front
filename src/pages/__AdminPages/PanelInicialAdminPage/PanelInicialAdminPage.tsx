@@ -1,12 +1,9 @@
 import type { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import type { ModoClaroProps } from "../../../interfaces/ModoClaroProps";
 
-interface Props {
-  modoClaro: boolean;
-}
-
-export const PanelInicialAdminPage: FC<Props> = ({ modoClaro }) => {
+export const PanelInicialAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
