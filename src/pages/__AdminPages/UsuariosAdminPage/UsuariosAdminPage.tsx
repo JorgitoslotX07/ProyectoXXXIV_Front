@@ -62,7 +62,7 @@ export const UsuariosAdminPage: FC<Props> = ({ modoClaro }) => {
                 <h1 className="text-2xl font-bold">{t("adminUsers.title")}</h1>
             </div>
 
-            <div className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-lg text-white">
+            <div className="bg-white/5 backdrop-blur-md border border-white/10 p-6 rounded-2xl shadow-lg text-black">
                 <div className="overflow-x-auto">
                     <table className="min-w-full text-sm">
                         <thead>
