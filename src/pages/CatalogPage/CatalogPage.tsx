@@ -102,7 +102,7 @@ export const CatalogPage: FC<ModoClaroProps> = ({ modoClaro }) => {
 />
 
           <div className="mt-6">
-            <ProductosCatalogComponent vehiculos={vehiculos} />
+            <ProductosCatalogComponent vehiculos={vehiculos} modoClaro={modoClaro}/>
           </div>
 
           <div className="mt-10 px-4 md:px-10 pb-20">
