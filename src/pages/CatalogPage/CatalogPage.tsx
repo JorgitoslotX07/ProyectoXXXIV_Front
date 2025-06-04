@@ -93,14 +93,13 @@ export const CatalogPage: FC<ModoClaroProps> = ({ modoClaro }) => {
             }}
           />
 
-          <div ref={filtroRef}>
-            <FiltrersCatalogComponent
-              onFilterChange={actualizarFiltro}
-              vehiculos={vehiculosFiltro}
-              vertical={false}
-              filtros={filtrosActivos}
-            />
-          </div>
+        <FiltrersCatalogComponent
+  onFilterChange={actualizarFiltro}
+  vehiculos={vehiculosFiltro}
+  vertical={false}
+  filtros={filtrosActivos}
+  modoClaro={modoClaro} // ✅ añadido
+/>
 
           <div className="mt-6">
             <ProductosCatalogComponent vehiculos={vehiculos} />

@@ -9,7 +9,7 @@ import MarkerClusterGroup from "react-leaflet-markercluster";
 import L, { Map as LeafletMap, type LatLngTuple } from "leaflet";
 import type { MarkerCluster } from "leaflet";
 import "leaflet/dist/leaflet.css";
-
+import { useThemeContext } from "../../../context/ThemeContext";
 import { useEffect, useRef, useState } from "react";
 import type { Vehiculo, DatosVehiculo } from "../../../interfaces/Vehiculo";
 import { FiltrersCatalogComponent } from "../../FiltrersCatalogComponent/FiltrersCatalogComponent";
@@ -88,6 +88,7 @@ const ciudades = [
 
 const CochesMapComponent = () => {
   const { t } = useTranslation();
+  const { modoClaro } = useThemeContext();
   const [vehiculos, setVehiculos] = useState<Vehiculo[]>([]);
   const [vehiculosFiltrados, setVehiculosFiltrados] = useState<Vehiculo[]>([]);
   const [tipoSeleccionado, setTipoSeleccionado] = useState<string | null>(null);
@@ -551,45 +552,46 @@ const CochesMapComponent = () => {
           <div className="space-y-4">
             <div className={"flex flex-wrap gap-4 justify-between items-start"}>
               <div className="flex flex-wrap gap-4 flex-1">
-                <GeneredFilterComponent
+          <GeneredFilterComponent
                   index={0}
                   filter={filtroTipoVehiculo}
                   valorActual={tipoSeleccionado}
-                  onFilterChange={(nombreFiltro, nuevoValor) => {
+                  // onFilterChange={(nombreFiltro, nuevoValor) => {
+                    onFilterChange={(nuevoValor) => {
                     setTipoSeleccionado(nuevoValor as string);
-                    console.log(nombreFiltro);
                     peticionVehiculos(nuevoValor as string);
                   }}
+                  modoClaro={modoClaro} // ✅ añadido para GeneredFilter
                 />
               </div>
             </div>
           </div>
         </div>
-
-        <FiltrersCatalogComponent
-          vehiculos={{
-            content: vehiculos,
-            totalPages: 1,
-            totalElements: vehiculos.length,
-            numberOfElements: vehiculos.length,
-            size: vehiculos.length,
-            number: 0,
-            first: true,
-            last: true,
-            empty: vehiculos.length === 0,
-            sort: { empty: true, sorted: false, unsorted: true },
-            pageable: {
-              sort: { empty: true, sorted: false, unsorted: true },
-              offset: 0,
-              pageNumber: 0,
-              pageSize: vehiculos.length,
-              unpaged: true,
-              paged: false,
-            },
-          }}
+<FiltrersCatalogComponent
+  vehiculos={{
+    content: vehiculos,
+    totalPages: 1,
+    totalElements: vehiculos.length,
+    numberOfElements: vehiculos.length,
+    size: vehiculos.length,
+    number: 0,
+    first: true,
+    last: true,
+    empty: vehiculos.length === 0,
+    sort: { empty: true, sorted: false, unsorted: true },
+    pageable: {
+      sort: { empty: true, sorted: false, unsorted: true },
+      offset: 0,
+      pageNumber: 0,
+      pageSize: vehiculos.length,
+      unpaged: true,
+      paged: false,
+    },
+  }}
           onFilterChange={actualizarFiltro}
           vertical={true}
           filtros={filtrosActivos}
+          modoClaro={modoClaro}
         />
         <div className="p-10 space-y-6r">
           {/* <ParkingFilterComponent
