@@ -100,16 +100,19 @@
   },
   "login": {
     "cerrarModal": "Cerrar modal",
-    "titulo": "Iniciar Sesión",
-    "error": "El usuario o la contraseña son incorrectos",
-    "placeholderUsuario": "Usuario",
-    "placeholderContrasenya": "Contraseña",
-    "noCuenta": "¿No tienes una cuenta?",
-    "registrate": "Regístrate aquí",
-    "botonEntrar": "Entrar",
-    "camposObligatorios": "Por favor, completa todos los campos.",
-    "datosInvalidos": "Nombre de usuario o contraseña no válidos.",
-    "errorGenerico": "Ocurrió un error inesperado. Intenta de nuevo."
+  "titulo": "Iniciar sesión",
+  "error": "El usuario o la contraseña no son correctos",
+  "placeholderUsuario": "Usuario",
+  "placeholderContrasenya": "Contraseña",
+  "noCuenta": "¿No tienes cuenta?",
+  "registrate": "Regístrate aquí",
+  "botonEntrar": "Entrar",
+  "camposObligatorios": "Por favor, completa todos los campos.",
+  "datosInvalidos": "Usuario o contraseña no válidos.",
+  "errorGenerico": "Se ha producido un error inesperado. Inténtalo de nuevo.",
+  "linkRegistro": "Regístrate aquí",
+  "boton": "Entrar",
+  "errorToken": "No se pudo generar el token. Intenta de nuevo."
   },
   "registro": {
     "titulo": "Registro de Usuario",
@@ -276,6 +279,7 @@
       "description": "Publicar y gestionar novedades."
     }
   },
+
   "adminUsers": {
     "title": "Gestión de Usuarios",
     "table": {
@@ -347,58 +351,38 @@
     }
   },
   "admin": {
-    "parkings": {
-      "title": "Gestión de Parkings",
-      "addButton": "Añadir Parking",
-      "table": {
-        "name": "Nombre",
-        "capacity": "Capacidad",
-        "location": "Ubicación",
-        "actions": "Acciones"
-      },
-      "actions": {
-        "edit": "Editar",
-        "delete": "Eliminar"
-      }
-    },
     "vehiculos": {
       "titulo": "Gestión de Vehículos",
-      "botonAgregar": "Añadir Vehículo",
-      "tabla": {
-        "id": "ID",
-        "marca": "Marca",
-        "modelo": "Modelo",
-        "estado": "Estado",
-        "acciones": "Acciones"
-      },
-      "acciones": {
-        "editar": "Editar",
-        "eliminar": "Eliminar"
-      },
-      "estado": {
-        "DISPONIBLE": "Disponible",
-        "EN_USO": "En uso",
-        "RESERVADO": "Reservado",
-        "EN_MANTENIMIENTO": "En mantenimiento"
-      }
+      "agregar": "Añadir Vehículo",
+      "id": "ID",
+      "marca": "Marca",
+      "modelo": "Modelo",
+      "estado": "Estado",
+      "acciones": "Acciones",
+      "editar": "Editar",
+      "eliminar": "Eliminar",
+      "estado_disponible": "Disponible",
+      "estado_en_uso": "En uso",
+      "estado_reservado": "Reservado",
+      "estado_en_mantenimiento": "En mantenimiento"
+    }
+  },
+  "news": {
+    "title": "Gestión de Noticias",
+    "addButton": "Agregar Noticia",
+    "table": {
+      "title": "Título",
+      "date": "Fecha",
+      "published": "Publicado",
+      "actions": "Acciones"
     },
-    "news": {
-      "title": "Gestión de Noticias",
-      "addButton": "Agregar Noticia",
-      "table": {
-        "title": "Título",
-        "date": "Fecha",
-        "published": "Publicado",
-        "actions": "Acciones"
-      },
-      "status": {
-        "yes": "Sí",
-        "no": "No"
-      },
-      "actions": {
-        "edit": "Editar",
-        "delete": "Eliminar"
-      }
+    "status": {
+      "yes": "Sí",
+      "no": "No"
+    },
+    "actions": {
+      "edit": "Editar",
+      "delete": "Eliminar"
     }
   },
   "promo": {

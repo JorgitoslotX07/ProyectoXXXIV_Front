@@ -99,17 +99,20 @@
     "of": "of"
   },
   "login": {
-    "cerrarModal": "Close modal",
-    "titulo": "Log In",
-    "error": "Incorrect username or password",
-    "placeholderUsuario": "Username",
-    "placeholderContrasenya": "Password",
-    "noCuenta": "Don't have an account?",
-    "registrate": "Register here",
-    "botonEntrar": "Log In",
-    "camposObligatorios": "Please fill in all fields.",
-    "datosInvalidos": "Invalid username or password.",
-    "errorGenerico": "An unexpected error occurred. Please try again."
+  "cerrarModal": "Close modal",
+  "titulo": "Log In",
+  "error": "The username or password is incorrect",
+  "placeholderUsuario": "Username",
+  "placeholderContrasenya": "Password",
+  "noCuenta": "Don't have an account?",
+  "registrate": "Register here",
+  "botonEntrar": "Log In",
+  "camposObligatorios": "Please fill in all fields.",
+  "datosInvalidos": "Invalid username or password.",
+  "errorGenerico": "An unexpected error occurred. Please try again.",
+  "linkRegistro": "Register here",
+  "boton": "Log In",
+  "errorToken": "Could not generate token. Please try again."
   },
   "registro": {
     "titulo": "User Registration",
@@ -374,25 +377,21 @@
 "admin": {
   "vehiculos": {
     "titulo": "Vehicle Management",
-    "botonAgregar": "Add Vehicle",
-    "tabla": {
-      "id": "ID",
-      "marca": "Brand",
-      "modelo": "Model",
-      "estado": "Status",
-      "acciones": "Actions"
-    },
-    "acciones": {
-      "editar": "Edit",
-      "eliminar": "Delete"
-    },
-    "estado": {
-      "DISPONIBLE": "Available",
-      "EN_USO": "In Use",
-      "RESERVADO": "Reserved",
-      "EN_MANTENIMIENTO": "Under Maintenance"
-    }
-  },
+    "agregar": "Add Vehicle",
+    "id": "ID",
+    "marca": "Brand",
+    "modelo": "Model",
+    "estado": "Status",
+    "acciones": "Actions",
+    "editar": "Edit",
+    "eliminar": "Delete",
+    "estado_disponible": "Available",
+    "estado_en_uso": "In use",
+    "estado_reservado": "Reserved",
+    "estado_en_mantenimiento": "Under maintenance"
+  }
+}
+,
   "parkings": {
     "title": "Parking Management",
     "addButton": "Add Parking",
@@ -407,7 +406,7 @@
       "delete": "Delete"
     }
   },
- "news": {
+  "news": {
     "title": "News Management",
     "addButton": "Add News",
     "table": {
@@ -427,10 +426,7 @@
   },
   "promo": {
   "title": "Popular Cars"
-}
-},
-"promo": {
-  "title": "Popular Cars"
+
 },
 "profile": {
   "title": "Edit Profile",

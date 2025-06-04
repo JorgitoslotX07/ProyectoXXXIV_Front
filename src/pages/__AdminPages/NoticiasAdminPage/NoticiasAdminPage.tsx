@@ -7,16 +7,18 @@ import { ModalNoticiasDelComponent } from "../../../components/Modal/ModalNotici
 import { createEmptyPage, type PageProps } from "../../../interfaces/PageProps";
 import { httpGetTok } from "../../../utils/apiService";
 import { PaginacionComponent } from "../../../components/PaginacionComponent/PaginacionComponent";
+import { useThemeContext } from "../../../context/ThemeContext"; // ✅ modo claro/oscuro
 
 export const NoticiasAdminPage: FC = () => {
     const { t } = useTranslation();
+    const { modoClaro } = useThemeContext(); // ✅
 
-    const [noticias, setNoticias] = useState<PageProps<NoticiaProps>>(createEmptyPage<NoticiaProps>());
+    const [noticias, setNoticias] = useState<PageProps<NoticiaProps>>(
+        createEmptyPage<NoticiaProps>()
+    );
     const [selected, setSelected] = useState<NoticiaProps | null>(null);
-
     const [showModalEdit, setShowModalEdit] = useState(false);
     const [showModalDel, setShowModalDel] = useState(false);
-
     const [paginaActual, setPaginaActual] = useState(0);
     const [pageSize, setPageSize] = useState(20);
 
@@ -27,8 +29,6 @@ export const NoticiasAdminPage: FC = () => {
         if (response) {
             setNoticias(response);
             setPaginaActual(response.number);
-        } else {
-            console.error("Fallo al obtener los datos de la página", paginaActual);
         }
     };
 
@@ -54,15 +54,32 @@ export const NoticiasAdminPage: FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-[#0f172a] to-[#1e293b] p-8 text-white">
+        <div
+            className={`min-h-screen p-8 transition-all duration-300 ${modoClaro
+                    ? "bg-yellow-50 text-gray-800"
+                    : "bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white"
+                }`}
+        >
             <div className="max-w-4xl mx-auto">
                 <div className="flex justify-between items-center mb-6">
                     <h1 className="text-2xl font-bold">{t("admin.news.title")}</h1>
-                    <BotonAgregarComponent text={t("admin.news.addButton")} onClick={handleAgregar} />
+                    <BotonAgregarComponent
+                        text={t("admin.news.addButton")}
+                        onClick={handleAgregar}
+                    />
                 </div>
-                <div className="overflow-x-auto bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4">
+
+                <div
+                    className={`overflow-x-auto backdrop-blur-md rounded-2xl p-4 border ${modoClaro ? "bg-white border-gray-300" : "bg-white/5 border-white/10"
+                        }`}
+                >
                     <table className="min-w-full text-sm text-left">
-                        <thead className="text-gray-300 border-b border-white/10">
+                        <thead
+                            className={`${modoClaro
+                                    ? "text-gray-700 border-b border-gray-300"
+                                    : "text-gray-300 border-b border-white/10"
+                                }`}
+                        >
                             <tr>
                                 <th className="px-3 py-2">{t("admin.news.table.title")}</th>
                                 <th className="px-3 py-2">{t("admin.news.table.date")}</th>
@@ -72,19 +89,40 @@ export const NoticiasAdminPage: FC = () => {
                         </thead>
                         <tbody>
                             {noticias.content.map((n) => (
-                                <tr key={n.id} className="border-t border-white/10 hover:bg-white/5 transition">
+                                <tr
+                                    key={n.id}
+                                    className={`border-t transition ${modoClaro
+                                            ? "border-gray-200 hover:bg-yellow-50"
+                                            : "border-white/10 hover:bg-white/5"
+                                        }`}
+                                >
                                     <td className="px-3 py-2">{n.titulo}</td>
-                                    <td className="px-3 py-2">{new Date(n.fecha).toLocaleDateString()}</td>
                                     <td className="px-3 py-2">
-                                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${n.publicado ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
-                                            {n.publicado ? t("admin.news.status.yes") : t("admin.news.status.no")}
+                                        {new Date(n.fecha).toLocaleDateString()}
+                                    </td>
+                                    <td className="px-3 py-2">
+                                        <span
+                                            className={`px-2 py-1 rounded-full text-xs font-medium ${n.publicado
+                                                    ? "bg-green-500/20 text-green-500"
+                                                    : "bg-red-500/20 text-red-500"
+                                                }`}
+                                        >
+                                            {n.publicado
+                                                ? t("admin.news.status.yes")
+                                                : t("admin.news.status.no")}
                                         </span>
                                     </td>
                                     <td className="px-3 py-2 space-x-2">
-                                        <button onClick={() => handleEdit(n)} className="text-blue-400 hover:underline text-xs">
+                                        <button
+                                            onClick={() => handleEdit(n)}
+                                            className="text-blue-500 hover:underline text-xs"
+                                        >
                                             {t("admin.news.actions.edit")}
                                         </button>
-                                        <button onClick={() => handleDelete(n)} className="text-red-400 hover:underline text-xs">
+                                        <button
+                                            onClick={() => handleDelete(n)}
+                                            className="text-red-500 hover:underline text-xs"
+                                        >
                                             {t("admin.news.actions.delete")}
                                         </button>
                                     </td>
@@ -92,6 +130,7 @@ export const NoticiasAdminPage: FC = () => {
                             ))}
                         </tbody>
                     </table>
+
                     <div className="mt-10 px-10 pb-20">
                         <PaginacionComponent
                             currentPage={paginaActual}
@@ -107,7 +146,7 @@ export const NoticiasAdminPage: FC = () => {
                 </div>
             </div>
 
-            {showModalEdit &&
+            {showModalEdit && (
                 <ModalNoticiasAddEditComponent
                     onClose={() => {
                         setShowModalEdit(false);
@@ -115,7 +154,7 @@ export const NoticiasAdminPage: FC = () => {
                     }}
                     noticia={selected || undefined}
                 />
-            }
+            )}
             {showModalDel && (
                 <ModalNoticiasDelComponent
                     onClose={() => {

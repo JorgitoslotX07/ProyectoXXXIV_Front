@@ -69,7 +69,7 @@ function App() {
   return (
     <>
       <NavbarComponent onLoginClick={() => setShowLogin(true)} modoClaro={modoClaro} />
-      {showLogin && <LoginComponent onClose={() => setShowLogin(false)} />}
+      {showLogin && <LoginComponent onClose={() => setShowLogin(false)} modoClaro={modoClaro}  />}
       <ScrollToTop />
 
       <Routes>
@@ -105,8 +105,8 @@ function App() {
         <Route path="/admin" element={<PanelAdminPage modoClaro={modoClaro} />}>
           <Route index element={<PanelInicialAdminPage modoClaro={modoClaro} />} />
           <Route path="usuarios" element={<UsuariosAdminPage />} />
-          <Route path="usuarios/validacion-carnet" element={<ValidacionCarnetAdminPage />} />
-          <Route path="vehiculos" element={<VehiculosAdminPage />} />
+          <Route path="usuarios/validacion-carnet" element={<ValidacionCarnetAdminPage modoClaro={modoClaro} />} />
+          <Route path="vehiculos" element={<VehiculosAdminPage modoClaro={modoClaro} />} />
           <Route path="vehiculos/seguimiento" element={<SeguimientoVehiculosAdminPage />} />
           <Route path="parkings" element={<ParkingsAdminPage />} />
           <Route path="parkings/crear" element={<CrearParkingPage />} />

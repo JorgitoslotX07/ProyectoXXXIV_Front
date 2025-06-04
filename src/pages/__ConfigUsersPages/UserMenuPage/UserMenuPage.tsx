@@ -1,18 +1,15 @@
 import { useNavigate, Link } from "react-router-dom";
 import { deleteCookiesLogin } from "../../../utils/cookisLogin";
 import { useUserStore } from "../../../hooks/userStore";
-import { useEffect, useState, type FC } from "react";
+import { useEffect, useState } from "react";
 import { httpGetTok } from "../../../utils/apiService";
 import { UsuarioMe } from "../../../interfaces/Usuario";
 import { FondoPanelComponent } from "../../../components/__ConfigUser/FondoPanelComponent/FondoPanelComponent";
 import { TituloComponent } from "../../../components/__ConfigUser/PanelComonent/TituloComponent";
 import { useTranslation } from "react-i18next";
+import type { ModoClaroProps } from "../../../interfaces/ModoClaroProps";
 
-interface Props {
-  modoClaro: boolean;
-}
-
-const UserMenuPage: FC<Props> = ({ modoClaro }) => {
+const UserMenuPage: React.FC<ModoClaroProps> = ({ modoClaro }) => {
   const navigate = useNavigate();
   const setToken = useUserStore((state) => state.setToken);
   const [usuario, setUsuario] = useState<UsuarioMe>(UsuarioMe);
@@ -48,16 +45,11 @@ const UserMenuPage: FC<Props> = ({ modoClaro }) => {
       title: t("userMenu.verification"),
       onClick: () => navigate("veri-user"),
     },
-    // {
-    //   icon: "📜",
-    //   title: "Historial de Viajes",
-    //   onClick: () => navigate("historial"),
-    // },
-    // {
-    //   icon: "🔒",
-    //   title: "Seguridad",
-    //   onClick: () => navigate("/seguridad"),
-    // },
+    {
+      icon: "📜",
+      title: t("userMenu.history"),
+      onClick: () => navigate("historial"),
+    },
     {
       icon: "📤",
       title: t("userMenu.logout"),
@@ -85,6 +77,7 @@ const UserMenuPage: FC<Props> = ({ modoClaro }) => {
                 </svg>
               </button>
             </Link>
+
             <div className="relative w-28 h-28 mx-auto mb-2">
               {usuario.fotoUrl ? (
                 <img
@@ -93,9 +86,7 @@ const UserMenuPage: FC<Props> = ({ modoClaro }) => {
                   className="w-28 h-28 rounded-full border-4 border-orange-400/30 mb-4 shadow-md"
                 />
               ) : (
-                <div
-                  className="w-28 h-28 rounded-full border-4 border-orange-400/30 mb-4 shadow-md flex items-center justify-center bg-orange-100 dark:bg-orange-500/10"
-                >
+                <div className="w-28 h-28 rounded-full border-4 border-orange-400/30 mb-4 shadow-md flex items-center justify-center bg-orange-100 dark:bg-orange-500/10">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="w-14 h-14 text-orange-400"
@@ -107,6 +98,7 @@ const UserMenuPage: FC<Props> = ({ modoClaro }) => {
                 </div>
               )}
             </div>
+
             <h2 className="text-xl font-semibold">{usuario.username}</h2>
             <div className={`mt-2 space-y-1 text-sm ${modoClaro ? "text-gray-600" : "text-white"}`}>
               <p>

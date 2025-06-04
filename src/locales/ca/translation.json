@@ -109,7 +109,11 @@
     "botonEntrar": "Entrar",
     "camposObligatorios": "Si us plau, completa tots els camps.",
     "datosInvalidos": "Nom d’usuari o contrasenya no vàlids.",
-    "errorGenerico": "S’ha produït un error inesperat. Torna-ho a provar."
+    "errorGenerico": "S’ha produït un error inesperat. Torna-ho a provar.",
+  "linkRegistro": "Registra't aquí",
+  "boton": "Entrar",
+  "errorToken": "No s'ha pogut generar el token. Torna-ho a intentar."
+
   },
   "registro": {
     "titulo": "Registre d'Usuari",
@@ -346,28 +350,23 @@
       "capacityRequired": "La capacitat ha de ser superior a 0."
     }
   },
-  "admin": {
-    "vehiculos": {
-      "titulo": "Gestió de Vehicles",
-      "botonAgregar": "Afegir Vehicle",
-      "tabla": {
-        "id": "ID",
-        "marca": "Marca",
-        "modelo": "Model",
-        "estado": "Estat",
-        "acciones": "Accions"
-      },
-      "acciones": {
-        "editar": "Edita",
-        "eliminar": "Elimina"
-      },
-      "estado": {
-        "DISPONIBLE": "Disponible",
-        "EN_USO": "En ús",
-        "RESERVADO": "Reservat",
-        "EN_MANTENIMIENTO": "En manteniment"
-      }
-    },
+"admin": {
+  "vehiculos": {
+    "titulo": "Gestió de Vehicles",
+    "agregar": "Afegir Vehicle",
+    "id": "ID",
+    "marca": "Marca",
+    "modelo": "Model",
+    "estado": "Estat",
+    "acciones": "Accions",
+    "editar": "Editar",
+    "eliminar": "Eliminar",
+    "estado_DISPONIBLE": "Disponible",
+    "estado_EN_USO": "En ús",
+    "estado_RESERVADO": "Reservat",
+    "estado_EN_MANTENIMIENTO": "En manteniment"
+  }
+},
     "parkings": {
       "title": "Gestió d'Aparcaments",
       "addButton": "Afegir Aparcament",
@@ -399,7 +398,7 @@
       "edit": "Editar",
       "delete": "Eliminar"
     }
-  }},
+  },
     "promo": {
   "title": "Cotxes Populars"
 

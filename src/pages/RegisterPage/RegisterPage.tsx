@@ -8,7 +8,7 @@ export const RegistroPage: FC<ModoClaroProps> = ({ modoClaro }) => {
   return (
     <div
       className={`min-h-screen flex transition-colors duration-300 ${
-        modoClaro ? "bg-gradient-to-br from-[#e0fbea] to-[#fef9c3]" : "bg-[#111827]"
+        modoClaro ? "bg-gradient-to-br from-[#766028] to-[#fef9c3]" : "bg-[#111827]"
       }`}
     >
       <div
