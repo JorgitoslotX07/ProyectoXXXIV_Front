@@ -89,7 +89,7 @@ function App() {
         <Route path="/register" element={<RegistroPage modoClaro={modoClaro} />} />
         <Route path="/catalog">
           <Route index element={<CatalogPage modoClaro={modoClaro} />} />
-          <Route path="carDetail" element={<CarDetailPage modoClaro={modoClaro} º />} />
+          <Route path="carDetail" element={<CarDetailPage modoClaro={modoClaro}/>} />
           <Route path="carDetail/finish-trip" element={<FinishTripPage />} />
         </Route>
         <Route path="/map" element={<MapPage modoClaro={modoClaro} />} />
