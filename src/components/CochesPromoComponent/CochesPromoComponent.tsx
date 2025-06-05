@@ -66,12 +66,15 @@ export const CochesPromoComponent: FC<Props> = ({ modoClaro }) => {
         <h2
           className="text-2xl font-semibold mb-6"
           style={{
-            color: modoClaro ? "#FFD700" : "#C4B5FD",
-            // textShadow: modoClaro
-            //   ? "1px 1px 4px rgba(0,0,0,0.4)"
-            //   : "1px 1px 4px rgba(196, 181, 253, 0.4)",
-          }}
-        >
+            color: modoClaro ? "#FCD34D" : "#C4B5FD",
+  textShadow: `
+  -0.5px -0.5px 0 rgba(0,0,0,0.5),
+   0.5px -0.5px 0 rgba(0,0,0,0.5),
+  -0.5px  0.5px 0 rgba(0,0,0,0.5),
+   0.5px  0.5px 0 rgba(0,0,0,0.5)
+`,
+  }}
+>
           {t("promo.title")}
         </h2>
         <div className="flex flex-wrap justify-center gap-6">
@@ -106,7 +109,7 @@ export const CochesPromoComponent: FC<Props> = ({ modoClaro }) => {
             //   </div>
             // </Link>
 
-            <CardcocheComponent coche={product} index={index} />
+            <CardcocheComponent coche={product} index={index} modoClaro={modoClaro} />
           ))}
         </div>
       </div>
