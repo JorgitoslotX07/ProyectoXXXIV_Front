@@ -2,8 +2,7 @@ import { useState, type FC, useEffect } from "react";
 import type { UsuarioCarnet } from "../../../interfaces/Usuario";
 import type { ModoClaroProps } from "../../../interfaces/ModoClaroProps";
 import {
-  httpGetImageTok,
-  httpPostTok,
+  httpGetTok,
   httpPutTok,
 } from "../../../utils/apiService";
 import { useTranslation } from "react-i18next";
@@ -14,17 +13,13 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
   const [usuariosEditables, setUsuariosEditables] = useState<Record<string, UsuarioCarnet>>({});
 
   const [loading, setLoading] = useState<boolean>(true);
-  const [imagenes, setImagenes] = useState<Record<string, string>>({});
 
   useEffect(() => {
     const fetchCarnetsConImagen = async () => {
       try {
-        const data = await httpPostTok<UsuarioCarnet[], {}>(
-          "/carnets/conimg",
-          {}
-        );
+        const data = await httpGetTok<UsuarioCarnet[]>("/carnets",);
+        console.log(data,"data")
         setUsuarios(data ?? []);
-        console.log(data)
       } catch (error) {
         console.error("Error al obtener carnets con imagen:", error);
         setUsuarios([]);
@@ -39,23 +34,6 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
   useEffect(() => {
     const inicial = Object.fromEntries(usuarios.map(u => [u.usuario!, { ...u }]));
     setUsuariosEditables(inicial);
-  }, [usuarios]);
-
-  useEffect(() => {
-    const cargarImagenes = async () => {
-      const nuevasImagenes: Record<string, string> = {};
-      for (const u of usuarios) {
-        if (u.usuario && u.imagenUrl) {
-          const imgUrl = await httpGetImageTok(u.imagenUrl);
-          if (imgUrl) nuevasImagenes[u.usuario] = imgUrl;
-        }
-      }
-      setImagenes(nuevasImagenes);
-    };
-
-    if (usuarios.length > 0) {
-      cargarImagenes();
-    }
   }, [usuarios]);
 
   const handleChange = (
@@ -91,8 +69,8 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
     return (
       <div
         className={`min-h-screen flex items-center justify-center ${modoClaro
-            ? "bg-gradient-to-br from-[#FFFBEA] to-[#FDF6E3] text-gray-800"
-            : "bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white"
+          ? "bg-gradient-to-br from-[#FFFBEA] to-[#FDF6E3] text-gray-800"
+          : "bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white"
           }`}
       >
         <span className="text-xl font-semibold">{t("carnet.loading")}</span>
@@ -103,8 +81,8 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
   return (
     <div
       className={`min-h-screen p-8 ${modoClaro
-          ? "bg-gradient-to-br from-[#FFFBEA] to-[#FDF6E3] text-gray-800"
-          : "bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white"
+        ? "bg-gradient-to-br from-[#FFFBEA] to-[#FDF6E3] text-gray-800"
+        : "bg-gradient-to-br from-[#0f172a] to-[#1e293b] text-white"
         }`}
     >
       <div className="max-w-4xl mx-auto">
@@ -119,14 +97,16 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
             <div
               key={index}
               className={`p-6 rounded-2xl flex flex-col lg:flex-row gap-6 border ${modoClaro
-                  ? "bg-white shadow-md border-gray-300"
-                  : "bg-white/5 backdrop-blur-md border-white/10"
+                ? "bg-white shadow-md border-gray-300"
+                : "bg-white/5 backdrop-blur-md border-white/10"
                 }`}
             >
               <div className="w-full lg:w-1/3">
-                {imagenes[u.usuario!] ? (
+                {u.imagenUrl? (
                   <img
-                    src={imagenes[u.usuario!]}
+                    src={u.imagenUrl}
+                    // src={"http://localhost:8080/uploads/carnets/carnet_usuario_4.jpg"}
+
                     alt={`Carnet de ${u.nombre}`}
                     loading="lazy"
                     className={`w-full h-auto rounded-lg border ${modoClaro ? "border-gray-300" : "border-white/20"
@@ -191,7 +171,7 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
                           : "text-red-500"
                     }
                   >
-                    {t(`carnet.status.${u.estado.toLowerCase()}`)}
+                    {t(`carnet.status.${u.estado}`)}
                   </span>
                 </p>
                 {u.estado === "PENDIENTE" && (

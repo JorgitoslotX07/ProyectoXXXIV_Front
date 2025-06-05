@@ -45,11 +45,11 @@ export const VeriUserPage: FC = (): ReactElement => {
   async function handleVerificarImagen() {
     if (!image) return;
     const formData = new FormData();
-    formData.append("usuario", usuario.username);
+    // formData.append("usuario", usuario.username);
     formData.append("imagen", image);
     console.log(usuario.username, "username") 
 
-    const resul = await httpPostTok("/carnets/saveimg", formData);
+    const resul = await httpPostTok("/carnets", formData);
 
     console.log(resul);
     console.log("Enviando imagen:", image);

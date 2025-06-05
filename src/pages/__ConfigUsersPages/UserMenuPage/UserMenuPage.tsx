@@ -36,6 +36,11 @@ const UserMenuPage: React.FC<ModoClaroProps> = ({ modoClaro }) => {
       onClick: () => navigate("reservas"),
     },
     {
+      icon: "🧳",
+      title: t("userMenu.trips"), 
+      onClick: () => navigate("viajes"),
+    },
+    {
       icon: "🔑",
       title: t("userMenu.changePassword"),
       onClick: () => navigate("pass"),
@@ -51,6 +56,7 @@ const UserMenuPage: React.FC<ModoClaroProps> = ({ modoClaro }) => {
       onClick: logOut,
     },
   ];
+  
 
   return (
     <FondoPanelComponent modoClaro={modoClaro}>

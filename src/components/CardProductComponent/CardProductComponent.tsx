@@ -7,7 +7,6 @@ export const CardcocheComponent: FC<CardProductProps> = ({ coche, index, modoCla
   const { t } = useTranslation();
   console.log(coche)
 
-  coche.imagen = null
   return (
     <Link to="/catalog/carDetail" state={coche.id} key={index}>
       <div

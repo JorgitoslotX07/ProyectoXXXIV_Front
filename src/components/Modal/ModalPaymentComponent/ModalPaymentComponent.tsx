@@ -6,6 +6,7 @@ import type {
 import type { ModalPayment } from "../../../interfaces/ModalProps";
 // import { useNavigate } from "react-router-dom";
 import { httpPostTok } from "../../../utils/apiService";
+import { Link, useNavigate } from "react-router-dom";
 
 export const ModalPaymentComponent: FC<ModalPayment> = ({
   onClose,
@@ -20,9 +21,13 @@ export const ModalPaymentComponent: FC<ModalPayment> = ({
   const [amount, setAmount] = useState<number>(0);
   // const [reserva, setReserva] =useState<number>(0);
 
-  useEffect(() => {
-    peticionReserva();
-  }, []);
+  const navigate = useNavigate();
+
+
+
+  // useEffect(() => {
+  //   peticionReserva();
+  // }, []);
 
   // const navigate = useNavigate();
 
@@ -69,8 +74,8 @@ export const ModalPaymentComponent: FC<ModalPayment> = ({
     paymentType === "Alquiler por hora"
       ? "Duración (horas)"
       : paymentType === "Alquiler por día"
-      ? "Duración (días)"
-      : "Duración no aplicable";
+        ? "Duración (días)"
+        : "Duración no aplicable";
 
   const durationDisabled = paymentType === ("Reservación" as PaymentType);
 
@@ -81,20 +86,15 @@ export const ModalPaymentComponent: FC<ModalPayment> = ({
     });
     console.log(response);
 
-    //   onSubmit({
-    //     vehicleId: vehicle.id,
-    //     paymentType,
-    //     paymentMethod,
-    //     amount,
-    //     duration,
-    //   });
+    // onSubmit({
+    //   vehicleId: vehicle.id,
+    //   paymentType,
+    //   paymentMethod,
+    //   amount,
+    //   duration,
+    // });
 
-    //   // 3. Navegar a pantalla final
-    //   navigate("finish-trip", { state: vehicle });
-    // } catch (error) {
-    //   console.error("Error al reservar el vehículo:", error);
-    //   alert("No se pudo reservar el vehículo. Intenta de nuevo.");
-    // }
+    // response && navigate("/catalog");
   }
 
   return (
@@ -161,9 +161,8 @@ export const ModalPaymentComponent: FC<ModalPayment> = ({
               value={duration}
               disabled={durationDisabled}
               onChange={(e) => setDuration(Number(e.target.value))}
-              className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${
-                durationDisabled ? "bg-gray-100 cursor-not-allowed" : "bg-white"
-              } text-gray-800`}
+              className={`mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 ${durationDisabled ? "bg-gray-100 cursor-not-allowed" : "bg-white"
+                } text-gray-800`}
             />
             {paymentType === ("Reservación" as PaymentType) && (
               <p className="mt-2 text-sm text-gray-600">
@@ -219,7 +218,7 @@ export const ModalPaymentComponent: FC<ModalPayment> = ({
             Cancelar
           </button>
           <button
-            onClick={() => console.log(2)}
+            onClick={async () => await peticionReserva()}
             className="px-5 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition"
           >
             Reservar

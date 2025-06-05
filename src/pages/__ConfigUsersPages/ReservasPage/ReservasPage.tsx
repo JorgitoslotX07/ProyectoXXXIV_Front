@@ -1,42 +1,28 @@
 import { type FC, type ReactElement, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { httpGetTok } from "../../../utils/apiService";
+import { httpGetTok, httpPatchTok } from "../../../utils/apiService";
 import type { ReservaDetalle } from "../../../interfaces/ReservaProps";
 import { FondoPanelComponent } from "../../../components/__ConfigUser/FondoPanelComponent/FondoPanelComponent";
 import { TituloComponent } from "../../../components/__ConfigUser/PanelComonent/TituloComponent";
-import { UsuarioMe } from "../../../interfaces/Usuario";
 import { createEmptyPage, type PageProps } from "../../../interfaces/PageProps";
 
 export const ReservasPage: FC = (): ReactElement => {
-  const [usuario, setUsuario] = useState<UsuarioMe>(UsuarioMe);
   const [reservas, setReservas] = useState<PageProps<ReservaDetalle>>(
     createEmptyPage<ReservaDetalle>()
   );
   const navigate = useNavigate();
 
-  usuario.username = "Jorgito2";
-  useEffect(() => {
-    const fetch = async () => {
-      const data = await httpGetTok<UsuarioMe>("/usuarios/me");
-      if (data) {
-        setUsuario(data);
-        console.log(usuario);
-      }
-    };
-    fetch();
-  }, []);
+  const fetchReservas = async () => {
+    try {
+      const data = await httpGetTok<PageProps<ReservaDetalle>>(`/reservas`);
+      console.log(data);
+      if (data) setReservas(data);
+    } catch (error) {
+      console.error("Error al cargar reservas:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchReservas = async () => {
-      try {
-        const data = await httpGetTok<PageProps<ReservaDetalle>>(`/reservas`);
-        console.log(data);
-        if (data) setReservas(data);
-      } catch (error) {
-        console.error("Error al cargar reservas:", error);
-      }
-    };
-
     fetchReservas();
   }, []);
 
@@ -67,12 +53,12 @@ export const ReservasPage: FC = (): ReactElement => {
                 <div
                   key={reserva.id}
                   className="bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 cursor-pointer transition-transform duration-200 ease-in-out hover:scale-[1.02] active:scale-95"
-                  onClick={() => navigate(`/panel/reservas/${reserva.id}`)}
+                  onClick={() => reserva.estado == "CONFIRMADA" || navigate(`/panel/reservas/${reserva.id}`)}
                 >
                   <div className="p-4  space-y-2">
                     <div className="flex justify-between items-center">
                       <h2 className="text-lg font-semibold">
-                        {`${reserva.vehiculoMarca} ${reserva.vehiculoModelo}`}
+                        {`${reserva.vehiculo.marca} ${reserva.vehiculo.modelo}`}
                       </h2>
                       <p
                         className={`text-sm font-medium ${colorPorEstado(
@@ -92,42 +78,39 @@ export const ReservasPage: FC = (): ReactElement => {
                       </p>
                       <p>
                         <span className="font-medium text-gray-500">
-                          Inicio Viaje:
-                        </span>{" "}
-                        {new Date(
-                          reserva.fechaInicioViaje
-                        ).toLocaleDateString()}
-                      </p>
-                      {reserva.fechaFinViaje && (
-                        <p>
-                          <span className="font-medium text-gray-500">
-                            Fin Viaje:
-                          </span>{" "}
-                          {new Date(reserva.fechaFinViaje).toLocaleDateString()}
-                        </p>
-                      )}
-                      {reserva.kmRecorridosViaje !== null && (
-                        <p>
-                          <span className="font-medium text-gray-500">
-                            Km Recorridos:
-                          </span>{" "}
-                          {reserva.kmRecorridosViaje}
-                        </p>
-                      )}
-                      <p>
-                        <span className="font-medium text-gray-500">
                           Parking Recogida:
                         </span>{" "}
-                        {reserva.parkingRecogidaNombre}
+                        {reserva.parkingRecogida.name}
                       </p>
-                      <p>
-                        <span className="font-medium text-gray-500">
-                          Parking Devolución:
-                        </span>{" "}
-                        {reserva.parkingDevolucionNombre}
-                      </p>
+
                     </div>
                   </div>
+                  {reserva.estado == "PENDIENTE" && (
+                    <div className="flex space-x-2 mt-4">
+                      <button
+                        type="button"
+                        className="flex-1 bg-green-400/10 hover:bg-green-600/20 text-sm font-medium text-white rounded-lg px-3 py-2 border border-white/20 transition"
+                        onClick={async (e) => {
+                          e.stopPropagation();
+                          await httpPatchTok("/reservas/" + reserva.id + "/confirmar", {})
+                          await fetchReservas()
+                        }}
+                      >
+                        Confirmar
+                      </button>
+                      <button
+                        type="button"
+                        className="flex-1 bg-red-400/10 hover:bg-red-600/20 text-sm font-medium text-white rounded-lg px-3 py-2 border border-white/20 transition"
+                        onClick={async (e) => {
+                          e.stopPropagation();
+                          await httpPatchTok("/reservas/" + reserva.id + "/cancelar", {})
+                          await fetchReservas()
+                        }}
+                      >
+                        Cancelar
+                      </button>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>

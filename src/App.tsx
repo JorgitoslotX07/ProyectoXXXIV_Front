@@ -47,6 +47,7 @@ import ForoPage from "./pages/FooterPages/ForoPage";
 import UserMenuPage from "./pages/__ConfigUsersPages/UserMenuPage/UserMenuPage";
 import { PrivateRoute } from "./components/___Route/PrivateRoute/PrivateRoute";
 import { AdminRoute } from "./components/___Route/AdminRoute/AdminRoute";
+import { ViajesPage } from "./pages/__ConfigUsersPages/ViajesPage/ViajesPage";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -143,10 +144,19 @@ function App() {
             }
           />
           <Route
+            path="viajes"
+            element={
+              <PrivateRoute>
+                <ViajesPage />
+              </PrivateRoute>
+            }
+          />
+
+          <Route
             path="pass"
             element={
               // <PrivateRoute>
-                <PassPage />
+              <PassPage />
               // </PrivateRoute>
             }
           />
