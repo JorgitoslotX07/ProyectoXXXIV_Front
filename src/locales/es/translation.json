@@ -115,7 +115,8 @@
     "errorGenerico": "Se ha producido un error inesperado. Inténtalo de nuevo.",
     "linkRegistro": "Regístrate aquí",
     "boton": "Entrar",
-    "errorToken": "No se pudo generar el token. Intenta de nuevo."
+    "errorToken": "No se pudo generar el token. Intenta de nuevo.",
+    "passOlvidada": "¿Te has olvidado de la contraseña?"
   },
   "registro": {
     "titulo": "Registro de Usuario",

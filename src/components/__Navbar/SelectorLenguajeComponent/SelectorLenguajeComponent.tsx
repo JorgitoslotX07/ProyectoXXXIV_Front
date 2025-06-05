@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 const flags: Record<string, string> = {
@@ -36,7 +36,7 @@ export const SelectorLenguajeComponent: React.FC<Props> = ({ modoClaro }) => {
         }`}
       >
         <img
-          src={flags[i18n.language] || flags.en}
+          src={flags[i18n.language] || flags.es}
           alt={i18n.language}
           className="w-full h-full object-cover"
         />

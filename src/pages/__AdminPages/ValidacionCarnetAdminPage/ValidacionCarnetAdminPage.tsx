@@ -1,5 +1,4 @@
 import { useState, type FC, useEffect } from "react";
-import type { UsuarioCarnet } from "../../../interfaces/Usuario";
 import type { ModoClaroProps } from "../../../interfaces/ModoClaroProps";
 import {
   httpDeleteTok,
