@@ -3,7 +3,7 @@ import type { ModalNoticiaProps } from "../../../interfaces/ModalProps";
 import { NoticiaCrearProps, conversorNoticia } from "../../../interfaces/NoticiasProps";
 import { ModalBaseComponent } from "../ModalBaseComponent/ModalBaseComponent";
 import { UsuarioMe } from "../../../interfaces/Usuario";
-import { httpGetTok, httpPostTok, httpPostTokImg, httpPutTok } from "../../../utils/apiService";
+import { httpGetTok, httpPostTok, httpPutTok } from "../../../utils/apiService";
 
 export const ModalNoticiasAddEditComponent: FC<ModalNoticiaProps> = ({ onClose, noticia }) => {
 
