@@ -44,7 +44,7 @@ export const ModalPagarComponent: FC<ModalPagarProps> = ({
             </p>
             <p className="text-lg font-semibold mt-3">
               Importe a pagar:{" "}
-              <span className="text-indigo-600">€{importe.toFixed(2)}</span>
+              <span className="text-indigo-600">{importe} €</span>
             </p>
           </div>
 

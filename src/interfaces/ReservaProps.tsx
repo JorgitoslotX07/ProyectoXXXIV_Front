@@ -12,7 +12,7 @@ export interface ReservaDetalle {
     id: number
   };
   viaje: {
-    iId: number;
+    id: number;
   }
   vehiculo: {
     id: number;

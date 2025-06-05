@@ -2,10 +2,13 @@ import { useState, type FC, useEffect } from "react";
 import type { UsuarioCarnet } from "../../../interfaces/Usuario";
 import type { ModoClaroProps } from "../../../interfaces/ModoClaroProps";
 import {
+  httpGetImageTok,
   httpGetTok,
   httpPutTok,
 } from "../../../utils/apiService";
 import { useTranslation } from "react-i18next";
+import { API_URL } from "../../../utils/enum/constantes";
+import { ImagenCarnet } from "../../../components/__ConfigUser/ImagenCarnetComponent/ImagenCarnetComponent";
 
 export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => {
   const { t } = useTranslation();
@@ -92,8 +95,6 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
 
         <div className="space-y-6">
           {usuarios.map((u, index) => (
-
-
             <div
               key={index}
               className={`p-6 rounded-2xl flex flex-col lg:flex-row gap-6 border ${modoClaro
@@ -103,15 +104,7 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
             >
               <div className="w-full lg:w-1/3">
                 {u.imagenUrl? (
-                  <img
-                    src={u.imagenUrl}
-                    // src={"http://localhost:8080/uploads/carnets/carnet_usuario_4.jpg"}
-
-                    alt={`Carnet de ${u.nombre}`}
-                    loading="lazy"
-                    className={`w-full h-auto rounded-lg border ${modoClaro ? "border-gray-300" : "border-white/20"
-                      } object-cover`}
-                  />
+                  <ImagenCarnet modoClaro={modoClaro} nombre={u.nombre} ruta={u.imagenUrl}/>
                 ) : (
                   <div
                     className={`w-full h-64 rounded-lg animate-pulse ${modoClaro ? "bg-gray-200" : "bg-gray-700"

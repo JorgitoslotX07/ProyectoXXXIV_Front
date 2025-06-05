@@ -53,7 +53,7 @@ export const ReservasPage: FC = (): ReactElement => {
                 <div
                   key={reserva.id}
                   className="bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 cursor-pointer transition-transform duration-200 ease-in-out hover:scale-[1.02] active:scale-95"
-                  onClick={() => reserva.estado == "CONFIRMADA" || navigate(`/panel/reservas/${reserva.id}`)}
+                  onClick={() => reserva.estado == "CONFIRMADA" || navigate(`/panel/viajes/detalle`, { state: reserva.viaje.id })}
                 >
                   <div className="p-4  space-y-2">
                     <div className="flex justify-between items-center">

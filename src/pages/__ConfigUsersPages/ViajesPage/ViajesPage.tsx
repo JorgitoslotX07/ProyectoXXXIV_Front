@@ -20,7 +20,7 @@ export const ViajesPage: FC = (): ReactElement => {
                 console.log(data);
                 if (data) setViajes(data);
             } catch (error) {
-                console.error("Error al cargar reservas:", error);
+                console.error("Error al cargar viajes:", error);
             }
         };
 
@@ -31,7 +31,7 @@ export const ViajesPage: FC = (): ReactElement => {
     return (
         <FondoPanelComponent>
             <div className="relative min-h-screen  p-8 text-white">
-                <TituloComponent titulo={"Mis Reservas"} />
+                <TituloComponent titulo={"Mis Viajes"} />
 
                 <div className="max-w-4xl mx-auto w-full mt-20">
                     {viajes.content.length === 0 ? (
@@ -42,7 +42,7 @@ export const ViajesPage: FC = (): ReactElement => {
                                 <div
                                     key={viaje.id}
                                     className="bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 cursor-pointer transition-transform duration-200 ease-in-out hover:scale-[1.02] active:scale-95"
-                                    onClick={() => navigate(`/panel/viajes/${viaje.id}`)}
+                                    onClick={() => navigate(`/panel/viajes/detalle`, { state: viaje.id })}
                                 >
                                     <div className="p-4  space-y-2">
                                         <div className="flex justify-between items-center">

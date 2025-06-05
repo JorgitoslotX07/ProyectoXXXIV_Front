@@ -103,7 +103,6 @@ function App() {
             path="carDetail"
             element={<CarDetailPage modoClaro={modoClaro} />}
           />
-          <Route path="carDetail/finish-trip" element={<FinishTripPage />} />
         </Route>
 
         <Route path="/map" element={<MapPage modoClaro={modoClaro} />} />
@@ -148,6 +147,14 @@ function App() {
             element={
               <PrivateRoute>
                 <ViajesPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="viajes/detalle"
+            element={
+              <PrivateRoute>
+                <FinishTripPage />
               </PrivateRoute>
             }
           />

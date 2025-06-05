@@ -28,12 +28,7 @@ export async function httpGetImageTok(ruta: string): Promise<string | null> {
     const response = await axiosInstance.get(ruta, {
       responseType: "blob",
     });
-
-    // Convertir el blob en una URL para usar en <img src={...}>
     const imageUrl = URL.createObjectURL(response.data);
-    // console.log(response.data.size);
-    // console.log(response.data.type);
-    // console.log(imageUrl);
     return imageUrl;
   } catch (error) {
     console.error("GET Image - Error:", error);

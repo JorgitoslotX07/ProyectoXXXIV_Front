@@ -46,3 +46,17 @@ export function getPolygonCenter(polygon: LatLngTuple[]): LatLngTuple {
   const count = polygon.length;
   return [latSum / count, lngSum / count];
 }
+
+
+export const calcularDiferenciaEnHoras = (inicio: string, fin: string): number => {
+  const dInicio = new Date(inicio);
+  const dFin = new Date(fin);
+
+  // Diferencia en milisegundos
+  const diffMs = dFin.getTime() - dInicio.getTime();
+
+  // Convertimos a horas (puedes cambiar a minutos si prefieres):
+  const diffHoras = diffMs / (1000 * 60 * 60);
+
+  return diffHoras;
+};
