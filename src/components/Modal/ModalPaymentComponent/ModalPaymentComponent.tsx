@@ -6,7 +6,7 @@ import type {
 import type { ModalPayment } from "../../../interfaces/ModalProps";
 // import { useNavigate } from "react-router-dom";
 import { httpPostTok } from "../../../utils/apiService";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const ModalPaymentComponent: FC<ModalPayment> = ({
   onClose,
@@ -63,9 +63,9 @@ export const ModalPaymentComponent: FC<ModalPayment> = ({
         break;
     }
 
-    const precioTiempo = duration * 10; // 10€/hora
+    const precioTiempo = duration * 5; // 10€/hora
     const km = estimatedKm ?? 10; // si no se introduce, usar 10 por defecto
-    const precioEstimado = precioTiempo + km * precioPorKm;
+    const precioEstimado = (precioTiempo + km * precioPorKm) + 10;
 
     setAmount(precioEstimado);
   }, [duration, estimatedKm, paymentType, vehicle]);

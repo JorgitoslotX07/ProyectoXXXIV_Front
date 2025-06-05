@@ -460,5 +460,84 @@
       "edit": "Edit",
       "delete": "Delete"
     }
+  },
+  "promo": {
+    "title": "Popular Cars"
+  },
+  "profile": {
+    "title": "Edit Profile",
+    "name": "Name",
+    "email": "Email",
+    "placeholderEmail": "Enter your email",
+    "saveButton": "Save Changes",
+    "errorEmail": "Invalid email",
+    "changePhoto": "Change photo"
+  },
+  "avatar": {
+    "title": "Upload New Photo",
+    "changePhoto": "Change photo",
+    "previewAlt": "Preview",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+  "userMenu": {
+    "title": "User Panel",
+    "reservations": "My Reservations",
+    "changePassword": "Change Password",
+    "verification": "User Verification",
+    "trips": "My Trips",
+    "logout": "Log Out"
+  },
+  "modal": {
+    "editUser": {
+      "title": "Edit User",
+      "question": "Do you want to ban this user?",
+      "placeholder": "Enter the reason for the ban",
+      "cancel": "Cancel",
+      "ban": "Ban"
+    },
+    "deleteVehicle": {
+      "title": "Delete Vehicle",
+      "confirm": "Are you sure you want to delete this vehicle?",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "deleteNews": {
+      "title": "Delete News",
+      "confirm": "Delete this news?",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    }
+  },
+  "finishTrip": {
+    "startPoint": "Trip start point",
+    "endPoint": "Trip end point",
+    "title": "Current trip",
+    "thanksMessage": "Thank you for using our service. You can proceed to payment now",
+    "payNow": "Pay now"
+  },
+  "reservas": {
+    "title": "My Reservations",
+    "noActive": "You have no active reservations.",
+    "estado": "Status:",
+    "fechaReserva": "Reservation Date:",
+    "parkingRecogida": "Pickup Parking:",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "estados": {
+      "PENDIENTE": "PENDING",
+      "CONFIRMADA": "CONFIRMED",
+      "CANCELADA": "CANCELED",
+      "ACTIVA": "ACTIVE"
+    }
+  },
+  "trips": {
+    "noRegistered": "You have no trips recorded.",
+    "price": "Price:",
+    "inProgress": "IN PROGRESS",
+    "finalizado": "COMPLETED",
+    "start": "Trip start:",
+    "end": "Trip end:",
+    "km": "Km Traveled:"
   }
 }

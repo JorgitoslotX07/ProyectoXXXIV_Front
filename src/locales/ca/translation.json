@@ -405,6 +405,14 @@
         "edit": "Editar",
         "delete": "Eliminar"
       }
+    },
+    "users": {
+      "modalDelete": {
+        "title": "Confirmar Eliminació",
+        "confirmText": "Estàs segur que vols eliminar l'usuari {{username}}?",
+        "cancel": "Cancel·la",
+        "delete": "Elimina"
+      }
     }
   },
   "news": {
@@ -425,14 +433,6 @@
       "delete": "Eliminar"
     }
   },
-  "users": {
-    "modalDelete": {
-      "title": "Confirmar Eliminació",
-      "confirmText": "Estàs segur que vols eliminar l'usuari {{username}}?",
-      "cancel": "Cancel·la",
-      "delete": "Elimina"
-    }
-  },
   "promo": {
     "title": "Cotxes Populars"
   },
@@ -442,11 +442,11 @@
     "email": "Correu electrònic",
     "placeholderEmail": "Introdueix el teu correu",
     "saveButton": "Desar canvis",
-    "errorEmail": "Correu electrònic no vàlid",
+    "errorEmail": "Correu invàlid",
     "changePhoto": "Canviar foto"
   },
   "avatar": {
-    "title": "Pujar una nova foto",
+    "title": "Pujar nova foto",
     "changePhoto": "Canviar foto",
     "previewAlt": "Vista prèvia",
     "cancel": "Cancel·lar",
@@ -455,30 +455,61 @@
   "userMenu": {
     "title": "Panell d'Usuari",
     "reservations": "Les meves reserves",
-    "changePassword": "Canviar contrasenya",
-    "verification": "Verificació d'usuari",
-    "history": "Historial de viatges",
-    "logout": "Tancar sessió"
+    "changePassword": "Canviar Contrasenya",
+    "verification": "Verificació d'Usuari",
+    "trips": "Els meus viatges",
+    "logout": "Tancar Sessió"
   },
   "modal": {
     "editUser": {
       "title": "Editar Usuari",
-      "question": "Vols bloquejar aquest usuari?",
-      "placeholder": "Escriu el motiu del bloqueig",
+      "question": "Vols expulsar l'usuari?",
+      "placeholder": "Escriu el motiu de l'expulsió",
       "cancel": "Cancel·lar",
-      "ban": "Bloquejar"
+      "ban": "Expulsar"
     },
     "deleteVehicle": {
       "title": "Eliminar Vehicle",
-      "confirm": "Estàs segur que vols eliminar el vehicle",
+      "confirm": "Estàs segur que vols eliminar el vehicle?",
       "cancel": "Cancel·lar",
       "delete": "Eliminar"
     },
     "deleteNews": {
       "title": "Eliminar Notícia",
-      "confirm": "Vols eliminar la notícia",
+      "confirm": "Eliminar la notícia?",
       "cancel": "Cancel·lar",
       "delete": "Eliminar"
     }
+  },
+  "finishTrip": {
+    "startPoint": "Punt d'inici del viatge",
+    "endPoint": "Punt final del viatge",
+    "title": "Viatge actual",
+    "thanksMessage": "Gràcies per utilitzar el nostre servei. Pots procedir al pagament ara",
+    "payNow": "Pagar ara"
+  },
+  "reservas": {
+    "title": "Les meves reserves",
+    "noActive": "No tens reserves actives.",
+    "estado": "Estat:",
+    "fechaReserva": "Data de reserva:",
+    "parkingRecogida": "Aparcament de recollida:",
+    "confirm": "Confirmar",
+    "cancel": "Cancel·lar",
+    "estados": {
+      "PENDIENTE": "PENDENT",
+      "CONFIRMADA": "CONFIRMADA",
+      "CANCELADA": "CANCEL·LADA",
+      "ACTIVA": "ACTIVA"
+    }
+  },
+  "trips": {
+    "noRegistered": "No tens viatges registrats.",
+    "price": "Preu:",
+    "inProgress": "EN CURS",
+    "finalizado": "FINALITZAT",
+    "start": "Inici del viatge:",
+    "end": "Fi del viatge:",
+    "km": "Km recorreguts:"
   }
 }

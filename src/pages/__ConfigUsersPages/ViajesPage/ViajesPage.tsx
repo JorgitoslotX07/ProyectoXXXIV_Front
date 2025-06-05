@@ -5,8 +5,10 @@ import { FondoPanelComponent } from "../../../components/__ConfigUser/FondoPanel
 import { TituloComponent } from "../../../components/__ConfigUser/PanelComonent/TituloComponent";
 import { createEmptyPage, type PageProps } from "../../../interfaces/PageProps";
 import type { Viaje } from "../../../interfaces/Viaje";
+import { useTranslation } from "react-i18next";
 
 export const ViajesPage: FC = (): ReactElement => {
+    const { t } = useTranslation();
     const [viajes, setViajes] = useState<PageProps<Viaje>>(
         createEmptyPage<Viaje>()
     );
@@ -17,7 +19,7 @@ export const ViajesPage: FC = (): ReactElement => {
         const fetchReservas = async () => {
             try {
                 const data = await httpGetTok<PageProps<Viaje>>(`/viajes`);
-                console.log(data);
+                // console.log(data);
                 if (data) setViajes(data);
             } catch (error) {
                 console.error("Error al cargar viajes:", error);
@@ -31,11 +33,12 @@ export const ViajesPage: FC = (): ReactElement => {
     return (
         <FondoPanelComponent>
             <div className="relative min-h-screen  p-8 text-white">
-                <TituloComponent titulo={"Mis Viajes"} />
+                <TituloComponent titulo={t("userMenu.trips")} />
 
                 <div className="max-w-4xl mx-auto w-full mt-20">
                     {viajes.content.length === 0 ? (
-                        <p className="text-gray-400">No tienes viajes registrados.</p>
+                        <p className="text-gray-400">{t("trips.noRegistered", "No tienes viajes registrados.")}</p>
+                        
                     ) : (
                         <div className="space-y-4">
                             {viajes.content.map((viaje) => (
@@ -55,13 +58,13 @@ export const ViajesPage: FC = (): ReactElement => {
                                                     <p
                                                         className={`text-sm font-medium `}
                                                     >
-                                                        Precio: {viaje.precio} €
+                                                        {t("trips.price", "Precio:")} {viaje.precio} €
                                                     </p>
                                                 ) : (
                                                     <p
                                                         className={`text-sm font-medium  text-green-400`}
                                                     >
-                                                        EN CURSO
+                                                        {t("trips.inProgress", "EN CURSO")}
                                                     </p>
                                                 )
                                             }
@@ -71,7 +74,7 @@ export const ViajesPage: FC = (): ReactElement => {
 
                                             <p>
                                                 <span className="font-medium text-gray-500">
-                                                    Inicio Viaje:
+                                                {t("trips.start", "Inicio Viaje:")}
                                                 </span>{" "}
                                                 {new Date(
                                                     viaje.fechaInicio
@@ -80,7 +83,7 @@ export const ViajesPage: FC = (): ReactElement => {
                                             {viaje.fechaFin && (
                                                 <p>
                                                     <span className="font-medium text-gray-500">
-                                                        Fin Viaje:
+                                                    {t("trips.end", "Fin Viaje:")}
                                                     </span>{" "}
                                                     {new Date(viaje.fechaFin).toLocaleDateString()}
                                                 </p>
@@ -88,7 +91,7 @@ export const ViajesPage: FC = (): ReactElement => {
                                             {viaje.kmRecorridos !== null && (
                                                 <p>
                                                     <span className="font-medium text-gray-500">
-                                                        Km Recorridos:
+                                                    {t("trips.km", "Km Recorridos:")}
                                                     </span>{" "}
                                                     {viaje.kmRecorridos}
                                                 </p>

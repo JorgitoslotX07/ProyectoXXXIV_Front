@@ -234,6 +234,7 @@ export const SearchFastComponent: FC<Props> = ({
                 <li
                   key={ubicacion}
                   onClick={() => manejarSeleccionUbicacion(ubicacion)}
+                  onMouseDown={() => manejarSeleccionUbicacion(ubicacion)}
                   className={`px-4 py-2 text-sm cursor-pointer transition-colors duration-150 rounded-md mx-1 my-1 whitespace-nowrap overflow-hidden text-ellipsis ${
                     modoClaro
                       ? "text-gray-800 hover:bg-gray-100 hover:text-black"

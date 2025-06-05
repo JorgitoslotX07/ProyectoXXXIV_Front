@@ -40,7 +40,7 @@ export const SeguimientoVehiculosAdminPage: FC<Props> = ({ modoClaro }) => {
       const response = await httpGetTok<VehiculoPos[]>("/rutas/activas");
       if (response) {
         setVehiculos(response);
-        console.log(response);
+        // console.log(response);
       }
     } catch (error) {
       console.log("Error => ", error);

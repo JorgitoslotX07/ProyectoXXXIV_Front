@@ -29,7 +29,7 @@ import { NoticiasAdminPage } from "./pages/__AdminPages/NoticiasAdminPage/Notici
 import { PanelInicialAdminPage } from "./pages/__AdminPages/PanelInicialAdminPage/PanelInicialAdminPage";
 import { CrearParkingPage } from "./pages/__AdminPages/CrearParkingPage/CrearParkingPage";
 import { useThemeContext } from "./context/ThemeContext";
-import { FinishTripPage } from "./pages/FinishTripPage/FinishTripPage";
+import { FinishTripPage } from "./pages/__ConfigUsersPages/FinishTripPage/FinishTripPage";
 
 // Footer pages
 import SobreNosotrosPage from "./pages/FooterPages/SobreNosotrosPage";

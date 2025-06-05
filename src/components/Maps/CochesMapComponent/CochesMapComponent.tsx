@@ -151,6 +151,10 @@ const CochesMapComponent = () => {
 
   async function peticionVehiculos(tipo: string | null = null) {
     const filTipo: string = tipo ? `?tipo=${tipo}` : "";
+    console.log(filTipo, "filTipo");
+    console.log(tipo, "tipo");
+
+
     const response = await httpGet<Vehiculo[]>(
       `/vehiculos/ubicaciones${filTipo}`
     );
@@ -556,12 +560,12 @@ const CochesMapComponent = () => {
                   index={0}
                   filter={filtroTipoVehiculo}
                   valorActual={tipoSeleccionado}
-                  // onFilterChange={(nombreFiltro, nuevoValor) => {
-                    onFilterChange={(nuevoValor) => {
+                    onFilterChange={(nombreFiltro, nuevoValor) => {
                     setTipoSeleccionado(nuevoValor as string);
+                    console.log(nombreFiltro)
                     peticionVehiculos(nuevoValor as string);
                   }}
-                  modoClaro={modoClaro} // ✅ añadido para GeneredFilter
+                  modoClaro={modoClaro} 
                 />
               </div>
             </div>

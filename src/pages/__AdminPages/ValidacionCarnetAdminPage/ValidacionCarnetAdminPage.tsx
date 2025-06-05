@@ -2,12 +2,10 @@ import { useState, type FC, useEffect } from "react";
 import type { UsuarioCarnet } from "../../../interfaces/Usuario";
 import type { ModoClaroProps } from "../../../interfaces/ModoClaroProps";
 import {
-  httpGetImageTok,
   httpGetTok,
   httpPutTok,
 } from "../../../utils/apiService";
 import { useTranslation } from "react-i18next";
-import { API_URL } from "../../../utils/enum/constantes";
 import { ImagenCarnet } from "../../../components/__ConfigUser/ImagenCarnetComponent/ImagenCarnetComponent";
 
 export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => {
@@ -56,12 +54,12 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
 
   const handleValidar = async (usu: string, aprobado: boolean) => {
     setUsuarios((prev) => prev.filter((u) => u.usuario !== usu));
-    const datosActualizados = usuariosEditables[usu];
+    // const datosActualizados = usuariosEditables[usu];
 
-    const payload = {
-      ...datosActualizados,
-      estado: aprobado ? "APROBADO" : "RECHAZADO",
-    };
+    // const payload = {
+    //   ...datosActualizados,
+    //   estado: aprobado ? "APROBADO" : "RECHAZADO",
+    // };
 
     await httpPutTok(`/carnets/${usu}/estado`, {
       estado: aprobado ? "APROBADO" : "RECHAZADO",

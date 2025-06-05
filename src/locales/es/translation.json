@@ -417,6 +417,24 @@
       }
     }
   },
+  "news": {
+    "title": "Gestión de Noticias",
+    "addButton": "Añadir Noticia",
+    "table": {
+      "title": "Título",
+      "date": "Fecha",
+      "published": "Publicado",
+      "actions": "Acciones"
+    },
+    "status": {
+      "yes": "Sí",
+      "no": "No"
+    },
+    "actions": {
+      "edit": "Editar",
+      "delete": "Eliminar"
+    }
+  },
   "promo": {
     "title": "Coches Populares"
   },
@@ -441,7 +459,7 @@
     "reservations": "Mis Reservas",
     "changePassword": "Cambiar Contraseña",
     "verification": "Verificación de Usuario",
-    "history": "Historial de Viajes",
+    "trips": "Mis Viajes",
     "logout": "Cerrar Sesión"
   },
   "modal": {
@@ -454,15 +472,47 @@
     },
     "deleteVehicle": {
       "title": "Eliminar Vehículo",
-      "confirm": "¿Estás seguro de que deseas eliminar el vehículo",
+      "confirm": "¿Estás seguro de que deseas eliminar el vehículo?",
       "cancel": "Cancelar",
       "delete": "Eliminar"
     },
     "deleteNews": {
       "title": "Eliminar Noticia",
-      "confirm": "¿Eliminar la noticia",
+      "confirm": "¿Eliminar la noticia?",
       "cancel": "Cancelar",
       "delete": "Eliminar"
     }
+  },
+  "finishTrip": {
+    "startPoint": "Punto de inicio del viaje",
+    "endPoint": "Punto final del viaje",
+    "title": "Viaje actual",
+    "thanksMessage": "Gracias por usar nuestro servicio. Puedes proceder al pago ahora",
+    "payNow": "Pagar ahora"
+  },
+  "reservas": {
+    "title": "Mis Reservas",
+    "noActive": "No tienes reservas activas.",
+    "estado": "Estado:",
+    "fechaReserva": "Fecha Reserva:",
+    "parkingRecogida": "Parking Recogida:",
+    "confirm": "Confirmar",
+    "cancel": "Cancelar",
+    "estados": {
+      "PENDIENTE": "PENDIENTE",
+      "CONFIRMADA": "CONFIRMADA",
+      "CANCELADA": "CANCELADA",
+      "ACTIVA": "ACTIVA"
+    }
+  },
+  "trips": {
+    "noRegistered": "No tienes viajes registrados.",
+    "price": "Precio:",
+    "inProgress": "EN CURSO",
+    "finalizado": "FINALIZADO",
+    "start": "Inicio Viaje:",
+    "end": "Fin Viaje:",
+    "km": "Km Recorridos:"
+
   }
 }

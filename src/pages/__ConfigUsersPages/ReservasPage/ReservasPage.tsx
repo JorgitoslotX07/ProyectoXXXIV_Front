@@ -5,17 +5,20 @@ import type { ReservaDetalle } from "../../../interfaces/ReservaProps";
 import { FondoPanelComponent } from "../../../components/__ConfigUser/FondoPanelComponent/FondoPanelComponent";
 import { TituloComponent } from "../../../components/__ConfigUser/PanelComonent/TituloComponent";
 import { createEmptyPage, type PageProps } from "../../../interfaces/PageProps";
+import { useTranslation } from "react-i18next";
 
 export const ReservasPage: FC = (): ReactElement => {
   const [reservas, setReservas] = useState<PageProps<ReservaDetalle>>(
     createEmptyPage<ReservaDetalle>()
   );
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
 
   const fetchReservas = async () => {
     try {
       const data = await httpGetTok<PageProps<ReservaDetalle>>(`/reservas`);
-      console.log(data);
+      // console.log(data);
       if (data) setReservas(data);
     } catch (error) {
       console.error("Error al cargar reservas:", error);
@@ -42,18 +45,18 @@ export const ReservasPage: FC = (): ReactElement => {
   return (
     <FondoPanelComponent>
       <div className="relative min-h-screen  p-8 text-white">
-        <TituloComponent titulo={"Mis Reservas"} />
+      <TituloComponent titulo={t("reservas.title", "Mis Reservas")} />
 
         <div className="max-w-4xl mx-auto w-full mt-20">
           {reservas.content.length === 0 ? (
-            <p className="text-gray-400">No tienes reservas activas.</p>
+            <p className="text-gray-400">{t("reservas.noActive", "No tienes reservas activas.")}</p>
           ) : (
             <div className="space-y-4">
               {reservas.content.map((reserva) => (
                 <div
                   key={reserva.id}
                   className="bg-white/5 backdrop-blur-md rounded-3xl p-4 shadow-md border border-white/10 cursor-pointer transition-transform duration-200 ease-in-out hover:scale-[1.02] active:scale-95"
-                  onClick={() => reserva.estado == "CONFIRMADA" || navigate(`/panel/viajes/detalle`, { state: reserva.viaje.id })}
+                  onClick={() => reserva.estado == "CONFIRMADA" && navigate(`/panel/viajes/detalle`, { state: reserva.viaje.id })}
                 >
                   <div className="p-4  space-y-2">
                     <div className="flex justify-between items-center">
@@ -65,20 +68,20 @@ export const ReservasPage: FC = (): ReactElement => {
                           reserva.estado
                         )}`}
                       >
-                        Estado: {reserva.estado}
+                        {t("reservas.estado", "Estado:")} {t("reservas.estados." + reserva.estado, reserva.estado)}
                       </p>
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm text-gray-600">
                       <p>
                         <span className="font-medium text-gray-500">
-                          Fecha Reserva:
+                        {t("reservas.fechaReserva", "Fecha Reserva:")}
                         </span>{" "}
                         {new Date(reserva.fechaReserva).toLocaleDateString()}
                       </p>
                       <p>
                         <span className="font-medium text-gray-500">
-                          Parking Recogida:
+                        {t("reservas.parkingRecogida", "Parking Recogida:")}
                         </span>{" "}
                         {reserva.parkingRecogida.name}
                       </p>
@@ -96,7 +99,7 @@ export const ReservasPage: FC = (): ReactElement => {
                           await fetchReservas()
                         }}
                       >
-                        Confirmar
+                         {t("reservas.confirm", "Confirmar")}
                       </button>
                       <button
                         type="button"
@@ -107,7 +110,7 @@ export const ReservasPage: FC = (): ReactElement => {
                           await fetchReservas()
                         }}
                       >
-                        Cancelar
+                         {t("reservas.cancel", "Cancelar")}
                       </button>
                     </div>
                   )}
