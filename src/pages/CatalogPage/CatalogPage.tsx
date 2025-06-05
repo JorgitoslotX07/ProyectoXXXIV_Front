@@ -83,7 +83,7 @@ export const CatalogPage: FC<ModoClaroProps> = ({ modoClaro }) => {
         ></div>
 
         <div className="relative z-10 p-6 md:p-10">
-          <SubCategoriasComponent
+          <SubCategoriasComponent modoClaro={modoClaro}
             onFilterSelect={(tipoSeleccionado) => {
               actualizarFiltro("tipo", tipoSeleccionado);
               buscar();
