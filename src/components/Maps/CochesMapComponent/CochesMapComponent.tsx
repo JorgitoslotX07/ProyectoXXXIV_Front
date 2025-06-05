@@ -325,7 +325,7 @@ const CochesMapComponent = () => {
   return (
     <div className="pl-10 relative flex flex-col lg:flex-row gap-4 px-4 py-4 min-h-screen overflow-visible  ">
       <div className="w-full lg:w-3/4 h-[500px] lg:h-auto ">
-        <div className="text-sm text-gray-700 font-semibold min-h-[1.5rem] py-2">
+        <div className="text-sm text-white-700 font-semibold min-h-[1.5rem] py-2">
           {direccionDetectada ? (
             <>
               📍 {t("map.youAreHere")}{" "}
