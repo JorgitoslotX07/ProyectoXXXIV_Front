@@ -511,5 +511,9 @@
     "start": "Inici del viatge:",
     "end": "Fi del viatge:",
     "km": "Km recorreguts:"
+  },
+    "noticia": {
+    "otrasNoticias": "Otras Noticias"
   }
+  
 }

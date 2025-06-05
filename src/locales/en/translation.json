@@ -539,5 +539,8 @@
     "start": "Trip start:",
     "end": "Trip end:",
     "km": "Km Traveled:"
+  },
+    "noticia": {
+    "otrasNoticias": "Other News"
   }
 }

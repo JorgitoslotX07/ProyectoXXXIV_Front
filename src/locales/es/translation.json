@@ -514,5 +514,8 @@
     "end": "Fin Viaje:",
     "km": "Km Recorridos:"
 
+  },
+  "noticia": {
+    "otrasNoticias": "Otras Noticias"
   }
 }
