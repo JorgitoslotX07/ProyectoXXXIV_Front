@@ -78,8 +78,8 @@
       "biplaza": {
         "label": "Microcotxe",
         "desc": "Compactes, àgils i perfectes per al trànsit urbà."
-      }
-    },
+    }
+  },
     "filters": {
       "brand": "Marca",
       "model": "Model",
@@ -90,7 +90,9 @@
       "yes": "Sí",
       "no": "No",
       "search": "Cercar"
-    }
+    },
+    "products": "vehícles",
+    "changeView": "Cambiar vista"
   },
   "pagination": {
     "show": "Mostrar",
@@ -380,6 +382,7 @@
         "location": "Ubicació",
         "actions": "Accions"
       },
+      
       "actions": {
         "edit": "Editar",
         "delete": "Eliminar"

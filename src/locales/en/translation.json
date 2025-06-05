@@ -90,7 +90,9 @@
       "yes": "Yes",
       "no": "No",
       "search": "Search"
-    }
+    },
+      "products": "vehicles",
+      "changeView": "Change view"
   },
   "pagination": {
     "show": "Show",
@@ -398,7 +400,15 @@
       "estado_disponible": "Available",
       "estado_en_uso": "In use",
       "estado_reservado": "Reserved",
-      "estado_en_mantenimiento": "Under maintenance"
+      "estado_en_mantenimiento": "Under maintenance",
+      "users": {
+        "modalDelete": {
+          "title": "Confirm Deletion",
+          "confirmText": "Are you sure you want to delete the user {{username}}?",
+          "cancel": "Cancel",
+          "delete": "Delete"
+        }
+      }
     },
     "parkings": {
       "title": "Parking Management",
@@ -449,16 +459,6 @@
     "actions": {
       "edit": "Edit",
       "delete": "Delete"
-    }
-  },
-  "admin": {
-    "users": {
-      "modalDelete": {
-        "title": "Confirm Deletion",
-        "confirmText": "Are you sure you want to delete the user {{username}}?",
-        "cancel": "Cancel",
-        "delete": "Delete"
-      }
     }
   }
 }

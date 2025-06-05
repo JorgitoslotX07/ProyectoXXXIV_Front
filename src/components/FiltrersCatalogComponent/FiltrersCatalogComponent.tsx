@@ -1,4 +1,3 @@
-// ✅ FilterCatalogComponent.tsx completo adaptado para logos en marcas
 import { useTranslation } from "react-i18next";
 import type { FC } from "react";
 import { GeneredFilterComponent } from "../GeneredFilterComponent/GeneredFilterComponent";
@@ -7,13 +6,20 @@ import type {
   FilterOption,
 } from "../../interfaces/GeneredFilterComponentProp";
 import type { Vehiculo } from "../../interfaces/Vehiculo";
+
+// 👇 Añadimos modoClaro al tipo de props
 import type { FiltrersCatalogProps } from "../../interfaces/FiltrersCatalogProps";
 
-export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
+interface Props extends FiltrersCatalogProps {
+  modoClaro: boolean;
+}
+
+export const FiltrersCatalogComponent: FC<Props> = ({
   onFilterChange,
   vehiculos,
   vertical,
   filtros,
+  modoClaro, // ✅ recibido correctamente
 }) => {
   const { t } = useTranslation();
 
@@ -88,10 +94,12 @@ export const FiltrersCatalogComponent: FC<FiltrersCatalogProps> = ({
                 filter={filter}
                 onFilterChange={onFilterChange}
                 valorActual={filtros[filter.name]}
+                modoClaro={modoClaro} // ✅ ahora se pasa correctamente
               />
             ))}
           </div>
 
+          {/* Botón de búsqueda, si lo necesitas descoméntalo */}
           {/* {!vertical && (
             <div className="flex justify-end w-full sm:w-auto">
               <button

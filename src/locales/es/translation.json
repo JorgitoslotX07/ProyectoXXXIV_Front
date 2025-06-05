@@ -90,7 +90,9 @@
       "yes": "Sí",
       "no": "No",
       "search": "Buscar"
-    }
+    },
+    "products": "vehículos",
+    "changeView": "Cambiar vista"
   },
   "pagination": {
     "show": "Mostrar",
@@ -113,8 +115,7 @@
     "errorGenerico": "Se ha producido un error inesperado. Inténtalo de nuevo.",
     "linkRegistro": "Regístrate aquí",
     "boton": "Entrar",
-    "errorToken": "No se pudo generar el token. Intenta de nuevo.",
-    "passOlvidada" : "¿Te olvidaste la contraseña?"
+    "errorToken": "No se pudo generar el token. Intenta de nuevo."
   },
   "registro": {
     "titulo": "Registro de Usuario",
@@ -406,6 +407,14 @@
         "edit": "Editar",
         "delete": "Eliminar"
       }
+    },
+    "users": {
+      "modalDelete": {
+        "title": "Confirmar Eliminación",
+        "confirmText": "¿Estás seguro de eliminar al usuario {{username}}?",
+        "cancel": "Cancelar",
+        "delete": "Eliminar"
+      }
     }
   },
   "promo": {
@@ -455,13 +464,5 @@
       "cancel": "Cancelar",
       "delete": "Eliminar"
     }
-  },
-    "users": {
-      "modalDelete": {
-        "title": "Confirmar Eliminación",
-        "confirmText": "¿Estás seguro de eliminar al usuario {{username}}?",
-        "cancel": "Cancelar",
-        "delete": "Eliminar"
-      }
-    }
+  }
 }

@@ -93,21 +93,20 @@ export const CatalogPage: FC<ModoClaroProps> = ({ modoClaro }) => {
             }}
           />
 
-          <div ref={filtroRef}>
-            <FiltrersCatalogComponent
-              onFilterChange={actualizarFiltro}
-              vehiculos={vehiculosFiltro}
-              vertical={false}
-              filtros={filtrosActivos}
-            />
-          </div>
+        <FiltrersCatalogComponent
+  onFilterChange={actualizarFiltro}
+  vehiculos={vehiculosFiltro}
+  vertical={false}
+  filtros={filtrosActivos}
+  modoClaro={modoClaro}
+/>
 
           <div className="mt-6">
-            <ProductosCatalogComponent vehiculos={vehiculos} />
+            <ProductosCatalogComponent vehiculos={vehiculos} modoClaro={modoClaro}/>
           </div>
 
           <div className="mt-10 px-4 md:px-10 pb-20">
-            <PaginacionComponent
+            <PaginacionComponent modoClaro={modoClaro}
               currentPage={paginaActual}
               totalItems={vehiculos.totalElements}
               pageSize={pageSize}
@@ -115,6 +114,7 @@ export const CatalogPage: FC<ModoClaroProps> = ({ modoClaro }) => {
               onPageSizeChange={(s) => {
                 setPageSize(s);
                 setPaginaActual(0);
+                
               }}
             />
           </div>
