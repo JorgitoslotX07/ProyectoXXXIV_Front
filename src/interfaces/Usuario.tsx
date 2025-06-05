@@ -90,7 +90,7 @@ export interface UsuarioCarnet {
   numeroCarnet: string;
   fechaExpedicion: string;
   imagenUrl: string;
-  estado: "PENDIENTE" | "APROBADO" | "RECHAZADO";
+  
 }
 
 export interface UsuarioMe {

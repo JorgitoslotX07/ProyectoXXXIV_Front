@@ -65,6 +65,14 @@ export const LoginComponent = ({ onClose, modoClaro }: Props) => {
         } catch (error) {
           mostrarError(t("login.errorToken"));
         }
+      } else {
+        let msg: string = t("login.error");
+        setMensajeError(msg);
+        mostrarError(msg);
+        setErroresCampos({ usuario: true, contrasenya: true });
+        refNombre.current?.focus();
+        return;
+
       }
     }
   };
@@ -145,7 +153,7 @@ export const LoginComponent = ({ onClose, modoClaro }: Props) => {
             className={`text-center text-sm mb-6 ${modoClaro ? "text-gray-600" : "text-gray-300"
               }`}
           >
-           
+
             <Link
               to="panel/pass"
               className={`font-semibold hover:underline ${modoClaro ? "text-yellow-600" : "text-[#C4B5FD]"

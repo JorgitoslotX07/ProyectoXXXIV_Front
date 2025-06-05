@@ -267,6 +267,7 @@ export const CarDetailPage: FC<ModoClaroProps> = ({ modoClaro }) => {
           onClose={() => setShowPaymentPopup(false)}
           vehicle={vehiculo}
           onSubmit={peticionPago}
+          modoClaro={modoClaro}
         />
       )}
     </div>

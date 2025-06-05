@@ -38,12 +38,14 @@ export const SeguimientoVehiculosAdminPage: FC<Props> = ({ modoClaro }) => {
   async function peticionVehiculosEnUso() {
     try {
       const response = await httpGetTok<VehiculoPos[]>("/rutas/activas");
-      if (response) {
-        setVehiculos(response);
-        // console.log(response);
+      if (response && response.length > 0) {
+        const conPuntos = response.filter(v => Array.isArray(v.puntos) && v.puntos.length > 0);
+        setVehiculos(conPuntos);
+      } else {
+        setVehiculos([]);
       }
     } catch (error) {
-      console.log("Error => ", error);
+      console.error("Error cargando rutas activas:", error);
     }
   }
 

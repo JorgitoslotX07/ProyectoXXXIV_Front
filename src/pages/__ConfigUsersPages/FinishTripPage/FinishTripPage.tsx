@@ -8,7 +8,7 @@ import { viajeInicial, type Viaje, type ViajeResumen, viajeResumenInicial } from
 import { calcularDiferenciaEnHoras } from "../../../utils/conversorServise";
 import { MapContainer, Marker, Polyline, Popup, TileLayer } from "react-leaflet";
 
-export const FinishTripPage: FC = () => {
+export const FinishTripPage: FC<{modoClaro?: boolean}> = ({modoClaro = false}) => {
   const { t } = useTranslation();
   const location = useLocation();
   const viajeId = location.state as number | null;
@@ -199,6 +199,7 @@ export const FinishTripPage: FC = () => {
           importe={importe}
           onClose={() => setShowPaymentPopup(false)}
           onConfirm={handlePayment}
+          modoClaro={modoClaro}
         />
       )}
     </div>

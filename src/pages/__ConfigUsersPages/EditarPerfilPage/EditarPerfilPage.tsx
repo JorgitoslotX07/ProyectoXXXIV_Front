@@ -69,36 +69,9 @@ export const EditarPerfilPage: FC<Props> = ({ modoClaro }) => {
           }`}
         >
           <div className="flex gap-10">
-            {/* Avatar */}
-            {/* <div className="w-1/3 flex flex-col items-center">
-              {usuario.fotoUrl ? (
-                <img
-                  src={usuario.fotoUrl}
-                  alt="Avatar"
-                  className="w-28 h-28 rounded-full border-4 border-orange-400/30 mb-4 shadow-md"
-                />
-              ) : (
-                <div className="w-28 h-28 rounded-full mb-4 shadow-md flex items-center justify-center border-4 border-orange-400/30 bg-orange-100 dark:bg-orange-500/10">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-14 h-14 text-orange-400"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M12 12c2.7 0 4.9-2.2 4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 7.1 9.3 12 12 12zm0 2c-3.1 0-9.3 1.6-9.3 4.7v1.1c0 .6.5 1.1 1.1 1.1h16.4c.6 0 1.1-.5 1.1-1.1v-1.1c0-3.1-6.2-4.7-9.3-4.7z" />
-                  </svg>
-                </div>
-              )}
-              <button
-                className={`text-sm mt-2 transition ${
-                  modoClaro ? "text-black hover:text-gray-700" : "text-orange-400 hover:text-white"
-                }`}
-              >
-                {t("profile.changePhoto")}
-              </button>
-            </div> */}
+            
             <ActualarAvatarComponent modoClaro={modoClaro} usuario={usuario} />
-            {/* Formulario */}
+            
             <form
               onSubmit={handleSubmit}
               className="w-2/3 space-y-5 p-8 rounded-2xl"
@@ -153,7 +126,7 @@ export const EditarPerfilPage: FC<Props> = ({ modoClaro }) => {
               <div className="text-right mt-6">
                 <button
                   type="submit"
-                  className="bg-yellow-400 text-black font-medium px-6 py-2 rounded-lg hover:bg-yellow-500 transition"
+                  className="bg-[#C4B5FD] text-black font-medium px-6 py-2 rounded-lg hover:bg-[#C4B5FD]/80 transition"
                 >
                   {t("profile.saveButton")}
                 </button>

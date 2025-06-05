@@ -2,24 +2,26 @@ import { useState, type FC, useEffect } from "react";
 import type { UsuarioCarnet } from "../../../interfaces/Usuario";
 import type { ModoClaroProps } from "../../../interfaces/ModoClaroProps";
 import {
+  httpDeleteTok,
   httpGetTok,
   httpPutTok,
 } from "../../../utils/apiService";
 import { useTranslation } from "react-i18next";
 import { ImagenCarnet } from "../../../components/__ConfigUser/ImagenCarnetComponent/ImagenCarnetComponent";
+import type { CarnetRequest, CarnetResponse } from "../../../interfaces/Carnets";
 
 export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => {
   const { t } = useTranslation();
-  const [usuarios, setUsuarios] = useState<UsuarioCarnet[]>([]);
-  const [usuariosEditables, setUsuariosEditables] = useState<Record<string, UsuarioCarnet>>({});
+  const [usuarios, setUsuarios] = useState<CarnetResponse[]>([]);
+  const [usuariosEditables, setUsuariosEditables] = useState<Record<string, CarnetRequest>>({});
 
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchCarnetsConImagen = async () => {
       try {
-        const data = await httpGetTok<UsuarioCarnet[]>("/carnets",);
-        console.log(data,"data")
+        const data = await httpGetTok<CarnetResponse[]>("/carnets",);
+        // console.log(data, "data")
         setUsuarios(data ?? []);
       } catch (error) {
         console.error("Error al obtener carnets con imagen:", error);
@@ -32,38 +34,62 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
     fetchCarnetsConImagen();
   }, []);
 
+  // useEffect(() => {
+  //   const inicial = Object.fromEntries(usuarios.map(u => [u.usuarioId!, { ...u }]));
+  //   setUsuariosEditables(inicial);
+  // }, [usuarios]);
+
   useEffect(() => {
-    const inicial = Object.fromEntries(usuarios.map(u => [u.usuario!, { ...u }]));
+    const inicial: Record<string, CarnetRequest> = {};
+    usuarios.forEach((u) => {
+      const key = u.usuarioId.toString();
+      inicial[key] = {
+        dni: "",
+        nombre: "",
+        apellido: "",
+        fechaNacimiento: "",
+        fechaEmision: "",
+        fechaCaducidad: "",
+      };
+    });
     setUsuariosEditables(inicial);
   }, [usuarios]);
 
   const handleChange = (
-    usuario: string,
-    campo: keyof UsuarioCarnet,
-    valor: string | Date
+    usuarioIdStr: string,
+    campo: keyof CarnetRequest,
+    valor: string
   ) => {
     setUsuariosEditables((prev) => ({
       ...prev,
-      [usuario]: {
-        ...prev[usuario],
+      [usuarioIdStr]: {
+        ...prev[usuarioIdStr],
         [campo]: valor,
       },
     }));
   };
 
 
-  const handleValidar = async (usu: string, aprobado: boolean) => {
-    setUsuarios((prev) => prev.filter((u) => u.usuario !== usu));
-    // const datosActualizados = usuariosEditables[usu];
+  const handleValidar = async (usuId: number) => {
+    try {
+      const datos = usuariosEditables[usuId.toString()];
 
-    // const payload = {
-    //   ...datosActualizados,
-    //   estado: aprobado ? "APROBADO" : "RECHAZADO",
-    // };
+      await httpPutTok(`/carnets/validar/${usuId}`, datos);
 
-    await httpPutTok(`/carnets/${usu}/estado`, {
-      estado: aprobado ? "APROBADO" : "RECHAZADO",
-    });
+      setUsuarios((prev) => prev.filter((u) => u.usuarioId !== usuId));
+    } catch (error) {
+      console.error("Error al validar carnet:", error);
+    }
+  };
+
+  const handleBorar = async (usuId: number) => {
+    try {
+      await httpDeleteTok(`/carnets/${usuId}`);
+
+      setUsuarios((prev) => prev.filter((u) => u.usuarioId !== usuId));
+    } catch (error) {
+      console.error("Error al validar carnet:", error);
+    }
   };
 
   if (loading) {
@@ -101,8 +127,8 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
                 }`}
             >
               <div className="w-full lg:w-1/3">
-                {u.imagenUrl? (
-                  <ImagenCarnet modoClaro={modoClaro} nombre={u.nombre} ruta={u.imagenUrl}/>
+                {u.imagenUrl ? (
+                  <ImagenCarnet modoClaro={modoClaro} nombre={u.usuarioId.toString()} ruta={u.imagenUrl} />
                 ) : (
                   <div
                     className={`w-full h-64 rounded-lg animate-pulse ${modoClaro ? "bg-gray-200" : "bg-gray-700"
@@ -110,80 +136,79 @@ export const ValidacionCarnetAdminPage: FC<ModoClaroProps> = ({ modoClaro }) => 
                   ></div>
                 )}
               </div>
+              
               <div className="flex-1 space-y-2">
-                <h2>
-                  <span
-                    className={`font-bold text-3xl ${modoClaro ? "text-amber-600" : "text-purple-300"
-                      }`}
-                  >
-                    {u.usuario}
-                  </span>
-                </h2>
                 <input
                   type="text"
-                  placeholder="Nombre: "
-                  value={usuariosEditables[u.usuario!]?.nombre || ""}
-                  onChange={(e) => handleChange(u.usuario!, "nombre", e.target.value)}
+                  placeholder="DNI:"
+                  value={usuariosEditables[u.usuarioId!]?.dni || ""}
+                  onChange={(e) => handleChange(u.usuarioId.toString()!, "dni", e.target.value)}
                   className="bg-transparent border border-white/20 rounded px-2 py-1 w-full"
                 />
 
-                {/* <input
-                  type="email"
-                  placeholder="Email: "
-
-                  value={usuariosEditables[u.usuario!]?.email || ""}
-                  onChange={(e) => handleChange(u.usuario!, "email", e.target.value)}
+                <input
+                  type="text"
+                  placeholder="Nombre:"
+                  value={usuariosEditables[u.usuarioId!]?.nombre || ""}
+                  onChange={(e) => handleChange(u.usuarioId.toString()!, "nombre", e.target.value)}
                   className="bg-transparent border border-white/20 rounded px-2 py-1 w-full"
-                /> */}
+                />
 
                 <input
                   type="text"
-                  placeholder="Nº Carnet: "
-
-                  value={usuariosEditables[u.usuario!]?.numeroCarnet || ""}
-                  onChange={(e) => handleChange(u.usuario!, "numeroCarnet", e.target.value)}
+                  placeholder="Apellido:"
+                  value={usuariosEditables[u.usuarioId!]?.apellido || ""}
+                  onChange={(e) => handleChange(u.usuarioId.toString()!, "apellido", e.target.value)}
                   className="bg-transparent border border-white/20 rounded px-2 py-1 w-full"
                 />
+
                 <input
                   type="date"
-                  placeholder="Expedición:"
-                  value={usuariosEditables[u.usuario!]?.fechaExpedicion || ""}
-                  onChange={(e) => handleChange(u.usuario!, "fechaExpedicion", e.target.value)}
+                  placeholder="Fecha de Nacimiento:"
+                  value={usuariosEditables[u.usuarioId.toString()!]?.fechaNacimiento || ""}
+                  onChange={(e) => handleChange(u.usuarioId.toString()!, "fechaNacimiento", e.target.value)}
                   className="bg-transparent border border-white/20 rounded px-2 py-1 w-full"
                 />
-                <p>
-                  <span className="font-semibold">{t("carnet.fields.status")}:</span>{" "}
-                  <span
-                    className={
-                      u.estado === "PENDIENTE"
-                        ? "text-yellow-500"
-                        : u.estado === "APROBADO"
-                          ? "text-green-500"
-                          : "text-red-500"
-                    }
-                  >
-                    {t(`carnet.status.${u.estado}`)}
-                  </span>
-                </p>
-                {u.estado === "PENDIENTE" && (
+
+                <input
+                  type="date"
+                  placeholder="Fecha de Emisión:"
+                  value={usuariosEditables[u.usuarioId.toString()!]?.fechaEmision || ""}
+                  onChange={(e) => handleChange(u.usuarioId.toString()!, "fechaEmision", e.target.value)}
+                  className="bg-transparent border border-white/20 rounded px-2 py-1 w-full"
+                />
+
+                <input
+                  type="date"
+                  placeholder="Fecha de Caducidad:"
+                  value={usuariosEditables[u.usuarioId.toString()!]?.fechaCaducidad || ""}
+                  onChange={(e) => handleChange(u.usuarioId.toString()!, "fechaCaducidad", e.target.value)}
+                  className="bg-transparent border border-white/20 rounded px-2 py-1 w-full"
+                />
+
+                
+                
                   <div className="flex gap-4 mt-4">
                     <button
-                      onClick={() => handleValidar(u.usuario, true)}
+                      onClick={() => handleValidar(u.usuarioId)}
                       className="bg-green-600 hover:bg-green-500 px-4 py-2 rounded-full text-white font-semibold"
                     >
                       {t("carnet.actions.approve")}
                     </button>
                     <button
-                      onClick={() => handleValidar(u.usuario, false)}
+                      onClick={() => handleBorar(u.usuarioId)}
                       className="bg-red-600 hover:bg-red-500 px-4 py-2 rounded-full text-white font-semibold"
                     >
                       {t("carnet.actions.reject")}
                     </button>
                   </div>
-                )}
+                
               </div>
             </div>
           ))}
+
+
+
           {usuarios.length === 0 && (
             <p className={modoClaro ? "text-gray-600" : "text-gray-400"}>
               {t("carnet.noPending")}
