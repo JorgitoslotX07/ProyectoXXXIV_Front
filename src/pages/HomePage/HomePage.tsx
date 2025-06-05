@@ -165,7 +165,7 @@ export const HomePage: FC<Props> = ({
             {t("home.newsTitle")}
             
           </h2> */}
-          <NoticiasComponent size={4} />
+          <NoticiasComponent size={4} modoClaro={modoClaro} />
         </section>
 
         {/* 🗺️ Botón hacia el mapa */}

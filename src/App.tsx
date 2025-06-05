@@ -67,6 +67,13 @@ function App() {
     }
   }, []);
 
+    // ✅ NUEVO: Cambia el fondo y texto global del body según el modo
+  useEffect(() => {
+    document.body.className = modoClaro
+      ? "bg-white text-gray-900"
+      : "bg-gray-900 text-gray-100";
+  }, [modoClaro]);
+
   return (
     <>
       <NavbarComponent
@@ -106,7 +113,7 @@ function App() {
         </Route>
 
         <Route path="/map" element={<MapPage modoClaro={modoClaro} />} />
-        <Route path="/noticia" element={<NoticiaDetailPage />} />
+        <Route path="/noticia" element={<NoticiaDetailPage modoClaro={modoClaro} />} />
 
         <Route path="/panel">
           <Route
