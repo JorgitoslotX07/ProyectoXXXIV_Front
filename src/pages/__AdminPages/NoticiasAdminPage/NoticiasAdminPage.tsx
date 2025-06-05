@@ -27,6 +27,7 @@ export const NoticiasAdminPage: FC = () => {
             `/noticias?page=${paginaActual}&size=${pageSize}`
         );
         if (response) {
+            console.log(response)
             setNoticias(response);
             setPaginaActual(response.number);
         }

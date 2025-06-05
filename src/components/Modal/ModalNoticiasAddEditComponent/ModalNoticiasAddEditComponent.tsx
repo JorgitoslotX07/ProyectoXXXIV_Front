@@ -3,12 +3,14 @@ import type { ModalNoticiaProps } from "../../../interfaces/ModalProps";
 import { NoticiaCrearProps, conversorNoticia } from "../../../interfaces/NoticiasProps";
 import { ModalBaseComponent } from "../ModalBaseComponent/ModalBaseComponent";
 import { UsuarioMe } from "../../../interfaces/Usuario";
-import { httpGetTok, httpPostTok, httpPutTok } from "../../../utils/apiService";
+import { httpGetTok, httpPostTok, httpPostTokImg, httpPutTok } from "../../../utils/apiService";
 
 export const ModalNoticiasAddEditComponent: FC<ModalNoticiaProps> = ({ onClose, noticia }) => {
 
   const [usu, setUsuario] = useState<UsuarioMe>(UsuarioMe);
   const [form, setForm] = useState<NoticiaCrearProps>(NoticiaCrearProps);
+  const [image, setImage] = useState<File>();
+
 
   useEffect(() => {
     const fetch = async () => {
@@ -31,25 +33,92 @@ export const ModalNoticiasAddEditComponent: FC<ModalNoticiaProps> = ({ onClose, 
     setForm(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
   };
 
-  const handleSave = async () => {
-    const url: string = noticia
-      ? `/noticias/${noticia.id}`
-      : `/noticias`;
+  const handleChangeImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
 
-
-    form.usuario = usu.username
-    console.log(form)
-
-    const response = !noticia ? await httpPostTok(url, form) : await httpPutTok(url, form)
-
-    if (!response) {
-      console.error("Error al guardar la noticia:", response);
+    if (file) {
+      setImage(file)
       return;
     }
-    console.log(response)
-
-    onClose();
   };
+
+  // const handleSave = async () => {
+  //   const url: string = noticia
+  //     ? `/noticias/${noticia.id}`
+  //     : `/noticias`;
+  //     form.usuario = usu.username
+  //     console.log(form)
+
+  //     const blobVehiculo = new Blob(
+  //       [JSON.stringify(form)],
+  //       { type: "application/form" }
+  //     );
+
+
+  //   const formData = new FormData();
+  //   formData.append("dto", blobVehiculo);
+  //   if (image) {
+  //     formData.append("imagen", image);
+
+  //     const response = !noticia ? await httpPostTok(url, form) : await httpPutTok(url, form)
+
+  //     if (!response) {
+  //       console.error("Error al guardar la noticia:", response);
+  //       return;
+  //     }
+  //     console.log(response)
+
+  //     onClose();
+  //   } else {
+  //     console.error("Error, verifique que el contenido sea validad")
+  //   }
+  // };
+
+  const handleSave = async () => {
+    const url = noticia ? `/noticias/${noticia.id}` : `/noticias`;
+    form.usuario = usu.username;
+
+    const formData = new FormData();
+    formData.append("vehiculo", JSON.stringify(form)); // JSON string
+
+    // formData.append("titulo", form.titulo);
+    // formData.append("contenido", form.contenido);
+    // formData.append("fecha", form.fecha);
+    // formData.append("idiomaCodigo", form.idiomaCodigo);
+    // formData.append("usuario", form.usuario);
+
+    if (image) {
+      formData.append("imagen", image);                  // archivo
+
+    }
+
+
+    for (const [key, value] of formData.entries()) {
+      if (value instanceof File) {
+        console.log(`${key}: [File]`, value.name, value.type, value.size);
+      } else {
+        console.log(`${key}:`, value);
+      }
+    }
+
+    try {
+      const response = noticia
+        ? await httpPutTok(url, formData)
+        : await httpPostTok(url, formData);
+
+      if (!response) {
+        console.error("Error al guardar la noticia:", response);
+        return;
+      }
+
+      console.log("Noticia guardada:", response);
+      onClose();
+    } catch (err) {
+      console.error("Error en la petición:", err);
+    }
+  };
+
+
 
 
   return (
@@ -97,6 +166,22 @@ export const ModalNoticiasAddEditComponent: FC<ModalNoticiaProps> = ({ onClose, 
             <option value="ENG">Inglés</option>
             <option value="CAT">Catalán</option>
           </select>
+        </div>
+        <div>
+          <label className="block mb-1">Subir Imagen</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleChangeImg}
+            className="w-full text-white"
+          />
+          {/* {image && (
+            <img
+              src={image}
+              alt="Preview Vehículo"
+              className="mt-2 max-h-32 rounded"
+            />
+          )} */}
         </div>
         <div className="flex justify-end space-x-2">
           <button onClick={onClose} className="px-4 py-2 bg-gray-500 rounded hover:bg-gray-400">
