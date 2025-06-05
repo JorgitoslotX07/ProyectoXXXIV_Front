@@ -37,8 +37,8 @@ export const HomePage: FC<Props> = ({
     <>
       <div
         className={`${modoClaro
-            ? "bg-[#f0fdf4] text-[#1f2937]"
-            : "bg-[rgb(22,23,64)] text-white"
+          ? "bg-[#f0fdf4] text-[#1f2937]"
+          : "bg-[rgb(22,23,64)] text-white"
           } min-h-screen font-sans transition-colors duration-300`}
       >
         {/* 🔍 Sección de búsqueda inicial */}
@@ -47,8 +47,8 @@ export const HomePage: FC<Props> = ({
             {/* Imagen de fondo ampliada y difuminada */}
             <div
               className={`absolute inset-0 bg-cover bg-center blur-[3px] ${modoClaro
-                  ? "bg-[url('/fondoFastSeartchClaro.jpeg')]"
-                  : "bg-[url('/fondoFastSeartch.webp')]"
+                ? "bg-[url('/fondoFastSeartchClaro.jpeg')]"
+                : "bg-[url('/fondoFastSeartch.webp')]"
                 }`}
               style={{
                 filter: "brightness(0.7) sepia(0.1)",
@@ -75,10 +75,10 @@ export const HomePage: FC<Props> = ({
         <div
           className={`pt-20 px-10 ${modoClaro ? "text-yellow-500" : "text-[#C4B5FD]"
             }`}
-          style={{
-            textShadow: "1px 1px 2px rgba(0, 0, 0, 0.7)",
+        // style={{
+        //   textShadow: "1px 1px 2px rgba(0, 0, 0, 0.7)",
 
-          }}
+        // }}
         >
 
           <CochesPromoComponent modoClaro={modoClaro} />
@@ -87,14 +87,14 @@ export const HomePage: FC<Props> = ({
         {/* 🧊 Sección beneficios */}
         <div
           className={`flex flex-col lg:flex-row items-stretch justify-between px-10 py-16 gap-10 relative overflow-hidden shadow-xl ${modoClaro
-              ? "bg-gradient-to-br from-[#fef9c3] to-[#e0fbea]"
-              : "bg-[rgb(22,23,64)] [background-image:radial-gradient(at_47%_33%,hsl(163.5,83%,24%)_0,#0a0a0a_59%),radial-gradient(at_82%_65%,hsl(218.82,77%,21%)_0,transparent_55%)]"
+            ? "bg-gradient-to-br from-[#fef9c3] to-[#e0fbea]"
+            : "bg-[rgb(22,23,64)] [background-image:radial-gradient(at_47%_33%,hsl(163.5,83%,24%)_0,#0a0a0a_59%),radial-gradient(at_82%_65%,hsl(218.82,77%,21%)_0,transparent_55%)]"
             }`}
         >
           <div
             className={`${modoClaro
-                ? "bg-white/80 text-[#1f2937] border border-gray-200"
-                : "bg-[rgba(17,25,40,0.75)] text-white border border-[rgba(255,255,255,0.125)]"
+              ? "bg-white/80 text-[#1f2937] border border-gray-200"
+              : "bg-[rgba(17,25,40,0.75)] text-white border border-[rgba(255,255,255,0.125)]"
               } backdrop-blur-[16px] backdrop-saturate-[180%] rounded-[12px] p-8 shadow-xl`}
           >
             <h2
@@ -136,20 +136,35 @@ export const HomePage: FC<Props> = ({
         {/* 📰 Noticias */}
         <section
           className={`px-10 py-20 ${modoClaro
-              ? "bg-gradient-to-br from-[#e0fbea] to-[#fef9c3]"
-              : "bg-[rgb(22,23,64)]"
+            ? "bg-gradient-to-br from-[#e0fbea] to-[#fef9c3]"
+            : "bg-[rgb(22,23,64)]"
             }`}
         >
           <h2
-            className={`text-2xl font-semibold mb-6 pl-3 ${modoClaro ? "text-yellow-500" : "text-[#C4B5FD]"
-              }`}
-          style={{
-            textShadow: "1px 1px 2px rgba(0, 0, 0, 0.7)",
-
-          }}
+            className="text-2xl font-semibold mb-6 pl-3"
+            style={{
+              color: modoClaro ? "#FCD34D" : "#C4B5FD", // amarillo ámbar suave o lavanda
+              textShadow: `
+      -0.5px -0.5px 0 rgba(0,0,0,0.5),
+       0.5px -0.5px 0 rgba(0,0,0,0.5),
+      -0.5px  0.5px 0 rgba(0,0,0,0.5),
+       0.5px  0.5px 0 rgba(0,0,0,0.5)
+    `,
+            }}
           >
             {t("home.newsTitle")}
-          </h2>
+          </h2> {/* <h2
+            className={`text-2xl font-semibold mb-6 pl-3 ${modoClaro ? "text-yellow-500" : "text-[#C4B5FD]"
+              
+              }`}
+          // style={{
+          //   textShadow: "1px 1px 2px rgba(0, 0, 0, 0.7)",
+
+          // }}
+          >
+            {t("home.newsTitle")}
+            
+          </h2> */}
           <NoticiasComponent size={4} />
         </section>
 
@@ -166,8 +181,8 @@ export const HomePage: FC<Props> = ({
             />
             <div
               className={`absolute inset-0 flex items-center justify-center ${modoClaro
-                  ? "bg-white opacity-30"
-                  : "bg-black bg-opacity-60 opacity-40"
+                ? "bg-white opacity-30"
+                : "bg-black bg-opacity-60 opacity-40"
                 } group-hover:opacity-60 transition-opacity duration-500`}
             >
               <span
